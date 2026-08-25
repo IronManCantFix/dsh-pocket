@@ -1526,15 +1526,14 @@ var en2 = {
 // client/index.jsx
 var name = "dsh-pocket";
 var inject = ["slots", "connection", "layout", "locale", "sessionLogDownload"];
-var FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS \u7AEF\u90E8\u7F72\uFF08frps + caddy\uFF09
+var FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS \u7AEF\u90E8\u7F72\uFF08\u4EC5 frps\uFF09
 # \u7528\u6CD5\uFF1A\u653E\u5230 NAS \u7684 docker \u76EE\u5F55 \u2192 docker compose up -d
 # \u6B65\u9AA4\uFF1A
 #   1. frps.toml \u7684 token \u6539\u4E3A openssl rand -hex 16 \u751F\u6210\u7684\u503C\uFF08\u4E0E\u8BBE\u7F6E\u9875\u4E00\u81F4\uFF09
-#   2. Caddyfile \u7684 dsh.\u4F60\u7684\u57DF\u540D.com \u6362\u6210\u4F60\u7684\u57DF\u540D\uFF08\u89E3\u6790\u5230 NAS \u516C\u7F51 IP\uFF09
-#   3. \u9632\u706B\u5899\u653E\u884C 443/80\uFF08caddy\uFF09\u548C 7000\uFF08frps \u63A7\u5236\u7AEF\u53E3\uFF09\uFF1BSSH \u4E0D\u9700\u8981\u5F00\u653E
-# \u6CE8\u610F\uFF1A\u7FA4\u6656/\u5A01\u8054\u901A\u7B49\u7CFB\u7EDF\u81EA\u5E26\u53CD\u5411\u4EE3\u7406\u7684 NAS\uFF0C80/443 \u5DF2\u88AB\u7CFB\u7EDF\u5360\u7528\uFF0C
-#   caddy \u4F1A\u62A5 bind: address already in use\u2014\u2014\u6539\u7528 deploy/nas/ \u91CC\u7684
-#   docker-compose.frps-only.yml\uFF08\u4EC5 frps\uFF09\uFF0C\u5165\u53E3\u7528\u7CFB\u7EDF\u81EA\u5E26\u53CD\u5411\u4EE3\u7406\u3002
+#   2. \u53CD\u4EE3\u5165\u53E3\u7528\u4F60 NAS \u4E0A\u73B0\u6709\u7684\u5DE5\u5177\uFF08lucky / \u7FA4\u6656\u81EA\u5E26\u53CD\u5411\u4EE3\u7406 / nginx \u7B49\uFF09\uFF1A
+#      \u65B0\u589E\u89C4\u5219\u300C\u524D\u7AEF https://dsh.\u4F60\u7684\u57DF\u540D.com \u2192 \u540E\u7AEF http://127.0.0.1:7001\u300D\uFF0C
+#      \u52A1\u5FC5\u5F00\u542F WebSocket \u652F\u6301\uFF0C\u8BC1\u4E66\u7528 Let's Encrypt\uFF0880 \u88AB\u5360\u65F6\u9009 DNS \u9A8C\u8BC1\uFF09
+#   3. \u9632\u706B\u5899\u653E\u884C 443/80\uFF08\u53CD\u4EE3\u5DE5\u5177\uFF09\u548C 7000\uFF08frps \u63A7\u5236\u7AEF\u53E3\uFF09\uFF1BSSH \u4E0D\u9700\u8981\u5F00\u653E
 # docker-compose.yml
 services:
   frps:
@@ -1544,29 +1543,12 @@ services:
     network_mode: host
     volumes:
       - ./frps.toml:/etc/frp/frps.toml
-
-  caddy:
-    image: caddy:2
-    container_name: caddy
-    restart: unless-stopped
-    network_mode: host
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-volumes:
-  caddy_data:
-  caddy_config:
 # frps.toml
 bindPort = 7000
 auth.method = "token"
 auth.token = "\u6362\u6210\u4F60\u7684\u957F\u968F\u673A\u4E32"
 proxyBindAddr = "127.0.0.1"
 allowPorts = [{ start = 7001, end = 7010 }]
-# Caddyfile
-dsh.\u4F60\u7684\u57DF\u540D.com {
-    reverse_proxy 127.0.0.1:7001
-}
 `;
 function fmt(t, key, vars) {
   let s = t(key);

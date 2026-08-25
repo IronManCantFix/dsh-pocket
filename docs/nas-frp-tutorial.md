@@ -5,7 +5,7 @@
 > 不依赖第三方**（对比：cloudflared 公网隧道 URL 每次重启变化，且依赖 Cloudflare 边缘）。
 
 ```
-手机 ──https://dsh.你的域名.com──▶ NAS caddy:443（自动 HTTPS）
+手机 ──https://dsh.你的域名.com──▶ NAS 反代（lucky/系统自带等，自动 HTTPS）
                                       │
                           NAS 127.0.0.1:7001（frps 转发端口，只听本机）
                                       ▲
@@ -84,17 +84,15 @@ npx @deepseek-ai/dsh web
 
 ## 二、NAS 部署
 
-> **先看你的 NAS 类型**：
-> - **群晖 / 威联通**（系统自带反向代理）→ 走**路线 A**：只用 frps 容器 + 系统自带反代。
->   因为系统 Web 界面默认占用 80/443，caddy 容器会报 `bind: address already in use`。
-> - **纯 Linux / 无自带反代** → 走**路线 B**：frps + caddy 两个容器。
+> **NAS 上只需要跑 frps 一个容器。** HTTPS 域名入口（反向代理）由你 NAS 上
+> 现有的工具承担（lucky / 群晖威联通系统自带反代 / nginx 等），不需要额外部署。
 
-### 路线 A：群晖 / 威联通（推荐）
+### 2.1 上传文件
 
-**A1. 上传文件**：把仓库 `deploy/nas/` 下的 `docker-compose.frps-only.yml` 和
-`frps.toml` 放到 NAS 的一个目录（如 `docker/dsh-pocket`）。
+把仓库 `deploy/nas/` 下的 `docker-compose.yml` 和 `frps.toml`
+放到 NAS 的一个目录（如 `docker/dsh-pocket`）。
 
-**A2. 生成连接令牌**（电脑终端执行）：
+### 2.2 生成连接令牌（电脑终端执行）
 
 ```bash
 openssl rand -hex 16
@@ -102,42 +100,40 @@ openssl rand -hex 16
 
 把输出填进 `frps.toml` 的 `auth.token`（与电脑设置页填的令牌必须一致）。
 
-**A3. 启动 frps**：
+### 2.3 启动 frps
+
 - 群晖：Container Manager → 项目 → 新建 → 选择该目录 → 下一步 → 启动
-- 威联通：Container Station → 创建 → docker-compose → 粘贴 `docker-compose.frps-only.yml`
+- 威联通：Container Station → 创建 → docker-compose → 粘贴 `docker-compose.yml`
+- 任意 Linux：`docker compose up -d`
 
 确认容器 Running：`docker ps | grep frps`
 
-**A4. 配系统自带反向代理**（群晖 DSM 7 示例）：
-控制面板 → **登录门户** → **高级** → **反向代理** → **新增**：
+### 2.4 配反代入口（任选其一）
 
-```
-来源：   协议 HTTPS · 主机名 dsh.你的域名.com · 端口 443
-目的地： 协议 HTTP  · 主机名 localhost · 端口 7001
-```
+新增一条规则：**前端 `https://dsh.你的域名.com` → 后端 `http://127.0.0.1:7001`**
 
-**A5. 申请证书**：控制面板 → **安全性** → **证书** → **新增** → **从 Let's Encrypt 获取**，
-域名 `dsh.你的域名.com`（前提：A 记录已解析到 NAS 公网 IP、防火墙放行 80/443）。
+- **lucky**（推荐）：Web 服务/反代 → 新增 → 前端 HTTPS 域名 `dsh.你的域名.com` →
+  后端 `127.0.0.1:7001`；证书在 lucky 证书管理里申请 Let's Encrypt
+  （80 被占时选 **DNS 验证**）
+- **群晖**：控制面板 → **登录门户** → **高级** → **反向代理** → **新增**：
 
-**A6. 防火墙放行**：443/80（NAS 系统）与 7000（frps 控制端口）。**SSH 不用开**。
-转发端口 7001 只监听 NAS 本机（`proxyBindAddr = "127.0.0.1"`），公网无法直连。
+  ```
+  来源：   协议 HTTPS · 主机名 dsh.你的域名.com · 端口 443
+  目的地： 协议 HTTP  · 主机名 localhost · 端口 7001
+  ```
 
-### 路线 B：纯 Linux NAS（frps + caddy）
+  证书：控制面板 → **安全性** → **证书** → **新增** → **从 Let's Encrypt 获取**
+- **威联通**：控制台 → 应用服务 → 反向代理，同样「来源 https 域名 → 目标 http://localhost:7001」
 
-**B1. 上传文件**：`deploy/nas/` 下的 `docker-compose.yml`、`frps.toml`、`Caddyfile`
-放到 NAS 一个目录。
+⚠️ **务必开启该规则的 WebSocket 支持**（lucky 反代配置里有 WebSocket 开关）——
+dsh 的流式输出走 WebSocket，不开则手机界面不实时、会话打不开。
+Host 头无需特殊处理（dsh-pocket 按「非 trycloudflare → 局域网密码」验证）。
 
-**B2. 修改配置**：
-- `openssl rand -hex 16` 生成 token → 填进 `frps.toml`
-- 编辑 `Caddyfile`：`dsh.你的域名.com` 换成你的域名（A 记录指向 NAS 公网 IP）
+### 2.5 防火墙放行
 
-**B3. 启动**：`docker compose up -d`
-
-**B4. 防火墙放行**：443/80（caddy HTTPS）与 7000（frps 控制端口）。
-
-> 群晖等系统若 80/443 被占且**坚持用 caddy**：把 Caddyfile 端口改为 8443 等
-> （手机访问 `https://dsh.你的域名.com:8443`），但需要自行处理证书、体验较差——
-> **推荐直接用路线 A**。
+放行 **443/80**（反代工具）与 **7000**（frps 控制端口，电脑 frpc 连入）。
+**SSH 不需要开放**。转发端口 7001 因 `proxyBindAddr = "127.0.0.1"` 只监听 NAS
+本机，公网无法直连——只能经反代的 HTTPS 入口。
 
 ---
 
@@ -164,7 +160,7 @@ openssl rand -hex 16
 
 ## 四、手机访问
 
-1. 手机打开 `https://dsh.你的域名.com`（HTTPS 证书由 caddy 自动申请）
+1. 手机打开 `https://dsh.你的域名.com`（HTTPS 证书由反代工具自动申请）
 2. 输入电脑设置页「**局域网访问密码**」（8 位数字，局域网区块显示的那个）
 3. 看到的界面与电脑完全一致，实时同步（可双向操作）
 
@@ -194,7 +190,7 @@ npm pack                 # 产出 dsh-pocket-<版本>.tgz，供安装/分发
 |---|---|
 | 设置页没有「NAS 反向隧道」卡片 | 插件未更新/未重启：重新 `npm pack` + 重装 + 重启 dsh web |
 | 状态「连接失败：login to server error」 | NAS 地址/端口是否可达（`telnet NAS_IP 7000`）；token 与 frps.toml 是否一致 |
-| 手机打开 502 / 超时 | NAS 上 `docker logs frps` / `docker logs caddy`；确认 443/7000 防火墙放行 |
+| 手机打开 502 / 超时 | NAS 上 `docker logs frps`；确认 443/7000 防火墙放行、反代规则后端端口是 7001 |
 | frpc 下载失败 | 多镜像自动回退；或手动 `brew install frpc`（插件优先用 PATH 里的） |
 | dsh web 重启后隧道没恢复 | 插件会自动恢复（`tunnel-auto-frp.json` 标记）；等几秒刷新设置页 |
 | 提示版本不匹配 | frps 镜像 tag 必须与插件内置 frpc 版本一致（当前 snowdreamtech/frps:0.71.0-alpine），两端同步升级 |
@@ -210,5 +206,5 @@ npm pack                 # 产出 dsh-pocket-<版本>.tgz，供安装/分发
    攻击面远小于 SSH）
 4. 连接令牌存电脑本地 `$DSH_HOME/dsh-pocket/frp-token`（0600 权限），设置页
    RPC 不回传明文
-5. 想更保险：Caddyfile 加 `basic_auth` 双认证，或勾选设置页「传输加密（TLS）」
+5. 想更保险：反代工具加 `basic_auth` 双认证，或勾选设置页「传输加密（TLS）」
    （需 frps.toml 同步开 `transport.tls.force = true`）

@@ -171,7 +171,7 @@ Such tools take over all traffic and often cut cloudflared's tunnel-edge connect
 | `lib/web-rpc.js` | Loopback RPC: `status` / `tunnel.start` / `tunnel.stop` / `frp.*` / `version` / `update` / `restart` |
 | `client/` | "Phone access" settings tab (incl. NAS reverse-tunnel config) + mobile adaptation (dsh-web-mobile port) |
 | `bin/dsh-pocket.mjs` | CLI: LAN/public modes, prints URL + QR |
-| `deploy/nas/` | One-shot NAS deployment: frps + caddy docker-compose (domain + HTTPS entry) + docs |
+| `deploy/nas/` | One-shot NAS deployment: frps container only + docs (HTTPS entry via your existing reverse proxy, e.g. lucky / NAS built-in) |
 
 ## 🛠 Development
 
