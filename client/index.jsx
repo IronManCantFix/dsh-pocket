@@ -23,6 +23,9 @@ const FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS 端部署（frps + caddy）
 #   1. frps.toml 的 token 改为 openssl rand -hex 16 生成的值（与设置页一致）
 #   2. Caddyfile 的 dsh.你的域名.com 换成你的域名（解析到 NAS 公网 IP）
 #   3. 防火墙放行 443/80（caddy）和 7000（frps 控制端口）；SSH 不需要开放
+# 注意：群晖/威联通等系统自带反向代理的 NAS，80/443 已被系统占用，
+#   caddy 会报 bind: address already in use——改用 deploy/nas/ 里的
+#   docker-compose.frps-only.yml（仅 frps），入口用系统自带反向代理。
 # docker-compose.yml
 services:
   frps:

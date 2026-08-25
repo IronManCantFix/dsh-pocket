@@ -82,59 +82,62 @@ npx @deepseek-ai/dsh web
 
 ---
 
-## 二、NAS 部署（frps + caddy）
+## 二、NAS 部署
 
-### 2.1 准备文件
+> **先看你的 NAS 类型**：
+> - **群晖 / 威联通**（系统自带反向代理）→ 走**路线 A**：只用 frps 容器 + 系统自带反代。
+>   因为系统 Web 界面默认占用 80/443，caddy 容器会报 `bind: address already in use`。
+> - **纯 Linux / 无自带反代** → 走**路线 B**：frps + caddy 两个容器。
 
-把仓库 `deploy/nas/` 目录下的三个文件放到 NAS 的一个目录（如 `docker/dsh-pocket`）：
+### 路线 A：群晖 / 威联通（推荐）
 
-```
-deploy/nas/
-├── docker-compose.yml   # frps + caddy 两个容器
-├── frps.toml            # frp 服务端配置
-└── Caddyfile            # 域名 + 自动 HTTPS
-```
+**A1. 上传文件**：把仓库 `deploy/nas/` 下的 `docker-compose.frps-only.yml` 和
+`frps.toml` 放到 NAS 的一个目录（如 `docker/dsh-pocket`）。
 
-### 2.2 修改配置
-
-**a) 生成连接令牌**（在电脑终端执行）：
+**A2. 生成连接令牌**（电脑终端执行）：
 
 ```bash
 openssl rand -hex 16
 ```
 
-把输出填进 `frps.toml` 的 `auth.token`（**与电脑设置页填的令牌必须一致**）。
+把输出填进 `frps.toml` 的 `auth.token`（与电脑设置页填的令牌必须一致）。
 
-**b) 改域名**：编辑 `Caddyfile`，把 `dsh.你的域名.com` 换成你的域名，并在 DNS 处把
-该域名解析到 NAS 公网 IP（A 记录）。
+**A3. 启动 frps**：
+- 群晖：Container Manager → 项目 → 新建 → 选择该目录 → 下一步 → 启动
+- 威联通：Container Station → 创建 → docker-compose → 粘贴 `docker-compose.frps-only.yml`
 
-### 2.3 启动容器
+确认容器 Running：`docker ps | grep frps`
 
-- **群晖**：Container Manager → 项目 → 新建 → 选择该目录 → 下一步 → 启动
-- **威联通**：Container Station → 创建 → docker-compose → 粘贴 `docker-compose.yml`
-- **任意 Linux**：`docker compose up -d`
+**A4. 配系统自带反向代理**（群晖 DSM 7 示例）：
+控制面板 → **登录门户** → **高级** → **反向代理** → **新增**：
 
-### 2.4 防火墙放行
-
-NAS 防火墙放行三个端口：
-
-| 端口 | 用途 |
-|---|---|
-| 443 / 80 | caddy HTTPS（手机访问入口） |
-| 7000 | frps 控制端口（电脑 frpc 连入） |
-
-**SSH 不需要开放**。转发端口 7001 因 `proxyBindAddr = "127.0.0.1"` 只监听 NAS 本机，
-公网无法直连——只能经 caddy 的 HTTPS 入口。
-
-### 2.5 验证 NAS 端
-
-```bash
-# 在 NAS 上执行（SSH 到 NAS 或 NAS 终端）：
-# 隧道未开时该命令会连接拒绝，属正常；先确认 frps 容器在跑：
-docker ps | grep frps
+```
+来源：   协议 HTTPS · 主机名 dsh.你的域名.com · 端口 443
+目的地： 协议 HTTP  · 主机名 localhost · 端口 7001
 ```
 
-NAS 端验证要等电脑端开启隧道后做（见第三节第 4 步）。
+**A5. 申请证书**：控制面板 → **安全性** → **证书** → **新增** → **从 Let's Encrypt 获取**，
+域名 `dsh.你的域名.com`（前提：A 记录已解析到 NAS 公网 IP、防火墙放行 80/443）。
+
+**A6. 防火墙放行**：443/80（NAS 系统）与 7000（frps 控制端口）。**SSH 不用开**。
+转发端口 7001 只监听 NAS 本机（`proxyBindAddr = "127.0.0.1"`），公网无法直连。
+
+### 路线 B：纯 Linux NAS（frps + caddy）
+
+**B1. 上传文件**：`deploy/nas/` 下的 `docker-compose.yml`、`frps.toml`、`Caddyfile`
+放到 NAS 一个目录。
+
+**B2. 修改配置**：
+- `openssl rand -hex 16` 生成 token → 填进 `frps.toml`
+- 编辑 `Caddyfile`：`dsh.你的域名.com` 换成你的域名（A 记录指向 NAS 公网 IP）
+
+**B3. 启动**：`docker compose up -d`
+
+**B4. 防火墙放行**：443/80（caddy HTTPS）与 7000（frps 控制端口）。
+
+> 群晖等系统若 80/443 被占且**坚持用 caddy**：把 Caddyfile 端口改为 8443 等
+> （手机访问 `https://dsh.你的域名.com:8443`），但需要自行处理证书、体验较差——
+> **推荐直接用路线 A**。
 
 ---
 
