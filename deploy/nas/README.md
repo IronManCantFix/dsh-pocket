@@ -74,7 +74,7 @@ curl http://127.0.0.1:7001
 | 手机打开报 502/超时 | 看 NAS 上 `docker logs frps` / `docker logs caddy`；确认 443/7000 防火墙放行 |
 | frpc 下载失败 | 多镜像自动回退；也可手动 `brew install frpc`（插件优先用 PATH 里的） |
 | dsh web 重启后隧道没自动恢复 | 插件会自动恢复（`tunnel-auto-frp.json` 标记）；等几秒再刷新设置页 |
-| 提示版本不匹配 | frps 镜像 tag 必须与插件内置 frpc 版本一致（当前 0.71.0），两端同步升级 |
+| 提示版本不匹配 | frps 镜像 tag 必须与插件内置 frpc 版本一致（当前 snowdreamtech/frps:0.71.0-alpine），两端同步升级 |
 
 ## 可选：群晖/威联通用系统自带反向代理（免 caddy）
 

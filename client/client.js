@@ -1535,7 +1535,7 @@ var FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS \u7AEF\u90E8\u7F72\uFF08frps + cadd
 # docker-compose.yml
 services:
   frps:
-    image: snowdreamtech/frps:0.71.0
+    image: snowdreamtech/frps:0.71.0-alpine
     container_name: frps
     restart: unless-stopped
     network_mode: host

@@ -25,7 +25,7 @@
 
 services:
   frps:
-    image: snowdreamtech/frps:0.71.0
+    image: snowdreamtech/frps:0.71.0-alpine
     container_name: frps
     restart: unless-stopped
     # host 网络：直通 NAS 网络栈，caddy 可直接访问 127.0.0.1:7001

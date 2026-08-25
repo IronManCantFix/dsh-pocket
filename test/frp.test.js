@@ -238,5 +238,5 @@ test('service：frp 配置不完整时 startFrpTunnel 抛错 / 自动恢复跳�
 
 test('FRP_VERSION 与部署模板一致（deploy/nas/docker-compose.yml 的镜像 tag）', () => {
   const compose = readFileSync(new URL('../deploy/nas/docker-compose.yml', import.meta.url), 'utf8');
-  assert.ok(compose.includes(`snowdreamtech/frps:${FRP_VERSION}`), 'NAS 镜像 tag 与插件内置 frpc 版本一致');
+  assert.ok(compose.includes(`snowdreamtech/frps:${FRP_VERSION}-alpine`), 'NAS 镜像 tag 与插件内置 frpc 版本一致');
 });

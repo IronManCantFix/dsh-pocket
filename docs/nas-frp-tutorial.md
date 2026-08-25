@@ -194,7 +194,7 @@ npm pack                 # 产出 dsh-pocket-<版本>.tgz，供安装/分发
 | 手机打开 502 / 超时 | NAS 上 `docker logs frps` / `docker logs caddy`；确认 443/7000 防火墙放行 |
 | frpc 下载失败 | 多镜像自动回退；或手动 `brew install frpc`（插件优先用 PATH 里的） |
 | dsh web 重启后隧道没恢复 | 插件会自动恢复（`tunnel-auto-frp.json` 标记）；等几秒刷新设置页 |
-| 提示版本不匹配 | frps 镜像 tag 必须与插件内置 frpc 版本一致（当前 0.71.0），两端同步升级 |
+| 提示版本不匹配 | frps 镜像 tag 必须与插件内置 frpc 版本一致（当前 snowdreamtech/frps:0.71.0-alpine），两端同步升级 |
 | 手机页面"假活"（看起来开着、不刷新） | 公网长连接被运营商 NAT 静默掐断：刷新页面即可，数据在服务端不丢 |
 
 ---
