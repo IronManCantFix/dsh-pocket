@@ -71,19 +71,22 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: 创建 GitHub Release 并上传 tgz
+      - name: 创建 GitHub Release 并上传 tgz（固定资产名 → latest 固定 URL）
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
+          # 资产重命名为 dsh-pocket.tgz（gh 的 file#newname 语法）：
+          # releases/latest/download/dsh-pocket.tgz 永远指向最新版，
+          # 安装 URL 永久固定，以后更新无需换地址。
           gh release create "$GITHUB_REF_NAME" \
-            "dsh-pocket-${VERSION}.tgz" \
+            "dsh-pocket-${VERSION}.tgz#dsh-pocket.tgz" \
             --repo "$GITHUB_REPOSITORY" \
             --title "DSH Pocket v${VERSION}" \
             --notes "自动构建发布 ✅（npm test 全绿后打包）
 
-安装：
+安装（URL 固定，永远指向最新版）：
 \`\`\`sh
-dsh plugin --profile web add \"https://github.com/${{ github.repository }}/releases/download/${GITHUB_REF_NAME}/dsh-pocket-${VERSION}.tgz\" -w
+dsh plugin --profile web add \"https://github.com/${{ github.repository }}/releases/latest/download/dsh-pocket.tgz\" -w
 \`\`\`
 "
