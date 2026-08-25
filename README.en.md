@@ -9,16 +9,20 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-pocket"><img alt="npm" src="https://img.shields.io/npm/v/dsh-pocket?color=4d6bfe&label=npm"></a>
   <a href="https://www.npmjs.com/package/dsh-pocket"><img alt="downloads" src="https://img.shields.io/npm/dm/dsh-pocket?color=4d6bfe"></a>
-  <a href="https://github.com/shaobeichen/dsh-pocket/actions"><img alt="CI" src="https://github.com/shaobeichen/dsh-pocket/actions/workflows/npm-publish.yml/badge.svg"></a>
+  <a href="https://github.com/IronManCantFix/dsh-pocket/actions"><img alt="CI" src="https://github.com/IronManCantFix/dsh-pocket/actions/workflows/npm-publish.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-GPL--2.0-red.svg"></a>
-  <a href="https://github.com/shaobeichen/dsh-pocket/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/shaobeichen/dsh-pocket"></a>
+  <a href="https://github.com/IronManCantFix/dsh-pocket/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/IronManCantFix/dsh-pocket"></a>
   <a href="https://awesome-dsh-plugin.com"><img alt="Awesome DSH Plugin" src="https://awesome-dsh-plugin.com/badge.svg"></a>
 </p>
 
-> Put **DeepSeek Harness in your pocket**: one package, one settings tab — scan a QR code and your phone shows exactly what's on your computer screen, live, from anywhere.
+> **Fork notice**: this repository is forked from [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket) (v1.13.4).
+> On top of all upstream features it adds a **NAS reverse tunnel (frp)**, a **sidebar entry refactor**,
+> **mobile layout polish**, and **one-shot NAS deployment** — see [🔄 What this fork adds](#-what-this-fork-adds-vs-upstream-v1134).
+
+> Put **DeepSeek Harness in your pocket**: one package, one config page — scan a QR code and your phone shows exactly what's on your computer screen, live, from anywhere.
 
 <p align="center">
-  ⭐ A Star would make the author's day &nbsp;·&nbsp; <a href="https://github.com/shaobeichen/dsh-pocket">Here, take one</a>
+  ⭐ A Star would make the author's day &nbsp;·&nbsp; <a href="https://github.com/IronManCantFix/dsh-pocket">Here, take one</a>
 </p>
 
 ## What is this
@@ -37,11 +41,27 @@ What it looks like — the phone shows the exact same UI as your computer, live:
   <img src="docs/interface.jpg" alt="DSH UI on the phone" width="100%">
 </p>
 
+## 🔄 What this fork adds (vs upstream v1.13.4)
+
+On top of all upstream features, this repository adds:
+
+| Addition | Description |
+|---|---|
+| 🏠 **NAS reverse tunnel (frp)** | New frp backend (`lib/frp-tunnel.mjs`): the plugin **auto-downloads and hosts frpc** and publishes dsh to **your own NAS** — fixed URL, fastest direct route in CN, no Cloudflare-edge dependency. The NAS only needs an frps container; the HTTPS entry is your existing reverse proxy (lucky / NAS built-in / etc.). Deploy with `deploy/nas/`; full tutorial in [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md) |
+| 🧭 **Sidebar entry refactor** | The "Phone access" entry moved out of the settings panel (was the 2nd tab) to the **desktop sidebar, right above the Settings button**; clicking opens the full config page in a self-contained dialog (does not depend on dsh's settings-panel internal state) |
+| 📱 **Mobile layout polish** | FAB moved to the bottom-right thumb zone, touch targets expanded to 44px, bottom home-indicator safe area, horizontal scrolling for code blocks, landscape/320px adaptations (`client/mobile/mobile.css.ts`) |
+| 📦 **One-shot NAS deploy** | `deploy/nas/`: frps-only docker-compose + frps.toml (security: forward port bound to loopback only via `proxyBindAddr=127.0.0.1`) + reverse-proxy notes (WebSocket must be on) |
+| 📖 **Docs** | `docs/nas-frp-tutorial.md` (install / build / NAS deploy / troubleshooting), `PRODUCT.md` design context |
+| 🧪 **Tests** | 43 → 81: frp config validation / frpc.toml rendering / tunnel state machine / settings persistence / service integration / version consistency |
+
+> **Relation to upstream**: `upstream` points at `shaobeichen/dsh-pocket`; sync any time with
+> `git fetch upstream && git merge upstream/main`
+
 ## ✨ Features
 
 | Feature | Description |
 |---|---|
-| 📶 LAN QR access | Works out of the box: Settings → Phone access — scan the LAN QR on the same Wi-Fi (auto-detects the LAN IP; **under WSL it picks the Windows host's physical NIC IP**) |
+| 📶 LAN QR access | Works out of the box: the sidebar **"Phone access"** entry — scan the LAN QR on the same Wi-Fi (auto-detects the LAN IP; **under WSL it picks the Windows host's physical NIC IP**) |
 | 🌐 Public QR (from anywhere) | Click "Enable anywhere" → cloudflared tunnel → scan the public QR over 4G / any network |
 | 🏠 NAS reverse tunnel (frp) | Self-hosted entry: publish dsh to your own NAS via frp, the phone opens the NAS domain to reach the machine — **fixed URL**, fastest direct route in CN, no third-party dependency (run frps + a reverse proxy on the NAS; the plugin auto-downloads and hosts frpc) |
 | 🔐 Access PIN | Public links require an **8-digit PIN** (rotated on every tunnel start by default; **customizable to a fixed PIN** — custom PINs are not rotated); LAN has its own separate **8-digit PIN** (on by default; switchable off in Settings — then LAN scans connect directly) |
@@ -52,15 +72,11 @@ What it looks like — the phone shows the exact same UI as your computer, live:
 | 📁 File browser | The mobile "Files" entries need a host-side explorer panel (a dsh-web-ui component); on stock DSH without it the entries are auto-hidden instead of doing nothing |
 | 🗜️ Transfer compression | Large JSON responses are gzip/brotli'd on the fly (17MB session history → ~1MB; brotli quality 6: fast and bandwidth-friendly) — faster loads, less mobile data |
 | 🔁 Tunnel auto-restore | After a DSH restart the previously-running public tunnel comes back automatically |
-| 🧩 Zero-dependency install | One npm package, one settings tab — no core/adapter split, no account, no server |
+| 🧩 Zero-dependency install | One npm package, one config page — no core/adapter split, no account, no server |
 
 ## 🚀 Usage
 
-**Where the entry is**: after installing and restarting `dsh web`, open **Settings** — the left sidebar shows **"Phone access"** at the top level (same level as General / Models):
-
-<p align="center">
-  <img src="docs/entry.jpg" alt="Phone access entry" width="70%">
-</p>
+**Where the entry is**: after installing and restarting `dsh web`, the **desktop sidebar shows a "📱 Phone access" entry right above the Settings button** — clicking opens the full config page (LAN / public / NAS tunnel / PINs).
 
 **Prerequisite**: [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) installed. If your terminal says `dsh: command not found`, install it first:
 
@@ -169,7 +185,7 @@ Such tools take over all traffic and often cut cloudflared's tunnel-edge connect
 | `lib/tunnel.mjs` | cloudflared: multi-mirror download (Tsinghua first) / adaptive parallel / start / parse public URL (HTTP/2) |
 | `lib/frp-tunnel.mjs` | frp reverse tunnel: auto-download/host frpc (multi-mirror), render frpc.toml, connection state machine — publishes the proxy to your own NAS (fixed URL, fastest direct route in CN); NAS deployment in `deploy/nas/` |
 | `lib/web-rpc.js` | Loopback RPC: `status` / `tunnel.start` / `tunnel.stop` / `frp.*` / `version` / `update` / `restart` |
-| `client/` | "Phone access" settings tab (incl. NAS reverse-tunnel config) + mobile adaptation (dsh-web-mobile port) |
+| `client/` | Sidebar "Phone access" entry + config page (incl. NAS reverse-tunnel config) + mobile adaptation (dsh-web-mobile port) |
 | `bin/dsh-pocket.mjs` | CLI: LAN/public modes, prints URL + QR |
 | `deploy/nas/` | One-shot NAS deployment: frps container only + docs (HTTPS entry via your existing reverse proxy, e.g. lucky / NAS built-in) |
 

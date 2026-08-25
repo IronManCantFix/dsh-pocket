@@ -9,16 +9,20 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-pocket"><img alt="npm" src="https://img.shields.io/npm/v/dsh-pocket?color=4d6bfe&label=npm"></a>
   <a href="https://www.npmjs.com/package/dsh-pocket"><img alt="downloads" src="https://img.shields.io/npm/dm/dsh-pocket?color=4d6bfe"></a>
-  <a href="https://github.com/shaobeichen/dsh-pocket/actions"><img alt="CI" src="https://github.com/shaobeichen/dsh-pocket/actions/workflows/npm-publish.yml/badge.svg"></a>
+  <a href="https://github.com/IronManCantFix/dsh-pocket/actions"><img alt="CI" src="https://github.com/IronManCantFix/dsh-pocket/actions/workflows/npm-publish.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-GPL--2.0-red.svg"></a>
-  <a href="https://github.com/shaobeichen/dsh-pocket/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/shaobeichen/dsh-pocket"></a>
+  <a href="https://github.com/IronManCantFix/dsh-pocket/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/IronManCantFix/dsh-pocket"></a>
   <a href="https://awesome-dsh-plugin.com/zh/"><img alt="Awesome DSH Plugin" src="https://awesome-dsh-plugin.com/badge.svg"></a>
 </p>
 
-> 把 **DeepSeek Harness 装进你的口袋**：一个包、一个设置页，手机扫二维码就实时看到电脑上的同一个界面——人在外面也能用。
+> **Fork 说明**：本仓库 fork 自 [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket)（v1.13.4），
+> 在保留全部原有功能的基础上迭代了 **NAS 反向隧道（frp）**、**侧边栏入口重构**、**移动端布局优化**、
+> **NAS 一键部署** 等内容，详见下方 [🔄 本 Fork 的迭代](#-本-fork-的迭代相对上游-v1134)。
+
+> 把 **DeepSeek Harness 装进你的口袋**：一个包、一个配置页，手机扫二维码就实时看到电脑上的同一个界面——人在外面也能用。
 
 <p align="center">
-  ⭐ 顺手留颗 Star，作者能高兴一整天 &nbsp;·&nbsp; <a href="https://github.com/shaobeichen/dsh-pocket">行，给你一颗 Star</a>
+  ⭐ 顺手留颗 Star，作者能高兴一整天 &nbsp;·&nbsp; <a href="https://github.com/IronManCantFix/dsh-pocket">行，给你一颗 Star</a>
 </p>
 
 ## 这是什么
@@ -37,30 +41,42 @@ DSH Pocket 就是干这个的：**装上它，手机扫个码，就能实时看�
   <img src="docs/interface.jpg" alt="手机上的 DSH 界面" width="100%">
 </p>
 
+## 🔄 本 Fork 的迭代（相对上游 v1.13.4）
+
+在保留上游全部功能的基础上，本仓库迭代了以下内容：
+
+| 迭代 | 说明 |
+|---|---|
+| 🏠 **NAS 反向隧道（frp）** | 新增 frp 隧道后端（`lib/frp-tunnel.mjs`）：插件**自动下载/托管 frpc**，把 dsh 反向发布到**自家 NAS**——固定域名、国内直连最快、不依赖 Cloudflare 边缘。NAS 端只需跑 frps 一个容器，HTTPS 入口用你现有的反代工具（lucky / 群晖自带反代等）。部署见 `deploy/nas/`，完整教程见 [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md) |
+| 🧭 **侧边栏入口重构** | 「手机访问」入口从设置面板（原第二个 tab）移到**桌面端侧边栏、设置按钮正上方**；点击直接弹出完整配置页（自包含对话框，不依赖 dsh 设置面板内部状态） |
+| 📱 **移动端布局优化** | FAB 移到右下拇指区、触控目标扩至 44px、底部 home indicator 安全区、代码块横向滚动、横屏/320px 小屏适配（`client/mobile/mobile.css.ts`） |
+| 📦 **NAS 一键部署** | `deploy/nas/`：仅 frps 容器的 docker-compose + frps.toml（安全项：转发端口只听本机 `proxyBindAddr=127.0.0.1`）+ 反代配置说明（WebSocket 必开） |
+| 📖 **文档** | `docs/nas-frp-tutorial.md` 使用教程（安装/打包/NAS 部署/排障）、`PRODUCT.md` 设计上下文 |
+| 🧪 **测试扩充** | 43 → 81：新增 frp 配置校验 / frpc.toml 渲染 / 隧道状态机 / settings 持久化 / service 集成 / 版本一致性 |
+
+> **与上游的关系**：`upstream` 指向原仓库 `shaobeichen/dsh-pocket`，可随时同步上游更新：
+> `git fetch upstream && git merge upstream/main`
+
 ## ✨ 特性
 
 | 特性 | 说明 |
 |---|---|
-| 📶 局域网扫码 | 装好即用：设置 → 手机访问，打开就有局域网二维码，手机连同一 WiFi 扫码即开（自动识别本机局域网 IP，**WSL 环境自动取 Windows 物理网卡 IP**） |
+| 📶 局域网扫码 | 装好即用：侧边栏「手机访问」入口，打开就有局域网二维码，手机连同一 WiFi 扫码即开（自动识别本机局域网 IP，**WSL 环境自动取 Windows 物理网卡 IP**） |
 | 🌐 公网扫码（人在外面） | 点「开启公网访问」→ cloudflared 隧道 → 出公网二维码，4G/任何网络都能访问 |
 | 🏠 NAS 反向隧道（frp） | 自建入口：把 dsh 反向发布到自家 NAS（frp），手机访问 NAS 域名即达电脑——**URL 固定**、国内直连最快、不依赖第三方（NAS 端跑 frps + 反代容器，插件自动下载并托管 frpc） |
-| 🔐 访问密码 | 公网链接需输入 **8 位数字密码**（默认每次开启公网自动换新；**可自定义固定密码**——自定义后不再换新）；局域网有独立 **8 位数字密码**（默认开启，设置页可**一键关闭**——关闭后局域网扫码直连） |
-| 🔑 自定义密码 | 公网/局域网密码都可在设置页**设成自己固定的 8 位数字**（自定义后公网不再自动换新） |
+| 🔐 访问密码 | 公网链接需输入 **8 位数字密码**（默认每次开启公网自动换新；**可自定义固定密码**——自定义后不再换新）；局域网有独立 **8 位数字密码**（默认开启，配置页可**一键关闭**——关闭后局域网扫码直连） |
+| 🔑 自定义密码 | 公网/局域网密码都可在配置页**设成自己固定的 8 位数字**（自定义后公网不再自动换新） |
 | 🧘 会话保持 | 手机输一次密码后**长期免输**（登录状态绑定电脑上的 dsh web 进程：只要它不重启，手机不用再输；**dsh web 重启/更新后需重新输入一次**） |
 | ⚡ 实时同步 | 流式输出走 WebSocket 全透传——**电脑上在输出，手机上同步在滚**，可双向操作；内置心跳保活（防路由器 NAT/省电机制静默断链，断线自动重连） |
 | 📱 移动端适配 | 窄屏自动变抽屉布局（移植 dsh-web-mobile，MIT）：侧栏抽屉、会话全宽、状态栏安全区、触控优化 |
 | 📁 文件浏览 | 移动端「文件浏览」入口需要宿主提供 explorer 面板（dsh-web-ui 组件）；官方 DSH 未内置时入口自动隐藏，不会出现"点了没反应" |
 | 🗜️ 传输压缩 | 大 JSON 响应自动 gzip/brotli（长会话 17MB → ~1MB，brotli 质量 6：快且省流量），手机加载更快、更省流量 |
 | 🔁 隧道自动恢复 | DSH 重启后自动重新拉起之前开着的公网隧道，无需手动重开 |
-| 🧩 零依赖安装 | 一个 npm 包、一个设置页，没有核心/适配器要分开装；无需账号、无需服务器 |
+| 🧩 零依赖安装 | 一个 npm 包、一个配置页，没有核心/适配器要分开装；无需账号、无需服务器 |
 
 ## 🚀 怎么用
 
-**入口在哪**：安装完成并重启 `dsh web` 后，打开 **设置**，左侧边栏就能看到 **「手机访问」** 入口（和「通用设置」「模型」同级）：
-
-<p align="center">
-  <img src="docs/entry.jpg" alt="手机访问入口" width="70%">
-</p>
+**入口在哪**：安装完成并重启 `dsh web` 后，**桌面端侧边栏底部（设置按钮正上方）**会出现「📱 手机访问」入口，点击弹出完整配置页（局域网/公网/NAS 隧道/密码管理都在这一页）。
 
 **前提**：电脑上已装好 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)。如果终端提示 `dsh: command not found`（找不到 dsh 命令），先安装：
 
@@ -79,9 +95,9 @@ npx @deepseek-ai/dsh web
 
 ### 局域网（同一 WiFi）
 
-设置 → **手机访问** → 手机扫「📶 局域网」二维码 → 打开链接**输入局域网密码**（显示在设置页局域网区块，点「刷新」可换新，或点「自定义」设成自己固定的 8 位数字）→ 打开的就是电脑上的 DSH，实时同步。
+侧边栏「📱 手机访问」入口 → 手机扫「📶 局域网」二维码 → 打开链接**输入局域网密码**（显示在配置页局域网区块，点「刷新」可换新，或点「自定义」设成自己固定的 8 位数字）→ 打开的就是电脑上的 DSH，实时同步。
 
-> 局域网密码**默认开启**（安全优先）。如果只有自己用、嫌每次输密码麻烦，可在设置页局域网区块把「局域网访问密码」切到**关**——之后局域网扫码直连、无需密码（仅同一局域网设备可访问；**公网始终要密码**，不受影响）。
+> 局域网密码**默认开启**（安全优先）。如果只有自己用、嫌每次输密码麻烦，可在配置页局域网区块把「局域网访问密码」切到**关**——之后局域网扫码直连、无需密码（仅同一局域网设备可访问；**公网始终要密码**，不受影响）。
 >
 > 手机登录一次后**长期免输**：只要电脑上的 dsh web 不重启，再次打开手机不用再输入（**dsh web 重启/更新后需重新输入一次**）。
 >
@@ -89,7 +105,7 @@ npx @deepseek-ai/dsh web
 
 ### 公网（人在外面）
 
-同一页点「**开启公网访问**」→ **每次都会先弹出安全免责声明**，勾选「我已知情」后才能开启（公司/涉密网络请先确认合规）→ 等隧道建立（首次会下载 cloudflared，macOS/Linux 走清华镜像秒下）→ 手机扫「🌐 公网」二维码 → 打开链接**输入 8 位访问密码**（密码显示在设置页公网区块，默认**每次开启公网变新**，也可点「自定义」设成固定密码——自定义后不再换新）→ 人在外面（4G/公司网）也能访问。
+同一页点「**开启公网访问**」→ **每次都会先弹出安全免责声明**，勾选「我已知情」后才能开启（公司/涉密网络请先确认合规）→ 等隧道建立（首次会下载 cloudflared，macOS/Linux 走清华镜像秒下）→ 手机扫「🌐 公网」二维码 → 打开链接**输入 8 位访问密码**（密码显示在配置页公网区块，默认**每次开启公网变新**，也可点「自定义」设成固定密码——自定义后不再换新）→ 人在外面（4G/公司网）也能访问。
 
 > 更新到新版本：`dsh plugin --profile web update dsh-pocket --latest -w`（跨大版本时 `--latest` 是必须的，`^0.x` 范围不会自动升到 1.x）。
 
@@ -102,7 +118,7 @@ npx @deepseek-ai/dsh web
 - **登录限速**（防暴力破解）：同一 IP 连续输错 **5 次**锁定 **60 秒**；全局失败超阈值时短暂全锁（防换 IP 分布式扫描）；输对密码后计数清零
 - 公网 URL 由 cloudflared 随机分配，**每次重启会变化**（旧链接自动失效，相当于天然轮换）
 - 局域网模式不暴露公网，只有同一网络内的设备能访问
-- 适合个人自用；公网密码存本机 `$DSH_HOME/dsh-pocket/token`（默认每次开启公网自动换新，**自定义后不换**），局域网密码存 `$DSH_HOME/dsh-pocket/token-lan`（设置页手动刷新），开关/自定义标记存 `$DSH_HOME/dsh-pocket/settings.json`
+- 适合个人自用；公网密码存本机 `$DSH_HOME/dsh-pocket/token`（默认每次开启公网自动换新，**自定义后不换**），局域网密码存 `$DSH_HOME/dsh-pocket/token-lan`（配置页手动刷新），开关/自定义标记存 `$DSH_HOME/dsh-pocket/settings.json`
 
 ## 💻 DSH Desktop（桌面版）
 
@@ -134,7 +150,7 @@ npx @deepseek-ai/dsh web
 1. 先**只关闭代理的 TUN 模式**，不用退出代理软件——多数情况这一步就够：
    - Clash：设置里关掉「**TUN 模式**」开关（或右键菜单栏图标 → 取消勾选 TUN 模式）
    - Surge：关「**增强模式**」；v2ray/sing-box：关「**虚拟网卡/路由接管**」
-   - 然后回设置页重新点「开启公网访问」
+   - 然后回配置页重新点「开启公网访问」
 2. 仍不行就**彻底退出代理软件**（不只是关界面：Clash 要右键菜单栏图标 → 退出；若装有
    后台服务还要在服务管理器里停掉，`ps aux | grep clash` 确认进程消失），再重试
 3. 给代理加**直连规则**，放行隧道域名与 Cloudflare 边缘（Clash 规则示例）：
@@ -151,7 +167,7 @@ npx @deepseek-ai/dsh web
 **首次开启时「下载 cloudflared」失败/卡住**：
 - **macOS/Linux**：优先走**清华镜像**（实测 ~3MB/s，几秒下完）；失败自动回退官方 GitHub + 加速源。
 - **Windows**：无清华镜像（Homebrew 不支持 Windows），走官方直连下载（约 50MB，**单线程会慢，属正常**，耐心等几分钟；也可挂代理加速）。
-- 全部失败时设置页会给出提示。备选方案（任选其一）：
+- 全部失败时配置页会给出提示。备选方案（任选其一）：
 1. 手动装好命令行 cloudflared 后重试（装好后 dsh-pocket 直接用 PATH 里的，不再下载）：
    - macOS：`brew install cloudflared`；Linux：`sudo apt install cloudflared` 或官网下载
    - Windows：`winget install cloudflared` 或官网下载
@@ -170,7 +186,7 @@ npx @deepseek-ai/dsh web
 | `lib/tunnel.mjs` | cloudflared：多镜像源下载（清华优先）/自适应多线程/启动/解析公网 URL（HTTP/2） |
 | `lib/frp-tunnel.mjs` | frp 反向隧道：自动下载/托管 frpc（多镜像）、渲染 frpc.toml、连接状态机——把代理反向发布到自家 NAS（固定域名、国内直连最快），NAS 端部署见 `deploy/nas/` |
 | `lib/web-rpc.js` | loopback RPC：`status` / `tunnel.start` / `tunnel.stop` / `frp.*` / `version` / `update` / `restart` |
-| `client/` | 设置页「手机访问」（含 NAS 反向隧道配置）+ 移动端适配（dsh-web-mobile 移植） |
+| `client/` | 侧边栏「手机访问」入口 + 配置页（含 NAS 反向隧道配置）+ 移动端适配（dsh-web-mobile 移植） |
 | `bin/dsh-pocket.mjs` | CLI：局域网/公网模式，打印 URL + 二维码 |
 | `deploy/nas/` | NAS 端一键部署：仅 frps 容器 + 说明文档（HTTPS 入口用 NAS 现有反代工具，如 lucky/系统自带反代；完整使用教程见 [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md)） |
 
