@@ -59,6 +59,18 @@ jobs:
       - name: 打 npm 包（生成 dsh-pocket-<版本>.tgz）
         run: npm pack
 
+      - name: 版本同步提交回仓库（package.json 永远跟随最新 tag）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          if git diff --cached --quiet; then
+            echo "版本无变更"
+          else
+            git commit -m "chore: sync version to ${GITHUB_REF_NAME#v} (release ${GITHUB_REF_NAME})"
+            git push origin HEAD:main
+          fi
+
       - name: 创建 GitHub Release 并上传 tgz
         env:
           GH_TOKEN: ${{ github.token }}
