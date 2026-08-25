@@ -5,7 +5,7 @@ bindPort = 7000
 auth.method = "token"
 auth.token = "换成 openssl rand -hex 16 生成的长随机串"
 
-# 转发端口只监听本机：公网无法绕过 caddy 直连 dsh 流量，只能走 HTTPS（安全）
+# 转发端口只监听本机：公网无法绕过反代（lucky/系统自带反代等）直连 dsh 流量，只能走 HTTPS（安全）
 proxyBindAddr = "127.0.0.1"
 
 # 限制允许的远程端口范围（与设置页「转发端口」一致，默认 7001）
