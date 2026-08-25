@@ -62,14 +62,16 @@ async function withHome(fn) {
   }
 }
 
-/** 在 home/dsh-pocket/bin/frpc 放一个假 frpc 可执行脚本（输出指定行后长驻/退出）。 */
+/** 在 home/dsh-pocket/bin/frpc 放一个假 frpc 可执行脚本（输出指定行后长驻/退出）。
+ * 长驻用 `exec sleep`：shell 直接 exec 成 sleep，进程就是 sleep 本身——kill 即杀，
+ * 不会留下持有 stdio pipe 的孤儿进程（否则 Node 22 下测试文件 30s 超时挂起）。 */
 function fakeFrpc(home, { stdout = 'login to server success, get run id abc', exit = false } = {}) {
   const dir = join(home, 'dsh-pocket', 'bin');
   mkdirSync(dir, { recursive: true });
   const bin = join(dir, 'frpc');
   const lines = ['#!/bin/sh', `echo '${stdout}'`];
   if (exit) lines.push('exit 1');
-  else lines.push('sleep 60');
+  else lines.push('exec sleep 60');
   writeFileSync(bin, lines.join('\n') + '\n', { mode: 0o755 });
   chmodSync(bin, 0o755);
   return bin;
