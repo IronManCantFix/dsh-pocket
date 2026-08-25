@@ -51,7 +51,11 @@ var POCKET_ENDPOINTS = Object.freeze({
   lanTokenRefresh: "token.lanRefresh",
   lanAuthSetEnabled: "lanAuth.setEnabled",
   lanSetOverride: "lan.setOverride",
-  pinSetCustom: "pin.setCustom"
+  pinSetCustom: "pin.setCustom",
+  frpConfigGet: "frp.configGet",
+  frpConfigSet: "frp.configSet",
+  frpStart: "frp.start",
+  frpStop: "frp.stop"
 });
 function compareVersions(a, b) {
   const pa = String(a).replace(/^[vV]/, "").split(".");
@@ -94,6 +98,11 @@ function redactStatus(s) {
     tunnelUrl: s?.tunnelUrl ?? null,
     tunnelQr: s?.tunnelQr ?? null,
     tunnelState: s?.tunnelState ?? { phase: "idle" },
+    // NAS 反向隧道（frp）：token 永不进入浏览器
+    frpRunning: s?.frpRunning === true,
+    frpState: s?.frpState ?? { phase: "idle" },
+    frpConfig: s?.frpConfig ?? null,
+    frpHasToken: s?.frpHasToken === true,
     dshPort: s?.dshPort ?? null
   };
 }
@@ -305,6 +314,20 @@ var MOBILE_CSS = `
   outline: 2px solid var(--dsw-alias-state-business-primary, #4f6ef7);
   outline-offset: 1px;
 }
+/* Expand the touch target to ~44px without changing the visual size:
+   a transparent ::before grows the hit area (layout principle: touch
+   targets \u226544px even when the visible control is smaller). */
+[data-mobile-nav="toggle"],
+[data-mobile-nav="files"] {
+  position: relative;
+}
+[data-mobile-nav="toggle"]::before,
+[data-mobile-nav="files"]::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+}
 
 /* Drawer footer actions: the relocated Session log download plus the Files
    action that opens the dsh-web-ui explorer sheet. */
@@ -325,8 +348,8 @@ var MOBILE_CSS = `
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 34px;
-  padding: 0 12px;
+  min-height: 40px;
+  padding: 0 14px;
   border: 1px solid var(--dsw-alias-border-l1, rgba(0, 0, 0, .12));
   border-radius: 12px;
   background: transparent;
@@ -347,12 +370,14 @@ var MOBILE_CSS = `
 }
 
 /* Floating fallback button (hero / blank phases without a session header).
-   The top clears the camera band below the status bar; when the client has
-   set viewport-fit=cover the safe-area inset moves it below the notch too. */
+   Bottom-right: the thumb zone on portrait phones; the 96px bottom offset
+   keeps it above the composer card (plus the home-indicator safe area). */
 [data-mobile-nav="fab"] {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 72px);
-  left: 10px;
+  top: auto;
+  right: 12px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+  left: auto;
   z-index: 21;
   display: inline-flex;
   align-items: center;
@@ -586,6 +611,30 @@ var MOBILE_CSS = `
   [data-phase] [class*="_card"]:has(textarea) > :last-child > :last-child {
     flex: 1 1 auto !important;
     min-width: 0 !important;
+  }
+
+  /* --- Bottom safe area (home indicator) ---
+     The official layout pads for the status bar on top but not for the
+     home indicator at the bottom. When the browser chrome hides (PWA /
+     fullscreen) the composer sits under the gesture bar. Keep the composer
+     stack clear of it. */
+  [data-phase] [class$="_composerStack"] {
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+
+  /* --- Long agent output on a phone ---
+     Code blocks and tables overflow the 20px message gutters; let them
+     scroll horizontally on touch instead of breaking the column. pre is a
+     semantic element (not a hashed class), stable across dsh upgrades. */
+  [data-phase] pre {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Inline images / file cards must never blow out the column width. */
+  [data-phase] img {
+    max-width: 100%;
+    height: auto;
   }
 
   /* --- Session header on mobile ---
@@ -1105,6 +1154,30 @@ var MOBILE_CSS = `
   [data-phase="hero"] [class$="_stack"] {
     gap: 0 !important;
   }
+
+  /* ---------- landscape / very narrow screens ---------- */
+  /* Landscape phones: the notches sit on the left/right edges. Push the
+     frame content (and the composer) clear of them; the drawer is
+     absolutely positioned and keeps its own background, so it may still
+     span the full frame. */
+  @media (orientation: landscape) {
+    [data-mobile-nav="frame"] {
+      padding-left: env(safe-area-inset-left, 0px) !important;
+      padding-right: env(safe-area-inset-right, 0px) !important;
+    }
+    [data-phase] [class$="_composerStack"] {
+      padding-left: env(safe-area-inset-left, 0px) !important;
+      padding-right: env(safe-area-inset-right, 0px) !important;
+    }
+  }
+
+  /* 320px-class screens: the settings nav tabs (3 columns) squeeze the
+     labels; drop to 2 columns so every tab stays legible. */
+  @media (max-width: 359px) {
+    [aria-modal="true"]:has(> :first-child > :last-child > button):not(:has([role="navigation"])) > :first-child > :last-child {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
 }
 
 /* ---------- desktop: the mobile controls must never appear ---------- */
@@ -1339,6 +1412,8 @@ function mobileApply(ctx) {
 var NS2 = "pocket";
 var zh2 = {
   "section": "\u624B\u673A\u8BBF\u95EE",
+  "entryLabel": "\u624B\u673A\u8BBF\u95EE",
+  "closeDialog": "\u5173\u95ED",
   "title": "\u{1F4F1} \u624B\u673A\u8BBF\u95EE",
   "subtitle": "\u624B\u673A\u626B\u7801\u6253\u5F00\u7684\u5C31\u662F\u7535\u8111\u4E0A\u7684\u8FD9\u4E2A\u754C\u9762\uFF0C\u5B9E\u65F6\u540C\u6B65",
   "developer": "\u5F00\u53D1\u8005\uFF1A\u7A0B\u5E8F\u5458\u5C11\u5317\u6668",
@@ -1397,10 +1472,38 @@ var zh2 = {
   "slowHint": " \u2014 \u6709\u70B9\u4E45\uFF1F\u68C0\u67E5\u662F\u5426\u5F00\u7740\u4EE3\u7406/VPN\uFF08Clash TUN \u7B49\uFF09",
   "error": "\u274C \u5F00\u542F\u5931\u8D25\uFF1A{detail}\uFF08\u53EF\u91CD\u8BD5\uFF1B\u82E5\u662F\u4EE3\u7406/VPN \u95EE\u9898\u89C1 README \u6392\u969C\uFF09",
   "unknownError": "\u672A\u77E5\u9519\u8BEF",
+  // NAS 反向隧道（frp）
+  "frpTitle": "\u{1F3E0} NAS \u53CD\u5411\u96A7\u9053\uFF08\u81EA\u5EFA\uFF0C\u56FD\u5185\u66F4\u5FEB\uFF09",
+  "frpHint": "\u628A\u672C\u673A\u4EE3\u7406\u53CD\u5411\u53D1\u5E03\u5230\u81EA\u5BB6 NAS\uFF08frp\uFF09\uFF1A\u624B\u673A\u8BBF\u95EE NAS \u57DF\u540D\u5373\u8FBE\u7535\u8111\uFF0CURL \u56FA\u5B9A\u3001\u56FD\u5185\u76F4\u8FDE\u6700\u5FEB\uFF1BNAS \u7AEF\u9700\u5148\u90E8\u7F72 frps + \u53CD\u5411\u4EE3\u7406\uFF08\u89C1\u300C\u590D\u5236\u90E8\u7F72\u6A21\u677F\u300D\uFF09",
+  "frpServerAddr": "NAS \u5730\u5740",
+  "frpServerAddrPlaceholder": "\u57DF\u540D\u6216 IP\uFF0C\u5982 nas.example.com",
+  "frpServerPort": "\u670D\u52A1\u7AEF\u53E3",
+  "frpRemotePort": "\u8F6C\u53D1\u7AEF\u53E3",
+  "frpToken": "\u8FDE\u63A5\u4EE4\u724C",
+  "frpTokenPlaceholder": "\u4E0E frps.toml \u7684 token \u4E00\u81F4\uFF08\u81F3\u5C11 8 \u4F4D\uFF09",
+  "frpTls": "\u4F20\u8F93\u52A0\u5BC6\uFF08TLS\uFF09",
+  "frpTlsHint": "\u9700 frps \u7AEF\u540C\u6B65\u5F00\u542F transport.tls.force\uFF0C\u5426\u5219\u8FDE\u4E0D\u4E0A",
+  "frpSave": "\u4FDD\u5B58\u914D\u7F6E",
+  "frpSaved": "\u2705 \u5DF2\u4FDD\u5B58",
+  "frpStart": "\u5F00\u542F\u96A7\u9053",
+  "frpStop": "\u5173\u95ED\u96A7\u9053",
+  "frpStarting": "\u5F00\u542F\u4E2D\u2026",
+  "frpConfigureFirst": "\u5148\u586B\u5199 NAS \u5730\u5740\u4E0E\u8FDE\u63A5\u4EE4\u724C\u5E76\u4FDD\u5B58",
+  "frpStateIdle": "\u672A\u5F00\u542F",
+  "frpStateDownloading": "\u23F3 \u4E0B\u8F7D frpc\uFF08\u9996\u6B21\u7EA6 10MB\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
+  "frpStateConnecting": "\u23F3 \u8FDE\u63A5 NAS frps\uFF08\u901A\u5E38\u6570\u79D2\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
+  "frpStateReady": "\u2705 \u96A7\u9053\u5C31\u7EEA \xB7 \u624B\u673A\u8BBF\u95EE https://\u4F60\u7684NAS\u57DF\u540D\uFF08\u8F93\u5165\u4E0A\u9762\u7684\u5C40\u57DF\u7F51\u5BC6\u7801\uFF09",
+  "frpStateError": "\u274C {detail}",
+  "frpCopyCompose": "\u{1F4CB} \u590D\u5236 NAS \u90E8\u7F72\u6A21\u677F\uFF08docker-compose\uFF09",
+  "frpCopied": "\u2705 \u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\uFF08frps + caddy\uFF1B\u653E\u884C 443/80/7000 \u7AEF\u53E3\uFF0C\u89E3\u6790\u57DF\u540D\u5230 NAS\uFF09",
+  "frpLog": "\u67E5\u770B\u65E5\u5FD7",
+  "frpNoToken": "\u672A\u8BBE\u7F6E\u4EE4\u724C",
   "feedback": "\u6709\u95EE\u9898\uFF1F\u6B22\u8FCE\u5230 GitHub Issues \u53CD\u9988 \u{1F64F}"
 };
 var en2 = {
   "section": "Phone access",
+  "entryLabel": "Phone access",
+  "closeDialog": "Close",
   "title": "\u{1F4F1} Phone access",
   "subtitle": "The phone shows this exact screen, live",
   "developer": "Developer: \u5C11\u5317\u6668 (shaobeichen)",
@@ -1459,12 +1562,62 @@ var en2 = {
   "slowHint": " \u2014 taking long? Check for a proxy/VPN (e.g., Clash TUN)",
   "error": "\u274C Failed to enable: {detail} (you can retry; for proxy/VPN issues see the README)",
   "unknownError": "unknown error",
+  // NAS reverse tunnel (frp)
+  "frpTitle": "\u{1F3E0} NAS reverse tunnel (self-hosted, faster in CN)",
+  "frpHint": 'Publishes this machine\u2019s proxy to your own NAS via frp: the phone opens the NAS domain to reach the Mac \u2014 fixed URL, direct route, no third-party edge. Deploy frps + a reverse proxy on the NAS first (see "copy deploy template")',
+  "frpServerAddr": "NAS address",
+  "frpServerAddrPlaceholder": "hostname or IP, e.g. nas.example.com",
+  "frpServerPort": "Server port",
+  "frpRemotePort": "Forward port",
+  "frpToken": "Connection token",
+  "frpTokenPlaceholder": "same as frps.toml token (min 8 chars)",
+  "frpTls": "TLS transport",
+  "frpTlsHint": "requires transport.tls.force on the frps side, or the connection fails",
+  "frpSave": "Save config",
+  "frpSaved": "\u2705 Saved",
+  "frpStart": "Start tunnel",
+  "frpStop": "Stop tunnel",
+  "frpStarting": "Starting\u2026",
+  "frpConfigureFirst": "Set the NAS address and token first, then save",
+  "frpStateIdle": "Not started",
+  "frpStateDownloading": "\u23F3 Downloading frpc (first run ~10MB) \xB7 {s}s elapsed",
+  "frpStateConnecting": "\u23F3 Connecting to NAS frps (usually seconds) \xB7 {s}s elapsed",
+  "frpStateReady": "\u2705 Tunnel ready \xB7 open https://your-NAS-domain on the phone (enter the LAN PIN above)",
+  "frpStateError": "\u274C {detail}",
+  "frpCopyCompose": "\u{1F4CB} Copy NAS deploy template (docker-compose)",
+  "frpCopied": "\u2705 Copied to clipboard (frps + caddy; open ports 443/80/7000 and point your domain at the NAS)",
+  "frpLog": "View log",
+  "frpNoToken": "No token set",
   "feedback": "\u{1F64F} Questions? Open an issue on GitHub"
 };
 
 // client/index.jsx
 var name = "dsh-pocket";
 var inject = ["slots", "connection", "layout", "locale", "sessionLogDownload"];
+var FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS \u7AEF\u90E8\u7F72\uFF08\u4EC5 frps\uFF09
+# \u7528\u6CD5\uFF1A\u653E\u5230 NAS \u7684 docker \u76EE\u5F55 \u2192 docker compose up -d
+# \u6B65\u9AA4\uFF1A
+#   1. frps.toml \u7684 token \u6539\u4E3A openssl rand -hex 16 \u751F\u6210\u7684\u503C\uFF08\u4E0E\u8BBE\u7F6E\u9875\u4E00\u81F4\uFF09
+#   2. \u53CD\u4EE3\u5165\u53E3\u7528\u4F60 NAS \u4E0A\u73B0\u6709\u7684\u5DE5\u5177\uFF08lucky / \u7FA4\u6656\u81EA\u5E26\u53CD\u5411\u4EE3\u7406 / nginx \u7B49\uFF09\uFF1A
+#      \u65B0\u589E\u89C4\u5219\u300C\u524D\u7AEF https://dsh.\u4F60\u7684\u57DF\u540D.com \u2192 \u540E\u7AEF http://127.0.0.1:7001\u300D\uFF0C
+#      \u52A1\u5FC5\u5F00\u542F WebSocket \u652F\u6301\uFF0C\u8BC1\u4E66\u7528 Let's Encrypt\uFF0880 \u88AB\u5360\u65F6\u9009 DNS \u9A8C\u8BC1\uFF09
+#   3. \u9632\u706B\u5899\u653E\u884C 443/80\uFF08\u53CD\u4EE3\u5DE5\u5177\uFF09\u548C 7000\uFF08frps \u63A7\u5236\u7AEF\u53E3\uFF09\uFF1BSSH \u4E0D\u9700\u8981\u5F00\u653E
+# docker-compose.yml
+services:
+  frps:
+    image: snowdreamtech/frps:0.71.0-alpine
+    container_name: frps
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./frps.toml:/etc/frp/frps.toml
+# frps.toml
+bindPort = 7000
+auth.method = "token"
+auth.token = "\u6362\u6210\u4F60\u7684\u957F\u968F\u673A\u4E32"
+proxyBindAddr = "127.0.0.1"
+allowPorts = [{ start = 7001, end = 7010 }]
+`;
 function fmt(t, key, vars) {
   let s = t(key);
   if (vars) {
@@ -1495,6 +1648,11 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [updateInfo, setUpdateInfo] = (0, import_react2.useState)(null);
   const [isDesktop, setIsDesktop] = (0, import_react2.useState)(false);
   const [now, setNow] = (0, import_react2.useState)(Date.now());
+  const [frpForm, setFrpForm] = (0, import_react2.useState)(null);
+  const [frpSaved, setFrpSaved] = (0, import_react2.useState)(false);
+  const [frpCopied, setFrpCopied] = (0, import_react2.useState)(false);
+  const [frpBusy, setFrpBusy] = (0, import_react2.useState)(false);
+  const [frpError, setFrpError] = (0, import_react2.useState)(null);
   (0, import_react2.useEffect)(() => {
     const t2 = setInterval(() => setNow(Date.now()), 1e3);
     return () => clearInterval(t2);
@@ -1532,6 +1690,56 @@ function PocketSettingsTab({ rpcCall, t }) {
     const t2 = setInterval(load, 3e3);
     return () => clearInterval(t2);
   }, []);
+  (0, import_react2.useEffect)(() => {
+    if (frpForm === null && status?.frpConfig) {
+      setFrpForm({ ...status.frpConfig, token: "" });
+    }
+  }, [status, frpForm]);
+  const saveFrp = async () => {
+    setFrpBusy(true);
+    setFrpError(null);
+    try {
+      await call(POCKET_ENDPOINTS.frpConfigSet, {
+        serverAddr: frpForm.serverAddr,
+        serverPort: Number(frpForm.serverPort),
+        remotePort: Number(frpForm.remotePort),
+        tls: frpForm.tls === true,
+        token: String(frpForm.token ?? "").trim() || void 0
+      });
+      setFrpSaved(true);
+      setTimeout(() => setFrpSaved(false), 2500);
+      await load();
+    } catch (err) {
+      setFrpError(err.message);
+    } finally {
+      setFrpBusy(false);
+    }
+  };
+  const startFrp = async () => {
+    setFrpBusy(true);
+    setFrpError(null);
+    try {
+      setStatus(await call(POCKET_ENDPOINTS.frpStart, {}));
+    } catch (err) {
+      setFrpError(err.message);
+    } finally {
+      setFrpBusy(false);
+    }
+  };
+  const stopFrp = async () => {
+    try {
+      setStatus(await call(POCKET_ENDPOINTS.frpStop, {}));
+    } catch {
+    }
+  };
+  const copyFrpCompose = async () => {
+    try {
+      await navigator.clipboard.writeText(FRP_COMPOSE_TEMPLATE);
+      setFrpCopied(true);
+      setTimeout(() => setFrpCopied(false), 3e3);
+    } catch {
+    }
+  };
   (0, import_react2.useEffect)(() => {
     try {
       sessionStorage.removeItem("dshp-auto-reloaded");
@@ -1688,6 +1896,16 @@ function PocketSettingsTab({ rpcCall, t }) {
   const tunnelStarting = ["downloading", "starting", "registering"].includes(tunnelPhase);
   const tunnelStateDetail = tunnelState?.detail ?? "";
   const tunnelStateStarted = tunnelState?.startedAt ?? null;
+  const frpPhase = status?.frpState?.phase ?? "idle";
+  const frpDetail = status?.frpState?.detail ?? "";
+  const frpStarted = status?.frpState?.startedAt ?? null;
+  const frpStatusText = () => {
+    if (frpPhase === "downloading") return fmt(t, "frpStateDownloading", { s: elapsed(frpStarted) });
+    if (frpPhase === "starting" || frpPhase === "connecting") return fmt(t, "frpStateConnecting", { s: elapsed(frpStarted) });
+    if (frpPhase === "ready") return t("frpStateReady");
+    if (frpPhase === "error") return fmt(t, "frpStateError", { detail: frpDetail || t("unknownError") });
+    return t("frpStateIdle");
+  };
   return (0, import_react2.createElement)(
     "div",
     { style: styles.card },
@@ -1834,6 +2052,96 @@ function PocketSettingsTab({ rpcCall, t }) {
         ) : null
       )
     ),
+    // NAS 反向隧道（frp）：自建入口，国内直连最快；手机访问 NAS 域名即达电脑
+    (0, import_react2.createElement)(
+      "div",
+      { style: styles.block },
+      (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 13 } }, t("frpTitle")),
+      (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 4 } }, t("frpHint")),
+      frpForm ? (0, import_react2.createElement)(
+        "div",
+        { style: { marginTop: 10, display: "grid", gap: 8 } },
+        (0, import_react2.createElement)(
+          "label",
+          { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+          t("frpServerAddr"),
+          (0, import_react2.createElement)("input", {
+            style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+            type: "text",
+            placeholder: t("frpServerAddrPlaceholder"),
+            value: frpForm.serverAddr,
+            onChange: (e) => setFrpForm((f) => ({ ...f, serverAddr: e.target.value }))
+          })
+        ),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { display: "flex", gap: 8 } },
+          (0, import_react2.createElement)(
+            "label",
+            { style: { flex: 1, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+            t("frpServerPort"),
+            (0, import_react2.createElement)("input", {
+              style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+              type: "number",
+              min: 1,
+              max: 65535,
+              value: frpForm.serverPort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, serverPort: e.target.value }))
+            })
+          ),
+          (0, import_react2.createElement)(
+            "label",
+            { style: { flex: 1, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+            t("frpRemotePort"),
+            (0, import_react2.createElement)("input", {
+              style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+              type: "number",
+              min: 1,
+              max: 65535,
+              value: frpForm.remotePort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, remotePort: e.target.value }))
+            })
+          )
+        ),
+        (0, import_react2.createElement)(
+          "label",
+          { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+          t("frpToken"),
+          (0, import_react2.createElement)("input", {
+            style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+            type: "password",
+            placeholder: status?.frpHasToken ? `\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022 (${t("frpSaved")})` : t("frpTokenPlaceholder"),
+            value: frpForm.token,
+            onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value }))
+          })
+        ),
+        (0, import_react2.createElement)(
+          "label",
+          { style: { display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)" } },
+          (0, import_react2.createElement)("input", { type: "checkbox", checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),
+          t("frpTls")
+        ),
+        (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: -2 } }, t("frpTlsHint")),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { display: "flex", gap: 8, alignItems: "center", marginTop: 2 } },
+          (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: saveFrp, disabled: frpBusy }, frpSaved ? t("frpSaved") : t("frpSave")),
+          status?.frpRunning ? (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: stopFrp }, t("frpStop")) : (0, import_react2.createElement)("button", {
+            style: { ...styles.primary, height: 30, padding: "0 12px", fontSize: 12 },
+            onClick: startFrp,
+            disabled: frpBusy || !status?.frpConfig?.serverAddr || !status?.frpHasToken
+          }, frpBusy ? t("frpStarting") : t("frpStart"))
+        ),
+        !status?.frpConfig?.serverAddr || !status?.frpHasToken ? (0, import_react2.createElement)("div", { style: { ...styles.warn, marginTop: 4 } }, t("frpConfigureFirst")) : null
+      ) : (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 8 } }, t("frpConfigureFirst")),
+      (0, import_react2.createElement)("div", { style: { marginTop: 8, fontSize: 12, lineHeight: 1.6 } }, frpStatusText()),
+      frpError ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 4 } }, `\u274C ${frpError}`) : null,
+      (0, import_react2.createElement)(
+        "div",
+        { style: { marginTop: 10 } },
+        (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: copyFrpCompose }, frpCopied ? t("frpCopied") : t("frpCopyCompose"))
+      )
+    ),
     error ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 8 } }, `\u274C ${error}`) : null,
     // 安全免责声明弹框（issue #31）：每次开启公网访问前确认
     disclaimerOpen ? (0, import_react2.createElement)(
@@ -1875,22 +2183,141 @@ function PocketSettingsTab({ rpcCall, t }) {
     )
   );
 }
+function PocketEntryButton({ rpcCall, t }) {
+  const [open, setOpen] = (0, import_react2.useState)(false);
+  const [narrow, setNarrow] = (0, import_react2.useState)(() => window.matchMedia("(max-width: 1023px)").matches);
+  (0, import_react2.useEffect)(() => {
+    const q = window.matchMedia("(max-width: 1023px)");
+    const on = (e) => setNarrow(e.matches);
+    q.addEventListener("change", on);
+    return () => q.removeEventListener("change", on);
+  }, []);
+  (0, import_react2.useEffect)(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey, true);
+    return () => document.removeEventListener("keydown", onKey, true);
+  }, [open]);
+  if (narrow) return null;
+  return (0, import_react2.createElement)(
+    import_react2.Fragment,
+    null,
+    (0, import_react2.createElement)(
+      "button",
+      {
+        type: "button",
+        "data-dsh-pocket-entry": "",
+        onClick: () => setOpen(true),
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          width: "100%",
+          boxSizing: "border-box",
+          padding: "8px 12px",
+          margin: "2px 0",
+          border: "none",
+          borderRadius: 10,
+          background: "transparent",
+          color: "var(--dsw-alias-label-primary, inherit)",
+          font: "inherit",
+          fontSize: 14,
+          lineHeight: "22px",
+          cursor: "pointer",
+          textAlign: "left"
+        }
+      },
+      (0, import_react2.createElement)("span", { style: { fontSize: 16, flex: "none", lineHeight: 1 } }, "\u{1F4F1}"),
+      (0, import_react2.createElement)("span", { style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, t("entryLabel"))
+    ),
+    open ? (0, import_react2.createElement)(
+      "div",
+      {
+        role: "dialog",
+        "aria-modal": "true",
+        "data-dsh-pocket-dialog": "",
+        style: {
+          position: "fixed",
+          inset: 0,
+          zIndex: 1e4,
+          background: "rgba(15,17,21,.55)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 20
+        },
+        onClick: (e) => {
+          if (e.target === e.currentTarget) setOpen(false);
+        }
+      },
+      (0, import_react2.createElement)(
+        "div",
+        { style: {
+          background: "var(--dsw-alias-bg-base, #fff)",
+          borderRadius: 14,
+          boxShadow: "0 18px 50px rgba(0,0,0,.25)",
+          width: "100%",
+          maxWidth: 560,
+          maxHeight: "min(88vh, 820px)",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden"
+        } },
+        (0, import_react2.createElement)(
+          "div",
+          { style: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "14px 18px",
+            borderBottom: "1px solid var(--dsw-alias-border-l2, #e5e7eb)",
+            flex: "none"
+          } },
+          (0, import_react2.createElement)("strong", { style: { fontSize: 15, color: "var(--dsw-alias-label-primary, inherit)" } }, t("section")),
+          (0, import_react2.createElement)("button", {
+            type: "button",
+            "aria-label": t("closeDialog"),
+            onClick: () => setOpen(false),
+            style: {
+              width: 30,
+              height: 30,
+              borderRadius: "50%",
+              border: "none",
+              background: "var(--dsw-alias-interactive-bg-hover, rgba(0,0,0,.06))",
+              color: "var(--dsw-alias-label-primary, inherit)",
+              cursor: "pointer",
+              fontSize: 14,
+              lineHeight: 1
+            }
+          }, "\u2715")
+        ),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { padding: 18, overflowY: "auto" } },
+          (0, import_react2.createElement)(PocketSettingsTab, { rpcCall, t })
+        )
+      )
+    ) : null
+  );
+}
 function apply(ctx) {
   mobileApply(ctx);
   const rpcCall = (endpoint, payload, signal) => ctx.connection.rpc.call(POCKET_RPC_CHANNEL, endpoint, payload, signal);
   const translate = ctx.locale.bind(NS2);
   ctx.effect(() => ctx.locale.register(NS2, { zh: zh2, en: en2 }), "dsh-pocket: pocket locale dictionaries");
   ctx.slots.inject(
-    "settings.section",
+    "sidebar.footer.action",
     () => ctx.slots.register(
       {
-        name: "settings.section",
-        id: "pocket",
-        order: 1,
-        label: () => translate("section"),
+        name: "sidebar.footer.action",
+        id: "pocket-entry",
+        order: 0,
+        locale: NS2,
         inject: () => ({ rpcCall, t: translate })
       },
-      PocketSettingsTab
+      PocketEntryButton
     )
   );
 }

@@ -43,6 +43,7 @@ DSH Pocket 就是干这个的：**装上它，手机扫个码，就能实时看�
 |---|---|
 | 📶 局域网扫码 | 装好即用：设置 → 手机访问，打开就有局域网二维码，手机连同一 WiFi 扫码即开（自动识别本机局域网 IP，**WSL 环境自动取 Windows 物理网卡 IP**） |
 | 🌐 公网扫码（人在外面） | 点「开启公网访问」→ cloudflared 隧道 → 出公网二维码，4G/任何网络都能访问 |
+| 🏠 NAS 反向隧道（frp） | 自建入口：把 dsh 反向发布到自家 NAS（frp），手机访问 NAS 域名即达电脑——**URL 固定**、国内直连最快、不依赖第三方（NAS 端跑 frps + 反代容器，插件自动下载并托管 frpc） |
 | 🔐 访问密码 | 公网链接需输入 **8 位数字密码**（默认每次开启公网自动换新；**可自定义固定密码**——自定义后不再换新）；局域网有独立 **8 位数字密码**（默认开启，设置页可**一键关闭**——关闭后局域网扫码直连） |
 | 🔑 自定义密码 | 公网/局域网密码都可在设置页**设成自己固定的 8 位数字**（自定义后公网不再自动换新） |
 | 🧘 会话保持 | 手机输一次密码后**长期免输**（登录状态绑定电脑上的 dsh web 进程：只要它不重启，手机不用再输；**dsh web 重启/更新后需重新输入一次**） |
@@ -167,16 +168,18 @@ npx @deepseek-ai/dsh web
 | `lib/service.mjs` | 服务：代理生命周期（端口自适应）、公网隧道（自动恢复）、状态快照（含二维码） |
 | `lib/proxy.mjs` | 改头反向代理：Host/Origin → loopback，HTTP + WebSocket 透传 + polyfill 注入 + gzip/brotli 压缩 + 按 Host 区分的访问令牌认证（公网必验；局域网按开关） |
 | `lib/tunnel.mjs` | cloudflared：多镜像源下载（清华优先）/自适应多线程/启动/解析公网 URL（HTTP/2） |
-| `lib/web-rpc.js` | loopback RPC：`status` / `tunnel.start` / `tunnel.stop` / `version` / `update` / `restart` |
-| `client/` | 设置页「手机访问」+ 移动端适配（dsh-web-mobile 移植） |
+| `lib/frp-tunnel.mjs` | frp 反向隧道：自动下载/托管 frpc（多镜像）、渲染 frpc.toml、连接状态机——把代理反向发布到自家 NAS（固定域名、国内直连最快），NAS 端部署见 `deploy/nas/` |
+| `lib/web-rpc.js` | loopback RPC：`status` / `tunnel.start` / `tunnel.stop` / `frp.*` / `version` / `update` / `restart` |
+| `client/` | 设置页「手机访问」（含 NAS 反向隧道配置）+ 移动端适配（dsh-web-mobile 移植） |
 | `bin/dsh-pocket.mjs` | CLI：局域网/公网模式，打印 URL + 二维码 |
+| `deploy/nas/` | NAS 端一键部署：仅 frps 容器 + 说明文档（HTTPS 入口用 NAS 现有反代工具，如 lucky/系统自带反代；完整使用教程见 [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md)） |
 
 ## 🛠 开发
 
 ```sh
 npm install
 node client/build.mjs   # 改 client/ 后重新打包
-npm test                # 代理 / 认证 / 压缩 / 隧道 / 服务 / RPC（43 测试）
+npm test                # 代理 / 认证 / 压缩 / 隧道 / frp / 服务 / RPC（81 测试）
 ```
 
 ## 🤝 致谢

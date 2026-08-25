@@ -1,0 +1,37 @@
+# dsh-pocket NAS 端部署（仅 frps）
+#
+# 用途：把电脑上 dsh-pocket 代理（默认 3081）通过 frp 反向隧道发布到 NAS，
+#       手机访问 https://dsh.你的域名.com 即达电脑上的 dsh——URL 固定、
+#       国内直连最快、不依赖任何第三方。
+#
+# 反代入口（HTTPS 域名 → 127.0.0.1:7001）**不在此文件内**——由你 NAS 上
+# 现有的反代工具承担，任选其一即可：
+#   - lucky（推荐，自带反代 + Let's Encrypt/DNS 验证 + DDNS）
+#   - 群晖「控制面板 → 登录门户 → 高级 → 反向代理」/ 威联通自带反代
+#   - nginx / traefik / caddy 等任意反代
+# 配置一条规则：前端 https://dsh.你的域名.com → 后端 http://127.0.0.1:7001，
+# 并**务必开启该规则的 WebSocket 支持**（dsh 流式输出走 WebSocket）。
+#
+# 用法：
+#   1. 编辑 frps.toml：auth.token 改成 openssl rand -hex 16 生成的值，
+#      并填到电脑 dsh-pocket 设置页「NAS 反向隧道」的连接令牌里（必须一致）。
+#   2. docker compose up -d
+#      （或群晖 Container Manager → 项目 → 新建 → 选择本目录 → 启动）
+#   3. 在你的反代工具里配好上面的规则 + 证书。
+#   4. 防火墙放行：443/80（反代工具）与 7000（frps 控制端口）；SSH 不用开。
+#   5. 电脑 dsh-pocket 设置页 → 「NAS 反向隧道」→ 填 NAS 地址 + 令牌 →
+#      保存 → 开启隧道 → 状态「已连接」→ 手机访问 https://dsh.你的域名.com。
+#
+# 注意：frps 镜像版本必须与插件内置 frpc 版本一致（当前 0.71.0），
+#       升级 frp 大版本时两端同步更新。
+
+services:
+  frps:
+    image: snowdreamtech/frps:0.71.0-alpine
+    container_name: frps
+    restart: unless-stopped
+    # host 网络：frps 的转发端口 7001 绑定 127.0.0.1（见 frps.toml 的 proxyBindAddr），
+    # 只有 NAS 本机的反代能访问；7000 供电脑 frpc 连入。
+    network_mode: host
+    volumes:
+      - ./frps.toml:/etc/frp/frps.toml

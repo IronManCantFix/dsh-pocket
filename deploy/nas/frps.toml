@@ -1,0 +1,15 @@
+# frps 服务端配置（与 dsh-pocket 插件内置 frpc 版本 0.71.0 配套）
+# 修改 auth.token 后，需同步更新电脑 dsh-pocket 设置页「NAS 反向隧道」的连接令牌。
+
+bindPort = 7000
+auth.method = "token"
+auth.token = "换成 openssl rand -hex 16 生成的长随机串"
+
+# 转发端口只监听本机：公网无法绕过反代（lucky/系统自带反代等）直连 dsh 流量，只能走 HTTPS（安全）
+proxyBindAddr = "127.0.0.1"
+
+# 限制允许的远程端口范围（与设置页「转发端口」一致，默认 7001）
+allowPorts = [{ start = 7001, end = 7010 }]
+
+# 可选：强制 TLS 传输加密（需在设置页勾选「传输加密」并保持两端一致）
+# transport.tls.force = true

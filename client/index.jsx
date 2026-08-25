@@ -7,7 +7,7 @@
 // 注：Web Push 已移除——浏览器推送依赖 Google FCM（Chrome）等境外服务，
 // 国内直连被墙，普通用户用不了。专注扫码同屏这一件事。
 
-import { createElement as h, useEffect, useState } from 'react';
+import { createElement as h, Fragment, useEffect, useState } from 'react';
 
 import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS, redactStatus, compareVersions } from './api.js';
 import { mobileApply } from './mobile/mobile-apply.tsx';
@@ -15,6 +15,32 @@ import { NS as POCKET_NS, zh as POCKET_ZH, en as POCKET_EN } from './pocket-loca
 
 const name = 'dsh-pocket';
 const inject = ['slots', 'connection', 'layout', 'locale', 'sessionLogDownload'];
+
+// NAS 端 frp 部署模板（设置页一键复制；与 deploy/nas/ 同步维护）
+const FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS 端部署（仅 frps）
+# 用法：放到 NAS 的 docker 目录 → docker compose up -d
+# 步骤：
+#   1. frps.toml 的 token 改为 openssl rand -hex 16 生成的值（与设置页一致）
+#   2. 反代入口用你 NAS 上现有的工具（lucky / 群晖自带反向代理 / nginx 等）：
+#      新增规则「前端 https://dsh.你的域名.com → 后端 http://127.0.0.1:7001」，
+#      务必开启 WebSocket 支持，证书用 Let's Encrypt（80 被占时选 DNS 验证）
+#   3. 防火墙放行 443/80（反代工具）和 7000（frps 控制端口）；SSH 不需要开放
+# docker-compose.yml
+services:
+  frps:
+    image: snowdreamtech/frps:0.71.0-alpine
+    container_name: frps
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./frps.toml:/etc/frp/frps.toml
+# frps.toml
+bindPort = 7000
+auth.method = "token"
+auth.token = "换成你的长随机串"
+proxyBindAddr = "127.0.0.1"
+allowPorts = [{ start = 7001, end = 7010 }]
+`;
 
 // 词典在 pocket-locales.js；这里只做「取 key → 替换 {占位符} → 字符串」。
 // 不依赖 DSH t() 的插值能力，避免行为不一致。
@@ -53,6 +79,12 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [updateInfo, setUpdateInfo] = useState(null); // { current, latest, updating, result, startedAt } | null
   const [isDesktop, setIsDesktop] = useState(false); // DSH Desktop（Electron）环境：更新/重启由桌面版管理
   const [now, setNow] = useState(Date.now()); // 每秒 tick，驱动倒计时
+  // NAS 反向隧道（frp）
+  const [frpForm, setFrpForm] = useState(null); // { serverAddr, serverPort, remotePort, tls, token }
+  const [frpSaved, setFrpSaved] = useState(false);
+  const [frpCopied, setFrpCopied] = useState(false);
+  const [frpBusy, setFrpBusy] = useState(false);
+  const [frpError, setFrpError] = useState(null);
 
   // 进行中操作的「已等待 X 秒」倒计时
   useEffect(() => {
@@ -91,6 +123,60 @@ function PocketSettingsTab({ rpcCall, t }) {
     const t = setInterval(load, 3000);
     return () => clearInterval(t);
   }, []);
+
+  // frp 表单初始化：status 首次带回 frpConfig 时填一次（token 不回传，留空）
+  useEffect(() => {
+    if (frpForm === null && status?.frpConfig) {
+      setFrpForm({ ...status.frpConfig, token: '' });
+    }
+  }, [status, frpForm]);
+
+  // frp：保存配置（token 留空表示不修改）
+  const saveFrp = async () => {
+    setFrpBusy(true);
+    setFrpError(null);
+    try {
+      await call(POCKET_ENDPOINTS.frpConfigSet, {
+        serverAddr: frpForm.serverAddr,
+        serverPort: Number(frpForm.serverPort),
+        remotePort: Number(frpForm.remotePort),
+        tls: frpForm.tls === true,
+        token: String(frpForm.token ?? '').trim() || undefined,
+      });
+      setFrpSaved(true);
+      setTimeout(() => setFrpSaved(false), 2500);
+      await load(); // 刷新 status（frpConfig / frpHasToken）
+    } catch (err) {
+      setFrpError(err.message);
+    } finally {
+      setFrpBusy(false);
+    }
+  };
+
+  // frp：开启 / 关闭隧道
+  const startFrp = async () => {
+    setFrpBusy(true);
+    setFrpError(null);
+    try {
+      setStatus(await call(POCKET_ENDPOINTS.frpStart, {}));
+    } catch (err) {
+      setFrpError(err.message);
+    } finally {
+      setFrpBusy(false);
+    }
+  };
+  const stopFrp = async () => {
+    try { setStatus(await call(POCKET_ENDPOINTS.frpStop, {})); } catch { /* 忽略 */ }
+  };
+
+  // frp：复制 NAS 部署模板
+  const copyFrpCompose = async () => {
+    try {
+      await navigator.clipboard.writeText(FRP_COMPOSE_TEMPLATE);
+      setFrpCopied(true);
+      setTimeout(() => setFrpCopied(false), 3000);
+    } catch { /* 剪贴板不可用则静默 */ }
+  };
 
   // 每次页面加载清掉自动刷新标记——这样下次重启（更新后）才能再次触发自动刷新
   useEffect(() => {
@@ -265,6 +351,18 @@ function PocketSettingsTab({ rpcCall, t }) {
   const tunnelStateDetail = tunnelState?.detail ?? '';
   const tunnelStateStarted = tunnelState?.startedAt ?? null;
 
+  // frp 状态文案
+  const frpPhase = status?.frpState?.phase ?? 'idle';
+  const frpDetail = status?.frpState?.detail ?? '';
+  const frpStarted = status?.frpState?.startedAt ?? null;
+  const frpStatusText = () => {
+    if (frpPhase === 'downloading') return fmt(t, 'frpStateDownloading', { s: elapsed(frpStarted) });
+    if (frpPhase === 'starting' || frpPhase === 'connecting') return fmt(t, 'frpStateConnecting', { s: elapsed(frpStarted) });
+    if (frpPhase === 'ready') return t('frpStateReady');
+    if (frpPhase === 'error') return fmt(t, 'frpStateError', { detail: frpDetail || t('unknownError') });
+    return t('frpStateIdle');
+  };
+
   return h('div', { style: styles.card },
     h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } },
       h('div', null,
@@ -397,6 +495,77 @@ function PocketSettingsTab({ rpcCall, t }) {
         ),
     ),
 
+    // NAS 反向隧道（frp）：自建入口，国内直连最快；手机访问 NAS 域名即达电脑
+    h('div', { style: styles.block },
+      h('div', { style: { fontWeight: 600, fontSize: 13 } }, t('frpTitle')),
+      h('div', { style: { ...styles.muted, marginTop: 4 } }, t('frpHint')),
+      frpForm ? h('div', { style: { marginTop: 10, display: 'grid', gap: 8 } },
+        h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+          t('frpServerAddr'),
+          h('input', {
+            style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+            type: 'text',
+            placeholder: t('frpServerAddrPlaceholder'),
+            value: frpForm.serverAddr,
+            onChange: (e) => setFrpForm((f) => ({ ...f, serverAddr: e.target.value })),
+          }),
+        ),
+        h('div', { style: { display: 'flex', gap: 8 } },
+          h('label', { style: { flex: 1, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+            t('frpServerPort'),
+            h('input', {
+              style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+              type: 'number', min: 1, max: 65535,
+              value: frpForm.serverPort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, serverPort: e.target.value })),
+            }),
+          ),
+          h('label', { style: { flex: 1, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+            t('frpRemotePort'),
+            h('input', {
+              style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+              type: 'number', min: 1, max: 65535,
+              value: frpForm.remotePort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, remotePort: e.target.value })),
+            }),
+          ),
+        ),
+        h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+          t('frpToken'),
+          h('input', {
+            style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+            type: 'password',
+            placeholder: status?.frpHasToken ? `•••••••• (${t('frpSaved')})` : t('frpTokenPlaceholder'),
+            value: frpForm.token,
+            onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value })),
+          }),
+        ),
+        h('label', { style: { display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
+          h('input', { type: 'checkbox', checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),
+          t('frpTls'),
+        ),
+        h('div', { style: { ...styles.muted, marginTop: -2 } }, t('frpTlsHint')),
+        h('div', { style: { display: 'flex', gap: 8, alignItems: 'center', marginTop: 2 } },
+          h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: saveFrp, disabled: frpBusy }, frpSaved ? t('frpSaved') : t('frpSave')),
+          status?.frpRunning
+            ? h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: stopFrp }, t('frpStop'))
+            : h('button', {
+              style: { ...styles.primary, height: 30, padding: '0 12px', fontSize: 12 },
+              onClick: startFrp,
+              disabled: frpBusy || !status?.frpConfig?.serverAddr || !status?.frpHasToken,
+            }, frpBusy ? t('frpStarting') : t('frpStart')),
+        ),
+        (!status?.frpConfig?.serverAddr || !status?.frpHasToken)
+          ? h('div', { style: { ...styles.warn, marginTop: 4 } }, t('frpConfigureFirst'))
+          : null,
+      ) : h('div', { style: { ...styles.muted, marginTop: 8 } }, t('frpConfigureFirst')),
+      h('div', { style: { marginTop: 8, fontSize: 12, lineHeight: 1.6 } }, frpStatusText()),
+      frpError ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 4 } }, `❌ ${frpError}`) : null,
+      h('div', { style: { marginTop: 10 } },
+        h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: copyFrpCompose }, frpCopied ? t('frpCopied') : t('frpCopyCompose')),
+      ),
+    ),
+
     error ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 8 } }, `❌ ${error}`) : null,
 
     // 安全免责声明弹框（issue #31）：每次开启公网访问前确认
@@ -428,6 +597,92 @@ function PocketSettingsTab({ rpcCall, t }) {
   );
 }
 
+// 侧边栏「手机访问」入口（仅桌面端）：注册在 sidebar.footer.action 槽位——
+// dsh 侧边栏的渲染顺序是 footer.action（上）→ settings（设置按钮，下），
+// 所以入口天然位于设置按钮上方。点击直接渲染完整配置页（自包含对话框，
+// 不依赖 dsh 设置面板的内部状态：官方无 API 可从外部打开设置面板并定位
+// 到指定 section，因此这里自渲染，同时从设置面板移除原 settings.section 入口）。
+function PocketEntryButton({ rpcCall, t }) {
+  const [open, setOpen] = useState(false);
+  const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 1023px)').matches);
+  useEffect(() => {
+    const q = window.matchMedia('(max-width: 1023px)');
+    const on = (e) => setNarrow(e.matches);
+    q.addEventListener('change', on);
+    return () => q.removeEventListener('change', on);
+  }, []);
+  // Esc 关闭对话框
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onKey, true);
+    return () => document.removeEventListener('keydown', onKey, true);
+  }, [open]);
+  if (narrow) return null; // 仅桌面端显示入口
+
+  return h(Fragment, null,
+    h('button', {
+      type: 'button',
+      'data-dsh-pocket-entry': '',
+      onClick: () => setOpen(true),
+      style: {
+        display: 'flex', alignItems: 'center', gap: 8,
+        width: '100%', boxSizing: 'border-box',
+        padding: '8px 12px', margin: '2px 0',
+        border: 'none', borderRadius: 10, background: 'transparent',
+        color: 'var(--dsw-alias-label-primary, inherit)',
+        font: 'inherit', fontSize: 14, lineHeight: '22px',
+        cursor: 'pointer', textAlign: 'left',
+      },
+    },
+      h('span', { style: { fontSize: 16, flex: 'none', lineHeight: 1 } }, '📱'),
+      h('span', { style: { whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, t('entryLabel')),
+    ),
+    open ? h('div', {
+      role: 'dialog',
+      'aria-modal': 'true',
+      'data-dsh-pocket-dialog': '',
+      style: {
+        position: 'fixed', inset: 0, zIndex: 10000,
+        background: 'rgba(15,17,21,.55)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 20,
+      },
+      onClick: (e) => { if (e.target === e.currentTarget) setOpen(false); },
+    },
+      h('div', { style: {
+        background: 'var(--dsw-alias-bg-base, #fff)',
+        borderRadius: 14, boxShadow: '0 18px 50px rgba(0,0,0,.25)',
+        width: '100%', maxWidth: 560, maxHeight: 'min(88vh, 820px)',
+        display: 'flex', flexDirection: 'column', overflow: 'hidden',
+      } },
+        h('div', { style: {
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '14px 18px',
+          borderBottom: '1px solid var(--dsw-alias-border-l2, #e5e7eb)',
+          flex: 'none',
+        } },
+          h('strong', { style: { fontSize: 15, color: 'var(--dsw-alias-label-primary, inherit)' } }, t('section')),
+          h('button', {
+            type: 'button',
+            'aria-label': t('closeDialog'),
+            onClick: () => setOpen(false),
+            style: {
+              width: 30, height: 30, borderRadius: '50%', border: 'none',
+              background: 'var(--dsw-alias-interactive-bg-hover, rgba(0,0,0,.06))',
+              color: 'var(--dsw-alias-label-primary, inherit)',
+              cursor: 'pointer', fontSize: 14, lineHeight: 1,
+            },
+          }, '✕'),
+        ),
+        h('div', { style: { padding: 18, overflowY: 'auto' } },
+          h(PocketSettingsTab, { rpcCall, t }),
+        ),
+      ),
+    ) : null,
+  );
+}
+
 export function apply(ctx) {
   // 移动端适配（dsh-web-mobile 移植）：抽屉布局/触控/安全区，仅窄屏生效
   mobileApply(ctx);
@@ -439,17 +694,18 @@ export function apply(ctx) {
   const translate = ctx.locale.bind(POCKET_NS);
   ctx.effect(() => ctx.locale.register(POCKET_NS, { zh: POCKET_ZH, en: POCKET_EN }), 'dsh-pocket: pocket locale dictionaries');
 
-  // 设置一级入口（与 通用设置/模型/插件 同级，order 1 = 通用之后、最外层）
-  ctx.slots.inject('settings.section', () =>
+  // 侧边栏「手机访问」入口（仅桌面端，位于设置按钮上方）；配置页自渲染对话框。
+  // 注意：不再注册 settings.section——设置面板里不再出现「手机访问」tab。
+  ctx.slots.inject('sidebar.footer.action', () =>
     ctx.slots.register(
       {
-        name: 'settings.section',
-        id: 'pocket',
-        order: 1,
-        label: () => translate('section'),
+        name: 'sidebar.footer.action',
+        id: 'pocket-entry',
+        order: 0,
+        locale: POCKET_NS,
         inject: () => ({ rpcCall, t: translate }),
       },
-      PocketSettingsTab,
+      PocketEntryButton,
     ),
   );
 }

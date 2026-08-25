@@ -41,6 +41,20 @@ export const MOBILE_CSS = `
   outline: 2px solid var(--dsw-alias-state-business-primary, #4f6ef7);
   outline-offset: 1px;
 }
+/* Expand the touch target to ~44px without changing the visual size:
+   a transparent ::before grows the hit area (layout principle: touch
+   targets ≥44px even when the visible control is smaller). */
+[data-mobile-nav="toggle"],
+[data-mobile-nav="files"] {
+  position: relative;
+}
+[data-mobile-nav="toggle"]::before,
+[data-mobile-nav="files"]::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+}
 
 /* Drawer footer actions: the relocated Session log download plus the Files
    action that opens the dsh-web-ui explorer sheet. */
@@ -61,8 +75,8 @@ export const MOBILE_CSS = `
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 34px;
-  padding: 0 12px;
+  min-height: 40px;
+  padding: 0 14px;
   border: 1px solid var(--dsw-alias-border-l1, rgba(0, 0, 0, .12));
   border-radius: 12px;
   background: transparent;
@@ -83,12 +97,14 @@ export const MOBILE_CSS = `
 }
 
 /* Floating fallback button (hero / blank phases without a session header).
-   The top clears the camera band below the status bar; when the client has
-   set viewport-fit=cover the safe-area inset moves it below the notch too. */
+   Bottom-right: the thumb zone on portrait phones; the 96px bottom offset
+   keeps it above the composer card (plus the home-indicator safe area). */
 [data-mobile-nav="fab"] {
   position: absolute;
-  top: calc(env(safe-area-inset-top, 0px) + 72px);
-  left: 10px;
+  top: auto;
+  right: 12px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+  left: auto;
   z-index: 21;
   display: inline-flex;
   align-items: center;
@@ -322,6 +338,30 @@ export const MOBILE_CSS = `
   [data-phase] [class*="_card"]:has(textarea) > :last-child > :last-child {
     flex: 1 1 auto !important;
     min-width: 0 !important;
+  }
+
+  /* --- Bottom safe area (home indicator) ---
+     The official layout pads for the status bar on top but not for the
+     home indicator at the bottom. When the browser chrome hides (PWA /
+     fullscreen) the composer sits under the gesture bar. Keep the composer
+     stack clear of it. */
+  [data-phase] [class$="_composerStack"] {
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+
+  /* --- Long agent output on a phone ---
+     Code blocks and tables overflow the 20px message gutters; let them
+     scroll horizontally on touch instead of breaking the column. pre is a
+     semantic element (not a hashed class), stable across dsh upgrades. */
+  [data-phase] pre {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Inline images / file cards must never blow out the column width. */
+  [data-phase] img {
+    max-width: 100%;
+    height: auto;
   }
 
   /* --- Session header on mobile ---
@@ -840,6 +880,30 @@ export const MOBILE_CSS = `
   }
   [data-phase="hero"] [class$="_stack"] {
     gap: 0 !important;
+  }
+
+  /* ---------- landscape / very narrow screens ---------- */
+  /* Landscape phones: the notches sit on the left/right edges. Push the
+     frame content (and the composer) clear of them; the drawer is
+     absolutely positioned and keeps its own background, so it may still
+     span the full frame. */
+  @media (orientation: landscape) {
+    [data-mobile-nav="frame"] {
+      padding-left: env(safe-area-inset-left, 0px) !important;
+      padding-right: env(safe-area-inset-right, 0px) !important;
+    }
+    [data-phase] [class$="_composerStack"] {
+      padding-left: env(safe-area-inset-left, 0px) !important;
+      padding-right: env(safe-area-inset-right, 0px) !important;
+    }
+  }
+
+  /* 320px-class screens: the settings nav tabs (3 columns) squeeze the
+     labels; drop to 2 columns so every tab stays legible. */
+  @media (max-width: 359px) {
+    [aria-modal="true"]:has(> :first-child > :last-child > button):not(:has([role="navigation"])) > :first-child > :last-child {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
   }
 }
 
