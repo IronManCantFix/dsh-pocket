@@ -43,6 +43,7 @@ What it looks like — the phone shows the exact same UI as your computer, live:
 |---|---|
 | 📶 LAN QR access | Works out of the box: Settings → Phone access — scan the LAN QR on the same Wi-Fi (auto-detects the LAN IP; **under WSL it picks the Windows host's physical NIC IP**) |
 | 🌐 Public QR (from anywhere) | Click "Enable anywhere" → cloudflared tunnel → scan the public QR over 4G / any network |
+| 🏠 NAS reverse tunnel (frp) | Self-hosted entry: publish dsh to your own NAS via frp, the phone opens the NAS domain to reach the machine — **fixed URL**, fastest direct route in CN, no third-party dependency (run frps + a reverse proxy on the NAS; the plugin auto-downloads and hosts frpc) |
 | 🔐 Access PIN | Public links require an **8-digit PIN** (rotated on every tunnel start by default; **customizable to a fixed PIN** — custom PINs are not rotated); LAN has its own separate **8-digit PIN** (on by default; switchable off in Settings — then LAN scans connect directly) |
 | 🔑 Custom PINs | Both the public and LAN PINs can be **set to your own fixed 8-digit number** in Settings (custom PINs are never auto-rotated) |
 | 🧘 Session persistence | Enter the PIN once and you're set for a long time (login is tied to the computer's dsh web process: as long as it stays up, the phone won't ask again; **after a dsh web restart/update, enter it once more**) |
@@ -166,16 +167,18 @@ Such tools take over all traffic and often cut cloudflared's tunnel-edge connect
 | `lib/service.mjs` | Service: proxy lifecycle (port auto-fallback), public tunnel (auto-restore), status snapshot (with QR data URLs) |
 | `lib/proxy.mjs` | Header-rewriting reverse proxy: Host/Origin → loopback, HTTP + WebSocket passthrough + polyfill injection + gzip/brotli compression + per-host token auth (public always; LAN per switch) |
 | `lib/tunnel.mjs` | cloudflared: multi-mirror download (Tsinghua first) / adaptive parallel / start / parse public URL (HTTP/2) |
-| `lib/web-rpc.js` | Loopback RPC: `status` / `tunnel.start` / `tunnel.stop` / `version` / `update` / `restart` |
-| `client/` | "Phone access" settings tab + mobile adaptation (dsh-web-mobile port) |
+| `lib/frp-tunnel.mjs` | frp reverse tunnel: auto-download/host frpc (multi-mirror), render frpc.toml, connection state machine — publishes the proxy to your own NAS (fixed URL, fastest direct route in CN); NAS deployment in `deploy/nas/` |
+| `lib/web-rpc.js` | Loopback RPC: `status` / `tunnel.start` / `tunnel.stop` / `frp.*` / `version` / `update` / `restart` |
+| `client/` | "Phone access" settings tab (incl. NAS reverse-tunnel config) + mobile adaptation (dsh-web-mobile port) |
 | `bin/dsh-pocket.mjs` | CLI: LAN/public modes, prints URL + QR |
+| `deploy/nas/` | One-shot NAS deployment: frps + caddy docker-compose (domain + HTTPS entry) + docs |
 
 ## 🛠 Development
 
 ```sh
 npm install
 node client/build.mjs   # rebuild after editing client/
-npm test                # proxy / auth / compression / tunnel / service / RPC (43 tests)
+npm test                # proxy / auth / compression / tunnel / frp / service / RPC (81 tests)
 ```
 
 ## 🤝 Credits

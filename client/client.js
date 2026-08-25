@@ -51,7 +51,11 @@ var POCKET_ENDPOINTS = Object.freeze({
   lanTokenRefresh: "token.lanRefresh",
   lanAuthSetEnabled: "lanAuth.setEnabled",
   lanSetOverride: "lan.setOverride",
-  pinSetCustom: "pin.setCustom"
+  pinSetCustom: "pin.setCustom",
+  frpConfigGet: "frp.configGet",
+  frpConfigSet: "frp.configSet",
+  frpStart: "frp.start",
+  frpStop: "frp.stop"
 });
 function compareVersions(a, b) {
   const pa = String(a).replace(/^[vV]/, "").split(".");
@@ -94,6 +98,11 @@ function redactStatus(s) {
     tunnelUrl: s?.tunnelUrl ?? null,
     tunnelQr: s?.tunnelQr ?? null,
     tunnelState: s?.tunnelState ?? { phase: "idle" },
+    // NAS 反向隧道（frp）：token 永不进入浏览器
+    frpRunning: s?.frpRunning === true,
+    frpState: s?.frpState ?? { phase: "idle" },
+    frpConfig: s?.frpConfig ?? null,
+    frpHasToken: s?.frpHasToken === true,
     dshPort: s?.dshPort ?? null
   };
 }
@@ -1397,6 +1406,32 @@ var zh2 = {
   "slowHint": " \u2014 \u6709\u70B9\u4E45\uFF1F\u68C0\u67E5\u662F\u5426\u5F00\u7740\u4EE3\u7406/VPN\uFF08Clash TUN \u7B49\uFF09",
   "error": "\u274C \u5F00\u542F\u5931\u8D25\uFF1A{detail}\uFF08\u53EF\u91CD\u8BD5\uFF1B\u82E5\u662F\u4EE3\u7406/VPN \u95EE\u9898\u89C1 README \u6392\u969C\uFF09",
   "unknownError": "\u672A\u77E5\u9519\u8BEF",
+  // NAS 反向隧道（frp）
+  "frpTitle": "\u{1F3E0} NAS \u53CD\u5411\u96A7\u9053\uFF08\u81EA\u5EFA\uFF0C\u56FD\u5185\u66F4\u5FEB\uFF09",
+  "frpHint": "\u628A\u672C\u673A\u4EE3\u7406\u53CD\u5411\u53D1\u5E03\u5230\u81EA\u5BB6 NAS\uFF08frp\uFF09\uFF1A\u624B\u673A\u8BBF\u95EE NAS \u57DF\u540D\u5373\u8FBE\u7535\u8111\uFF0CURL \u56FA\u5B9A\u3001\u56FD\u5185\u76F4\u8FDE\u6700\u5FEB\uFF1BNAS \u7AEF\u9700\u5148\u90E8\u7F72 frps + \u53CD\u5411\u4EE3\u7406\uFF08\u89C1\u300C\u590D\u5236\u90E8\u7F72\u6A21\u677F\u300D\uFF09",
+  "frpServerAddr": "NAS \u5730\u5740",
+  "frpServerAddrPlaceholder": "\u57DF\u540D\u6216 IP\uFF0C\u5982 nas.example.com",
+  "frpServerPort": "\u670D\u52A1\u7AEF\u53E3",
+  "frpRemotePort": "\u8F6C\u53D1\u7AEF\u53E3",
+  "frpToken": "\u8FDE\u63A5\u4EE4\u724C",
+  "frpTokenPlaceholder": "\u4E0E frps.toml \u7684 token \u4E00\u81F4\uFF08\u81F3\u5C11 8 \u4F4D\uFF09",
+  "frpTls": "\u4F20\u8F93\u52A0\u5BC6\uFF08TLS\uFF09",
+  "frpTlsHint": "\u9700 frps \u7AEF\u540C\u6B65\u5F00\u542F transport.tls.force\uFF0C\u5426\u5219\u8FDE\u4E0D\u4E0A",
+  "frpSave": "\u4FDD\u5B58\u914D\u7F6E",
+  "frpSaved": "\u2705 \u5DF2\u4FDD\u5B58",
+  "frpStart": "\u5F00\u542F\u96A7\u9053",
+  "frpStop": "\u5173\u95ED\u96A7\u9053",
+  "frpStarting": "\u5F00\u542F\u4E2D\u2026",
+  "frpConfigureFirst": "\u5148\u586B\u5199 NAS \u5730\u5740\u4E0E\u8FDE\u63A5\u4EE4\u724C\u5E76\u4FDD\u5B58",
+  "frpStateIdle": "\u672A\u5F00\u542F",
+  "frpStateDownloading": "\u23F3 \u4E0B\u8F7D frpc\uFF08\u9996\u6B21\u7EA6 10MB\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
+  "frpStateConnecting": "\u23F3 \u8FDE\u63A5 NAS frps\uFF08\u901A\u5E38\u6570\u79D2\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
+  "frpStateReady": "\u2705 \u96A7\u9053\u5C31\u7EEA \xB7 \u624B\u673A\u8BBF\u95EE https://\u4F60\u7684NAS\u57DF\u540D\uFF08\u8F93\u5165\u4E0A\u9762\u7684\u5C40\u57DF\u7F51\u5BC6\u7801\uFF09",
+  "frpStateError": "\u274C {detail}",
+  "frpCopyCompose": "\u{1F4CB} \u590D\u5236 NAS \u90E8\u7F72\u6A21\u677F\uFF08docker-compose\uFF09",
+  "frpCopied": "\u2705 \u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\uFF08frps + caddy\uFF1B\u653E\u884C 443/80/7000 \u7AEF\u53E3\uFF0C\u89E3\u6790\u57DF\u540D\u5230 NAS\uFF09",
+  "frpLog": "\u67E5\u770B\u65E5\u5FD7",
+  "frpNoToken": "\u672A\u8BBE\u7F6E\u4EE4\u724C",
   "feedback": "\u6709\u95EE\u9898\uFF1F\u6B22\u8FCE\u5230 GitHub Issues \u53CD\u9988 \u{1F64F}"
 };
 var en2 = {
@@ -1459,12 +1494,77 @@ var en2 = {
   "slowHint": " \u2014 taking long? Check for a proxy/VPN (e.g., Clash TUN)",
   "error": "\u274C Failed to enable: {detail} (you can retry; for proxy/VPN issues see the README)",
   "unknownError": "unknown error",
+  // NAS reverse tunnel (frp)
+  "frpTitle": "\u{1F3E0} NAS reverse tunnel (self-hosted, faster in CN)",
+  "frpHint": 'Publishes this machine\u2019s proxy to your own NAS via frp: the phone opens the NAS domain to reach the Mac \u2014 fixed URL, direct route, no third-party edge. Deploy frps + a reverse proxy on the NAS first (see "copy deploy template")',
+  "frpServerAddr": "NAS address",
+  "frpServerAddrPlaceholder": "hostname or IP, e.g. nas.example.com",
+  "frpServerPort": "Server port",
+  "frpRemotePort": "Forward port",
+  "frpToken": "Connection token",
+  "frpTokenPlaceholder": "same as frps.toml token (min 8 chars)",
+  "frpTls": "TLS transport",
+  "frpTlsHint": "requires transport.tls.force on the frps side, or the connection fails",
+  "frpSave": "Save config",
+  "frpSaved": "\u2705 Saved",
+  "frpStart": "Start tunnel",
+  "frpStop": "Stop tunnel",
+  "frpStarting": "Starting\u2026",
+  "frpConfigureFirst": "Set the NAS address and token first, then save",
+  "frpStateIdle": "Not started",
+  "frpStateDownloading": "\u23F3 Downloading frpc (first run ~10MB) \xB7 {s}s elapsed",
+  "frpStateConnecting": "\u23F3 Connecting to NAS frps (usually seconds) \xB7 {s}s elapsed",
+  "frpStateReady": "\u2705 Tunnel ready \xB7 open https://your-NAS-domain on the phone (enter the LAN PIN above)",
+  "frpStateError": "\u274C {detail}",
+  "frpCopyCompose": "\u{1F4CB} Copy NAS deploy template (docker-compose)",
+  "frpCopied": "\u2705 Copied to clipboard (frps + caddy; open ports 443/80/7000 and point your domain at the NAS)",
+  "frpLog": "View log",
+  "frpNoToken": "No token set",
   "feedback": "\u{1F64F} Questions? Open an issue on GitHub"
 };
 
 // client/index.jsx
 var name = "dsh-pocket";
 var inject = ["slots", "connection", "layout", "locale", "sessionLogDownload"];
+var FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS \u7AEF\u90E8\u7F72\uFF08frps + caddy\uFF09
+# \u7528\u6CD5\uFF1A\u653E\u5230 NAS \u7684 docker \u76EE\u5F55 \u2192 docker compose up -d
+# \u6B65\u9AA4\uFF1A
+#   1. frps.toml \u7684 token \u6539\u4E3A openssl rand -hex 16 \u751F\u6210\u7684\u503C\uFF08\u4E0E\u8BBE\u7F6E\u9875\u4E00\u81F4\uFF09
+#   2. Caddyfile \u7684 dsh.\u4F60\u7684\u57DF\u540D.com \u6362\u6210\u4F60\u7684\u57DF\u540D\uFF08\u89E3\u6790\u5230 NAS \u516C\u7F51 IP\uFF09
+#   3. \u9632\u706B\u5899\u653E\u884C 443/80\uFF08caddy\uFF09\u548C 7000\uFF08frps \u63A7\u5236\u7AEF\u53E3\uFF09\uFF1BSSH \u4E0D\u9700\u8981\u5F00\u653E
+# docker-compose.yml
+services:
+  frps:
+    image: snowdreamtech/frps:0.71.0
+    container_name: frps
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./frps.toml:/etc/frp/frps.toml
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+volumes:
+  caddy_data:
+  caddy_config:
+# frps.toml
+bindPort = 7000
+auth.method = "token"
+auth.token = "\u6362\u6210\u4F60\u7684\u957F\u968F\u673A\u4E32"
+proxyBindAddr = "127.0.0.1"
+allowPorts = [{ start = 7001, end = 7010 }]
+# Caddyfile
+dsh.\u4F60\u7684\u57DF\u540D.com {
+    reverse_proxy 127.0.0.1:7001
+}
+`;
 function fmt(t, key, vars) {
   let s = t(key);
   if (vars) {
@@ -1495,6 +1595,11 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [updateInfo, setUpdateInfo] = (0, import_react2.useState)(null);
   const [isDesktop, setIsDesktop] = (0, import_react2.useState)(false);
   const [now, setNow] = (0, import_react2.useState)(Date.now());
+  const [frpForm, setFrpForm] = (0, import_react2.useState)(null);
+  const [frpSaved, setFrpSaved] = (0, import_react2.useState)(false);
+  const [frpCopied, setFrpCopied] = (0, import_react2.useState)(false);
+  const [frpBusy, setFrpBusy] = (0, import_react2.useState)(false);
+  const [frpError, setFrpError] = (0, import_react2.useState)(null);
   (0, import_react2.useEffect)(() => {
     const t2 = setInterval(() => setNow(Date.now()), 1e3);
     return () => clearInterval(t2);
@@ -1532,6 +1637,56 @@ function PocketSettingsTab({ rpcCall, t }) {
     const t2 = setInterval(load, 3e3);
     return () => clearInterval(t2);
   }, []);
+  (0, import_react2.useEffect)(() => {
+    if (frpForm === null && status?.frpConfig) {
+      setFrpForm({ ...status.frpConfig, token: "" });
+    }
+  }, [status, frpForm]);
+  const saveFrp = async () => {
+    setFrpBusy(true);
+    setFrpError(null);
+    try {
+      await call(POCKET_ENDPOINTS.frpConfigSet, {
+        serverAddr: frpForm.serverAddr,
+        serverPort: Number(frpForm.serverPort),
+        remotePort: Number(frpForm.remotePort),
+        tls: frpForm.tls === true,
+        token: String(frpForm.token ?? "").trim() || void 0
+      });
+      setFrpSaved(true);
+      setTimeout(() => setFrpSaved(false), 2500);
+      await load();
+    } catch (err) {
+      setFrpError(err.message);
+    } finally {
+      setFrpBusy(false);
+    }
+  };
+  const startFrp = async () => {
+    setFrpBusy(true);
+    setFrpError(null);
+    try {
+      setStatus(await call(POCKET_ENDPOINTS.frpStart, {}));
+    } catch (err) {
+      setFrpError(err.message);
+    } finally {
+      setFrpBusy(false);
+    }
+  };
+  const stopFrp = async () => {
+    try {
+      setStatus(await call(POCKET_ENDPOINTS.frpStop, {}));
+    } catch {
+    }
+  };
+  const copyFrpCompose = async () => {
+    try {
+      await navigator.clipboard.writeText(FRP_COMPOSE_TEMPLATE);
+      setFrpCopied(true);
+      setTimeout(() => setFrpCopied(false), 3e3);
+    } catch {
+    }
+  };
   (0, import_react2.useEffect)(() => {
     try {
       sessionStorage.removeItem("dshp-auto-reloaded");
@@ -1688,6 +1843,16 @@ function PocketSettingsTab({ rpcCall, t }) {
   const tunnelStarting = ["downloading", "starting", "registering"].includes(tunnelPhase);
   const tunnelStateDetail = tunnelState?.detail ?? "";
   const tunnelStateStarted = tunnelState?.startedAt ?? null;
+  const frpPhase = status?.frpState?.phase ?? "idle";
+  const frpDetail = status?.frpState?.detail ?? "";
+  const frpStarted = status?.frpState?.startedAt ?? null;
+  const frpStatusText = () => {
+    if (frpPhase === "downloading") return fmt(t, "frpStateDownloading", { s: elapsed(frpStarted) });
+    if (frpPhase === "starting" || frpPhase === "connecting") return fmt(t, "frpStateConnecting", { s: elapsed(frpStarted) });
+    if (frpPhase === "ready") return t("frpStateReady");
+    if (frpPhase === "error") return fmt(t, "frpStateError", { detail: frpDetail || t("unknownError") });
+    return t("frpStateIdle");
+  };
   return (0, import_react2.createElement)(
     "div",
     { style: styles.card },
@@ -1832,6 +1997,96 @@ function PocketSettingsTab({ rpcCall, t }) {
           { style: { marginTop: 4, fontSize: 12, color: "var(--dsw-alias-state-error-primary,#dc2626)" } },
           fmt(t, "error", { detail: tunnelStateDetail || t("unknownError") })
         ) : null
+      )
+    ),
+    // NAS 反向隧道（frp）：自建入口，国内直连最快；手机访问 NAS 域名即达电脑
+    (0, import_react2.createElement)(
+      "div",
+      { style: styles.block },
+      (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 13 } }, t("frpTitle")),
+      (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 4 } }, t("frpHint")),
+      frpForm ? (0, import_react2.createElement)(
+        "div",
+        { style: { marginTop: 10, display: "grid", gap: 8 } },
+        (0, import_react2.createElement)(
+          "label",
+          { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+          t("frpServerAddr"),
+          (0, import_react2.createElement)("input", {
+            style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+            type: "text",
+            placeholder: t("frpServerAddrPlaceholder"),
+            value: frpForm.serverAddr,
+            onChange: (e) => setFrpForm((f) => ({ ...f, serverAddr: e.target.value }))
+          })
+        ),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { display: "flex", gap: 8 } },
+          (0, import_react2.createElement)(
+            "label",
+            { style: { flex: 1, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+            t("frpServerPort"),
+            (0, import_react2.createElement)("input", {
+              style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+              type: "number",
+              min: 1,
+              max: 65535,
+              value: frpForm.serverPort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, serverPort: e.target.value }))
+            })
+          ),
+          (0, import_react2.createElement)(
+            "label",
+            { style: { flex: 1, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+            t("frpRemotePort"),
+            (0, import_react2.createElement)("input", {
+              style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+              type: "number",
+              min: 1,
+              max: 65535,
+              value: frpForm.remotePort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, remotePort: e.target.value }))
+            })
+          )
+        ),
+        (0, import_react2.createElement)(
+          "label",
+          { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+          t("frpToken"),
+          (0, import_react2.createElement)("input", {
+            style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+            type: "password",
+            placeholder: status?.frpHasToken ? `\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022 (${t("frpSaved")})` : t("frpTokenPlaceholder"),
+            value: frpForm.token,
+            onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value }))
+          })
+        ),
+        (0, import_react2.createElement)(
+          "label",
+          { style: { display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)" } },
+          (0, import_react2.createElement)("input", { type: "checkbox", checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),
+          t("frpTls")
+        ),
+        (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: -2 } }, t("frpTlsHint")),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { display: "flex", gap: 8, alignItems: "center", marginTop: 2 } },
+          (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: saveFrp, disabled: frpBusy }, frpSaved ? t("frpSaved") : t("frpSave")),
+          status?.frpRunning ? (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: stopFrp }, t("frpStop")) : (0, import_react2.createElement)("button", {
+            style: { ...styles.primary, height: 30, padding: "0 12px", fontSize: 12 },
+            onClick: startFrp,
+            disabled: frpBusy || !status?.frpConfig?.serverAddr || !status?.frpHasToken
+          }, frpBusy ? t("frpStarting") : t("frpStart"))
+        ),
+        !status?.frpConfig?.serverAddr || !status?.frpHasToken ? (0, import_react2.createElement)("div", { style: { ...styles.warn, marginTop: 4 } }, t("frpConfigureFirst")) : null
+      ) : (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 8 } }, t("frpConfigureFirst")),
+      (0, import_react2.createElement)("div", { style: { marginTop: 8, fontSize: 12, lineHeight: 1.6 } }, frpStatusText()),
+      frpError ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 4 } }, `\u274C ${frpError}`) : null,
+      (0, import_react2.createElement)(
+        "div",
+        { style: { marginTop: 10 } },
+        (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: copyFrpCompose }, frpCopied ? t("frpCopied") : t("frpCopyCompose"))
       )
     ),
     error ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 8 } }, `\u274C ${error}`) : null,

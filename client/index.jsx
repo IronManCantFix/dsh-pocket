@@ -16,6 +16,47 @@ import { NS as POCKET_NS, zh as POCKET_ZH, en as POCKET_EN } from './pocket-loca
 const name = 'dsh-pocket';
 const inject = ['slots', 'connection', 'layout', 'locale', 'sessionLogDownload'];
 
+// NAS 端 frp 部署模板（设置页一键复制；与 deploy/nas/ 同步维护）
+const FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS 端部署（frps + caddy）
+# 用法：放到 NAS 的 docker 目录 → docker compose up -d
+# 步骤：
+#   1. frps.toml 的 token 改为 openssl rand -hex 16 生成的值（与设置页一致）
+#   2. Caddyfile 的 dsh.你的域名.com 换成你的域名（解析到 NAS 公网 IP）
+#   3. 防火墙放行 443/80（caddy）和 7000（frps 控制端口）；SSH 不需要开放
+# docker-compose.yml
+services:
+  frps:
+    image: snowdreamtech/frps:0.71.0
+    container_name: frps
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./frps.toml:/etc/frp/frps.toml
+
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+volumes:
+  caddy_data:
+  caddy_config:
+# frps.toml
+bindPort = 7000
+auth.method = "token"
+auth.token = "换成你的长随机串"
+proxyBindAddr = "127.0.0.1"
+allowPorts = [{ start = 7001, end = 7010 }]
+# Caddyfile
+dsh.你的域名.com {
+    reverse_proxy 127.0.0.1:7001
+}
+`;
+
 // 词典在 pocket-locales.js；这里只做「取 key → 替换 {占位符} → 字符串」。
 // 不依赖 DSH t() 的插值能力，避免行为不一致。
 function fmt(t, key, vars) {
@@ -53,6 +94,12 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [updateInfo, setUpdateInfo] = useState(null); // { current, latest, updating, result, startedAt } | null
   const [isDesktop, setIsDesktop] = useState(false); // DSH Desktop（Electron）环境：更新/重启由桌面版管理
   const [now, setNow] = useState(Date.now()); // 每秒 tick，驱动倒计时
+  // NAS 反向隧道（frp）
+  const [frpForm, setFrpForm] = useState(null); // { serverAddr, serverPort, remotePort, tls, token }
+  const [frpSaved, setFrpSaved] = useState(false);
+  const [frpCopied, setFrpCopied] = useState(false);
+  const [frpBusy, setFrpBusy] = useState(false);
+  const [frpError, setFrpError] = useState(null);
 
   // 进行中操作的「已等待 X 秒」倒计时
   useEffect(() => {
@@ -91,6 +138,60 @@ function PocketSettingsTab({ rpcCall, t }) {
     const t = setInterval(load, 3000);
     return () => clearInterval(t);
   }, []);
+
+  // frp 表单初始化：status 首次带回 frpConfig 时填一次（token 不回传，留空）
+  useEffect(() => {
+    if (frpForm === null && status?.frpConfig) {
+      setFrpForm({ ...status.frpConfig, token: '' });
+    }
+  }, [status, frpForm]);
+
+  // frp：保存配置（token 留空表示不修改）
+  const saveFrp = async () => {
+    setFrpBusy(true);
+    setFrpError(null);
+    try {
+      await call(POCKET_ENDPOINTS.frpConfigSet, {
+        serverAddr: frpForm.serverAddr,
+        serverPort: Number(frpForm.serverPort),
+        remotePort: Number(frpForm.remotePort),
+        tls: frpForm.tls === true,
+        token: String(frpForm.token ?? '').trim() || undefined,
+      });
+      setFrpSaved(true);
+      setTimeout(() => setFrpSaved(false), 2500);
+      await load(); // 刷新 status（frpConfig / frpHasToken）
+    } catch (err) {
+      setFrpError(err.message);
+    } finally {
+      setFrpBusy(false);
+    }
+  };
+
+  // frp：开启 / 关闭隧道
+  const startFrp = async () => {
+    setFrpBusy(true);
+    setFrpError(null);
+    try {
+      setStatus(await call(POCKET_ENDPOINTS.frpStart, {}));
+    } catch (err) {
+      setFrpError(err.message);
+    } finally {
+      setFrpBusy(false);
+    }
+  };
+  const stopFrp = async () => {
+    try { setStatus(await call(POCKET_ENDPOINTS.frpStop, {})); } catch { /* 忽略 */ }
+  };
+
+  // frp：复制 NAS 部署模板
+  const copyFrpCompose = async () => {
+    try {
+      await navigator.clipboard.writeText(FRP_COMPOSE_TEMPLATE);
+      setFrpCopied(true);
+      setTimeout(() => setFrpCopied(false), 3000);
+    } catch { /* 剪贴板不可用则静默 */ }
+  };
 
   // 每次页面加载清掉自动刷新标记——这样下次重启（更新后）才能再次触发自动刷新
   useEffect(() => {
@@ -265,6 +366,18 @@ function PocketSettingsTab({ rpcCall, t }) {
   const tunnelStateDetail = tunnelState?.detail ?? '';
   const tunnelStateStarted = tunnelState?.startedAt ?? null;
 
+  // frp 状态文案
+  const frpPhase = status?.frpState?.phase ?? 'idle';
+  const frpDetail = status?.frpState?.detail ?? '';
+  const frpStarted = status?.frpState?.startedAt ?? null;
+  const frpStatusText = () => {
+    if (frpPhase === 'downloading') return fmt(t, 'frpStateDownloading', { s: elapsed(frpStarted) });
+    if (frpPhase === 'starting' || frpPhase === 'connecting') return fmt(t, 'frpStateConnecting', { s: elapsed(frpStarted) });
+    if (frpPhase === 'ready') return t('frpStateReady');
+    if (frpPhase === 'error') return fmt(t, 'frpStateError', { detail: frpDetail || t('unknownError') });
+    return t('frpStateIdle');
+  };
+
   return h('div', { style: styles.card },
     h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } },
       h('div', null,
@@ -395,6 +508,77 @@ function PocketSettingsTab({ rpcCall, t }) {
                 fmt(t, 'error', { detail: tunnelStateDetail || t('unknownError') }))
               : null,
         ),
+    ),
+
+    // NAS 反向隧道（frp）：自建入口，国内直连最快；手机访问 NAS 域名即达电脑
+    h('div', { style: styles.block },
+      h('div', { style: { fontWeight: 600, fontSize: 13 } }, t('frpTitle')),
+      h('div', { style: { ...styles.muted, marginTop: 4 } }, t('frpHint')),
+      frpForm ? h('div', { style: { marginTop: 10, display: 'grid', gap: 8 } },
+        h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+          t('frpServerAddr'),
+          h('input', {
+            style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+            type: 'text',
+            placeholder: t('frpServerAddrPlaceholder'),
+            value: frpForm.serverAddr,
+            onChange: (e) => setFrpForm((f) => ({ ...f, serverAddr: e.target.value })),
+          }),
+        ),
+        h('div', { style: { display: 'flex', gap: 8 } },
+          h('label', { style: { flex: 1, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+            t('frpServerPort'),
+            h('input', {
+              style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+              type: 'number', min: 1, max: 65535,
+              value: frpForm.serverPort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, serverPort: e.target.value })),
+            }),
+          ),
+          h('label', { style: { flex: 1, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+            t('frpRemotePort'),
+            h('input', {
+              style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+              type: 'number', min: 1, max: 65535,
+              value: frpForm.remotePort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, remotePort: e.target.value })),
+            }),
+          ),
+        ),
+        h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+          t('frpToken'),
+          h('input', {
+            style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+            type: 'password',
+            placeholder: status?.frpHasToken ? `•••••••• (${t('frpSaved')})` : t('frpTokenPlaceholder'),
+            value: frpForm.token,
+            onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value })),
+          }),
+        ),
+        h('label', { style: { display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
+          h('input', { type: 'checkbox', checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),
+          t('frpTls'),
+        ),
+        h('div', { style: { ...styles.muted, marginTop: -2 } }, t('frpTlsHint')),
+        h('div', { style: { display: 'flex', gap: 8, alignItems: 'center', marginTop: 2 } },
+          h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: saveFrp, disabled: frpBusy }, frpSaved ? t('frpSaved') : t('frpSave')),
+          status?.frpRunning
+            ? h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: stopFrp }, t('frpStop'))
+            : h('button', {
+              style: { ...styles.primary, height: 30, padding: '0 12px', fontSize: 12 },
+              onClick: startFrp,
+              disabled: frpBusy || !status?.frpConfig?.serverAddr || !status?.frpHasToken,
+            }, frpBusy ? t('frpStarting') : t('frpStart')),
+        ),
+        (!status?.frpConfig?.serverAddr || !status?.frpHasToken)
+          ? h('div', { style: { ...styles.warn, marginTop: 4 } }, t('frpConfigureFirst'))
+          : null,
+      ) : h('div', { style: { ...styles.muted, marginTop: 8 } }, t('frpConfigureFirst')),
+      h('div', { style: { marginTop: 8, fontSize: 12, lineHeight: 1.6 } }, frpStatusText()),
+      frpError ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 4 } }, `❌ ${frpError}`) : null,
+      h('div', { style: { marginTop: 10 } },
+        h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: copyFrpCompose }, frpCopied ? t('frpCopied') : t('frpCopyCompose')),
+      ),
     ),
 
     error ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 8 } }, `❌ ${error}`) : null,

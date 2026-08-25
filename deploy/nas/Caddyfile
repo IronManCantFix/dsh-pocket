@@ -1,0 +1,7 @@
+# dsh-pocket NAS 入口：HTTPS 域名 → NAS 本机 frps 转发端口
+# caddy 自动申请/续期 Let's Encrypt 证书（无需手动管理）。
+# 把 dsh.你的域名.com 换成你的域名（A 记录指向 NAS 公网 IP）。
+
+dsh.你的域名.com {
+    reverse_proxy 127.0.0.1:7001
+}

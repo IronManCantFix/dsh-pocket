@@ -12,6 +12,10 @@ export const POCKET_ENDPOINTS = Object.freeze({
   lanAuthSetEnabled: 'lanAuth.setEnabled',
   lanSetOverride: 'lan.setOverride',
   pinSetCustom: 'pin.setCustom',
+  frpConfigGet: 'frp.configGet',
+  frpConfigSet: 'frp.configSet',
+  frpStart: 'frp.start',
+  frpStop: 'frp.stop',
 });
 
 /** 语义化版本比较：a > b 返回正数，相等 0，a < b 负数（数字段 + 预发布后缀）。 */
@@ -61,6 +65,11 @@ export function redactStatus(s) {
     tunnelUrl: s?.tunnelUrl ?? null,
     tunnelQr: s?.tunnelQr ?? null,
     tunnelState: s?.tunnelState ?? { phase: 'idle' },
+    // NAS 反向隧道（frp）：token 永不进入浏览器
+    frpRunning: s?.frpRunning === true,
+    frpState: s?.frpState ?? { phase: 'idle' },
+    frpConfig: s?.frpConfig ?? null,
+    frpHasToken: s?.frpHasToken === true,
     dshPort: s?.dshPort ?? null,
   };
 }
