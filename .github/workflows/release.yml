@@ -1,0 +1,77 @@
+# dsh-pocket 自动构建 + GitHub Release 发布
+#
+# 触发：推送 tag（形如 v1.13.4）→ 自动执行：
+#   1. npm ci 安装依赖
+#   2. node client/build.mjs 重新构建前端（client.js 必须是最新构建，否则安装后
+#      手机/设置页拿到旧前端）
+#   3. npm test 全量测试（81 个，全绿才继续）
+#   4. 同步版本号（tag v1.13.4 → package.json version 1.13.4）
+#   5. npm pack 打出 dsh-pocket-<版本>.tgz
+#   6. gh release create 创建 GitHub Release 并上传 tgz
+#
+# 用法：
+#   git tag v1.13.4 && git push origin v1.13.4
+# 安装插件：
+#   dsh plugin --profile web add "https://github.com/IronManCantFix/dsh-pocket/releases/download/v1.13.4/dsh-pocket-1.13.4.tgz" -w
+
+name: build & release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 构建前端（client/index.jsx → client/client.js）
+        run: node client/build.mjs
+
+      - name: 测试
+        run: npm test
+
+      - name: 同步版本（tag → package.json）
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          node - "$VERSION" <<'EOF'
+          const fs = require('fs');
+          const v = process.argv[2];
+          const d = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+          d.version = v;
+          fs.writeFileSync('package.json', JSON.stringify(d, null, 2) + '\n');
+          console.log('version ->', v);
+          EOF
+
+      - name: 打 npm 包（生成 dsh-pocket-<版本>.tgz）
+        run: npm pack
+
+      - name: 创建 GitHub Release 并上传 tgz
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          gh release create "$GITHUB_REF_NAME" \
+            "dsh-pocket-${VERSION}.tgz" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "DSH Pocket v${VERSION}" \
+            --notes "自动构建发布 ✅（npm test 全绿后打包）
+
+安装：
+\`\`\`sh
+dsh plugin --profile web add \"https://github.com/${{ github.repository }}/releases/download/${GITHUB_REF_NAME}/dsh-pocket-${VERSION}.tgz\" -w
+\`\`\`
+"
