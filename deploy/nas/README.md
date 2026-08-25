@@ -22,7 +22,13 @@ frp 连的是你自己的 NAS，域名就是你的）。
 | NAS 类型 | 推荐 | 原因 |
 |---|---|---|
 | **群晖 / 威联通**（系统自带反向代理） | **仅 frps + 系统自带反代**（`docker-compose.frps-only.yml`） | 系统 Web 界面默认占用 80/443，caddy 用 host 网络会报 `address already in use`；系统自带反代同样支持 HTTPS + Let's Encrypt，还省一个容器 |
+| **已有反代工具**（lucky / nginx / traefik 等） | **仅 frps + 现有反代**（`docker-compose.frps-only.yml`） | 反代工具只做「域名 → 127.0.0.1:7001」一件事，谁来做都一样；caddy 不是必需的 |
 | 纯 Linux / 无自带反代能力 | frps + caddy（`docker-compose.yml`） | 80/443 空闲，caddy 一行配置自动 HTTPS |
+
+> **用 lucky 等现有反代时**：新增一条规则「前端 `https://dsh.你的域名.com` → 后端
+> `http://127.0.0.1:7001`」，证书用反代工具的 Let's Encrypt（80 被占时选 DNS 验证）。
+> ⚠️ **务必开启该规则的 WebSocket 支持**——dsh 的流式输出走 WebSocket，不开则手机
+> 界面不实时。Host 头无需特殊处理（dsh-pocket 按「非 trycloudflare → 局域网密码」验证）。
 
 ---
 
