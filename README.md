@@ -172,7 +172,7 @@ npx @deepseek-ai/dsh web
 | `lib/web-rpc.js` | loopback RPC：`status` / `tunnel.start` / `tunnel.stop` / `frp.*` / `version` / `update` / `restart` |
 | `client/` | 设置页「手机访问」（含 NAS 反向隧道配置）+ 移动端适配（dsh-web-mobile 移植） |
 | `bin/dsh-pocket.mjs` | CLI：局域网/公网模式，打印 URL + 二维码 |
-| `deploy/nas/` | NAS 端一键部署：frps + caddy docker-compose（域名 + HTTPS 入口）+ 说明文档 |
+| `deploy/nas/` | NAS 端一键部署：frps + caddy docker-compose（域名 + HTTPS 入口）+ 说明文档（完整使用教程见 [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md)） |
 
 ## 🛠 开发
 
