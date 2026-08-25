@@ -1412,6 +1412,8 @@ function mobileApply(ctx) {
 var NS2 = "pocket";
 var zh2 = {
   "section": "\u624B\u673A\u8BBF\u95EE",
+  "entryLabel": "\u624B\u673A\u8BBF\u95EE",
+  "closeDialog": "\u5173\u95ED",
   "title": "\u{1F4F1} \u624B\u673A\u8BBF\u95EE",
   "subtitle": "\u624B\u673A\u626B\u7801\u6253\u5F00\u7684\u5C31\u662F\u7535\u8111\u4E0A\u7684\u8FD9\u4E2A\u754C\u9762\uFF0C\u5B9E\u65F6\u540C\u6B65",
   "developer": "\u5F00\u53D1\u8005\uFF1A\u7A0B\u5E8F\u5458\u5C11\u5317\u6668",
@@ -1500,6 +1502,8 @@ var zh2 = {
 };
 var en2 = {
   "section": "Phone access",
+  "entryLabel": "Phone access",
+  "closeDialog": "Close",
   "title": "\u{1F4F1} Phone access",
   "subtitle": "The phone shows this exact screen, live",
   "developer": "Developer: \u5C11\u5317\u6668 (shaobeichen)",
@@ -2179,22 +2183,141 @@ function PocketSettingsTab({ rpcCall, t }) {
     )
   );
 }
+function PocketEntryButton({ rpcCall, t }) {
+  const [open, setOpen] = (0, import_react2.useState)(false);
+  const [narrow, setNarrow] = (0, import_react2.useState)(() => window.matchMedia("(max-width: 1023px)").matches);
+  (0, import_react2.useEffect)(() => {
+    const q = window.matchMedia("(max-width: 1023px)");
+    const on = (e) => setNarrow(e.matches);
+    q.addEventListener("change", on);
+    return () => q.removeEventListener("change", on);
+  }, []);
+  (0, import_react2.useEffect)(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey, true);
+    return () => document.removeEventListener("keydown", onKey, true);
+  }, [open]);
+  if (narrow) return null;
+  return (0, import_react2.createElement)(
+    import_react2.Fragment,
+    null,
+    (0, import_react2.createElement)(
+      "button",
+      {
+        type: "button",
+        "data-dsh-pocket-entry": "",
+        onClick: () => setOpen(true),
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          width: "100%",
+          boxSizing: "border-box",
+          padding: "8px 12px",
+          margin: "2px 0",
+          border: "none",
+          borderRadius: 10,
+          background: "transparent",
+          color: "var(--dsw-alias-label-primary, inherit)",
+          font: "inherit",
+          fontSize: 14,
+          lineHeight: "22px",
+          cursor: "pointer",
+          textAlign: "left"
+        }
+      },
+      (0, import_react2.createElement)("span", { style: { fontSize: 16, flex: "none", lineHeight: 1 } }, "\u{1F4F1}"),
+      (0, import_react2.createElement)("span", { style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, t("entryLabel"))
+    ),
+    open ? (0, import_react2.createElement)(
+      "div",
+      {
+        role: "dialog",
+        "aria-modal": "true",
+        "data-dsh-pocket-dialog": "",
+        style: {
+          position: "fixed",
+          inset: 0,
+          zIndex: 1e4,
+          background: "rgba(15,17,21,.55)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 20
+        },
+        onClick: (e) => {
+          if (e.target === e.currentTarget) setOpen(false);
+        }
+      },
+      (0, import_react2.createElement)(
+        "div",
+        { style: {
+          background: "var(--dsw-alias-bg-base, #fff)",
+          borderRadius: 14,
+          boxShadow: "0 18px 50px rgba(0,0,0,.25)",
+          width: "100%",
+          maxWidth: 560,
+          maxHeight: "min(88vh, 820px)",
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden"
+        } },
+        (0, import_react2.createElement)(
+          "div",
+          { style: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "14px 18px",
+            borderBottom: "1px solid var(--dsw-alias-border-l2, #e5e7eb)",
+            flex: "none"
+          } },
+          (0, import_react2.createElement)("strong", { style: { fontSize: 15, color: "var(--dsw-alias-label-primary, inherit)" } }, t("section")),
+          (0, import_react2.createElement)("button", {
+            type: "button",
+            "aria-label": t("closeDialog"),
+            onClick: () => setOpen(false),
+            style: {
+              width: 30,
+              height: 30,
+              borderRadius: "50%",
+              border: "none",
+              background: "var(--dsw-alias-interactive-bg-hover, rgba(0,0,0,.06))",
+              color: "var(--dsw-alias-label-primary, inherit)",
+              cursor: "pointer",
+              fontSize: 14,
+              lineHeight: 1
+            }
+          }, "\u2715")
+        ),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { padding: 18, overflowY: "auto" } },
+          (0, import_react2.createElement)(PocketSettingsTab, { rpcCall, t })
+        )
+      )
+    ) : null
+  );
+}
 function apply(ctx) {
   mobileApply(ctx);
   const rpcCall = (endpoint, payload, signal) => ctx.connection.rpc.call(POCKET_RPC_CHANNEL, endpoint, payload, signal);
   const translate = ctx.locale.bind(NS2);
   ctx.effect(() => ctx.locale.register(NS2, { zh: zh2, en: en2 }), "dsh-pocket: pocket locale dictionaries");
   ctx.slots.inject(
-    "settings.section",
+    "sidebar.footer.action",
     () => ctx.slots.register(
       {
-        name: "settings.section",
-        id: "pocket",
-        order: 1,
-        label: () => translate("section"),
+        name: "sidebar.footer.action",
+        id: "pocket-entry",
+        order: 0,
+        locale: NS2,
         inject: () => ({ rpcCall, t: translate })
       },
-      PocketSettingsTab
+      PocketEntryButton
     )
   );
 }

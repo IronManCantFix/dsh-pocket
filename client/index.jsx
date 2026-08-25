@@ -7,7 +7,7 @@
 // 注：Web Push 已移除——浏览器推送依赖 Google FCM（Chrome）等境外服务，
 // 国内直连被墙，普通用户用不了。专注扫码同屏这一件事。
 
-import { createElement as h, useEffect, useState } from 'react';
+import { createElement as h, Fragment, useEffect, useState } from 'react';
 
 import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS, redactStatus, compareVersions } from './api.js';
 import { mobileApply } from './mobile/mobile-apply.tsx';
@@ -597,6 +597,92 @@ function PocketSettingsTab({ rpcCall, t }) {
   );
 }
 
+// 侧边栏「手机访问」入口（仅桌面端）：注册在 sidebar.footer.action 槽位——
+// dsh 侧边栏的渲染顺序是 footer.action（上）→ settings（设置按钮，下），
+// 所以入口天然位于设置按钮上方。点击直接渲染完整配置页（自包含对话框，
+// 不依赖 dsh 设置面板的内部状态：官方无 API 可从外部打开设置面板并定位
+// 到指定 section，因此这里自渲染，同时从设置面板移除原 settings.section 入口）。
+function PocketEntryButton({ rpcCall, t }) {
+  const [open, setOpen] = useState(false);
+  const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 1023px)').matches);
+  useEffect(() => {
+    const q = window.matchMedia('(max-width: 1023px)');
+    const on = (e) => setNarrow(e.matches);
+    q.addEventListener('change', on);
+    return () => q.removeEventListener('change', on);
+  }, []);
+  // Esc 关闭对话框
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onKey, true);
+    return () => document.removeEventListener('keydown', onKey, true);
+  }, [open]);
+  if (narrow) return null; // 仅桌面端显示入口
+
+  return h(Fragment, null,
+    h('button', {
+      type: 'button',
+      'data-dsh-pocket-entry': '',
+      onClick: () => setOpen(true),
+      style: {
+        display: 'flex', alignItems: 'center', gap: 8,
+        width: '100%', boxSizing: 'border-box',
+        padding: '8px 12px', margin: '2px 0',
+        border: 'none', borderRadius: 10, background: 'transparent',
+        color: 'var(--dsw-alias-label-primary, inherit)',
+        font: 'inherit', fontSize: 14, lineHeight: '22px',
+        cursor: 'pointer', textAlign: 'left',
+      },
+    },
+      h('span', { style: { fontSize: 16, flex: 'none', lineHeight: 1 } }, '📱'),
+      h('span', { style: { whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, t('entryLabel')),
+    ),
+    open ? h('div', {
+      role: 'dialog',
+      'aria-modal': 'true',
+      'data-dsh-pocket-dialog': '',
+      style: {
+        position: 'fixed', inset: 0, zIndex: 10000,
+        background: 'rgba(15,17,21,.55)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 20,
+      },
+      onClick: (e) => { if (e.target === e.currentTarget) setOpen(false); },
+    },
+      h('div', { style: {
+        background: 'var(--dsw-alias-bg-base, #fff)',
+        borderRadius: 14, boxShadow: '0 18px 50px rgba(0,0,0,.25)',
+        width: '100%', maxWidth: 560, maxHeight: 'min(88vh, 820px)',
+        display: 'flex', flexDirection: 'column', overflow: 'hidden',
+      } },
+        h('div', { style: {
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '14px 18px',
+          borderBottom: '1px solid var(--dsw-alias-border-l2, #e5e7eb)',
+          flex: 'none',
+        } },
+          h('strong', { style: { fontSize: 15, color: 'var(--dsw-alias-label-primary, inherit)' } }, t('section')),
+          h('button', {
+            type: 'button',
+            'aria-label': t('closeDialog'),
+            onClick: () => setOpen(false),
+            style: {
+              width: 30, height: 30, borderRadius: '50%', border: 'none',
+              background: 'var(--dsw-alias-interactive-bg-hover, rgba(0,0,0,.06))',
+              color: 'var(--dsw-alias-label-primary, inherit)',
+              cursor: 'pointer', fontSize: 14, lineHeight: 1,
+            },
+          }, '✕'),
+        ),
+        h('div', { style: { padding: 18, overflowY: 'auto' } },
+          h(PocketSettingsTab, { rpcCall, t }),
+        ),
+      ),
+    ) : null,
+  );
+}
+
 export function apply(ctx) {
   // 移动端适配（dsh-web-mobile 移植）：抽屉布局/触控/安全区，仅窄屏生效
   mobileApply(ctx);
@@ -608,17 +694,18 @@ export function apply(ctx) {
   const translate = ctx.locale.bind(POCKET_NS);
   ctx.effect(() => ctx.locale.register(POCKET_NS, { zh: POCKET_ZH, en: POCKET_EN }), 'dsh-pocket: pocket locale dictionaries');
 
-  // 设置一级入口（与 通用设置/模型/插件 同级，order 1 = 通用之后、最外层）
-  ctx.slots.inject('settings.section', () =>
+  // 侧边栏「手机访问」入口（仅桌面端，位于设置按钮上方）；配置页自渲染对话框。
+  // 注意：不再注册 settings.section——设置面板里不再出现「手机访问」tab。
+  ctx.slots.inject('sidebar.footer.action', () =>
     ctx.slots.register(
       {
-        name: 'settings.section',
-        id: 'pocket',
-        order: 1,
-        label: () => translate('section'),
+        name: 'sidebar.footer.action',
+        id: 'pocket-entry',
+        order: 0,
+        locale: POCKET_NS,
         inject: () => ({ rpcCall, t: translate }),
       },
-      PocketSettingsTab,
+      PocketEntryButton,
     ),
   );
 }

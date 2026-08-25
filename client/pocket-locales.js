@@ -5,6 +5,8 @@ export const NS = 'pocket'
 /** Simplified Chinese dictionary (the key-set source of truth). */
 export const zh = {
   'section': '手机访问',
+  'entryLabel': '手机访问',
+  'closeDialog': '关闭',
   'title': '📱 手机访问',
   'subtitle': '手机扫码打开的就是电脑上的这个界面，实时同步',
   'developer': '开发者：程序员少北晨',
@@ -95,6 +97,8 @@ export const zh = {
 /** English dictionary, key-identical to the Chinese source of truth. */
 export const en = {
   'section': 'Phone access',
+  'entryLabel': 'Phone access',
+  'closeDialog': 'Close',
   'title': '📱 Phone access',
   'subtitle': 'The phone shows this exact screen, live',
   'developer': 'Developer: 少北晨 (shaobeichen)',
