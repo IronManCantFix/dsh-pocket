@@ -74,9 +74,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          # 资产重命名为 dsh-pocket.tgz（gh 的 file#newname 语法）：
+          # 先重命名为固定资产名 dsh-pocket.tgz（gh 的 file#newname 语法不可靠）：
           # releases/latest/download/dsh-pocket.tgz 永远指向最新版，
           # 安装 URL 永久固定，以后更新无需换地址。
+          mv "dsh-pocket-${VERSION}.tgz" dsh-pocket.tgz
           printf '%s\n' \
             '自动构建发布 ✅' \
             '' \
@@ -85,7 +86,7 @@ jobs:
             'dsh plugin --profile web add "https://github.com/'"$GITHUB_REPOSITORY"'/releases/latest/download/dsh-pocket.tgz" -w' \
             '```' > /tmp/notes.md
           gh release create "$GITHUB_REF_NAME" \
-            "dsh-pocket-${VERSION}.tgz#dsh-pocket.tgz" \
+            "dsh-pocket.tgz" \
             --repo "$GITHUB_REPOSITORY" \
             --title "DSH Pocket v${VERSION}" \
             --notes-file /tmp/notes.md
