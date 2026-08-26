@@ -1,0 +1,887 @@
+{
+  "name": "@deepseek-ai/dsh-atomic-write",
+  "versions": {
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "c122378c560cb3836545f4b690a129bce4ae65af",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.1.0-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-kJuy7+anH9d+EgWOQGTMBp9ziQj5RRKTJEqe1nvMBxixh+Ar5QNR1h7mZbfMWbgY7aIWpRDUSMV0SY22ZARDiA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCXY43eEqIpv8bW2Qd7Y08l0uKcWDqh2x95qCaG1LjD7gIhAOZqKJGV7zSt1O16GOaCF2m3zMV15JaVaEx3IpHm0DMQ",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 17143,
+        "size": 7048
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-kJuy7+anH9d+EgWOQGTMBp9ziQj5RRKTJEqe1nvMBxixh+Ar5QNR1h7mZbfMWbgY7aIWpRDUSMV0SY22ZARDiA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/util/atomic-write"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-atomic-write_0.1.0-rc.2_1786614545718_0.9964250498682812",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:49:05.874Z",
+      "publish_time": 1786614545874,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "87c0d26f8ecdd34fabdb6eaec6b9fa475b8a2818",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.0.1-rc.1.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-4aoQ8L42of2vbbPC4H+Xb62/3NxI3xa3GHIGfx3tSBLuRj7LDoE8nHHT+ace8OMv4bVWFnOvZXvPlyoaHDx0Ow==",
+        "signatures": [
+          {
+            "sig": "MEQCIFfJ+HIup5KjNKLk0NaEf00UuUMIXBBI9ImRtGJxG4E1AiAtWw5HQlfi0OF0jY/V47hH7zsA3rk5PEjDNNxAbDG4Cw==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 17594,
+        "size": 7241
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-4aoQ8L42of2vbbPC4H+Xb62/3NxI3xa3GHIGfx3tSBLuRj7LDoE8nHHT+ace8OMv4bVWFnOvZXvPlyoaHDx0Ow==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/util/atomic-write"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-atomic-write_0.0.1-rc.1_1786390891425_0.4126314395970454",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:41:31.590Z",
+      "publish_time": 1786390891590,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/atomic-write"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-Ot/2aygDzWuN4ypUkDJA6MpSlGbcvzzKnWAms0lg+2WUtPZr7O0cGb83K3TEO2NoAu0LJfVxlbo8Eya3tDaFtw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-Ot/2aygDzWuN4ypUkDJA6MpSlGbcvzzKnWAms0lg+2WUtPZr7O0cGb83K3TEO2NoAu0LJfVxlbo8Eya3tDaFtw==",
+        "shasum": "0744a80b7dab414f9bfaba89f55db403ffad221b",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.1.0-rc.6.tgz",
+        "fileCount": 9,
+        "unpackedSize": 17139,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIBARqxLfApvBP2h+XZ8AOZziZvzUFlltImlWEKuNxil6AiEA/pdM2A78odH9Km5CQxOZDevDZmf+t+t3aCwsh2pXYCY="
+          }
+        ],
+        "size": 7046
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-atomic-write_0.1.0-rc.6_1786624573959_0.5568630362484328"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:36:14.113Z",
+      "publish_time": 1786624574113,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "d4aaf63a79797b118371780c6a8985861b3a58bd",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.0.1-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-7yJEGkJ6xusqEWbH/1gzGc24npFQqexvb2PPAQiXei+wRt4fi+4a3SFKlcCaecXaTw53CKc3BqiYDNE5scx0qw==",
+        "signatures": [
+          {
+            "sig": "MEUCIBj/Y8R8zWxRVBpv7Acz8U4us1bJCIR0XGMitlemCJTfAiEArolLi0JAmehLE7XJd5db7jnp3gCjHvWwp5En8yQGZeA=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 17594,
+        "size": 7230
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-7yJEGkJ6xusqEWbH/1gzGc24npFQqexvb2PPAQiXei+wRt4fi+4a3SFKlcCaecXaTw53CKc3BqiYDNE5scx0qw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/util/atomic-write"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-atomic-write_0.0.1-rc.2_1786461885772_0.9235238637894925",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:24:45.948Z",
+      "publish_time": 1786461885948,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "c14ed6ecb8ec37e0d7229a0c74d5b98be0fbd61d",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.0.1-rc.5.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-g7DtjrbSZUhLyinaDUBKyHwynXEj0yiYWi3GXGC/VIHpJpjBn2rSKI4U7x98yBhFsCdznLKKwHaORkBGI6/jwg==",
+        "signatures": [
+          {
+            "sig": "MEQCIGBJYoVK1/Tj5HqnyReNArA/4+slrltqUxp2rvOuZ766AiBRHbX9j4PHYAsxNzL0aguqeA+ikWnxm9MyOAzyBGCGAg==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 17592,
+        "size": 7244
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-g7DtjrbSZUhLyinaDUBKyHwynXEj0yiYWi3GXGC/VIHpJpjBn2rSKI4U7x98yBhFsCdznLKKwHaORkBGI6/jwg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/util/atomic-write"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-atomic-write_0.0.1-rc.5_1786574194909_0.9327748970006098",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:36:35.046Z",
+      "publish_time": 1786574195046,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/atomic-write"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-9Kz5Fptqhvg97zVMRx1KR0a6ftFLC4VzhgzWk9P1PvjMwD7JZXY4rH19/wDgONbrDczbhGuwPByPBH+6Cr4T8w==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-9Kz5Fptqhvg97zVMRx1KR0a6ftFLC4VzhgzWk9P1PvjMwD7JZXY4rH19/wDgONbrDczbhGuwPByPBH+6Cr4T8w==",
+        "shasum": "61bb9de75f880d158345314aa1af4e303334bc58",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.1.0-rc.3.tgz",
+        "fileCount": 9,
+        "unpackedSize": 17143,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDddhDJMBj5nsryfZJrfLy4A8JJUd+qm2ysLARj9tpcPQIgflxE3R2rG4TC+IMv7QAEOmF0hpbWkDUcixzyWQv7mjk="
+          }
+        ],
+        "size": 7049
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-atomic-write_0.1.0-rc.3_1786619824141_0.8194810003132174"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:17:04.281Z",
+      "publish_time": 1786619824281,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/atomic-write"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-LxRx6K8FJ8bXZHiNhH6Rvj+jh/ZIpolmsmi138XrvMUGvbOBWE6QLbdzcgTgwrYZm5GP2kqqLe/3gQlgtt2bXA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-LxRx6K8FJ8bXZHiNhH6Rvj+jh/ZIpolmsmi138XrvMUGvbOBWE6QLbdzcgTgwrYZm5GP2kqqLe/3gQlgtt2bXA==",
+        "shasum": "09744668af3b2824d06760321e4056561914c458",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.1.0-rc.7.tgz",
+        "fileCount": 9,
+        "unpackedSize": 17139,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQCgyKmV8rdte2yNWh1N9MSFzruu1XThGzulMPhAB7hCIQIhAIFVDSo79mw8lz5F+GnC3rZS/W/Ck9G88Mz6Q1nfQL0E"
+          }
+        ],
+        "size": 7055
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-atomic-write_0.1.0-rc.7_1786966613322_0.708162808365884"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:36:53.471Z",
+      "publish_time": 1786966613471,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/atomic-write"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-SWP+NAat3oteaPi47zLPz4vxeYCHNVmFpN1aeKDuPHpe/ouNTl+WcyIONAJ+1MbZ+8APWhSaJIVu6ORJEUhVGw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-SWP+NAat3oteaPi47zLPz4vxeYCHNVmFpN1aeKDuPHpe/ouNTl+WcyIONAJ+1MbZ+8APWhSaJIVu6ORJEUhVGw==",
+        "shasum": "ffa9f987fd9b0f03ef477167ee1db98cd4f56e60",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.1.0-rc.8.tgz",
+        "fileCount": 9,
+        "unpackedSize": 18150,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQC3GeplQif0bzSgJgS7g6Fa/ROph376td5k8OdyKFS5ugIhAMZZzW+BUfZfpVWf1PPLowgUcuZBR1l6+31eGoqozdFK"
+          }
+        ],
+        "size": 7363
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-atomic-write_0.1.0-rc.8_1787153342023_0.8831534459220975"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:29:02.169Z",
+      "publish_time": 1787153342169,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/atomic-write"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-8cSMtRK2+5OcyvRhyJRI6lVVuIp+r7MBKGlfESOIdK50OWnVUM35IvaWXuwQrMOI/xJDihyDF+KGF1o0aM1vhg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-8cSMtRK2+5OcyvRhyJRI6lVVuIp+r7MBKGlfESOIdK50OWnVUM35IvaWXuwQrMOI/xJDihyDF+KGF1o0aM1vhg==",
+        "shasum": "13c54434d4fa910c0aaac29ad90977cd09da9abd",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.1.1-rc.1.tgz",
+        "fileCount": 9,
+        "unpackedSize": 20316,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDc3EvL1vDstQR4Agr/77gUJ0CyOMSM0PHkbuD6VYKSSgIgRNV+vQ5ZRMCfj3vze7XniSuDJExK8+tMGzGQTkYGN0U="
+          }
+        ],
+        "size": 8209
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-atomic-write_0.1.1-rc.1_1787294296624_0.9359769212120186"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:38:16.769Z",
+      "publish_time": 1787294296769,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-atomic-write",
+      "description": "Zero-dependency atomic file replacement: exclusive-create random-suffix temp + rename carrying the caller-stated permissions (writeFileAtomic)",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/atomic-write"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-atomic-write@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-QqNSF0+Ddn6qWY480dlilwEy6FLv3JKEWx1UQgoNJrxD4y54SDRzqBQB9yDXWKOoOGyC+05TN6/Px10GNIzMWA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-atomic-write-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-QqNSF0+Ddn6qWY480dlilwEy6FLv3JKEWx1UQgoNJrxD4y54SDRzqBQB9yDXWKOoOGyC+05TN6/Px10GNIzMWA==",
+        "shasum": "ffbbe631630e2cd2db43523c46323a09080eb0bd",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-atomic-write/-/dsh-atomic-write-0.1.1-rc.2.tgz",
+        "fileCount": 9,
+        "unpackedSize": 20316,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIA7/rSEOBC8y7FMDlmwyi6WOwklqy2+NEh9R/Eg8L1cqAiB0TEU58aHrkBIRcupfnf0JFgCDxB3Ly2nLX/S74XpBCQ=="
+          }
+        ],
+        "size": 8201
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-atomic-write_0.1.1-rc.2_1787315481537_0.3715645019434888"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:31:21.694Z",
+      "publish_time": 1787315481694,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:36:22.236Z",
+    "modified": "2026-08-21T12:31:41.430Z",
+    "0.1.0-rc.2": "2026-08-13T09:49:05.874Z",
+    "0.0.1-rc.1": "2026-08-10T19:41:31.590Z",
+    "0.1.0-rc.6": "2026-08-13T12:36:14.113Z",
+    "0.0.1-rc.2": "2026-08-11T15:24:45.948Z",
+    "0.0.1-rc.5": "2026-08-12T22:36:35.046Z",
+    "0.1.0-rc.3": "2026-08-13T11:17:04.281Z",
+    "0.1.0-rc.7": "2026-08-17T11:36:53.471Z",
+    "0.1.0-rc.8": "2026-08-19T15:29:02.169Z",
+    "0.1.1-rc.1": "2026-08-21T06:38:16.769Z",
+    "0.1.1-rc.2": "2026-08-21T12:31:21.694Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "4-a666db69eccfefc4",
+  "_id": "@deepseek-ai/dsh-atomic-write",
+  "readme": "# dsh-atomic-write\n\nEnglish | [中文](README.zh.md)\n\nZero-dependency atomic file replacement shared by file-backed stores that must never leave partial, symlink-hijacked, or wider-than-intended content on disk — the user-settings document (`dsh-settings-local`) and the credentials store (`dsh-credentials-local`).\n\n## Surface\n\n```ts\nimport { withFileLock, writeFileAtomic } from '@deepseek-ai/dsh-atomic-write'\n\ndeclare const text: string\ndeclare const render: (previous: string) => string\n\nawait writeFileAtomic('/home/u/.dsh/settings.yaml', text, { mode: 0o600 })\n\n// Read-modify-write against the same file from several processes.\nawait withFileLock('/home/u/.dsh/settings.yaml', async () => {\n  await writeFileAtomic('/home/u/.dsh/settings.yaml', render(text), { mode: 0o600 })\n})\n```\n\n`writeFileAtomic` commits one already-rendered string. The contract, in the order failures would exploit it:\n\n- **Exclusive-create temp** (`wx`, random suffix): the open refuses to follow a symlink planted at a guessable temp path.\n- **The fresh inode carries `mode` through the rename**: replacing a wider-permission file narrows it without a chmod race. `mode` is required so the permission decision stays visible at every call site (subject to the process umask, like every fresh inode).\n- **`rename` replaces a symlinked target itself**, never writing through to its referent.\n- **Same-directory sibling** keeps the rename on one filesystem, so the swap stays atomic.\n- Parent directories are created; on any failure the temp is removed and the failure rethrown; readers observe either the old or the new complete content.\n\n`withFileLock` serializes the writers of one file across processes, for the read-render-commit cycles a bare atomic commit cannot make safe on its own. The lock is a `wx`-created `<filename>.lock` sibling, so readers never contend; waiters back off exponentially and fail with a timeout rather than block forever. A contender never removes the existing lock: age cannot distinguish a crashed owner from a paused live writer.\n\n## Model Experience\n\nNone, as this is a pure filesystem primitive; nothing here reaches a model request.\n\n#### KV Cache effect\n\nNone; nothing here enters a request prefix.\n\n## Known Limitations and Deferred Work\n\n- **Atomic, not durable** — no `fsync` of the file or its directory, so after a crash the rename may be observed unwound. The file-backed stores here re-read and republish on boot, keeping durability the caller's policy.\n- **String content only** — no `Buffer` or stream form until a consumer needs one.\n- **Orphaned locks require operator recovery** — a process that exits while holding the lock can leave the sibling behind. Later writers time out without deleting it; an operator removes it only after verifying that no writer still owns it. File age alone is not safe evidence of abandonment.",
+  "_attachments": {}
+}

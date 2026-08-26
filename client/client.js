@@ -1766,7 +1766,7 @@ function PocketSettingsTab({ rpcCall, t }) {
         current: v?.current ?? null,
         loaded: v?.loaded ?? null,
         githubLatest: gh?.version ?? null,
-        githubUrl: gh?.url ?? "https://github.com/shaobeichen/dsh-pocket/releases/latest",
+        githubUrl: gh?.url ?? "https://github.com/IronManCantFix/dsh-pocket/releases/latest",
         loading: false,
         failed: false
       });
@@ -1917,7 +1917,7 @@ function PocketSettingsTab({ rpcCall, t }) {
         (0, import_react2.createElement)("div", { style: { whiteSpace: "nowrap" } }, t("starAsk")),
         (0, import_react2.createElement)(
           "a",
-          { href: "https://github.com/shaobeichen/dsh-pocket", target: "_blank", rel: "noreferrer", style: { color: "var(--dsw-alias-brand-primary,#4f6ef7)", fontSize: 12, lineHeight: 1.6, textDecoration: "underline" } },
+          { href: "https://github.com/IronManCantFix/dsh-pocket", target: "_blank", rel: "noreferrer", style: { color: "var(--dsw-alias-brand-primary,#4f6ef7)", fontSize: 12, lineHeight: 1.6, textDecoration: "underline" } },
           t("starCta")
         )
       )
@@ -1951,7 +1951,7 @@ function PocketSettingsTab({ rpcCall, t }) {
           "span",
           { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)" } },
           t("versionGithubFail"),
-          (0, import_react2.createElement)("a", { href: versionInfo.githubUrl ?? "https://github.com/shaobeichen/dsh-pocket/releases/latest", target: "_blank", rel: "noreferrer", style: { color: "var(--dsw-alias-brand-primary,#4f6ef7)", marginLeft: 6 } }, t("versionGithubOpen"))
+          (0, import_react2.createElement)("a", { href: versionInfo.githubUrl ?? "https://github.com/IronManCantFix/dsh-pocket/releases/latest", target: "_blank", rel: "noreferrer", style: { color: "var(--dsw-alias-brand-primary,#4f6ef7)", marginLeft: 6 } }, t("versionGithubOpen"))
         ) : (0, import_react2.createElement)(
           "span",
           null,
@@ -2229,7 +2229,7 @@ function PocketSettingsTab({ rpcCall, t }) {
       { style: { ...styles.block, textAlign: "center" } },
       (0, import_react2.createElement)(
         "a",
-        { href: "https://github.com/shaobeichen/dsh-pocket/issues", target: "_blank", rel: "noreferrer", style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", textDecoration: "none" } },
+        { href: "https://github.com/IronManCantFix/dsh-pocket/issues", target: "_blank", rel: "noreferrer", style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", textDecoration: "none" } },
         t("feedback")
       )
     )

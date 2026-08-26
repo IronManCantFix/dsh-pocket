@@ -1,0 +1,1227 @@
+{
+  "name": "@deepseek-ai/dsh-typert-registry",
+  "versions": {
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "cff7b439a25cfd43fd6a8a7c6a22b974d940145e",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.0.1-rc.1.tgz",
+        "fileCount": 18,
+        "integrity": "sha512-kQw+fNRWaioRVex6szZGeQqSWHP/8GsK4DPJbD+3QpyhL3kq6ICWz2tWhv45Av3NIJkaMsFwEwb0D9xy1K7XDw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCBRT8UVbUEC4ARGNDEWR++XQfKIXMXjtOOoOwKm53g1gIgbnaX0NSotAnlK+4m81bl6CccMCvx0DZBiFq8VIaeHxI=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 120645,
+        "size": 22835
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-kQw+fNRWaioRVex6szZGeQqSWHP/8GsK4DPJbD+3QpyhL3kq6ICWz2tWhv45Av3NIJkaMsFwEwb0D9xy1K7XDw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/typert/registry"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-type-meta": "^0.0.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-typert-registry_0.0.1-rc.1_1786390661756_0.35966525840327335",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:37:41.906Z",
+      "publish_time": 1786390661906,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "version": "0.1.0-rc.3",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.1.0-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "1956b4c201c92c6c7000a3f339f0781dbb02b2c5",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.1.0-rc.3.tgz",
+        "fileCount": 18,
+        "integrity": "sha512-z/NG/wu7Zirdb/XLR+38PqZr2ZipcVgI93T6jI+dD3hMxdktHv+c49yU+jL1mUL5ZCF+3t2bGbBjbk4It0G+ew==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDEMU6VB/csPhJz6ZyO1UGzEQhBTLczVNMThWWMDkm3bgIhAK3D/fbfP/0BTmNf8s7Iv+WH269D4YoKPE1rBcFGaP6k",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 120794,
+        "size": 22664
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.3.tgz",
+      "_integrity": "sha512-z/NG/wu7Zirdb/XLR+38PqZr2ZipcVgI93T6jI+dD3hMxdktHv+c49yU+jL1mUL5ZCF+3t2bGbBjbk4It0G+ew==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/typert/registry"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-typert-registry_0.1.0-rc.3_1786619304225_0.5723142136707755",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T11:08:24.384Z",
+      "publish_time": 1786619304384,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "093d14b4eb553cf66bea116b029ddc3c922bc718",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.0.1-rc.5.tgz",
+        "fileCount": 18,
+        "integrity": "sha512-kuozS63JvQwLMuTCtv1AQfPHh82CV6/ONrNEAg1gH77IOR2wfl2dSq1rTWo3IiVbFzBeif7/XNAyWoZTtIyjWA==",
+        "signatures": [
+          {
+            "sig": "MEUCIENqTXFRByn4a1SYANkGigBvqtLUyhC2hLFSfTBxkYvqAiEAp6ir37SmX8hhn8Y/WmGDNFHVeBnUbVSrWALUAApZ89g=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 121243,
+        "size": 22866
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-kuozS63JvQwLMuTCtv1AQfPHh82CV6/ONrNEAg1gH77IOR2wfl2dSq1rTWo3IiVbFzBeif7/XNAyWoZTtIyjWA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/typert/registry"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.0.1-rc.5"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-typert-registry_0.0.1-rc.5_1786573909243_0.29769807702448237",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:31:49.384Z",
+      "publish_time": 1786573909384,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "687e43ed6d21aa144cf8e64619c6fed1f1d3a476",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.0.1-rc.3.tgz",
+        "fileCount": 18,
+        "integrity": "sha512-OZiV24aDOXtRDQmBTqO1TDWDTlHMzlosTPMMr0pqDilEqJQLmxd57zirWo4+amr1T/5ZK1dgzEOpo4xll1nf6A==",
+        "signatures": [
+          {
+            "sig": "MEUCIHYzQtCz6HB08/ZI1D08eZbrsi5+abXVxYa3SoHTmpCvAiEAwnI7Yh4JDIeephPLxZL3Z+kCaiM2/TGueSAbcdaTGm8=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 121243,
+        "size": 22870
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-OZiV24aDOXtRDQmBTqO1TDWDTlHMzlosTPMMr0pqDilEqJQLmxd57zirWo4+amr1T/5ZK1dgzEOpo4xll1nf6A==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/typert/registry"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.0.1-rc.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-typert-registry_0.0.1-rc.3_1786566880461_0.528606813562192",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:34:40.622Z",
+      "publish_time": 1786566880622,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/typert/registry"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-ry2AApGn0vEEIRWDC7TlLiLj5K8+2OblxXlGHs1u9APVxhPjZLok6Kfo57yfeJyW+EONGXv1DQcU05U+aYE7Tg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-ry2AApGn0vEEIRWDC7TlLiLj5K8+2OblxXlGHs1u9APVxhPjZLok6Kfo57yfeJyW+EONGXv1DQcU05U+aYE7Tg==",
+        "shasum": "9e7fbdd0bad06f51672732b6e3d3bbecab6c7ac4",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.1.0-rc.6.tgz",
+        "fileCount": 18,
+        "unpackedSize": 120790,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIGb6R51nLTrwwzkg3qQgrenRf6oHBKYuNvMOBvBRKcNUAiAfjs2y8zQr3YxBSYjDgmqVR/aGZ9tijXA+JlHWUun1nQ=="
+          }
+        ],
+        "size": 22667
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-typert-registry_0.1.0-rc.6_1786623679933_0.6623182476616161"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:21:20.084Z",
+      "publish_time": 1786623680084,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "1397eee0aa9a55f0427a4726ab055c804253be8c",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.0.1-rc.2.tgz",
+        "fileCount": 18,
+        "integrity": "sha512-i4nDoVNXEFddiHOw62Sbp4QI3/b2pqx8lVdAtB/M9c1yj8o8v2nzc4lhzAfXPkPjMQckfm8jf8Rod/Es74ruWA==",
+        "signatures": [
+          {
+            "sig": "MEUCIB32Y2FYN73omo4WOVCYe8gWpjkGUCg3ILR22oFa8jDuAiEAiycStJ51h6DL5xsN4sDu60K7iP0nHPcGn+VgM4EltIM=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 120645,
+        "size": 22829
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-i4nDoVNXEFddiHOw62Sbp4QI3/b2pqx8lVdAtB/M9c1yj8o8v2nzc4lhzAfXPkPjMQckfm8jf8Rod/Es74ruWA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/typert/registry"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-type-meta": "^0.0.1-rc.2"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-typert-registry_0.0.1-rc.2_1786461589317_0.34423335268487576",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:19:49.461Z",
+      "publish_time": 1786461589461,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "622e96fbafdebe9a2b73463d64d7b3b3c4bd22af",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.1.0-rc.2.tgz",
+        "fileCount": 18,
+        "integrity": "sha512-Z2kzeBUPOMxBKAba9DDRyNX8hznRlg3O8Mh3E989TgcBQMurCUKNODCdrPm3RfOWOXB4T7SGlXRNfhn6wa6IcA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCbZtOiPNGyiTebYVBbx96t6N6H3KEOQRU+B/hm2jgzNAIgMntsaf9/W216eQfXVtY9Bvx4A2aDOHP1Fn4/vu4y5Ps=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 120794,
+        "size": 22665
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-Z2kzeBUPOMxBKAba9DDRyNX8hznRlg3O8Mh3E989TgcBQMurCUKNODCdrPm3RfOWOXB4T7SGlXRNfhn6wa6IcA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/typert/registry"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.2"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-typert-registry_0.1.0-rc.2_1786614063627_0.5002661018852148",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:41:03.793Z",
+      "publish_time": 1786614063793,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/typert/registry"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.7"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-7AQNJLNZTw7/5DzjbfBy4dRqr6VSwc74HBOSPpxm0zzzbmXOEqRCRzMps25IByoAeltRz1ZyY4fzN3tcYa+XwQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-7AQNJLNZTw7/5DzjbfBy4dRqr6VSwc74HBOSPpxm0zzzbmXOEqRCRzMps25IByoAeltRz1ZyY4fzN3tcYa+XwQ==",
+        "shasum": "5a3847b4b9e30fa474a49881158fd599ff8c2cf2",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.1.0-rc.7.tgz",
+        "fileCount": 18,
+        "unpackedSize": 120790,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIDr58+vVfANeQa6Mscvif2kJqPEzH7Tgkze0MCP4BlsQAiA4VLVzBahR7o2s0iVPMnm00CwKfN+zvthNXdtiTDDHVw=="
+          }
+        ],
+        "size": 22668
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-typert-registry_0.1.0-rc.7_1786966665024_0.8255656181760602"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:37:45.196Z",
+      "publish_time": 1786966665196,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/typert/registry"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.8"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-pxfRE5f1y81h2lNqj0uooYrErTVgpzKfYm4W+ppRafN5s/+1jlLIYWiG3wWD3bnxyoD2NLcTEhi/GXoaqiwdaw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-pxfRE5f1y81h2lNqj0uooYrErTVgpzKfYm4W+ppRafN5s/+1jlLIYWiG3wWD3bnxyoD2NLcTEhi/GXoaqiwdaw==",
+        "shasum": "c62417ce328c5b8482507d66b6afe90f4527af59",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.1.0-rc.8.tgz",
+        "fileCount": 18,
+        "unpackedSize": 120790,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIFEFSglv9ZKlAysiHLJNaKLrAJ9UGL147O/mVOaVeeJxAiBA5Wx1wGolUI+lpHTCWhF+frAth+Gatgbna1R90XytTA=="
+          }
+        ],
+        "size": 22663
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-typert-registry_0.1.0-rc.8_1787153454820_0.9129109704801062"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:30:54.997Z",
+      "publish_time": 1787153454997,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/typert/registry"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.1.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-9kavDx4n2dxtDNU8uPpoaB604uVBST2aA0TvcR5d+GTA7/vFgqmT2JjQv5PG+GwM+JAO08MsP2ldWMB+FPo/Zg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-9kavDx4n2dxtDNU8uPpoaB604uVBST2aA0TvcR5d+GTA7/vFgqmT2JjQv5PG+GwM+JAO08MsP2ldWMB+FPo/Zg==",
+        "shasum": "fc849001ee1ce399d579caf62a54d2d036a1d415",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.1.1-rc.1.tgz",
+        "fileCount": 18,
+        "unpackedSize": 120796,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCwoxNCJ8M3Zc3qfAbeUA2k0bTgEgB2AOhOxDHkYbLHEgIgDXlHAsCY7I8UyWfJ4JvA2peeg7RRj90JBQIrU9xRIRE="
+          }
+        ],
+        "size": 22670
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-typert-registry_0.1.1-rc.1_1787294358499_0.6477135549956297"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:39:18.653Z",
+      "publish_time": 1787294358653,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-typert-registry",
+      "description": "Runtime registry for generated package reflection and Zod schemas",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/typert/registry"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3",
+        "@deepseek-ai/dsh-typert-protocol": "^0.1.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-typert-registry@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-ATZu3i7UId+ktsWW3pUFm5Hi1fVsRXFmByATVPp2RlxH1zjxXnauVW6k70ZwU/4FOsphRzo65SXOlAXA+natYg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-typert-registry-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-ATZu3i7UId+ktsWW3pUFm5Hi1fVsRXFmByATVPp2RlxH1zjxXnauVW6k70ZwU/4FOsphRzo65SXOlAXA+natYg==",
+        "shasum": "9ece236c7652a1d63576585c7b62512eedfc3b9f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-typert-registry/-/dsh-typert-registry-0.1.1-rc.2.tgz",
+        "fileCount": 18,
+        "unpackedSize": 120796,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIFWZxZmeTEJAklGWNu8v+BBDlea2I0b8BZe8USBkBV79AiBgBgr9Seyqhyu63UYDbd8zOPHF4tKVvAMoW5+hqYT7pA=="
+          }
+        ],
+        "size": 22671
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-typert-registry_0.1.1-rc.2_1787315545336_0.9626637834008867"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:32:25.503Z",
+      "publish_time": 1787315545503,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:21:39.048Z",
+    "modified": "2026-08-21T12:32:41.498Z",
+    "0.0.1-rc.1": "2026-08-10T19:37:41.906Z",
+    "0.1.0-rc.3": "2026-08-13T11:08:24.384Z",
+    "0.0.1-rc.5": "2026-08-12T22:31:49.384Z",
+    "0.0.1-rc.3": "2026-08-12T20:34:40.622Z",
+    "0.1.0-rc.6": "2026-08-13T12:21:20.084Z",
+    "0.0.1-rc.2": "2026-08-11T15:19:49.461Z",
+    "0.1.0-rc.2": "2026-08-13T09:41:03.793Z",
+    "0.1.0-rc.7": "2026-08-17T11:37:45.196Z",
+    "0.1.0-rc.8": "2026-08-19T15:30:54.997Z",
+    "0.1.1-rc.1": "2026-08-21T06:39:18.653Z",
+    "0.1.1-rc.2": "2026-08-21T12:32:25.503Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-4dbb887e958d80c3",
+  "_id": "@deepseek-ai/dsh-typert-registry",
+  "readme": "# @deepseek-ai/dsh-typert-registry\n\nEnglish | [中文](README.zh.md)\n\nRuntime registry for generated Typert artifacts. A contribution carries one package face's business reflection and optional live Zod schemas; `ctx.typert` registers both atomically and withdraws them with the calling Cordis fiber. TypeScript analysis and code generation live in [`dsh-typert-generator`](../generator/README.md).\n\nPackage reflection is keyed by `<package>#<face>`. Schemas are keyed by `<package>#<name>` and retain the producer's Zod instance. JSON Schema is computed on demand at the consumer edge.\n\n## Public API\n\n- `TypertRegistry` is the default plugin and provides `ctx.typert`.\n- `ctx.typert.lookups.register()` registers the wire declaration and default resolver owned by the business package; `configure()` registers a resolver owned by Host composition that may run asynchronously. Their lifetimes are independent: configuration may precede the provider, and unloading the configuration restores the default policy.\n- `ctx.typert.contexts.registerHost()` and `configureHost()` apply the same ownership split to scoped Context identity; `registerClient()` supplies the corresponding Client Context binder.\n- `register(contribution)` rejects malformed identities and duplicate package-face or schema keys before committing anything, then returns the exact Cordis effect disposer.\n- `get(key)`, `resolve(key)`, and `list(filter?)` query live schemas. `resolve()` distinguishes a malformed key, an absent package, and a package that contributes no schema under that name.\n- `getPackage(packageName, face?)` and `listPackages(filter?)` query generated service, event, and object reflection; the default face is `host`.\n- `toJSONSchema(key, params?)` projects a live schema with `z.toJSONSchema()` without caching the result.\n- `typertKey()` and `typertPackageKey()` compose the two stable identity forms.\n\nThe `@deepseek-ai/dsh-typert-registry/types` subpath contains the pure contribution and record contracts. [`dsh-typert-loader`](../loader/README.md) discovers and registers generated host artifacts in Loader compositions; direct `ctx.typert.register()` supports other composition owners.\n\n## Model Experience\n\nNone, as the registry contributes no prompt, tool, or session event; consumers such as `cordis_inspect` own any model-visible projection.\n\n#### KV Cache effect\n\nNo direct effect. A consumer that places reflection in a request owns the resulting prefix change.\n\n## Known Limitations and Deferred Work\n\n- The registry stores generated reflection but does not merge host and client graphs or resolve TypeScript references. Those are analyzer and emitter concerns.\n- Schema keys omit the face because host and client run in separate contexts. Registering same-named schemas from both faces into one context is rejected as a duplicate.",
+  "_attachments": {}
+}

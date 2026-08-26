@@ -1,0 +1,865 @@
+{
+  "name": "@deepseek-ai/dsh-session-stats",
+  "versions": {
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-session-stats",
+      "description": "Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/session/session-stats"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-session-stats@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-WU3oVK7mlED+nHjZpuabvzP11msMVuHA/gN5FL54i4ABX3JuSKXKfiDJGyR6jQd5ig+SFr6jfKx2IqYrxGlvGQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-WU3oVK7mlED+nHjZpuabvzP11msMVuHA/gN5FL54i4ABX3JuSKXKfiDJGyR6jQd5ig+SFr6jfKx2IqYrxGlvGQ==",
+        "shasum": "e0b05758fc5968deba12509558f528486e5be764",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-session-stats/-/dsh-session-stats-0.1.0-rc.3.tgz",
+        "fileCount": 17,
+        "unpackedSize": 35137,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCbvhVlMwHVNZqxdmYrqpGgav9Cb5cDewpyGwfUIOSS2QIgO7TT3zRJdlBxJGc0ut+gUFGVTAI65WEjYCl8CSwACOs="
+          }
+        ],
+        "size": 10444
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-session-stats_0.1.0-rc.3_1786619728840_0.3187217884885718"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:15:28.981Z",
+      "publish_time": 1786619728981,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-session-stats",
+      "description": "Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/session/session-stats"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6"
+      },
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-session-stats@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-B2Rwp1klSl7DmRpViPnuIlmlPgsARdxqRpsz7MwoXTC1oKYipWgoCw8JFOsDxVj8Rno1o1kWVjVAM10I/FC1aw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-B2Rwp1klSl7DmRpViPnuIlmlPgsARdxqRpsz7MwoXTC1oKYipWgoCw8JFOsDxVj8Rno1o1kWVjVAM10I/FC1aw==",
+        "shasum": "ed4feea60ce15fe2dba7e38a8f8cf139d11bc7a7",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-session-stats/-/dsh-session-stats-0.1.0-rc.6.tgz",
+        "fileCount": 17,
+        "unpackedSize": 35133,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCICwZvkWOcsZNSc8ql5Av1EuvlcSpLFYJ3K7j9xhCWsmfAiEAzs5B/1Du/rVyHgsCbI0rSYyExspot1ImZ6qYNpYLkPc="
+          }
+        ],
+        "size": 10450
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-session-stats_0.1.0-rc.6_1786624416338_0.09053503980735167"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:33:36.490Z",
+      "publish_time": 1786624416490,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-session-stats",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-session-stats@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "3b7b83bf479bf3d666c62321c58636dd27bd4d43",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-session-stats/-/dsh-session-stats-0.1.0-rc.2.tgz",
+        "fileCount": 17,
+        "integrity": "sha512-Fu/X2ob3mx0Ta+0fbr31Kl8ZHwYT46LnolAlbgHemuFTikFhZSWisQHmxwdYNEEyAYiEkwm85OhR7Mef1AtSGw==",
+        "signatures": [
+          {
+            "sig": "MEUCIHn9EMkPw9HwPW1BTsXI2fAQE4NIHw1cDy6goX1ZgQqLAiEAqauTjtu0Ek7SkN2jTXcdK5skeZuT05zlX1Sf+gVVEO4=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 35137,
+        "size": 10440
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-Fu/X2ob3mx0Ta+0fbr31Kl8ZHwYT46LnolAlbgHemuFTikFhZSWisQHmxwdYNEEyAYiEkwm85OhR7Mef1AtSGw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/session/session-stats"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-session-stats_0.1.0-rc.2_1786614459804_0.4265714628711197",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:47:39.944Z",
+      "publish_time": 1786614459944,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-session-stats",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-session-stats@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "e564897342114619b27202802f914849396365fd",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-session-stats/-/dsh-session-stats-0.0.1-rc.5.tgz",
+        "fileCount": 17,
+        "integrity": "sha512-wAA1sE2M3VOhlSSFZBU8LWlpQpjf2o3TPE4HRpoX8HY6Ws/Wm1x2vhSmGBN7h2LEiggvUkFFuOgorRNLXllvFw==",
+        "signatures": [
+          {
+            "sig": "MEQCIBYgHIDkZAyW3r/CauFFNYcq/Y0vzqK+0e038RhprCfbAiAuMYHwAp3SCV8d8tpeVfQaEHuxDvW1nhHsUldJM2RJTQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 35596,
+        "size": 10646
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-wAA1sE2M3VOhlSSFZBU8LWlpQpjf2o3TPE4HRpoX8HY6Ws/Wm1x2vhSmGBN7h2LEiggvUkFFuOgorRNLXllvFw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/session/session-stats"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2-rc.4",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6-rc.4",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-session-stats_0.0.1-rc.5_1786574142901_0.6625084377278552",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:35:43.044Z",
+      "publish_time": 1786574143044,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-session-stats",
+      "description": "Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/session/session-stats"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-session-stats@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-ryf7HSYdmLbrTv4HQmeW/h0bHLiCNnSZYiY9RoBrzg2qh89MU8S+Q/a9CLVWA06TRXKt7tNbizF82dCj2/O0bQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-ryf7HSYdmLbrTv4HQmeW/h0bHLiCNnSZYiY9RoBrzg2qh89MU8S+Q/a9CLVWA06TRXKt7tNbizF82dCj2/O0bQ==",
+        "shasum": "989e5b5624e156b55f4c0a473c1ae48b525a3513",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-session-stats/-/dsh-session-stats-0.1.0-rc.7.tgz",
+        "fileCount": 17,
+        "unpackedSize": 35133,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCusEUBuzHTZcH/FniaTyofrvA+7zA96ParFctuNGXWMAIgTu5zU+zC2oWxQKlRTlaqAioJx4AFr8Y3LwGLav2lsK8="
+          }
+        ],
+        "size": 10442
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-session-stats_0.1.0-rc.7_1786967184430_0.9317816406175663"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:46:24.549Z",
+      "publish_time": 1786967184549,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-session-stats",
+      "description": "Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/session/session-stats"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-session-stats@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-T+SEzBkMxZpQ31MaeJCjaLN3/xu8yyZ3Va5u6osfq0nsJz1tvuZ53MHMbApdwERHVV0t/1eILTUo1J6XdksUEA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-T+SEzBkMxZpQ31MaeJCjaLN3/xu8yyZ3Va5u6osfq0nsJz1tvuZ53MHMbApdwERHVV0t/1eILTUo1J6XdksUEA==",
+        "shasum": "944105b778d2f09600138fbe7f9a4f8a3f6a50fd",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-session-stats/-/dsh-session-stats-0.1.0-rc.8.tgz",
+        "fileCount": 17,
+        "unpackedSize": 35133,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQC1n/qzA4zstD+miF6scAnxBF5lcA1oDDZgip5caBRhIQIgA3yj9/pxUQnrcAeoNTMi6QFfcZIIszf2ZsrEJDWF4No="
+          }
+        ],
+        "size": 10442
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-session-stats_0.1.0-rc.8_1787153846046_0.2965603297073782"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:37:26.197Z",
+      "publish_time": 1787153846197,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-session-stats",
+      "description": "Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/session/session-stats"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session-projection": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-session-projection": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-session-stats@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-H+JqPsq69nnoNPTJBQVQzG8EIVb4UZyyN4teLhEal79LG3XvYn9s/ZWTus3z02//KdwGhetCzvPZ+E1PVaUFIQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-H+JqPsq69nnoNPTJBQVQzG8EIVb4UZyyN4teLhEal79LG3XvYn9s/ZWTus3z02//KdwGhetCzvPZ+E1PVaUFIQ==",
+        "shasum": "307038849011775bfea3423662e1ec6f35aad32a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-session-stats/-/dsh-session-stats-0.1.1-rc.1.tgz",
+        "fileCount": 17,
+        "unpackedSize": 38535,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCICCM8I04AklifDcPDLQ2buhRvDbYBExxi/WttON8eD4gAiAdAFbjSBzRWbTorNUrVxFB16oHnB3hljGhcGV5TxdYDQ=="
+          }
+        ],
+        "size": 11035
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-session-stats_0.1.1-rc.1_1787294721790_0.7314096605942983"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:45:21.926Z",
+      "publish_time": 1787294721926,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-session-stats",
+      "description": "Whole-log conversation counts and wall times projection (sessionStats) for the DeepSeek Harness",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/session/session-stats"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./types": {
+          "types": "./lib/types/types.d.ts",
+          "default": "./lib/types/types.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-session-stats@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-SKGUZicnHHU8+zCswoluBCHSbTkA5ARQjl7YNxN6qY01ud/azpPdbcVaKO2MUy60Q1myx3W0Xk93VzF7sMt6cA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-session-stats-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-SKGUZicnHHU8+zCswoluBCHSbTkA5ARQjl7YNxN6qY01ud/azpPdbcVaKO2MUy60Q1myx3W0Xk93VzF7sMt6cA==",
+        "shasum": "62e36af9a63509ca728c465ce4edc34e97c4d15d",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-session-stats/-/dsh-session-stats-0.1.1-rc.2.tgz",
+        "fileCount": 17,
+        "unpackedSize": 38535,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIGHo7mvzAQAD7Lg/ws5fV99iwQmL2ridkJFttBm8ps1vAiBzRA+xs2CvdkNmsvqjGEAWM0O3ZGmcmjh5hPvUtUCp4w=="
+          }
+        ],
+        "size": 11042
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-session-stats_0.1.1-rc.2_1787315907435_0.7961173571392803"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:38:27.625Z",
+      "publish_time": 1787315907625,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:33:43.231Z",
+    "modified": "2026-08-21T12:38:36.474Z",
+    "0.1.0-rc.3": "2026-08-13T11:15:28.981Z",
+    "0.1.0-rc.6": "2026-08-13T12:33:36.490Z",
+    "0.1.0-rc.2": "2026-08-13T09:47:39.944Z",
+    "0.0.1-rc.5": "2026-08-12T22:35:43.044Z",
+    "0.1.0-rc.7": "2026-08-17T11:46:24.549Z",
+    "0.1.0-rc.8": "2026-08-19T15:37:26.197Z",
+    "0.1.1-rc.1": "2026-08-21T06:45:21.926Z",
+    "0.1.1-rc.2": "2026-08-21T12:38:27.625Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.5",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-e471a5d1a0b1dae7",
+  "_id": "@deepseek-ai/dsh-session-stats",
+  "readme": "# @deepseek-ai/dsh-session-stats\n\nEnglish | [中文](README.zh.md)\n\nFunction plugin registering the `sessionStats` projection unit: whole-log conversation figures — turn/step counts and the LLM, tool, first-token, and decode wall times — folded from step boundaries, stream chunks, tool pairs, and assembled assistant messages, and served through the session-projection seam (registry snapshot, change feed, and every projection carrier: history tail page, `session/projection` push frames, session list rows). Clients render full-session figures that paging and compaction cannot change; the reference consumer is the web chat stats strip, whose window fold mirrors these field names as its no-unit fallback.\n\n## Fold semantics\n\n- `steps` counts `step/end` events. The agent loop appends exactly one per entered step, in a `finally`, so completed, failed, cancelled, and max-tokens steps all count. Counting assembled assistant messages instead would overcount max-tokens usage-host messages (empty content, excluded from the surface) and undercount cancelled steps (aborted before the message assembles).\n- `turns` counts distinct turns carrying at least one closed step; rejected or empty turns (closed with no step) are uncounted. Turn numbers are host-assigned and monotonic per session, so the fold keeps only the last counted turn.\n- `llmMs` sums `step/start` → `assistant/message` per step that assembled a message (retry waits inside the step are model time, as in the window fold).\n- `ttftMs`/`ttftSteps` sum and count `step/start` → first non-empty delta chunk; the first attempt's boundary survives an in-step `llm/retry` (window `resetForRetry` parity).\n- `decodeMs`/`decodeTokens` sum first token → assembled message and the provider-reported output tokens, only over steps carrying both.\n- `toolMs` sums `tool/call` → `tool/result` pairs matched by callId; unresolved calls are dropped at `turn/end` (results land within their turn).\n- Every field is 0 until its first contributing event. A composed registry always serves the key, so clients read the value, never key presence.\n\n## Composition\n\n```yaml\n- id: session-stats\n  name: '@deepseek-ai/dsh-session-stats'\n```\n\nInjects `sessionProjections` — the plugin's whole purpose; in assemblies without the registry the fiber stays pending and nothing registers.\n\n## Model Experience\n\nNone, as the plugin only computes a client-facing read model of already-logged session events and touches no prompt, message, schema, stream, or tool result.\n\n#### KV Cache effect\n\nNone; the plugin never assembles or sends provider requests.\n\n## Known Limitations and Deferred Work\n\n- **Steps count work attempted, not visible output** — a step that failed before producing any visible content still closed with `step/end` and counts; a step interrupted by a crash counts after the session reloads, when crash recovery appends its synthetic `step/end` (`interruptedTurnClosers` in dsh-session).\n- **A cancelled step is counted but untimed** — no assistant message assembles, so its partial stream time enters no wall-time figure, matching the window fold's untimed interrupted node; a max-tokens usage-host message conversely contributes model time the surface does not show.\n- **Counts are log-scoped, not surface-scoped** — steps whose messages were later compacted away stay counted; the figures describe the whole session, not the current model-visible surface.\n- **Mounted only in the web-app bundle** — other assemblies serve no `sessionStats` key, and their consumers fall back to window-scoped counting (the web stats strip's fallback path).",
+  "_attachments": {}
+}

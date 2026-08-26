@@ -1,0 +1,845 @@
+{
+  "name": "@deepseek-ai/dsh-terminal",
+  "versions": {
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-terminal@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "86e36186528e24dfbca9d077841bcef3597fc88c",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.0.1-rc.5.tgz",
+        "fileCount": 10,
+        "integrity": "sha512-Zs2yUzDJixQITUc51hlfEWy3wl7ysHcpQNaptuYB+c/bSwVr7rNsZ98A9FiurBnM1jEx/pvpRSDZaNkamruKZA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQC9RQiBELziPKjYuu3Ji6oCb46Og8Foxl4NiOe1Q0iMHAIhAMaxWHe3FMUBhbGvi7lKNdIAzM+JWKwwyfVCSor6r0bv",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 37471,
+        "size": 12044
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-Zs2yUzDJixQITUc51hlfEWy3wl7ysHcpQNaptuYB+c/bSwVr7rNsZ98A9FiurBnM1jEx/pvpRSDZaNkamruKZA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/terminal/terminal"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-terminal_0.0.1-rc.5_1786573966319_0.927355453825792",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:32:46.465Z",
+      "publish_time": 1786573966465,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/terminal/terminal"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-terminal@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-riHLAQhXJJ2TT9XrDWGMgJf21RBqQgSZdEVvG4+xGEf9NZWcoszxdp+KW7rpwfrKuuD70p8RHCPGW4gCQPA+/A==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-riHLAQhXJJ2TT9XrDWGMgJf21RBqQgSZdEVvG4+xGEf9NZWcoszxdp+KW7rpwfrKuuD70p8RHCPGW4gCQPA+/A==",
+        "shasum": "834f0712ebb462589c2c63fd3bb14f8168b4d491",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.1.0-rc.6.tgz",
+        "fileCount": 10,
+        "unpackedSize": 37018,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIDhlKsA6XFeYfAovzdcP0KqTuiKoq855kyLaSpSBlgcGAiBmF8vRPeDr8I7FoScLsozQomyEIpBt76Fj46CGX/0joQ=="
+          }
+        ],
+        "size": 11862
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-terminal_0.1.0-rc.6_1786623852811_0.7809565286006313"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:24:12.959Z",
+      "publish_time": 1786623852959,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-terminal@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "6e20915298e0c1abde9b6c30f5eaf4709c4ba892",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.0.1-rc.3.tgz",
+        "fileCount": 10,
+        "integrity": "sha512-EpTuSB3EhR4jJre3ADwSUon1cODf+WC1JSj/Kr+uzh9dozCr7iTPu7lf/HLnlmljgw7v0ntQ/19AFIS0CMUjyQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIA03Ph6sP0PZs07AOb5XgrIbYl+qGsebgQStZ+DmSy9eAiEA3bFtpwu3CHOYGhzVOOFx6zOL4gD0W/QLRpYZ+FQG6OE=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 37471,
+        "size": 12035
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-EpTuSB3EhR4jJre3ADwSUon1cODf+WC1JSj/Kr+uzh9dozCr7iTPu7lf/HLnlmljgw7v0ntQ/19AFIS0CMUjyQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/terminal/terminal"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-terminal_0.0.1-rc.3_1786566944241_0.4449250454961977",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:35:44.481Z",
+      "publish_time": 1786566944481,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-terminal@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "177dda367d7d43f99587b903d43e67b0709478cc",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.1.0-rc.2.tgz",
+        "fileCount": 10,
+        "integrity": "sha512-gTU/3FOBliiU45Kxzzdm2RJDo7Zd/4mMi9LTXM7+6JH6SLGKVB0a1XUdsvikaxqfdjdjaCSrNwIvf2HoYYTTJw==",
+        "signatures": [
+          {
+            "sig": "MEUCIFr7965VvrllMbFtYzf8OtSfQpvHQmsEfcZqxB1Kksn8AiEA9Zc9Qz7MaoeE2B2HvlLgIfhdjbdQNEdAkWuPKWdFbMo=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 37022,
+        "size": 11872
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-gTU/3FOBliiU45Kxzzdm2RJDo7Zd/4mMi9LTXM7+6JH6SLGKVB0a1XUdsvikaxqfdjdjaCSrNwIvf2HoYYTTJw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/terminal/terminal"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-terminal_0.1.0-rc.2_1786614157832_0.5856854378521452",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:42:37.949Z",
+      "publish_time": 1786614157949,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "version": "0.1.0-rc.3",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-terminal@0.1.0-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "ddfe7547818a1037efd243cd4a2972529ae5aea5",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.1.0-rc.3.tgz",
+        "fileCount": 10,
+        "integrity": "sha512-GUPXYYV00XMYv7CaNfU2ggg1Xdap5RIk2WTs4EgTls0acYTnuDMfCHfT21zQV+leafcyO9lLbIrl6eHc7sYgzA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCENVd9cXKB3325dC8tX4KvsEp2lqiYknGLqEhJ2P4VGwIgQnszXz6MkJKvbP6APdS5+TZeMs4NH8yR/d7+C9WyFyY=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 37022,
+        "size": 11868
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.3.tgz",
+      "_integrity": "sha512-GUPXYYV00XMYv7CaNfU2ggg1Xdap5RIk2WTs4EgTls0acYTnuDMfCHfT21zQV+leafcyO9lLbIrl6eHc7sYgzA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/terminal/terminal"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-terminal_0.1.0-rc.3_1786619406356_0.7141296680698672",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T11:10:06.510Z",
+      "publish_time": 1786619406510,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/terminal/terminal"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-terminal@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-B22qppmKWvw5Ez9eMKnppHiaMrikIcHmfmvyd296EspnhTBJAvXDnc9NggT0DUnSvm+2gh5ffohhMJel9A2pSA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-B22qppmKWvw5Ez9eMKnppHiaMrikIcHmfmvyd296EspnhTBJAvXDnc9NggT0DUnSvm+2gh5ffohhMJel9A2pSA==",
+        "shasum": "6f608dc39091f8b933804e4c2eeddd85002448c7",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.1.0-rc.7.tgz",
+        "fileCount": 10,
+        "unpackedSize": 37018,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCRlN66RX1kUSYYra0SB6SIF7vlj9A6x6QJyQlSKpBeUwIgd4yNzZpV+R068qqznUKMHOf2kePnUKvOsLitPgOp8pE="
+          }
+        ],
+        "size": 11860
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-terminal_0.1.0-rc.7_1786967277055_0.7306602267774074"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:47:57.287Z",
+      "publish_time": 1786967277287,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/terminal/terminal"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-terminal@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-Vu73FrQGx8h7Mqq0QdKtzAiZ3xgVM4fB9wmf3fEl6OiJTcqfc8t4lgug3gE7uBeDVRaLn+aq7kHbEUOY0fsm1Q==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-Vu73FrQGx8h7Mqq0QdKtzAiZ3xgVM4fB9wmf3fEl6OiJTcqfc8t4lgug3gE7uBeDVRaLn+aq7kHbEUOY0fsm1Q==",
+        "shasum": "b2eb1e056a8accd42e20354ca5d61eb9d2250c2e",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.1.0-rc.8.tgz",
+        "fileCount": 10,
+        "unpackedSize": 37018,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIAaTq1zAS9o7HIzmZvtV0DUz9N+UK42/caNkH4wd4FtNAiEAhIUynT3tmLJbkDhbYjrQ8ngUAql46j9B342pY5cLmLE="
+          }
+        ],
+        "size": 11860
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-terminal_0.1.0-rc.8_1787153907566_0.2931531214362275"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:38:27.713Z",
+      "publish_time": 1787153907713,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/terminal/terminal"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-terminal@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-34Ef13Gt5NG+W+u5Z41tt/TPBNFwMfjXBCy3ySSpZw/8b6KXDs2KwgLtrfBBBOSB9wV8ONtC5DCCEsOvRr+u9A==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-34Ef13Gt5NG+W+u5Z41tt/TPBNFwMfjXBCy3ySSpZw/8b6KXDs2KwgLtrfBBBOSB9wV8ONtC5DCCEsOvRr+u9A==",
+        "shasum": "e1c9ca0187df44081b779dcd071d90ab6deda612",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.1.1-rc.1.tgz",
+        "fileCount": 10,
+        "unpackedSize": 37018,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIElCUrteW5el7Sj5uOTlywwDmSKD+VGe79IPYNTwjY2rAiA7rOj8ckdq2yv3qnHTno2wsd5xjjLpIZlw5XHAubiSbA=="
+          }
+        ],
+        "size": 11867
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-terminal_0.1.1-rc.1_1787294779106_0.2594052925021637"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:46:19.241Z",
+      "publish_time": 1787294779241,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-terminal",
+      "description": "Persistent PTY session seam for the DeepSeek Harness — owner-scoped ids, backend registry, interactive sends, reads, signals, and awaited cleanup",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/terminal/terminal"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.2"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-terminal@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-NOsajXg4cX09coiLtCMgSqXAw90uptqyA9Njv6MVAOLgh6ctpjsolL3VIIWapSJ6AngsCTqVXW7sxexwpl0yUw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-terminal-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-NOsajXg4cX09coiLtCMgSqXAw90uptqyA9Njv6MVAOLgh6ctpjsolL3VIIWapSJ6AngsCTqVXW7sxexwpl0yUw==",
+        "shasum": "d46c2c1d3f80416a71c8164e70642ab3230f81bf",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-terminal/-/dsh-terminal-0.1.1-rc.2.tgz",
+        "fileCount": 10,
+        "unpackedSize": 37018,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDEItIxFBxfWuNHOEoh/S9CXt/M8u1mxdIBbzhn+Fl3rgIgW9D5g2/7bQkqGKy7S+++57/2hLiJd12hcorHIb+BIZ4="
+          }
+        ],
+        "size": 11869
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-terminal_0.1.1-rc.2_1787315964536_0.6618716907208131"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:39:24.699Z",
+      "publish_time": 1787315964699,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:24:23.936Z",
+    "modified": "2026-08-21T12:39:45.603Z",
+    "0.0.1-rc.5": "2026-08-12T22:32:46.465Z",
+    "0.1.0-rc.6": "2026-08-13T12:24:12.959Z",
+    "0.0.1-rc.3": "2026-08-12T20:35:44.481Z",
+    "0.1.0-rc.2": "2026-08-13T09:42:37.949Z",
+    "0.1.0-rc.3": "2026-08-13T11:10:06.510Z",
+    "0.1.0-rc.7": "2026-08-17T11:47:57.287Z",
+    "0.1.0-rc.8": "2026-08-19T15:38:27.713Z",
+    "0.1.1-rc.1": "2026-08-21T06:46:19.241Z",
+    "0.1.1-rc.2": "2026-08-21T12:39:24.699Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.3",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-f979329af1cc834b",
+  "_id": "@deepseek-ai/dsh-terminal",
+  "readme": "# @deepseek-ai/dsh-terminal\n\nEnglish | [中文](README.zh.md)\n\nOwner-scoped persistent PTY seam. `TerminalSessionService` registers as `ctx.terminals`, mints opaque session ids, routes creation through named backends, fences every operation to the exact live `Agent`, and awaits backend quiescence when that agent or the service disposes.\n\n## Contract\n\n- Backends register one stable `type` and return an unpublished `TerminalBackendSession`; failed or cancelled setup must clean partial resources, and a failed cleanup rejects with `TerminalBackendCleanupError` so the registry can retain it across cancellation.\n- Spawn cancellation preserves the caller's exact abort reason. Service disposal and owner loss remain distinct machine-routable failures after backend setup.\n- Owner and service disposal abort unpublished setup through a service-owned signal and await backend settlement plus rollback before returning.\n- A rollback-close or backend-reported startup cleanup failure rejects the disposing lifecycle instead of claiming quiescence. Caller-triggered cancellation still receives its exact reason; lifecycle-triggered rollback failure also rejects the pending spawn.\n- A backend cleanup failure that follows caller cancellation remains owner activity until owner or service disposal consumes and reports it, so lifecycle policy cannot mistake failed cleanup for quiescence.\n- `hasOwnerActivity(owner)` spans unpublished setup through final close, so lifecycle policy can fence the exact owner without a publication race.\n- A successful spawn publishes one `TerminalSessionId`. The optional `name` is owner-local display metadata, never authority.\n- One session accepts at most one live send operation. Reads and signals may observe it; another send fails until the operation settles.\n- `TerminalSendResult.waitReason` and `sessionStatus` are independent. `session_exit` describes the top-level PTY process, not an arbitrary foreground command.\n- `kill()` and disposal resolve only after the backend's captured process tree is quiescent. A cleanup failure rejects instead of claiming success and clears the matching backend and registry fences so a later close can retry without disturbing a newer attempt.\n\nThe seam contains no `node-pty`, sandbox, tool-schema, prompt, task, or terminal-rendering policy. Implementations own terminal mechanics; consumers own model presentation and optional background-job registration.\n\n## Model Experience\n\n### Indirect consumer\n\n#### What the model sees\n\nNothing directly. This package registers no prompt or tool; `@deepseek-ai/dsh-tool-terminal` owns visible schemas and result text.\n\n#### Token effect\n\nNone directly. Live session state stays process-local until a consumer returns a bounded result.\n\n#### KV Cache effect\n\nNo direct invalidation; the named consumer owns request-prefix changes.\n\n## Known Limitations and Deferred Work\n\n- Sessions are process-local and are not restored after a harness restart.\n- Cross-agent sharing is intentionally absent; a future shared-session design needs a separate authority contract.",
+  "_attachments": {}
+}

@@ -1,0 +1,1205 @@
+{
+  "name": "@deepseek-ai/dsh-tool-web",
+  "versions": {
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tool-web@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "6701074c1f7ccf6cb869089ec663fc233a4187ad",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.0.1-rc.1.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-njSxT4CKJMHN3OgOJeixPnsM43RbZUvSp2bxInZwFSMMQL7wqymbl8+JYpD2wPYp4aQJUKvVFV/VFesdwdBFeg==",
+        "signatures": [
+          {
+            "sig": "MEQCIFoD3YfcnwGFxMtr96MBCVtuKdX4oK6i99vk3H15V/BdAiB3ujxDcGfbgUNTsZalinuT8NnRFFqwHYQyaqkuVaoOJg==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 68786,
+        "size": 22151
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-njSxT4CKJMHN3OgOJeixPnsM43RbZUvSp2bxInZwFSMMQL7wqymbl8+JYpD2wPYp4aQJUKvVFV/VFesdwdBFeg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/web/tool-web"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1",
+        "@joplin/turndown-plugin-gfm": "^1.0.67"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-web": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-spill-local": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-spill-policy": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-timeout-policy": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-web-search-exa": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-web-fetch-local": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-web": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-web_0.0.1-rc.1_1786390651646_0.25434117196339523",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:37:31.806Z",
+      "publish_time": 1786390651806,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tool-web@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "ab0bf4d092a8fdd49a8b804514593603ab93d9dd",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.0.1-rc.3.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-kdm8SN/iHTrjGTSEfIRYUaLepVT/eg/sGLkWuNt3FS6d+GbimZ1DmH2kCR5g+BV/+vq/ARMDqM0j4IXSamflKw==",
+        "signatures": [
+          {
+            "sig": "MEQCIHgER7jalsr5qTqcQkIc1IP89RcVeD78TM3SKfQw584sAiBYrLVjV5+XAFJSwr8ZT1v/HM2um2gPTgHsXCl2IiA+FA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 68935,
+        "size": 22151
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-kdm8SN/iHTrjGTSEfIRYUaLepVT/eg/sGLkWuNt3FS6d+GbimZ1DmH2kCR5g+BV/+vq/ARMDqM0j4IXSamflKw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/web/tool-web"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1",
+        "@joplin/turndown-plugin-gfm": "^1.0.67"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-web": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-spill-local": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-spill-policy": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-web-search-exa": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-web": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-web_0.0.1-rc.3_1786566867757_0.6719944974735643",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:34:27.898Z",
+      "publish_time": 1786566867898,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-tool-web@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "2536cbcf549a918f1172961bdb635ce1f3a1372a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.1.0-rc.2.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-SjUzqGiIgnUOholvpHoLGDSds9xaZuitiZncY6gJANxdE9cRWyXEgbM+z12qTnRs1ocRI5FAm7YiQMlEbK4yxA==",
+        "signatures": [
+          {
+            "sig": "MEQCICzIRePgfMz1Q+Y82EbD58Toz5ypNGo8aDy7wsp3c1vkAiBBrvAUWsCf+SICgxxeEpDs0KYb3dKLvisyLAgHF0Umrg==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 68481,
+        "size": 21963
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-SjUzqGiIgnUOholvpHoLGDSds9xaZuitiZncY6gJANxdE9cRWyXEgbM+z12qTnRs1ocRI5FAm7YiQMlEbK4yxA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/web/tool-web"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1",
+        "@joplin/turndown-plugin-gfm": "^1.0.67"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-spill-local": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-spill-policy": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-web-search-exa": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-web_0.1.0-rc.2_1786614044725_0.4073121580387742",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:40:44.861Z",
+      "publish_time": 1786614044861,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tool-web@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "784dda4784910917fc528327ac11cda590858f92",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.0.1-rc.5.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-YEk2vXuEebSi1U+upeMNhBofJPFzQ1TI4++gvoMhyjzwP3fTcpAK7maFWULcTYVm9qjr7EYHGTsLBn7Hn0NYUg==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCmVOv1K5e67cpA8iRIuAK3Kkk7JGb4//wgB23KhWLd5QIhAMl20mmvXNbCZ2mME6bVZi+v9BljtqQCsF6iPrn0bdaB",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 68935,
+        "size": 22141
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-YEk2vXuEebSi1U+upeMNhBofJPFzQ1TI4++gvoMhyjzwP3fTcpAK7maFWULcTYVm9qjr7EYHGTsLBn7Hn0NYUg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/web/tool-web"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.4",
+        "@joplin/turndown-plugin-gfm": "^1.0.67"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-web": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-spill-local": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-spill-policy": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-web-search-exa": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-web": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-web_0.0.1-rc.5_1786573898677_0.6572953342357719",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:31:38.818Z",
+      "publish_time": 1786573898818,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/web/tool-web"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "@joplin/turndown-plugin-gfm": "^1.0.67",
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-spill-local": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-spill-policy": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-web-search-exa": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.6"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-web@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-2iw+F65+1+I3gwi8N+LzC6GD6vnhDSHfo9D+Pm+4h2O2d+4YKjeaOukx65sV9HTvFumY1tWXnYhBbDCJYBJAig==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-2iw+F65+1+I3gwi8N+LzC6GD6vnhDSHfo9D+Pm+4h2O2d+4YKjeaOukx65sV9HTvFumY1tWXnYhBbDCJYBJAig==",
+        "shasum": "a4e54f407a648cb2218e823311134ac97372ddae",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.1.0-rc.6.tgz",
+        "fileCount": 11,
+        "unpackedSize": 68477,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDtibWnGyjF5ICbV79slwBoDSKoIIh7udYXMqVmRSFDZAIgFU0Aw+UKxCFKxTGGQXhgTDAZHtanISS8wwKuRLM3N94="
+          }
+        ],
+        "size": 21958
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-web_0.1.0-rc.6_1786623644583_0.5110906032757825"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:20:44.733Z",
+      "publish_time": 1786623644733,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/web/tool-web"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "@joplin/turndown-plugin-gfm": "^1.0.67",
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-spill-local": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-web-search-exa": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-spill-policy": "^0.1.0-rc.3"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-web@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-oNZ+G+aWlwIn5KoGIwMMYgHsnJ8VXpZwpQqTxuwRUynefH8lITujjbJF2N2/o6taaot7B0nCK6yIjn92IjWzEQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-oNZ+G+aWlwIn5KoGIwMMYgHsnJ8VXpZwpQqTxuwRUynefH8lITujjbJF2N2/o6taaot7B0nCK6yIjn92IjWzEQ==",
+        "shasum": "f558c32521e5781808379dc994a7acf66e12f53b",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.1.0-rc.3.tgz",
+        "fileCount": 11,
+        "unpackedSize": 68481,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCgOLyRkfjzutkizcV2ZYyZgqApTkldbFPbmxxtZprfUAIgTZvvG8rswhm4O6azDOEgy2nlgMRTaDFpumqlTqMFTF8="
+          }
+        ],
+        "size": 21954
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-web_0.1.0-rc.3_1786619283818_0.6568030369731355"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:08:03.975Z",
+      "publish_time": 1786619283975,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tool-web@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "f648242282f0300592b401637951f071820160c5",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.0.1-rc.2.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-WjUI1fBn3iwOcwmRv0qkKEaYiV7CbF0z5Vxk2n7utsF3u4WQ09hDO8k16tQgRdX82cmbTFiZ96kttnESUZpq+w==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDhCUFqN9WCvuQDrbQvBS66Thvv5UQ2NYLZ21MfVeuRUgIgO6tPsd1NSdabrAl6UN2xXkdUu+jsISsFgYehkvHVTwY=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 68782,
+        "size": 22146
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-WjUI1fBn3iwOcwmRv0qkKEaYiV7CbF0z5Vxk2n7utsF3u4WQ09hDO8k16tQgRdX82cmbTFiZ96kttnESUZpq+w==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/web/tool-web"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1",
+        "@joplin/turndown-plugin-gfm": "^1.0.67"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-web": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-spill-local": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-spill-policy": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-timeout-policy": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-web-search-exa": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-web-fetch-local": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-web": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-web_0.0.1-rc.2_1786461575640_0.2505438057352771",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:19:35.779Z",
+      "publish_time": 1786461575779,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/web/tool-web"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.7"
+      },
+      "dependencies": {
+        "@joplin/turndown-plugin-gfm": "^1.0.67",
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-spill-local": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-web-search-exa": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-spill-policy": "^0.1.0-rc.7"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-web@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-FJyrD+LspCOIP05/v9hv6MJNkTbgDw8ZpmyAXk6sRopA3yOUju5SnN5HpSZ97ZAK65T6tHYbTMdJhy51D41wOw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-FJyrD+LspCOIP05/v9hv6MJNkTbgDw8ZpmyAXk6sRopA3yOUju5SnN5HpSZ97ZAK65T6tHYbTMdJhy51D41wOw==",
+        "shasum": "8b0392b4a0b813fd340eeda6e61b72629645a42f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.1.0-rc.7.tgz",
+        "fileCount": 11,
+        "unpackedSize": 68477,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIB5cvbFFdZgaWfALEXd//Q+lT24jUKHN+XzVPhWsLO94AiEA4tQxoI54WGuswY/pRwJH2sUYN5fLH33KnCqBYmSN76U="
+          }
+        ],
+        "size": 21955
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-web_0.1.0-rc.7_1786967106581_0.6030004919990024"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:45:06.743Z",
+      "publish_time": 1786967106743,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/web/tool-web"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8"
+      },
+      "dependencies": {
+        "@joplin/turndown-plugin-gfm": "^1.0.67",
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-spill-local": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-spill-policy": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-web": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-web-search-exa": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-web@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-MrTkQ2L52A13ysTM94bSW+5sXq3AyVNoo5q3bK47bsl+hg9Kga5gDgGAZ+SGVSQZAUEHXfuYGHaErdUp50bncw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-MrTkQ2L52A13ysTM94bSW+5sXq3AyVNoo5q3bK47bsl+hg9Kga5gDgGAZ+SGVSQZAUEHXfuYGHaErdUp50bncw==",
+        "shasum": "cf05e2b158d1ace82813580c69012f72b69bf3d8",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.1.0-rc.8.tgz",
+        "fileCount": 11,
+        "unpackedSize": 78784,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQD0dFYOMrPtSdaquqDO3zbNw8eIF9DUZbVN9yyl26/BzQIgZ0lVmzM9/BqlPW22aqLzAqzIv3roGGabp9AWSrwC0p8="
+          }
+        ],
+        "size": 25440
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-web_0.1.0-rc.8_1787153792714_0.6644332142471416"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:36:32.872Z",
+      "publish_time": 1787153792872,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/web/tool-web"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-web": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "@joplin/turndown-plugin-gfm": "^1.0.67",
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-spill-local": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-spill-policy": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-web": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-web-search-exa": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-web@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-d3/9NJQc2Vcv4m6Q94POCRZ0conqjAeqUobNwIpMiWrSL4U8jZYzXwFVBw0Sw+cwYVBi2Og5Vv9aJmWANTX3Mw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-d3/9NJQc2Vcv4m6Q94POCRZ0conqjAeqUobNwIpMiWrSL4U8jZYzXwFVBw0Sw+cwYVBi2Og5Vv9aJmWANTX3Mw==",
+        "shasum": "89177c3364e3cd12421eb9c49df052b6cd7441b2",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.1.1-rc.1.tgz",
+        "fileCount": 11,
+        "unpackedSize": 78802,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIDYRbGYisZDAOA4zkq/0AgAFaM38hmLj1Yxvh99pYL5qAiBEznswEB8foJAzl2dGr8iVkdbHEWRzf9SLNkcUtUbzHw=="
+          }
+        ],
+        "size": 25445
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-web_0.1.1-rc.1_1787294672618_0.9077677022621973"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:44:32.781Z",
+      "publish_time": 1787294672781,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-tool-web",
+      "description": "Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/web/tool-web"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-web": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.2"
+      },
+      "dependencies": {
+        "@joplin/turndown-plugin-gfm": "^1.0.67",
+        "turndown": "^7.2.4",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@types/turndown": "^5.0.6",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-spill-local": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-spill-policy": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-tool-call-timeout-policy": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-web-fetch-http": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-web": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-web-search-exa": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-web@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-oV54OJFYYseJCT77F8lr9ZU/f/x8ZbPTmgQpYPC/O24Hw5uqUHEADkukC2ajrltZSTd0+OVqxHFwpWH4gjDoHQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-web-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-oV54OJFYYseJCT77F8lr9ZU/f/x8ZbPTmgQpYPC/O24Hw5uqUHEADkukC2ajrltZSTd0+OVqxHFwpWH4gjDoHQ==",
+        "shasum": "c8b1652c182e60e751178b5d02f0efb50b01c3ad",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-web/-/dsh-tool-web-0.1.1-rc.2.tgz",
+        "fileCount": 11,
+        "unpackedSize": 78802,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIHiEBUwxY3lr80MlS3OoYlkqrCV/XVAdb8n/qvSqlRSTAiBEkrr6/QoQqFS4r2z9DXyXgyggezqgQvU6zIPUaLKtag=="
+          }
+        ],
+        "size": 25450
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-web_0.1.1-rc.2_1787315859602_0.16916514677949723"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:37:39.741Z",
+      "publish_time": 1787315859741,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:20:50.609Z",
+    "modified": "2026-08-21T12:37:58.314Z",
+    "0.0.1-rc.1": "2026-08-10T19:37:31.806Z",
+    "0.0.1-rc.3": "2026-08-12T20:34:27.898Z",
+    "0.1.0-rc.2": "2026-08-13T09:40:44.861Z",
+    "0.0.1-rc.5": "2026-08-12T22:31:38.818Z",
+    "0.1.0-rc.6": "2026-08-13T12:20:44.733Z",
+    "0.1.0-rc.3": "2026-08-13T11:08:03.975Z",
+    "0.0.1-rc.2": "2026-08-11T15:19:35.779Z",
+    "0.1.0-rc.7": "2026-08-17T11:45:06.743Z",
+    "0.1.0-rc.8": "2026-08-19T15:36:32.872Z",
+    "0.1.1-rc.1": "2026-08-21T06:44:32.781Z",
+    "0.1.1-rc.2": "2026-08-21T12:37:39.741Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-cdf34af100c971b8",
+  "_id": "@deepseek-ai/dsh-tool-web",
+  "readme": "# @deepseek-ai/dsh-tool-web\n\nEnglish | [中文](README.zh.md)\n\nThe model-facing web tool suite — `web_search` and `web_fetch` — over the [web capability seam](../web/README.md) (`ctx.web`). It owns model-facing concerns only: tool names, JSON schemas, snake_case argument names, prompt sections, the result-count bound, result formatting, HTML→markdown presentation, and the UI presentation projection — `presentCall`, `presentResult` (a `card: 'web'` result card discriminated by `kind: 'search' | 'fetch'`), and the `output.presentationMeta` that carries the structured search sources or the fetch summary the lossy render text cannot (see the [web-result-card Agent Note](../../../.agents/notes/implemented/feature/2026-07-30-web-result-card.md)). All web access goes through `ctx.web`; this package never imports a concrete provider. Neither tool exposes a model-facing timeout — each tool's cooperative tool-call budget is declared here via config (`fetchTimeoutMs`/`searchTimeoutMs`, attached as `ToolDefinition.timeoutMs`) and enforced by [`@deepseek-ai/dsh-timeout-policy`](../../guard/timeout-policy/README.md) (a `tools/execute` wrapper); each tool just forwards `exec.signal` to the seam.\n\nEach tool is registered independently; a product that wants only one disables the other via config (`{ search: false }` / `{ fetch: false }`). Search guidance mentions `web_fetch` only when fetch is also config-enabled; a search-only composition instead tells the model to use returned snippets and cite their URLs.\n\n## Tools\n\n| Tool | Args | Behavior |\n|---|---|---|\n| `web_search` | `query` (string) | Discovery. Returns an optional answer plus source URLs. `max_results` is **not** model-facing — the tool sets the bound (the `searchMaxResults` config, default 8) and passes it to the seam. |\n| `web_fetch` | `url` (string) | Retrieves a specific URL. HTML bodies are rendered to markdown (turndown with GFM tables/strikethrough); text bodies pass through. A non-2xx status is reported, not an error. The tool-call timeout is deployment policy (`dsh-timeout-policy`), not a model argument. |\n\nBoth tools opt into concurrent scheduling because provider reads return content without mutating parent-agent state.\n\nThe normalized service results are also the canonical tool values: `WebSearchResult` and `WebFetchResult`. Native renderers preserve the answer/source and fetched-body text below; provider search/body caps remain acquisition limits rather than presentation-only truncation.\n\n## Config\n\n| Key | Default | Meaning |\n|---|---|---|\n| `search` | `true` | Register `web_search`. |\n| `fetch` | `true` | Register `web_fetch`. |\n| `searchMaxResults` | `8` | Upper bound on sources returned by one `web_search` call (the seam truncates a longer provider list and flags it). |\n| `fetchTimeoutMs` | `30000` | Cooperative tool-call timeout budget (ms) for `web_fetch`. |\n| `searchTimeoutMs` | `30000` | Cooperative tool-call timeout budget (ms) for `web_search`. |\n| `fetchMaxOutputChars` | `200000` | Cap on source characters converted synchronously and on one complete `web_fetch` output (header, rendered body, and footer); a cut body gets the truncation notice when it fits. |\n\n`fetchTimeoutMs`/`searchTimeoutMs` declare each tool's cooperative timeout budget (attached as `ToolDefinition.timeoutMs`), enforced by [`@deepseek-ai/dsh-timeout-policy`](../../guard/timeout-policy/README.md); the model-facing schema exposes no timeout argument. `fetchMaxOutputChars` bounds both synchronous conversion work and the complete rendered result: only that many source characters are converted, and the header, converted prefix, and truncation notice are then capped together. The default leaves headroom above the local provider's 100,000-character body cap, but rendered expansion can still make the final bound truncate the result.\n\n```yaml\n- id: tool-web\n  name: '@deepseek-ai/dsh-tool-web'\n```\n\n## Stable registration\n\nTool registration follows product **enablement**, not backend availability. A tool stays visible even when its selected provider is missing, misconfigured, ambiguous, or temporarily unavailable; the seam resolves the provider at execution time and execution fails with a structured `WebError` (e.g. `WEB_PROVIDER_UNAVAILABLE`, `WEB_PROVIDER_AMBIGUOUS`), which `ToolRegistry.execute()` turns into an error tool result the model can read and hooks/UI can route on. This keeps the model schema stable without making plugin load order, credential state, or HMR timing part of the model-facing contract. To remove a web tool entirely, disable it here in config.\n\nThe tool never calls a provider's `available()` and never enumerates providers — its only execution path is `ctx.web.search()` / `ctx.web.fetch()`, and provider unavailability reaches it as the structured `WebError` codes selection throws at execution time. Provider selection stays entirely inside the seam, with one owner.\n\n## Model Experience\n\n### System prompt\n\n#### What the model sees\n\nSearch and fetch contribute the web-search and web-fetch guidance below. Search chooses its fetch-enabled or search-only text from config at registration time. A scoped tool restriction does not remove these independently registered sections.\n\n##### Web search guidance with fetch enabled\n\n```markdown\nUse the web_search tool to discover current information on the web. It returns an optional answer plus a list of source URLs. Follow up with web_fetch when you need the full content of a specific result, and cite the relevant URLs as markdown links.\n```\n\n##### Web search-only guidance\n\n```markdown\nUse the web_search tool to discover current information on the web. It returns an optional answer plus a list of source URLs. Use the returned source snippets when available, and cite the relevant URLs as markdown links.\n```\n\n##### Web fetch guidance\n\n```markdown\nUse the web_fetch tool to retrieve the content of a specific HTTP(S) URL (for example a result from web_search). It returns the page content decoded to text. Cite the URL as a markdown link when you use its content.\n```\n\n#### Token effect\n\nFixed guidance cost per request for each config-enabled tool, even when a restriction hides its schema. Toggling fetch changes the search guidance as well as registering or removing the fetch section.\n\n#### KV Cache effect\n\nPrefix-stable while enabled tools, scope, and guidance text are unchanged. Config enablement—including toggling fetch's search-guidance branch—or plugin lifecycle may invalidate reuse from the first changed prompt section; scoped schema restrictions do not remove it.\n\n### Tool schemas\n\n#### What the model sees\n\nThe model sees the generated [`web_search` and `web_fetch` schemas](../../../docs/tool-catalog.md#deepseek-aidsh-tool-web). Result-count and timeout budgets are deployment settings, not model arguments.\n\n#### Token effect\n\nFixed schema cost per request; config disablement removes both schema and guidance, while a scoped restriction removes only the schema.\n\n#### KV Cache effect\n\nPrefix-stable while definitions and visibility are unchanged. Config enablement, plugin lifecycle, or scoped restrictions may invalidate reuse from the first changed schema token.\n\n### Search result\n\n#### What the model sees\n\nThe optional provider-owned answer is followed by `Sources:` and data-dependent lines shaped exactly `- [<title-or-url>](<url>)`, optionally suffixed ` — <snippet> (<publishedAt>)`. With neither answer nor sources the result says `No results found.` A capped list adds `(Showing the first <count> sources. Refine the query for more.)`; every result ends `Cite the relevant URLs above as markdown links in your answer.`\n\n#### Token effect\n\nData-dependent results are resent until compaction and sources are capped by `searchMaxResults`.\n\n#### KV Cache effect\n\nAppend-only; newly visible content follows the reusable request prefix and does not invalidate existing KV-cache entries.\n\n### Fetch result\n\n#### What the model sees\n\nA successful fetch is exactly `Fetched <finalUrl> (HTTP <statusCode>)`, a blank line, and the provider-owned decoded body. Truncation adds a blank line and `(Content truncated. Fetch a more specific URL or section for the full text.)`; failures become `Error: <message>`. Queries and URLs remain in call history.\n\n#### Token effect\n\nProvider caps bound body size; retained call arguments and results are resent until compaction, and timeout policy can replace a late result with a short error.\n\n#### KV Cache effect\n\nAppend-only; newly visible content follows the reusable request prefix and does not invalidate existing KV-cache entries.\n\n### Argument errors\n\n#### What the model sees\n\nBlank inputs become exactly `Error: query must be a non-empty string` or `Error: url must be a non-empty string`.\n\n#### Token effect\n\nOnly the failing call adds these retained tokens.\n\n#### KV Cache effect\n\nAppend-only; newly visible content follows the reusable request prefix and does not invalidate existing KV-cache entries.\n\n## Known Limitations and Deferred Work\n\n- **HTML→markdown conversion degrades on inputs GFM cannot safely represent** — [turndown](https://github.com/mixmark-io/turndown) (with GFM tables/strikethrough) converts at most `fetchMaxOutputChars` source characters through a real DOM. A conservative 512-level lexical guard passes deeply or ambiguously nested bodies through as raw HTML, conversion exceptions do the same, and table `colspan` is ignored because GFM has no spanning-cell representation; these bounds avoid blocking the event loop or expanding output from an untrusted numeric attribute ([archived dependency decision](../../../.agents/notes/archived/simplification/2026-07-26-turndown-for-tool-web-html-markdown.md)).\n- **The model-facing surface is minimal by design, with promotions deferred** — `max_results` stays a config bound (not a model argument), and `web_fetch` takes only `url` (no `format`/`prompt`/LLM-summarization mode); both are named later steps in [the seam Agent Note](../../../.agents/notes/implemented/architecture/2026-06-24-web-capability-seam.md).\n- **No web-specific permission policy** — both tools execute without requesting `ctx.approval`; a deployment that needs confirmation must add a `tools/pre-execute` policy, and the package does not define persistent URL/domain grants.",
+  "_attachments": {}
+}

@@ -1,0 +1,1315 @@
+{
+  "name": "@deepseek-ai/dsh-tool-bash",
+  "versions": {
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "4c412b8a3bc656f4c17287dd487bf2e4810b1958",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.1.0-rc.2.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-l1xVS3HZmxrLGyihOAFVtuoACRHG2sJVPjKAmKYiRdADuZjKEro8JKQbQA7F8Gsf6bkfzGJeQrlWqMQrMBZtfw==",
+        "signatures": [
+          {
+            "sig": "MEUCIB1F/5mJDBoINEIt2sVTZXXsmeiuv/WpUbGnnoKEa3UHAiEAiS+6x6i1SlElBRWnbAyLf/Y5rf03JHF0c4+GNPqePJI=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 55108,
+        "size": 20116
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-l1xVS3HZmxrLGyihOAFVtuoACRHG2sJVPjKAmKYiRdADuZjKEro8JKQbQA7F8Gsf6bkfzGJeQrlWqMQrMBZtfw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-tool-jobs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent-loop": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-bash-local": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-jobs-local": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-bash_0.1.0-rc.2_1786613980287_0.9385684549123685",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:39:40.447Z",
+      "publish_time": 1786613980447,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "fafdfb1558f422981194fb2ec7afc27df1333bf4",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.0.1-rc.1.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-dLAlnMFXD7tTxD9BzTqXL+dloUu3jCh6eNrlEeYeGsOC8Bcbn1I4OdQNfvhFgvVNSZilD6b4SLNNQ1nBroNVwg==",
+        "signatures": [
+          {
+            "sig": "MEQCIDyEzpXDyHg+5ELQveGdDtlj38RG/OAwz30i6nIWqr4jAiBQG2A3Y++bV/12kasUmZ3+3mcMU9xxWipfz1TOYb4/Eg==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 55582,
+        "size": 20299
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-dLAlnMFXD7tTxD9BzTqXL+dloUu3jCh6eNrlEeYeGsOC8Bcbn1I4OdQNfvhFgvVNSZilD6b4SLNNQ1nBroNVwg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/bash/tool-bash"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing bash tool with optional generic background-task and sandbox-escalation support",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-bash": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tasks": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-bash-env": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent-loop": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-bash-local": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tool-tasks": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tasks-local": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-subprocess-local": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-bash": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tasks": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-bash-env": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-bash_0.0.1-rc.1_1786390617473_0.985274267857112",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:36:57.608Z",
+      "publish_time": 1786390617608,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.3"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-agent-loop": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-bash-local": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-tool-jobs": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-jobs-local": "^0.1.0-rc.3"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-JOTqSp+bNtAmQbW85jvz1KQbrnaKNhQpE2HfTmuqsXPFCpnWsEotjxfF+ZG0hZCNq034LBhzK1rxh4KfL4dfjg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-JOTqSp+bNtAmQbW85jvz1KQbrnaKNhQpE2HfTmuqsXPFCpnWsEotjxfF+ZG0hZCNq034LBhzK1rxh4KfL4dfjg==",
+        "shasum": "56a8bd9c1f2d4002a5b18b63494c8c2104b3f144",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.1.0-rc.3.tgz",
+        "fileCount": 11,
+        "unpackedSize": 55108,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIEKj8Yekb2+T6+WJIWdkZjZIWr3IzqVYfgSEOnz6a1Q4AiEAnngheTm5FmemIjB3gAB6BD1hBf5nqZbBU0POjIL5tXw="
+          }
+        ],
+        "size": 20119
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-bash_0.1.0-rc.3_1786619211900_0.24308264641683985"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:06:52.074Z",
+      "publish_time": 1786619212074,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "7ccb1705c467e0dd59ec1404b274ef497d6c9d74",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.0.1-rc.2.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-FM1pmmn7/I2DQ6JpFETaKTofSnblQ2OS71spCSEurU3+1sry5Tp0TIZCjR7vH7GBln4APQFi0tG1xItnO38SAQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQD6Z9KQDzXGztmFeWst2u4EXvmj6pIf8ZkaEl6ko9IQ9wIgGDI/Xp9EeQDJ+qRMnwkgl6pIYYZ2gI7vem/mk7pStXQ=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 55574,
+        "size": 20308
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-FM1pmmn7/I2DQ6JpFETaKTofSnblQ2OS71spCSEurU3+1sry5Tp0TIZCjR7vH7GBln4APQFi0tG1xItnO38SAQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/bash/tool-bash"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing bash tool with optional generic background-task and sandbox-escalation support",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-bash": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tasks": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-bash-env": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent-loop": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-bash-local": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tool-tasks": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tasks-local": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-subprocess-local": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-bash": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tasks": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-bash-env": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-bash_0.0.1-rc.2_1786461533615_0.33395793438160926",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:18:53.757Z",
+      "publish_time": 1786461533757,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-agent-loop": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-bash-local": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-jobs-local": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-tool-jobs": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-yzo/xPCObiFe+OU0e8E5nVOGpW6mp9vx/3q+MHQ0aqEbqrqHUfVMGPobfDAd/I1Ja/9Nag5NIvHpI2Hwx7lACg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-yzo/xPCObiFe+OU0e8E5nVOGpW6mp9vx/3q+MHQ0aqEbqrqHUfVMGPobfDAd/I1Ja/9Nag5NIvHpI2Hwx7lACg==",
+        "shasum": "7db07980b9912b6d040c03b0850580c31d9775b2",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.1.0-rc.6.tgz",
+        "fileCount": 11,
+        "unpackedSize": 55104,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIH56Q6XYfqaBQC5nfLZ6acqHh8I4+gAXRZe8MT8bM5ZaAiEAjs1NZajQf5Sep80jnBoBc98kYjn8BhXiNFwlBTvxy+s="
+          }
+        ],
+        "size": 20108
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-bash_0.1.0-rc.6_1786623526090_0.7198140429217827"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:18:46.262Z",
+      "publish_time": 1786623526262,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "212d3775e3a43a4459d5626cd37a6c077076aa3a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.0.1-rc.3.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-pch7I1sjl3iJ13V5aUWCoElQ73JzerssEfNPCgwMTpe6DcCRNzVqUC3od/PIPKAsbcvopPzUlHf1EzDLGoyBrA==",
+        "signatures": [
+          {
+            "sig": "MEUCIFW+MriGKvWBghH6Jwd36P+W6fxmsszm/mvXNe2yG3PpAiEA1fOlUlwYYc6zcbQ1v4C9d8tXDmLZFcyOHguFOvcOqNQ=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 55562,
+        "size": 20321
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-pch7I1sjl3iJ13V5aUWCoElQ73JzerssEfNPCgwMTpe6DcCRNzVqUC3od/PIPKAsbcvopPzUlHf1EzDLGoyBrA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-jobs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-shell": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-shell-env": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-tool-jobs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent-loop": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-bash-local": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-jobs-local": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-subprocess-local": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-jobs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-shell": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-shell-env": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-bash_0.0.1-rc.3_1786566820336_0.6923370501897421",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:33:40.481Z",
+      "publish_time": 1786566820481,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "4d143e82ddbcc5beedcb7eebcea7e63ea8262704",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.0.1-rc.5.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-K4atRKhrG8OZyhUQ//lqLSwSESqEcxRHFuCHXLBGLf/cDoxiAyKLodPGFdCuKBOV7wrLJAmovbBOKiXn1MiocQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIF+al0PClCs6nbYjoT5pgchGdWghm/5SCHAMx9kKhdBUAiAuze5OY7n7vo565hvreAghMuAO37c0sYy8i1+Xp9++mA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 55562,
+        "size": 20310
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-K4atRKhrG8OZyhUQ//lqLSwSESqEcxRHFuCHXLBGLf/cDoxiAyKLodPGFdCuKBOV7wrLJAmovbBOKiXn1MiocQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.4"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-jobs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-shell": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-shell-env": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-tool-jobs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent-loop": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-bash-local": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-jobs-local": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-subprocess-local": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-jobs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-shell": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-shell-env": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tool-bash_0.0.1-rc.5_1786573857887_0.6984054975048217",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:30:58.068Z",
+      "publish_time": 1786573858068,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.7"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-agent-loop": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-bash-local": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-jobs-local": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-tool-jobs": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-nfc0SI3Xk36rgIOLmTBDSrSTN3Ufp9Wvefta/M82kbBCo6fesB4lst+VAw74039jzHUboXc2gwQ/j5rRcOpiuw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-nfc0SI3Xk36rgIOLmTBDSrSTN3Ufp9Wvefta/M82kbBCo6fesB4lst+VAw74039jzHUboXc2gwQ/j5rRcOpiuw==",
+        "shasum": "3beb80a381c368fa796e36342b742f7cab11eae0",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.1.0-rc.7.tgz",
+        "fileCount": 11,
+        "unpackedSize": 55104,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCLM424ygEFYEmnl1if9TdvYO+sSTrWFVlsTBG2IswAqgIgWZabEbCmdEv9Wu+9wXA5PwFVVKc6kzrbGovHjCViknw="
+          }
+        ],
+        "size": 20114
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-bash_0.1.0-rc.7_1786967025300_0.3976775850680081"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:43:45.460Z",
+      "publish_time": 1786967025460,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.8"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-agent-loop": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-shell-env": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-bash-local": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-jobs-local": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tool-jobs": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.8"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-VvP8Ky8ifqS7Iy7XUxc6cWB7sse3X6gqr92m0hBuodwQblzrZq2b6IyzfTzXKZKLqt5mMUaLRt7IPIDOOG+WEQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-VvP8Ky8ifqS7Iy7XUxc6cWB7sse3X6gqr92m0hBuodwQblzrZq2b6IyzfTzXKZKLqt5mMUaLRt7IPIDOOG+WEQ==",
+        "shasum": "253b3a7772a74f1acfb41531087d28f9d2a740af",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.1.0-rc.8.tgz",
+        "fileCount": 11,
+        "unpackedSize": 55104,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIFRp1d0+esmaMYITxpu6z7pcNQIdxiCg9hvwSO5PRFMCAiEAxqiQ2gOvUnNl22Sc2zif0vK/CFr2oRwYWge4oGdDqT4="
+          }
+        ],
+        "size": 20119
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-bash_0.1.0-rc.8_1787153721497_0.7864835898333149"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:35:21.648Z",
+      "publish_time": 1787153721648,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-shell-env": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-shell": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-jobs": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-user-approval": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.1"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-agent-loop": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-shell": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-bash-local": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-shell-env": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-jobs": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-jobs-local": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tool-jobs": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-user-approval": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-e083Qn7V8oESrvMU+7oC7wpj16PgU8/fXErgEsSyxFIY8e5qU/+K1jWX1B2SvVS/bpE7+nm3Lq2jNDFpXZ6+Sw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-e083Qn7V8oESrvMU+7oC7wpj16PgU8/fXErgEsSyxFIY8e5qU/+K1jWX1B2SvVS/bpE7+nm3Lq2jNDFpXZ6+Sw==",
+        "shasum": "4e142e45a7fdb8a49a53f73069aa9f2388269918",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.1.1-rc.1.tgz",
+        "fileCount": 11,
+        "unpackedSize": 55134,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQDb288XgxOgwMsd0evekFwrXH1k6VDLWamIbElN8i7PgQIhANqGK2cYLhrCdzm4LL423MGvPafYe++0yc+HzrJLvw5W"
+          }
+        ],
+        "size": 20130
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-bash_0.1.1-rc.1_1787294608545_0.6593361213124458"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:43:28.701Z",
+      "publish_time": 1787294608701,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-tool-bash",
+      "description": "Model-facing bash tool with optional generic background-job and sandbox-escalation support",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/shell/tool-bash"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-shell": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-shell-env": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-jobs": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.2"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent-loop": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-agent-loop-testkit": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-shell": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-shell-env": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-bash-local": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-persistence-jsonl": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-jobs": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-jobs-local": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-tool-jobs": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tool-bash@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-YNmrKmBanj5EQn1zejjbo4UUFtg2/h3s9y0lY3vBu+dezNz4HdUlSkSZACbNUAZywyLomdhlt4rJdtdnrqyS7Q==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-bash-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-YNmrKmBanj5EQn1zejjbo4UUFtg2/h3s9y0lY3vBu+dezNz4HdUlSkSZACbNUAZywyLomdhlt4rJdtdnrqyS7Q==",
+        "shasum": "35e2023c9cae3c920f20850b9596cd7acf8d5cdf",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-bash/-/dsh-tool-bash-0.1.1-rc.2.tgz",
+        "fileCount": 11,
+        "unpackedSize": 55134,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIApQ6qpdtAlsu6mbj00AbnjyUxSEk0kSj5q1ZhRLdjdlAiAi2fujngEIn8eBjRkEph6fdYzuubcbBNxnYWZf+DGJLg=="
+          }
+        ],
+        "size": 20130
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-bash_0.1.1-rc.2_1787315794065_0.2909334526827001"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:36:34.210Z",
+      "publish_time": 1787315794210,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:18:56.959Z",
+    "modified": "2026-08-21T12:36:47.811Z",
+    "0.1.0-rc.2": "2026-08-13T09:39:40.447Z",
+    "0.0.1-rc.1": "2026-08-10T19:36:57.608Z",
+    "0.1.0-rc.3": "2026-08-13T11:06:52.074Z",
+    "0.0.1-rc.2": "2026-08-11T15:18:53.757Z",
+    "0.1.0-rc.6": "2026-08-13T12:18:46.262Z",
+    "0.0.1-rc.3": "2026-08-12T20:33:40.481Z",
+    "0.0.1-rc.5": "2026-08-12T22:30:58.068Z",
+    "0.1.0-rc.7": "2026-08-17T11:43:45.460Z",
+    "0.1.0-rc.8": "2026-08-19T15:35:21.648Z",
+    "0.1.1-rc.1": "2026-08-21T06:43:28.701Z",
+    "0.1.1-rc.2": "2026-08-21T12:36:34.210Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-f02b89f49ba1b8de",
+  "_id": "@deepseek-ai/dsh-tool-bash",
+  "readme": "# @deepseek-ai/dsh-tool-bash\n\nEnglish | [中文](README.zh.md)\n\nThe model-facing `bash` tool registered over the `ctx.bash` executor seam. Foreground execution stays behind that seam; a background process handle is registered with the generic `ctx.tasks` runtime and controlled through `task_output`, `task_list`, and `task_kill` from `@deepseek-ai/dsh-tool-tasks`.\n\nRequires a loaded executor Service provider (e.g. `@deepseek-ai/dsh-bash-local`) and the [`@deepseek-ai/dsh-bash-env`](../bash-env/README.md) registry; the plugin stays pending until every injected service exists (`inject: ['tools', 'bash', 'systemPrompt', 'bashEnv']`). The tool contract is bash-dialect — mount a bash-parsing executor.\n\nThe package root exposes only the Cordis plugin contract (`name`, `inject`, `Config`, `apply`); result rendering and background-process adaptation remain package-internal.\n\nThe plugin also contributes the `tool:bash` prompt section (order 105): check the `[exit code: N]` marker on every result and investigate failures before moving on.\n\n## Tools\n\n### `bash`\n\n| Arg | Type | Notes |\n|---|---|---|\n| `command` | string (required) | Run via `bash -c`. No state persists between calls — use `workdir`, not `cd`. |\n| `description` | string (required) | One-line, active-voice summary of the command (5-10 words), for UI/log display only — no effect on execution. |\n| `timeoutMs` | number | Timeout override in milliseconds. The executor applies its configured default and cap. |\n| `workdir` | string | Working directory for this call. Defaults to the filesystem identity of the calling agent's session cwd (`session.header.cwd`) so each session runs in its own workspace; a relative `workdir` is resolved against that same identity. |\n| `run_in_background` | boolean | Return a task id immediately; no timeout applies. |\n| `sandbox_permissions` | string enum | ADVERTISED ONLY when the mounted executor sandboxes (`ctx.bash.sandboxMode` reports a confining default): the wider mode a denied command needs, from the closed target vocabulary `workspace-write`/`danger-full-access` (never cut down to the executor's default — the effective mode is per-session; strict widening is checked at execution against it, and a non-widening request fails without prompting anyone). |\n| `justification` | string | Required together with `sandbox_permissions` (each without the other is a validation error): one sentence for the user explaining why this exact command needs the wider access. |\n\n`command`, `workdir`, and `timeoutMs` are resolved against the executor's config defaults via `ctx.bash.resolve()` before execution, so the Service Definition (`BashExecSpec`) receives explicit `workdir`/`timeoutMs` values. The workdir default is applied in the tool layer from the calling agent's `session.header.cwd` BEFORE `resolve()` — the per-session cwd must come from `exec.agent`, since N sessions share one executor; only when no session cwd is available does the executor fall back to its own config / `process.cwd()`. When sandbox policy is present, the tool reuses its already-canonical `workspaceRoot` as the workdir base so confinement and process launch cannot resolve the same session spelling differently.\n\n### Managed shell environment\n\nEvery foreground and background model bash call receives a freshly collected trusted `DSH_*` environment through the shared [`dsh-bash-env`](../bash-env/README.md) registry: `DSH_HOME` (the absolute Harness home), `DSH_SHELL=1`, the agent's `DSH_SESSION_ID`, and `DSH_SESSION_JSONL` when the active persistence backend locates one. The registry contract — contributor registration, loud duplicate/undeclared-key failure, the built-in reservations, and the contributor example — lives in that package's README. The snapshot passes through the dedicated `BashExecRequest.dshEnv` channel; the local executor removes all inherited `DSH_*` before merging it, so nested harnesses and concurrent parent/child agents cannot leak stale identities, and `process.env` is never modified. The tool description teaches the generic `$DSH_*` convention rather than naming persistence-specific variables or adding a permanent system-prompt section.\n\nResult text contains stdout, an optional `[stderr]` section, then applicable sandbox-denial, timeout, signal, exit-code, and truncation markers. Timeout is reported independently of final exit status; nonzero exit remains a model-interpreted result rather than `isError`. Truncation links a safe complete spill file or reports it unavailable. Only infrastructure failures such as spawn errors and aborts produce `isError`.\n\nThe canonical success is `{ kind: 'foreground', ...BashRunResult }` for a completed foreground process or `{ kind: 'background', taskId }` for a published task. The Native renderer preserves the text above, including exactly `started background task <id>`; programmatic consumers use the typed fields without parsing those strings. Executor stream caps remain acquisition limits on `BashRunResult` and carry their spill paths.\n\nWhen `run_in_background` is true, this plugin preflights `ctx.tasks.start()` before spawning, registers the calling agent as owner, and adapts the returned `BashProcess` handle into generic cancel/done/incremental-output hooks. The task runtime owns ids, cross-session isolation, completion notices, waiting, and disposal cleanup; this plugin only maps bash exit/sandbox facts into task output and outcome detail. `enableRunInBackground: false` removes the parameter and rejects a forced background call at execution time.\n\n## UI presentation\n\nThe tool owns its `presentCall`/`presentResult` render intent. A foreground call is a terminal card carrying command, description, cwd, output, and parsed exit status. Because the card shows the exit as its own pill, the `[exit code: N]` / `[killed by signal: …]` marker the parse consumes leaves the output; every other marker (truncation, timeout, sandbox) stays in it. A background start is a generic execute card because it returns only a task id; the generic `task_*` tools own their own cards. These presenters are pure and replay-safe.\n\n## The tool builds its request from named args only\n\n`BashExecRequest` carries optional `stdoutMaxBytes`, `stdin`, ordinary `env`, and managed `dshEnv`, used by trusted in-process plugins and this tool's environment registry. The model-facing tool exposes none of `stdoutMaxBytes`, `stdin`, or `env`: it builds requests from named command/workdir/timeout/signal/sandbox fields plus the registry-collected `dshEnv`. Extra model keys are ignored and cannot replace managed values. Shell syntax provides equivalent command-level behavior, while the local executor scrubs ambient credentials and stale `DSH_*` values. See the [stdin/env Agent Note](../../../.agents/notes/implemented/architecture/2026-06-30-bash-stdin-env-trusted-plugin-surface.md).\n\n## Permissions and escalation\n\nCommands run with the executor's full authority unless a sandboxing executor ([`dsh-bash-sandbox`](../bash-sandbox/)) confines them — the deny-only sandbox reports denials as result facts, rendered here as the denial marker; per-call allow/deny/ask policy is the `tools/pre-execute` waterfall (see docs/architecture.md).\n\nEscalating bash calls resolve `ctx.approval` before execution. `allowed-once` applies the requested mode only to that call; rejection, cancellation, unavailability, or missing approval context executes nothing and returns a distinct error. On a real denial, the model may retry the same command once in the same turn with the narrowest sufficient mode and justification; the approval prompt itself is the consent step. Escalation is never speculative, and a disabled or rejected approval is final. The [sandbox Agent Note](../../../.agents/notes/implemented/feature/2026-07-06-sandbox.md) owns the rationale.\n\n## Per-session mode switching\n\nFor sandboxing executors, each call resolves mode as one-shot escalation, then session override, then executor default. Non-sandboxing and agent-less calls carry no session override. The policy owner contributes the current capability-neutral standing mode; denial results still own the operation-specific effective mode and retry guidance. See the [`dsh-bash` fold](../bash/README.md) and [sandbox switching contract](../../../.agents/notes/implemented/feature/2026-07-06-sandbox.md).\n\n## Model Experience\n\n### System prompt\n\n#### What the model sees\n\nEvery request in this plugin's registration scope contains the bash guidance below. The policy owner contributes current sandbox state through its cache-safe runtime context rather than changing this section. Scoped tool restrictions can hide the schemas without removing this independently registered section.\n\n##### Bash guidance\n\n```markdown\nCheck the [exit code: N] marker on every bash result; investigate failures before moving on.\n```\n\n#### Token effect\n\nSmall fixed input cost per request while the plugin is active, unchanged by sandbox mode or mode switches.\n\n#### KV Cache effect\n\nPrefix-stable while the registration scope and prompt text are unchanged. Plugin activation or disposal may invalidate reuse from this prompt section; sandbox mode switches do not.\n\n### Tool schemas\n\n#### What the model sees\n\nThe model sees the generated [`bash` schema](../../../docs/tool-catalog.md#deepseek-aidsh-tool-bash). `run_in_background` appears only when this producer enables it; `sandbox_permissions` and `justification` appear only when the mounted executor advertises sandboxing. Agent-scoped tool restrictions can remove the definition for that agent.\n\n#### Token effect\n\nFixed schema cost on every request where the tools are visible; sandbox support adds the escalation fields and its conditional description paragraph.\n\n#### KV Cache effect\n\nPrefix-stable while visibility, background support, and executor sandbox capabilities are unchanged. A restriction, config change, or executor change may invalidate reuse from the first changed tool definition.\n\n### Foreground result\n\n#### What the model sees\n\nThe renderer emits the data-dependent stdout tail, then optional `[stderr]` and the stderr tail. With no output it emits exactly `(no output)`. Conditional lines are exactly `[output truncated; full output: <path-or-(unavailable)>]`, `[sandbox: file access denied under <mode> mode]`, `[timed out after <timeoutMs>ms]`, `[killed by signal: <signal>]`, and `[exit code: <exitCode>]`; the sandbox escalation and runner-failure lines are quoted in [`dsh-bash-sandbox`](../bash-sandbox/README.md).\n\n#### Token effect\n\nZero result tokens before a call. Output is bounded per stream, while each emitted line remains in history until compaction.\n\n#### KV Cache effect\n\nAppend-only; newly visible content follows the reusable request prefix and does not invalidate existing KV-cache entries.\n\n### Background task context and results\n\n#### What the model sees\n\nStart returns exactly `started background task <taskId>`. This producer supplies incremental process output, optional `[some output was dropped from memory; full output: <paths-or-(unavailable)>]`, sandbox facts, and terminal detail such as `exit code: <exitCode>` or `signal: <signal>` to the generic task runtime. [`dsh-tool-tasks`](../../tasks/tool-tasks/README.md) owns the visible status line, completion notice, listing, and cancellation response.\n\n#### Token effect\n\nThe start acknowledgement is small and retained; collected output is data-dependent and bounded by the executor's stream buffers. Consuming reads do not repeat prior output.\n\n#### KV Cache effect\n\nAppend-only; newly visible content follows the reusable request prefix and does not invalidate existing KV-cache entries.\n\n### Tool errors\n\n#### What the model sees\n\nValidation and policy failures are normalized as `Error: <message>`. This package's stable messages are `invalid command: expected a non-empty string`, `invalid description: expected a non-empty string`, `invalid timeoutMs: expected a positive number, got <value>`, `invalid escalation: sandbox_permissions requires a justification`, `invalid escalation: justification is only valid together with sandbox_permissions`, `invalid justification: expected a non-empty sentence`, `background execution is disabled for this bash tool`, `background tasks unavailable: load @deepseek-ai/dsh-tasks and @deepseek-ai/dsh-tool-tasks`, `sandbox_permissions is not available in this composition (no sandboxing executor to escalate)`, `sandbox escalation to \"<mode>\" is not strictly wider than this call's current \"<mode>\" mode`, the approval-availability/rejection/cancellation variants, and `tool call aborted`.\n\n#### Token effect\n\nOnly the failing call adds these retained tokens; a rejected escalation does not add command output because the command does not run.\n\n#### KV Cache effect\n\nAppend-only; newly visible content follows the reusable request prefix and does not invalidate existing KV-cache entries.\n\n## Known Limitations and Deferred Work\n\n- **Replay exit pills parse from result text** — output whose final line happens to be exactly `[exit code: N]` / `[killed by signal: …]` shows a wrong pill on session replay and loses that line from the card body, because the parse treats it as the marker it consumes; a display-only known residual.\n- **The `bash` tool opts out of `timeout-policy` budgets** — it keeps the executor-owned `BASH_TIMEOUT` path, per [the tool-call timeout-policy Agent Note](../../../.agents/notes/implemented/architecture/2026-07-07-tool-call-timeout-policy.md).\n- **Background processes have no executor timeout** — callers must use `task_kill`, or rely on owner/service disposal, when work no longer matters.",
+  "_attachments": {}
+}

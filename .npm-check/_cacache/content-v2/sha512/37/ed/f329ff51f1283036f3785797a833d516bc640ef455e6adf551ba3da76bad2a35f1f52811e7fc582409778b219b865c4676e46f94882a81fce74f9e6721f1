@@ -1,0 +1,947 @@
+{
+  "name": "@deepseek-ai/dsh-spill",
+  "versions": {
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-spill",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/spill/spill"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.6"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-spill@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-reV4utwd3E5LgiNrsaqh6i6zxHboVyrrL1ilALRukDbMxSyup1vuSRh+4CPxSUh9YcoToFJ6jz2Zmlsw755g1w==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-reV4utwd3E5LgiNrsaqh6i6zxHboVyrrL1ilALRukDbMxSyup1vuSRh+4CPxSUh9YcoToFJ6jz2Zmlsw755g1w==",
+        "shasum": "60f1ec4d702569ab44f230f39778b2214c68f068",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.1.0-rc.6.tgz",
+        "fileCount": 10,
+        "unpackedSize": 18749,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIDvm8Mv4AUaH1Gh0aDMb51kkvC92OYRMBekpSrBeMC5CAiEAgl7WhcS3xEM0RuNgMNsI3nxSmTtDIaXftN3moxHOq0Q="
+          }
+        ],
+        "size": 7561
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-spill_0.1.0-rc.6_1786624819190_0.463699551023836"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:40:19.337Z",
+      "publish_time": 1786624819337,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-spill",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-spill@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "51ded2755990b712a9be20455bc83db07bc635f3",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.1.0-rc.2.tgz",
+        "fileCount": 10,
+        "integrity": "sha512-9dfOh8g3Q7oXRgT7/K0Z3GCWEaCzGx+58LYhbWY1RagMaxG45ObpG+1ymEZqZ5qWMQ5vKP81bAa67HPt7dgWzA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCvybUKLq2Jl5y0ukKB4MGWkK1poWw92YWJK9AlnKrkEAIgVqu+SZQvb0kzgrUyee8XWtk9FYStiNOpywh8b7EuqBM=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 18753,
+        "size": 7555
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-9dfOh8g3Q7oXRgT7/K0Z3GCWEaCzGx+58LYhbWY1RagMaxG45ObpG+1ymEZqZ5qWMQ5vKP81bAa67HPt7dgWzA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/spill/spill"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-spill_0.1.0-rc.2_1786614677865_0.6400946019242766",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:51:17.995Z",
+      "publish_time": 1786614677995,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-spill",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/spill/spill"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-spill@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-NbnbFHeShGXAZ1fRjt0S66hjx+0/p6x7p9TtoyZr1g+0F5e3OZFqyUz46KXcxVBos+ofG1XR7YTUvHjYHQt0Ig==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-NbnbFHeShGXAZ1fRjt0S66hjx+0/p6x7p9TtoyZr1g+0F5e3OZFqyUz46KXcxVBos+ofG1XR7YTUvHjYHQt0Ig==",
+        "shasum": "b8f60f4ab93ee373e155a921555aed0802ee8d2c",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.1.0-rc.3.tgz",
+        "fileCount": 10,
+        "unpackedSize": 18753,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIHszmKTPpLcFN20nL4IQyCqTlVeeLUe6dTxZxSiX/H3bAiBXJb0EnWTtG6KRPX+nWvKdIFYRBsqsqXW1IegSZRyFrA=="
+          }
+        ],
+        "size": 7545
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-spill_0.1.0-rc.3_1786619965627_0.9659612687831296"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:19:25.809Z",
+      "publish_time": 1786619965809,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-spill",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-spill@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "5e4e5cf38bbd6e5f5b34a35233b80df714219b25",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.0.1-rc.2.tgz",
+        "fileCount": 10,
+        "integrity": "sha512-agtgVwdDL/lzOwziOHuSubzwbRiidxr8kaU3oIPFoeMEFpcninZNU2Ute3rVAAidfljB8BwisbjvG5tH3+OsqQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQD2Ken2KQ/kZMiafujd9u/cruE/WJDcG+R4LbwwFHZ+sgIgWHM8T1oNZ04PRQMLUzFPTWhPFELUEX26z9oaxSpUFWE=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 19140,
+        "size": 7716
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-agtgVwdDL/lzOwziOHuSubzwbRiidxr8kaU3oIPFoeMEFpcninZNU2Ute3rVAAidfljB8BwisbjvG5tH3+OsqQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/spill/spill"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-spill_0.0.1-rc.2_1786461977405_0.7858704059236867",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:26:17.546Z",
+      "publish_time": 1786461977546,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-spill",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-spill@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "7b93cdd6721fa48b09e86f689cba87c660e6d501",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.0.1-rc.1.tgz",
+        "fileCount": 10,
+        "integrity": "sha512-UNRsan60aqyTIEowahqcC+eSVyRmoa1qupkLJr15jd14qc4doLDGymcf+nbclBC4lClHclcocVuHe0G3hL1jWQ==",
+        "signatures": [
+          {
+            "sig": "MEQCICbFwBQM1UQ74WuUe5g87pb0BaLE38GjfcqPGbKaCKHPAiB84E9Sa4lq/WIZfFHJSaPBOYs8mrSzC8/IYiOIglszYQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 19140,
+        "size": 7716
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-UNRsan60aqyTIEowahqcC+eSVyRmoa1qupkLJr15jd14qc4doLDGymcf+nbclBC4lClHclcocVuHe0G3hL1jWQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/spill/spill"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-spill_0.0.1-rc.1_1786390973546_0.9682505544678361",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:42:53.682Z",
+      "publish_time": 1786390973682,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-spill",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-spill@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "b6579da03307146c0aee031c11f33ec793380c7a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.0.1-rc.5.tgz",
+        "fileCount": 10,
+        "integrity": "sha512-mWPVUzO9sqIrG1CpSM9T1YG37vD1ZLekRJbTVcFq9nTQb3cU41F1ThMZSjAX7KgYIGbFQzLRB/AJTblCGaA9cg==",
+        "signatures": [
+          {
+            "sig": "MEQCIF/jWX1JtiUB1d03gzC9MBM6LAhrKuSHbxCpE+YDfP7vAiB1UiPYoVF0+drtDimC5ehtfImbmGJVPcK6BkRF2SWWFQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 19202,
+        "size": 7747
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-mWPVUzO9sqIrG1CpSM9T1YG37vD1ZLekRJbTVcFq9nTQb3cU41F1ThMZSjAX7KgYIGbFQzLRB/AJTblCGaA9cg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/spill/spill"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-spill_0.0.1-rc.5_1786574271481_0.9901920760552116",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:37:51.630Z",
+      "publish_time": 1786574271630,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-spill",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/spill/spill"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-spill@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-EdX5AZElelHlCKlbflZipl4KRDiEHWLN/8smgnkzAhJgpXFq5dyp9jK58dO5v7cuODeq+/SfeDyUE5Mffdhh8Q==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-EdX5AZElelHlCKlbflZipl4KRDiEHWLN/8smgnkzAhJgpXFq5dyp9jK58dO5v7cuODeq+/SfeDyUE5Mffdhh8Q==",
+        "shasum": "762b44fb5c232b6cdafc4a42e3f9c7bff40a1f58",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.1.0-rc.7.tgz",
+        "fileCount": 10,
+        "unpackedSize": 18749,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDfncrpOnhvuxrQaCHNJETyseiTx2zTJWPZLaMoWlK1HAIgUj/oTB3QdIQ9oghCLbP5rBiT/vxEXQ77t9QtOMTpZd4="
+          }
+        ],
+        "size": 7542
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-spill_0.1.0-rc.7_1786966987561_0.6201820623507073"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:43:07.699Z",
+      "publish_time": 1786966987699,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-spill",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/spill/spill"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-spill@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-LDfyBuRS/yfc+JYvSicEXYJDj5PFBfWN6vJ5G3wy14eMrq3OKoYip8lyIjEdR4qwCVh0s+oSi28AlcvkPuyOdw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-LDfyBuRS/yfc+JYvSicEXYJDj5PFBfWN6vJ5G3wy14eMrq3OKoYip8lyIjEdR4qwCVh0s+oSi28AlcvkPuyOdw==",
+        "shasum": "fbcf1923f0997b914aa12548e5614ae38d779c42",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.1.0-rc.8.tgz",
+        "fileCount": 10,
+        "unpackedSize": 18749,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQCSDXCuuW8Go6h+8Zg+NfxJZUxOCmsw7cJ6eTFbIrIf0AIhAPSpu0d+qOx7aJOmD2tY4u6sWMXr/5piw0CVhs9TL0t/"
+          }
+        ],
+        "size": 7542
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-spill_0.1.0-rc.8_1787153691981_0.3892355788699078"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:34:52.163Z",
+      "publish_time": 1787153692163,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-spill",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/spill/spill"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-spill@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-PK1A1YxQVgisWacljbHAyL2z3MGXE+GWeXzNf2hHElzmtAkv412a3TXtMTL5XLZ1m0laLZxstEcf8L+S4zxvPQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-PK1A1YxQVgisWacljbHAyL2z3MGXE+GWeXzNf2hHElzmtAkv412a3TXtMTL5XLZ1m0laLZxstEcf8L+S4zxvPQ==",
+        "shasum": "9307aeaf6533c8bceab45fa2169a3a0e9e1da016",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.1.1-rc.1.tgz",
+        "fileCount": 10,
+        "unpackedSize": 18752,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQCrik+0r2IhLaLRupEZNQoYKKW+HdDwfmGBezwgV4i5QQIhALSmfRF4p4wi0tWnJIebQ5P9pgRq4xP/JpCUgdTQDnOb"
+          }
+        ],
+        "size": 7563
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-spill_0.1.1-rc.1_1787294580021_0.03713193962340422"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:43:00.174Z",
+      "publish_time": 1787294580174,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-spill",
+      "description": "Abstract spill storage seam (ctx.spillStore) for the DeepSeek Harness — save oversized tool text and return a retrieval locator",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/spill/spill"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.2"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-spill@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-iayBN51zRj0+ER6KKJM6UlN1dfKXe5eDJeSwYmH+j3wLbCBQTD7Axnhmo9t68JBRrg+eczg2epFMR5RrXrisUQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-spill-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-iayBN51zRj0+ER6KKJM6UlN1dfKXe5eDJeSwYmH+j3wLbCBQTD7Axnhmo9t68JBRrg+eczg2epFMR5RrXrisUQ==",
+        "shasum": "acc9cb32a2597fee15c8732fa2b57b445a9e9e3c",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-spill/-/dsh-spill-0.1.1-rc.2.tgz",
+        "fileCount": 10,
+        "unpackedSize": 18752,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQDLcQt2fiytbrbWdAEslBepeYoveWoDz+GkklbpN/1Q5gIhAJUZ+90UzmrIjYDMMYuAe5psUcBeSpVESeZq05fCVFl6"
+          }
+        ],
+        "size": 7557
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-spill_0.1.1-rc.2_1787315765909_0.593957488792868"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:36:06.057Z",
+      "publish_time": 1787315766057,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:40:25.051Z",
+    "modified": "2026-08-21T12:36:24.747Z",
+    "0.1.0-rc.6": "2026-08-13T12:40:19.337Z",
+    "0.1.0-rc.2": "2026-08-13T09:51:17.995Z",
+    "0.1.0-rc.3": "2026-08-13T11:19:25.809Z",
+    "0.0.1-rc.2": "2026-08-11T15:26:17.546Z",
+    "0.0.1-rc.1": "2026-08-10T19:42:53.682Z",
+    "0.0.1-rc.5": "2026-08-12T22:37:51.630Z",
+    "0.1.0-rc.7": "2026-08-17T11:43:07.699Z",
+    "0.1.0-rc.8": "2026-08-19T15:34:52.163Z",
+    "0.1.1-rc.1": "2026-08-21T06:43:00.174Z",
+    "0.1.1-rc.2": "2026-08-21T12:36:06.057Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "4-cb1b00b622ad489d",
+  "_id": "@deepseek-ai/dsh-spill",
+  "readme": "# @deepseek-ai/dsh-spill\n\nEnglish | [中文](README.zh.md)\n\nThe **`SpillStore`** (`ctx.spillStore`) defines WHAT a spill backend does — persist a tool's oversized text and return a model-facing locator plus retrieval guidance — without saying HOW.\n\nThis package is one third of the spill capability, split so each concern evolves (and swaps) independently:\n\n| Package | Role |\n|---|---|\n| `@deepseek-ai/dsh-spill` (this) | Service Definition: abstract service + vocabulary types |\n| `@deepseek-ai/dsh-spill-local` | Service provider: private session-scoped files on the host filesystem |\n| `@deepseek-ai/dsh-spill-policy` | Consumer: the tool-result policy that spills oversized final results |\n\nThe split mirrors the bash/fs seams. A future remote or virtual backend (e.g. a `spill://…` URI, a database key, or a backend-specific retrieval tool) implements this Service Definition without touching the policy plugin.\n\n## Service API (`ctx.spillStore`)\n\n| Member | Semantics |\n|---|---|\n| `saveText(input)` | Persist `input.content` verbatim; resolves with a `SpillRef` (opaque locator, exact bytes written, and retrieval hint). **Rejects on a real storage failure** (permissions, ENOSPC, backend unavailable) — the caller decides how to degrade. |\n\nStorage is grouped by the request's `owner` session as a save-time namespace; the backend chooses its own private representation and may derive names from — never trust as a path — the caller's `suggestedName`. The seam owns storage only: NO retention policy (that is [`@deepseek-ai/dsh-retention`](../../util/retention)), NO tool-result replacement (that is `@deepseek-ai/dsh-spill-policy`), NO retrieval/search API (the backend's `retrievalHint` tells the model what to do with the locator).\n\n## Vocabulary\n\n`SaveTextSpill` (owner, source, suggestedName, content) is the request; `SpillRef` (locator, bytes, retrievalHint) is the result. `SpillLocator` is [branded](../../util/brand) and rendered to the model as an opaque string — a local path for `dsh-spill-local`, but a future backend may return a URI, key, or command token without changing policy/tool consumers. `SpillOwner.sessionId` is the save-time storage namespace: forked sessions inherit existing locators from the seeded log without copying or re-owning them, and new spills after the fork use the child session id. `SpillSource` records the producing `toolName`, `callId`, and `label` for backend naming and inspection, not access control. See `src/types.ts` for the full contracts.\n\nSee the [tool output spill Agent Note](../../../.agents/notes/implemented/architecture/2026-07-08-tool-output-spill-files.md) for the design rationale, including why creation belongs to the runtime spill seam rather than the model-facing `write` tool.\n\n## Model Experience\n\nIndirectly, through spill consumers that render a backend locator and retrieval guidance.\n\n#### KV Cache effect\n\nNo direct invalidation; the named consumer owns any request-prefix changes.\n\n## Known Limitations and Deferred Work\n\n- **The seam has no retrieval or deletion API** — consumers can only render the backend's locator and guidance; lifecycle and access semantics remain backend-specific.\n- **Storage is not access control** — `SpillOwner` namespaces writes but does not authorize reads of a locator; each backend and retrieval consumer must enforce its own boundary.",
+  "_attachments": {}
+}

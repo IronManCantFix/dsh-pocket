@@ -1,0 +1,346 @@
+{
+  "name": "@deepseek-ai/dsh-tool-pwsh-persistent",
+  "versions": {
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-tool-pwsh-persistent",
+      "description": "Model-facing owner-scoped persistent PowerShell tool backed by the Harness PTY service",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/shell/tool-pwsh-persistent"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-terminal": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-timeout": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-terminal": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-pwsh-local": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-terminal-bash": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-timeout": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "_id": "@deepseek-ai/dsh-tool-pwsh-persistent@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-OxQhywkvUTuGj26yaE1LyoADsCKttaIdiq2dJd+Xcbjc+tnI1gfoVrBj+Sta3/uT7x66kKjXZ1+gnw6gK5qISQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-pwsh-persistent-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-pwsh-persistent-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-OxQhywkvUTuGj26yaE1LyoADsCKttaIdiq2dJd+Xcbjc+tnI1gfoVrBj+Sta3/uT7x66kKjXZ1+gnw6gK5qISQ==",
+        "shasum": "57702de2e4c09220c9dbbc77259f1fe74f20db61",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-pwsh-persistent/-/dsh-tool-pwsh-persistent-0.1.0-rc.8.tgz",
+        "fileCount": 9,
+        "unpackedSize": 32033,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCICVwBTrLF9zeKI0hB9Fe0Vxhxv3blBFh/8qS80Sq2oJTAiEA6lciVW05mlzxUk3qxgRbUExthUY7XZZZDIAXHiJMMTI="
+          }
+        ],
+        "size": 11975
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-pwsh-persistent_0.1.0-rc.8_1787153937926_0.15933345222469275"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:38:58.058Z",
+      "publish_time": 1787153938058,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "_id": "@deepseek-ai/dsh-tool-pwsh-persistent@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "4ea2f72bf2ae6c503823ed0108ca33fccecac331",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-pwsh-persistent/-/dsh-tool-pwsh-persistent-0.1.1-rc.1.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-9+LWvtD5fucgNF2QzJJgFFcBHa/hvtQvPqGy+N31w2BE2lXogtFZBwWRdfH1L4Fye3F0+37l88xs3coZY4RONA==",
+        "signatures": [
+          {
+            "sig": "MEUCIEmkSpvAXa15YyLIk1IpwZULglc/umrqrvF36C7pVAAVAiEA+nkP+i3FC0ok9MGopawdU09+WtA6OrZDRY73RHVR57Y=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          },
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQDHNlBkei8noQNp9W8pomNKsAYrpnYztyRGbR6D66ThUgIhAJHtweEyhFvp00VngS7B+ROP28YX/EwTzrDL34qv9XyX"
+          }
+        ],
+        "unpackedSize": 32036,
+        "size": 11986
+      },
+      "main": "lib/index.js",
+      "name": "@deepseek-ai/dsh-tool-pwsh-persistent",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-pwsh-persistent-0.1.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "version": "0.1.1-rc.1",
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-pwsh-persistent-0.1.1-rc.1.tgz",
+      "_integrity": "sha512-9+LWvtD5fucgNF2QzJJgFFcBHa/hvtQvPqGy+N31w2BE2lXogtFZBwWRdfH1L4Fye3F0+37l88xs3coZY4RONA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/shell/tool-pwsh-persistent"
+      },
+      "_npmVersion": "11.17.0",
+      "description": "Model-facing owner-scoped persistent PowerShell tool backed by the Harness PTY service",
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_nodeVersion": "24.19.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "public"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-timeout": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-terminal": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-pwsh-local": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-terminal-bash": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-timeout": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-terminal": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-pwsh-persistent_0.1.1-rc.1_1787294933804_0.24452411647670313"
+      },
+      "_cnpmcore_publish_time": "2026-08-21T06:48:53.885Z",
+      "publish_time": 1787294933885,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "_id": "@deepseek-ai/dsh-tool-pwsh-persistent@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "81f80b57684a90bb11cd8feb69b5cc8f8cf28bd2",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tool-pwsh-persistent/-/dsh-tool-pwsh-persistent-0.1.1-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-h/CgOw+pZQDl+upWeFdUF1wzgZQ4NgTSMAmlOe60QRObEP8rEYggELP3QQiJbgXs34N5E6Ovf4W/ADtnFJVsEw==",
+        "signatures": [
+          {
+            "sig": "MEUCIEB/VKEPSw3AF70yoEnPwYY8xbQ5rylpEx2JIofap7JdAiEA2IYrzbOVE9dP+sE/SbF0CVndk1X0UEOuHj40UFx5Z0s=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          },
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCICILF1vUcjofCPXcrvA0YpyR+m0LfDOKoL3JLJDU4RKpAiBs00xdVX90cz6tqWEwT4c0SWE4/sqihRn2b773pGIHJQ=="
+          }
+        ],
+        "unpackedSize": 32036,
+        "size": 11978
+      },
+      "main": "lib/index.js",
+      "name": "@deepseek-ai/dsh-tool-pwsh-persistent",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-pwsh-persistent-0.1.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "version": "0.1.1-rc.2",
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tool-pwsh-persistent-0.1.1-rc.2.tgz",
+      "_integrity": "sha512-h/CgOw+pZQDl+upWeFdUF1wzgZQ4NgTSMAmlOe60QRObEP8rEYggELP3QQiJbgXs34N5E6Ovf4W/ADtnFJVsEw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/shell/tool-pwsh-persistent"
+      },
+      "_npmVersion": "11.17.0",
+      "description": "Model-facing owner-scoped persistent PowerShell tool backed by the Harness PTY service",
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_nodeVersion": "24.19.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "public"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-timeout": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-terminal": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-pwsh-local": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-terminal-bash": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-subprocess-local": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-timeout": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-terminal": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tool-pwsh-persistent_0.1.1-rc.2_1787316180295_0.08461858801915856"
+      },
+      "_cnpmcore_publish_time": "2026-08-21T12:43:00.390Z",
+      "publish_time": 1787316180390,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-19T15:54:01.301Z",
+    "modified": "2026-08-21T12:43:15.622Z",
+    "0.1.0-rc.8": "2026-08-19T15:38:58.058Z",
+    "0.1.1-rc.1": "2026-08-21T06:48:53.885Z",
+    "0.1.1-rc.2": "2026-08-21T12:43:00.390Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.1.0-rc.8",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "1-96e645a6e8c7193e",
+  "_id": "@deepseek-ai/dsh-tool-pwsh-persistent",
+  "readme": "# @deepseek-ai/dsh-tool-pwsh-persistent\n\nEnglish | [中文](README.zh.md)\n\nModel-facing `pwsh(command)` backed by one owner-scoped `ctx.terminals` shell. The package owns the tool contract and shell reuse; deployments select the terminal backend (a `terminal-bash` instance configured with `shellDialect: pwsh`) and sandbox policy. It is the Windows counterpart of `tool-bash-persistent`: same persistent-state contract, PowerShell dialect.\n\n## Config\n\n| Key | Default | Meaning |\n|---|---:|---|\n| `backendType` | `shell` | Registered terminal backend used for each Agent shell. |\n| `timeoutMs` | `300000` | Wall-clock limit for one command; timeout closes the shell. |\n| `maxOutputChars` | `16000` | Maximum retained command-output characters; fixed diagnostics are added afterward. |\n| `description` | Persistent-shell description | Model-facing environment contract. |\n\n## Model Experience\n\n### Tool schema\n\n#### What the model sees\n\nThe generated [`pwsh` schema](../../../docs/tool-catalog.md#deepseek-aidsh-tool-pwsh-persistent), including the configured `description`. The plugin contributes no standalone system-prompt section; the deployment owns persona and environment guidance.\n\n#### Token effect\n\nFixed schema cost while `pwsh` is visible.\n\n#### KV Cache effect\n\nPrefix-stable while the configured description and schema remain unchanged.\n\n### Tool results\n\n#### What the model sees\n\nCommands share one shell per Agent, so cwd, `$env:` variables, functions, and background jobs persist across calls. Results exclude private completion markers, the shell prompt, and the echoed input line (PSReadLine renders submitted input back into the stream; the marker-anchored extraction and the wrapper-source strip remove it). A nonzero wrapped command appends `[exit code: N]` — the exact native exit code when the command ran a native program, `1` for a terminating PowerShell error. A shell that exits before reporting that status instead appends `[shell exited: code N]`, `[shell killed by signal: SIG]`, or `[shell exited]` when the backend supplies neither (Windows forced termination reports exit 1 without a signal), then resets and tells the model that the next call starts fresh. Long output keeps the earliest retained prefix plus a clipping notice; if the terminal has already dropped that prefix, the result says so explicitly. Timeout returns bounded partial output, closes the uncertain shell, and reports the reset.\n\n#### Token effect\n\nData-dependent. `maxOutputChars` bounds retained command output; fixed clipping, lost-prefix, status, timeout, and reset diagnostics can extend the result.\n\n#### KV Cache effect\n\nAppend-only tool results follow the reusable request prefix.\n\n## Known Limitations and Deferred Work\n\n- The tool requires an owning Agent and a real terminal backend with a pwsh dialect (Windows ConPTY or a POSIX pwsh).\n- **Input echo is unavoidable**: PowerShell's PSReadLine renders submitted input back into the terminal stream, and there is no `stty -echo` equivalent. The marker-anchored extraction excludes the echo in complete results; the wrapper-source strip covers fallback paths, but a wrapper that wraps across the terminal width may leave a partial echo in partial-output results, bounded by `maxOutputChars`.\n- Raw ESC characters inside model commands are unsupported: PSReadLine consumes them before execution. The wrapper escapes the control bytes it needs (`[char]27`-built OSC markers, backtick escapes for the body).\n- A model redefinition of the `prompt` function removes the readiness marker; the shell then settles on the silence tier instead of the marker fast path.\n- There is no interactive stdin during a command: a foreground command that reads input blocks until the readiness timeout, which resets the shell.\n- SIGTSTP/SIGHUP are unavailable on Windows (backend-rejected); SIGINT is delivered as a console-wide Ctrl-C input write, which at a prompt cancels the pending line instead of signalling a process.\n- Under the Windows ACL sandbox's read-only mode, pwsh starts in ConstrainedLanguage, which may deny the bootstrap's `[Console]::` encoding pin and prompt marker. Commands can still settle through the printable prompt and silence tier, but non-ASCII output may follow the host code page.\n- The BEL-terminated OSC marker remains a readiness signal only; a BEL event channel to the model stays deferred, aligned with the current implementation.",
+  "_attachments": {}
+}

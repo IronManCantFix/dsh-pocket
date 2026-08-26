@@ -1,0 +1,713 @@
+{
+  "name": "@deepseek-ai/dsh-output-retention",
+  "versions": {
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-output-retention",
+      "description": "Zero-dependency bounded-retention primitive: ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what did we omit)",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/output-retention"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-output-retention@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-3TQJxGqjotWrvNKI+Da8nIDjzpKZEGpImeMBp7EklfO0CDbiXA5B0Ms39zBniWkWr1lvbm2iJiYERY5uDeP6og==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-3TQJxGqjotWrvNKI+Da8nIDjzpKZEGpImeMBp7EklfO0CDbiXA5B0Ms39zBniWkWr1lvbm2iJiYERY5uDeP6og==",
+        "shasum": "80589b3e7a78c0cd0ad655feb269a9fdda803cc6",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-output-retention/-/dsh-output-retention-0.1.0-rc.6.tgz",
+        "fileCount": 9,
+        "unpackedSize": 38084,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQC76snAkaoKDyR1Qnkg2TT5rvoJD5tVY83rA2fFt7M4IQIgT38Y9QOJF3bc7MpPwkgoP59avOZzCQ2wWZTP0YAC79g="
+          }
+        ],
+        "size": 12901
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-output-retention_0.1.0-rc.6_1786624716102_0.26605405624513345"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:38:36.246Z",
+      "publish_time": 1786624716246,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-output-retention",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-output-retention@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "545969ee4caf7e9fc6bf82d1cfb2ed30779f908f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-output-retention/-/dsh-output-retention-0.1.0-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-JR1UN9CZq8sffNbM/ZO4YpGB0ktt8dQpxgs3PPGTAGLOGsCl+BKt+se6Rj/hpSsemCN8DISAtr2cH72DysyJtQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIHFneMBT+GgX3FLmcwGVsUO9+0o2LxKf4lNj+4C6NxkHAiA3ixnRGCTjJd2VATbzimDudfht8lDw53Y3MDecnPZYLg==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 38088,
+        "size": 12891
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-JR1UN9CZq8sffNbM/ZO4YpGB0ktt8dQpxgs3PPGTAGLOGsCl+BKt+se6Rj/hpSsemCN8DISAtr2cH72DysyJtQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/util/output-retention"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Zero-dependency bounded-retention primitive: ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what did we omit)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-output-retention_0.1.0-rc.2_1786614621797_0.043160593445418005",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:50:21.935Z",
+      "publish_time": 1786614621935,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-output-retention",
+      "version": "0.1.0-rc.3",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-output-retention@0.1.0-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "21b9047e19738a939179941aa53fb35e31e60751",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-output-retention/-/dsh-output-retention-0.1.0-rc.3.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-Pi0XCb2LVHJsMVaqPmweJWYIPrcy6/hwSTWQfdloAiaEs6k2IvMkEdQtGvu6ADzyihl5cdaeyB9uPy0EXJosxw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDrc9v9EBIX9jbv5PTjXJfd/67dUhdF7vIdjJCFwwtUDgIhAJ/cUx8Tp9xzMJc8WXfTyhnIu7Jw1tw7HJ2bvjpSIinK",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 38088,
+        "size": 12900
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.3.tgz",
+      "_integrity": "sha512-Pi0XCb2LVHJsMVaqPmweJWYIPrcy6/hwSTWQfdloAiaEs6k2IvMkEdQtGvu6ADzyihl5cdaeyB9uPy0EXJosxw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/util/output-retention"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Zero-dependency bounded-retention primitive: ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what did we omit)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-output-retention_0.1.0-rc.3_1786619904819_0.07561079464414111",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T11:18:24.961Z",
+      "publish_time": 1786619904961,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-output-retention",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-output-retention@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "4e3843e6b07d5fb97fa28409f95899e99aba1d82",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-output-retention/-/dsh-output-retention-0.0.1-rc.5.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-cy4P9fWiNQwSMd9xjk/PZ30qr41PUMx00vLMF2szhfP2iwGymmwfAbA2NHmZQ+RIPan1dydCzsULVXdkGvHRkw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDgWVNOGi1iUFHDNSl8h11Xzv/krh1LZWdaac2LBx5TRAIhAJWwTSNgsrWD4/u2NPtHSqpC9Ikj5pjhhmK5px5kDetn",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 38537,
+        "size": 13088
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-cy4P9fWiNQwSMd9xjk/PZ30qr41PUMx00vLMF2szhfP2iwGymmwfAbA2NHmZQ+RIPan1dydCzsULVXdkGvHRkw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/util/output-retention"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Zero-dependency bounded-retention primitive: ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what did we omit)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-output-retention_0.0.1-rc.5_1786574239884_0.47849647836067",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:37:20.024Z",
+      "publish_time": 1786574240024,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-output-retention",
+      "description": "Zero-dependency bounded-retention primitive: ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what did we omit)",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/output-retention"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-output-retention@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-bhmSfXIaLWLrYwC4ziMZ7GkNy5i9ltGBvlNZ5eB7NZoDAMh0Du7pKkMY+oqm2ajvx5O5qiFkHEhYoypRpEB56g==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-bhmSfXIaLWLrYwC4ziMZ7GkNy5i9ltGBvlNZ5eB7NZoDAMh0Du7pKkMY+oqm2ajvx5O5qiFkHEhYoypRpEB56g==",
+        "shasum": "a68f7899fac5a1db48a16b1e225b041b8f80a8e8",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-output-retention/-/dsh-output-retention-0.1.0-rc.7.tgz",
+        "fileCount": 9,
+        "unpackedSize": 38084,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIDCY2ZTdxuykZPfPTe5yxz/qmbqLUQWc9VKuu5geORoqAiAfOKMa4wTTfUgYSUVF+jrCsxRpHqPA994oSMPBpznqVw=="
+          }
+        ],
+        "size": 12891
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-output-retention_0.1.0-rc.7_1786966997638_0.3034844575830493"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:43:17.791Z",
+      "publish_time": 1786966997791,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-output-retention",
+      "description": "Zero-dependency bounded-retention primitive: ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what did we omit)",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/output-retention"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-output-retention@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-DeVjqZ9TtH2AEG57GBsHYT68274VygzuP9EqQLL01Ht1TrdK75xlVet1l3jdEbA7Eik4aSGDjAZD9/MsnlUIXg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-DeVjqZ9TtH2AEG57GBsHYT68274VygzuP9EqQLL01Ht1TrdK75xlVet1l3jdEbA7Eik4aSGDjAZD9/MsnlUIXg==",
+        "shasum": "b6d9b7217f435f3a0e2b6d25ae989899978cd1e8",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-output-retention/-/dsh-output-retention-0.1.0-rc.8.tgz",
+        "fileCount": 9,
+        "unpackedSize": 38084,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIB4coz0ir7ovBF5VGpN20o2CY47uC1/44eZPxza8o3ELAiEA735MJbngWpjyJozI4ewiICcZEpQmbFs0DfMUJb1zF9A="
+          }
+        ],
+        "size": 12900
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-output-retention_0.1.0-rc.8_1787153424285_0.734495186723348"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:30:24.447Z",
+      "publish_time": 1787153424447,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-output-retention",
+      "description": "Zero-dependency bounded-retention primitive: ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what did we omit)",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/output-retention"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-output-retention@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-FapYBIWVzcXioH/lTaBSJlbEM9VQKzSy4fQgzRDLAVP8pMAHAvTaF/tBGQMooP582sPe+XpGh0xwWSJ5X72h6A==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-FapYBIWVzcXioH/lTaBSJlbEM9VQKzSy4fQgzRDLAVP8pMAHAvTaF/tBGQMooP582sPe+XpGh0xwWSJ5X72h6A==",
+        "shasum": "03b40130a6d6a9c371a4040b0fcaa2297f9530ae",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-output-retention/-/dsh-output-retention-0.1.1-rc.1.tgz",
+        "fileCount": 9,
+        "unpackedSize": 38087,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCgPY0O0KjX8BSDIDereXbjudHGpssaN5zpszTZzpVIBQIgP3XGTJrx1mr11WUTH1u5xS8udStWC4L+e5HtBb19Ffc="
+          }
+        ],
+        "size": 12891
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-output-retention_0.1.1-rc.1_1787294343114_0.9056082984039608"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:39:03.263Z",
+      "publish_time": 1787294343263,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-output-retention",
+      "description": "Zero-dependency bounded-retention primitive: ItemRetainer/TextRetainer + neutral notice helpers (what did we keep, what did we omit)",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/util/output-retention"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-output-retention@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-tCni+bTEp/FWokfz3fqn4p6SzHn6pkY6H3HkS9UY5PHrztUE1ESUQUp41kIVtwUhRmJU7yissqjxe6kLDB6t2Q==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-output-retention-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-tCni+bTEp/FWokfz3fqn4p6SzHn6pkY6H3HkS9UY5PHrztUE1ESUQUp41kIVtwUhRmJU7yissqjxe6kLDB6t2Q==",
+        "shasum": "c2c3b3e17171c652cf7e715500bd7b9b31966aa2",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-output-retention/-/dsh-output-retention-0.1.1-rc.2.tgz",
+        "fileCount": 9,
+        "unpackedSize": 38087,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCBsZ//HNS6e2AOGYy3dtLw01bdm1lbCCssghdLXl1YswIgf6Dqt7501dlHJNguiihpSBlk7SH8FL7EpvxYpjndqCk="
+          }
+        ],
+        "size": 12901
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-output-retention_0.1.1-rc.2_1787315529385_0.8693031471488568"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:32:09.558Z",
+      "publish_time": 1787315529558,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:38:51.733Z",
+    "modified": "2026-08-21T12:32:27.688Z",
+    "0.1.0-rc.6": "2026-08-13T12:38:36.246Z",
+    "0.1.0-rc.2": "2026-08-13T09:50:21.935Z",
+    "0.1.0-rc.3": "2026-08-13T11:18:24.961Z",
+    "0.0.1-rc.5": "2026-08-12T22:37:20.024Z",
+    "0.1.0-rc.7": "2026-08-17T11:43:17.791Z",
+    "0.1.0-rc.8": "2026-08-19T15:30:24.447Z",
+    "0.1.1-rc.1": "2026-08-21T06:39:03.263Z",
+    "0.1.1-rc.2": "2026-08-21T12:32:09.558Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.5",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "4-6fa2e539059d7dfe",
+  "_id": "@deepseek-ai/dsh-output-retention",
+  "readme": "# dsh-output-retention\n\nEnglish | [中文](README.zh.md)\n\nA dependency-light **retention** library: bounded model-facing output for tools that must cap how much context they return. A caller feeds items or text chunks into a bounded object, then gets the retained content plus exact omission metadata.\n\nThe library owns **only** the mechanical question *\"what did we keep, and what did we omit?\"*. Tool-specific code keeps its business semantics: file grouping, line numbering, exit codes, provider error states, per-line preview truncation, spill files, and the model-facing prose. This is the boundary the [Agent Note](../../../.agents/notes/implemented/architecture/2026-07-06-tool-result-retention-library.md) draws.\n\nIt is a **library, not a service or plugin**: no `ctx`, registers nothing, emits no events. The only state is per-retainer (one accumulation), never cross-call. Tool packages import it directly.\n\n## API\n\n```ts\nimport {\n  ItemRetainer, TextRetainer,\n  describeOmitted, formatRetentionNotice,\n} from '@deepseek-ai/dsh-output-retention'\nimport type {\n  Omitted, PushDecision, RetainedItems, RetainedText,\n  ItemRetentionStrategy, TextRetentionStrategy, RetentionNotice,\n} from '@deepseek-ai/dsh-output-retention'\n```\n\n| Export | Role |\n|---|---|\n| `ItemRetainer<T>` | Bounds ordered logical units (paths, grep matches, sources). `head` only. `push()` → `PushDecision`; `finish()` → `RetainedItems<T>`. |\n| `TextRetainer` | Bounds a byte-oriented text stream. `head` / `tail` / `headTail`, UTF-8 boundaries preserved at `finish()`. `push()` → `PushDecision`; `finish()` → `RetainedText`. |\n| `describeOmitted(omitted, unit)` | Standardized omission clause (`exact` prints a count; `unknown` does not). |\n| `formatRetentionNotice(notice, recovery)` | Joins the standardized omission clause with the tool's own recovery guidance. |\n| `Omitted` | `none` / `exact` / `unknown` — how much was omitted. |\n| `PushDecision` | `{ kept, truncated }` — the per-push retention result. |\n\n## Resource Modes\n\nThe two retainers are separate names, not one generic collector, because they differ in **resource model**.\n\n- **`ItemRetainer` bounds ordered logical units.** A search tool can collect a full result set for spill-file recovery while retaining only the first `maxItems` for the model-facing preview. The omission count is exact because the caller keeps feeding every observed item.\n- **`TextRetainer` bounds byte-oriented text.** `head`, `tail`, and `headTail` preserve UTF-8 boundaries at `finish()`; `headTail` is the shape `dsh-spill-policy` uses to build a bounded preview around a spill-file notice.\n\n## `truncated` is a budget fact, never \"incomplete\"\n\n`truncated` means *the retainer omitted otherwise-available content because of a budget*. It does **not** mean the upstream was incomplete. Permission failures, skipped binary files, provider partial failures, unreadable candidates, and invalid UTF-8 stay in tool-domain fields — never folded into `truncated`. Conflating the two is the bug this library's naming most invites; keep them separate.\n\n## Bytes, not characters\n\nText caps and `omittedBytes` count **bytes**, for process/body safety (a child's pipe and an HTTP body are byte streams). A chunk that straddles a codepoint is handled: `finish()` trims a partial codepoint at each cut so the returned text never introduces a replacement char at the boundary, and the two sides are decoded separately so a codepoint is never reconstructed across the omitted middle. Character- or line-level preview budgets are a separate, tool-owned concern.\n\n## Tool mappings\n\nCurrent retention consumers use these mappings:\n\n| Tool | Retainer & strategy | Notes |\n|---|---|---|\n| `glob` | `ItemRetainer<FsGlobEntry>`, `head` | Collect the full sorted path list for a spill file while retaining the first page inline. Path mapping, skipped candidates, and `incomplete` stay outside. |\n| `grep` | `ItemRetainer<FlatGrepMatch>`, `head` | Collect matches for a spill file while retaining the first page inline. Per-match preview truncation, grouping, sorting, and `incomplete` stay outside. |\n| `bash` | `TextRetainer`, `tail` or `headTail` | Executor still owns spill files, exit status, signal, timeout, and background jobs. |\n| `web_fetch` | `TextRetainer`, `head` or `headTail` | Provider/resource caps stay provider facts; the retainer supplies only retained text and omission metadata. |\n| `web_search` | `ItemRetainer<WebSearchSource>`, `head` | Standardizes the \"sources capped\" notice when providers return more sources than the model-facing result should include. |\n\n`read` remains outside this generic library. Its `read-render` helper owns a file-specific pagination contract — `offset`/`limit`, line numbers, `totalLines`, offset-out-of-range errors, per-line preview truncation, and a byte cap over the selected window — which is a line-window renderer. A single `Omitted` count cannot represent both sides of that window.\n\n## Usage shape\n\n```ts ignore-check\n// glob: keep the first page inline while still collecting the full list for spill.\nconst retainer = new ItemRetainer<FsGlobEntry>({ kind: 'head', maxItems: globMaxResults })\nconst allEntries: FsGlobEntry[] = []\nfor await (const entry of candidates) {\n  allEntries.push(entry)\n  retainer.push(entry)\n}\nconst { items, truncated, omitted } = retainer.finish()\n\n// bash: keep a head + tail, read to process exit.\nconst out = new TextRetainer({ kind: 'headTail', headBytes: headCap, tailBytes: tailCap })\nchild.stdout.on('data', (chunk: Buffer) => { out.push(chunk) })\nconst { text, omittedBytes } = out.finish()\n\n// A footer: the library standardizes the omission clause; the tool owns recovery words.\nconst footer = formatRetentionNotice(\n  { scope: 'grep', strategy: 'head', unit: 'items', limit: grepMaxMatches, kept: items.length, omitted },\n  ({ kept }) => `Results capped at ${kept}. Narrow the pattern, path, or include to see more.`,\n)\n```\n\n## Model Experience\n\nIndirectly, through tool consumers that render retained content and omission metadata.\n\n#### KV Cache effect\n\nNo direct invalidation; the named consumer owns any request-prefix changes.\n\n## Known Limitations and Deferred Work\n\n- **Item retention supports `head` only** — tail, head/tail, pagination, grouping, and provider-completeness semantics remain tool-owned.\n- **Text retention is byte-oriented** — line and character windows such as `read` pagination require a separate renderer, and a cut may discard partial UTF-8 boundary bytes to keep returned text valid.",
+  "_attachments": {}
+}

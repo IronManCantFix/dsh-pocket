@@ -1,0 +1,1429 @@
+{
+  "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+  "versions": {
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "d2ec4a2331372e2cf81bcc46b1256131146fbc8a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.0.1-rc.2.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-wv3yOfPDLKs0XwyXRMvtH6LOeXy9/VtTvesjFnHb9WgKan7kKl2ihiba0LKzIRGI1YL6jBLUPfz72cMVVN3PRQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCWkNL0w2m1/oEOORODe/whJHmUTeZb29ECyY1lE0vxbAIhAMMMQLcQZteVRwDh0hqPN3TUaf8/TpADMchTypptzf7/",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 134240,
+        "size": 38549
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-wv3yOfPDLKs0XwyXRMvtH6LOeXy9/VtTvesjFnHb9WgKan7kKl2ihiba0LKzIRGI1YL6jBLUPfz72cMVVN3PRQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-api-remotes": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-web-react": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-connection": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-api-remotes": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-web-react": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-connection": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.0.1-rc.2_1786461737169_0.7349701925584045",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:22:17.370Z",
+      "publish_time": 1786461737370,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "0fb8178573d463c8da5999fde7c5b524e83044bb",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.0.1-rc.5.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-a0XY0SrzZlH3pidwS5aVYyMlp2ezNOTYMfixkFhtWuzQoHNz6+XGGCqlrTjRHh+RiixKLM0I5cPA8vCtHN6Hqw==",
+        "signatures": [
+          {
+            "sig": "MEUCIESFA69MTJz2QlUmCDNwkY98YQ+cgzPXCdXUcgNQ/FcrAiEAv5njQ/wWNo0sr+/98huhBjrZgzA3ORP6q3KrSEBbBrE=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 134208,
+        "size": 38582
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-a0XY0SrzZlH3pidwS5aVYyMlp2ezNOTYMfixkFhtWuzQoHNz6+XGGCqlrTjRHh+RiixKLM0I5cPA8vCtHN6Hqw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-api-remotes": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-web-react": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-connection": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-api-remotes": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-web-react": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-connection": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.0.1-rc.5_1786573929494_0.9763747921924801",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:32:09.648Z",
+      "publish_time": 1786573929648,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-web-react": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-web-react": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-tLvLtlZ+iUF6ge4S7ejtulmwoE/O/adV9EBYbVR0RREcpva9KU/qLZHGvVM/RKfk3U6+HBOa5gwNfaUfTGxZKQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-tLvLtlZ+iUF6ge4S7ejtulmwoE/O/adV9EBYbVR0RREcpva9KU/qLZHGvVM/RKfk3U6+HBOa5gwNfaUfTGxZKQ==",
+        "shasum": "bd56885bfe288bfcef70a27e14afb48aa47fdca4",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.1.0-rc.3.tgz",
+        "fileCount": 20,
+        "unpackedSize": 133759,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIB2QFHkgi0iOyo9kTWIesCn59oMgHGuORbHjKMwQH+haAiEAzjK2zXWt4kpI1Q+OioVjSN7tc3Id2o5zhED3l8rILok="
+          }
+        ],
+        "size": 38366
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.1.0-rc.3_1786619338404_0.4623521764401186"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:08:58.563Z",
+      "publish_time": 1786619338563,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-web-react": "^0.1.0-rc.6"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-web-react": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.6"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-kJeQdVrUZ0skjyWIAwf+YKZE4VgUXT/7HGQvRVWSWRRlQ0X3dlWUgJnDDzcWBt+cn0cfR5/CANPrPiYEveBxdw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-kJeQdVrUZ0skjyWIAwf+YKZE4VgUXT/7HGQvRVWSWRRlQ0X3dlWUgJnDDzcWBt+cn0cfR5/CANPrPiYEveBxdw==",
+        "shasum": "eb68f89a1d86ae5122d351566200339b6f3fba29",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.1.0-rc.6.tgz",
+        "fileCount": 20,
+        "unpackedSize": 133755,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIDfdpVdwYFPkkJ32i/lNMFcv986vDkAq0ReWKoRQBsHFAiEArOikSrrWWEQOhHS8IMDkYhTUJpoFQBR6a4/zP2t+2N4="
+          }
+        ],
+        "size": 38382
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.1.0-rc.6_1786623741794_0.40677364351179035"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:22:21.940Z",
+      "publish_time": 1786623741940,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "96a4a5cea2ddb0fbb502dd567cced501cc79ccf2",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.0.1-rc.1.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-Eg6YVjkfsTbiGGUAomHXcBpyO4BV4+/4ZgQCfRFowJklv6tYJBAUpATPerh22sdy7R9M9Xol4NqYflJ0ngt5ew==",
+        "signatures": [
+          {
+            "sig": "MEYCIQC5j8i6BNiy9X5J3OYf426u7VEEyXD1tRP/eYqTGFC/oAIhAIP9K4S3kNRkXZWh3WA+UfM5ZDFvNk6Er8smgwW74G6L",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 127072,
+        "size": 36009
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-Eg6YVjkfsTbiGGUAomHXcBpyO4BV4+/4ZgQCfRFowJklv6tYJBAUpATPerh22sdy7R9M9Xol4NqYflJ0ngt5ew==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-web-react": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-connection": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-web-react": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-connection": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.0.1-rc.1_1786390682765_0.46670074266038486",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:38:02.922Z",
+      "publish_time": 1786390682922,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "6ae828add2f21cbd88cdf1c32aa5e2b8c4643b08",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.0.1-rc.3.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-3LfXPQ9KKE8yBKnTSK9tph7A+3HJIt0VvjSkwn8CVb/Fl9IA2q+IelF7IXdI0F/uZaZEtBU9CJd75ivhCGiGow==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDpTdHcClGtI73CGZvkODATgT0+R5FvY6yzfA8WRYT/wQIgHD1fg35lkTtNJLBdpitRVoUaifcosSY6Qj5q0VtJ/q0=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 134208,
+        "size": 38573
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-3LfXPQ9KKE8yBKnTSK9tph7A+3HJIt0VvjSkwn8CVb/Fl9IA2q+IelF7IXdI0F/uZaZEtBU9CJd75ivhCGiGow==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-api-remotes": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-web-react": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-connection": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-api-remotes": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-web-react": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-connection": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.0.1-rc.3_1786566904803_0.49797182938198237",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:35:04.953Z",
+      "publish_time": 1786566904953,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "df01df0b093e6f7dade9733b13d09ad531ce070f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.1.0-rc.2.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-JmLfzHNImSQHan1TQPb9RMGtxMoYDn6733Q1H1enLV9Fe9adX4FIxHvt6NM7HHIlRzt74zY9Yl1C0jn0ZLC09w==",
+        "signatures": [
+          {
+            "sig": "MEYCIQC/tVTlSVEQGQ5sQFFGZ5CnKhH2T6YWyh6QwWy+IICAwQIhAPH+TmMtbYmTTJWLDwJY6VYHW6lqfRj5U6kZTbvJeeUJ",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 133759,
+        "size": 38371
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-JmLfzHNImSQHan1TQPb9RMGtxMoYDn6733Q1H1enLV9Fe9adX4FIxHvt6NM7HHIlRzt74zY9Yl1C0jn0ZLC09w==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-web-react": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-web-react": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.1.0-rc.2_1786614096515_0.2410295367509787",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:41:36.678Z",
+      "publish_time": 1786614096678,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-web-react": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.7"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-web-react": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-85GLGfg3iEISMhHxn9ZePkB/mtXIJdWkpvSHCm9bZizK8KiyRfA/OjDpKfk5kvG16xKNV0KQo65HOf0JdwtyXQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-85GLGfg3iEISMhHxn9ZePkB/mtXIJdWkpvSHCm9bZizK8KiyRfA/OjDpKfk5kvG16xKNV0KQo65HOf0JdwtyXQ==",
+        "shasum": "7262debee04b537522618bf34abf88d011e67341",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.1.0-rc.7.tgz",
+        "fileCount": 20,
+        "unpackedSize": 133754,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIBGcPRiqTWJvA43KPmxtQivE1/DhNXovodX7YrkGSfNTAiEA49IZBdfGvLssQ3mRhwBx8Lt6aGFa523rNdqmTRPoZI0="
+          }
+        ],
+        "size": 38362
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.1.0-rc.7_1786967199198_0.09861328919301648"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:46:39.337Z",
+      "publish_time": 1786967199337,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-connection": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-z+okJSOT2/uAA4oomx1WNNl/2k9HsoNDmtewOeQVfSy9C8Ey9YBoVoiSQDsYyDHhesxxlBI8RMLU44Pj/w1uug==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-z+okJSOT2/uAA4oomx1WNNl/2k9HsoNDmtewOeQVfSy9C8Ey9YBoVoiSQDsYyDHhesxxlBI8RMLU44Pj/w1uug==",
+        "shasum": "c5e8f8e6ff8ad076a98f1a8588a52f3d79d61ad6",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.1.0-rc.8.tgz",
+        "fileCount": 20,
+        "unpackedSize": 134009,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIHTBNuryo0Zx6H77Fyjyvgx0IYz2YPJLaPx4Nt1EjVFIAiEAhq/XcM/tLIxD+HZxlltB7A/fNU/t+a28EM3J0Z6Ka08="
+          }
+        ],
+        "size": 38529
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.1.0-rc.8_1787153855421_0.15812286156430333"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:37:35.553Z",
+      "publish_time": 1787153855553,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-connection": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-locale": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.1"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-locale": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-connection": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-z7u+1fFUURCQrpBXdqtcolPYpW1w6myFZBGMMgZeDpHP94p1CUsJ1KM/AP1FXJqnG4QmtbXaVQx6jR0LjAYdYA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-z7u+1fFUURCQrpBXdqtcolPYpW1w6myFZBGMMgZeDpHP94p1CUsJ1KM/AP1FXJqnG4QmtbXaVQx6jR0LjAYdYA==",
+        "shasum": "b888ca7bd42b5a6a4d44510c3e3ea4df4aae6a58",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.1.1-rc.1.tgz",
+        "fileCount": 20,
+        "unpackedSize": 134021,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIBnFmQStKexVfgaOtepB5xyHVwRjDlex3OeuICXH+hxSAiEAh2W4ECMDh/DfgfPZAaN4M+S2+39dILv4O+NvuqUsW0I="
+          }
+        ],
+        "size": 38545
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.1.1-rc.1_1787294730291_0.8341628547877187"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:45:30.469Z",
+      "publish_time": 1787294730469,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-client-ui-agent-preset",
+      "description": "Agent-preset surfaces: the default for later sessions, this session's seat, and the composition editor",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-agent-preset"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-connection",
+            "@deepseek-ai/dsh-client-locale",
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-conversation",
+            "@deepseek-ai/dsh-client-ui-settings",
+            "@deepseek-ai/dsh-api-remotes"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-api-remotes": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-connection": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.2"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-api-remotes": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-connection": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-test-runtime": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-conversation": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-settings": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-primitives": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.1-rc.2"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-agent-preset@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-U8iT0+jQSbIdPPF4rYYEhmFaTyewryOgL/ye3322UhuFXFapjQcPTBkchvZYYWnTJ/SGB2CpKXLQqiVSjsN2tA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-agent-preset-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-U8iT0+jQSbIdPPF4rYYEhmFaTyewryOgL/ye3322UhuFXFapjQcPTBkchvZYYWnTJ/SGB2CpKXLQqiVSjsN2tA==",
+        "shasum": "72c0608c9c9a52d932ba92cafb0edb7eaa240141",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-agent-preset/-/dsh-client-ui-agent-preset-0.1.1-rc.2.tgz",
+        "fileCount": 20,
+        "unpackedSize": 134021,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCICtHbuuGSYZ4DmNVWHk9GZSUea/nipmwPmQZUuwM2GUrAiEAqBwDyF/ffhV1Z7K3XviT7HoP1bN3WgGa+aNEkp2wUI0="
+          }
+        ],
+        "size": 38545
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-agent-preset_0.1.1-rc.2_1787315915529_0.8048459524149878"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:38:35.690Z",
+      "publish_time": 1787315915690,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:22:31.379Z",
+    "modified": "2026-08-21T12:38:48.461Z",
+    "0.0.1-rc.2": "2026-08-11T15:22:17.370Z",
+    "0.0.1-rc.5": "2026-08-12T22:32:09.648Z",
+    "0.1.0-rc.3": "2026-08-13T11:08:58.563Z",
+    "0.1.0-rc.6": "2026-08-13T12:22:21.940Z",
+    "0.0.1-rc.1": "2026-08-10T19:38:02.922Z",
+    "0.0.1-rc.3": "2026-08-12T20:35:04.953Z",
+    "0.1.0-rc.2": "2026-08-13T09:41:36.678Z",
+    "0.1.0-rc.7": "2026-08-17T11:46:39.337Z",
+    "0.1.0-rc.8": "2026-08-19T15:37:35.553Z",
+    "0.1.1-rc.1": "2026-08-21T06:45:30.469Z",
+    "0.1.1-rc.2": "2026-08-21T12:38:35.690Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-cf23943c6e73382d",
+  "_id": "@deepseek-ai/dsh-client-ui-agent-preset",
+  "readme": "# dsh-client-ui-agent-preset\n\nEnglish | [中文](README.zh.md)\n\nThe agent-preset surfaces: a General-settings row choosing which [preset](../../preset/agent-presets/README.md) new sessions are composed from, a chip on the new-session screen choosing the next session's, a read-only label in the session header, and a settings section that manages the roster — copy, delete, default, and the way into a preset's own files.\n\n## Why it is a new-session preference\n\nA session's preset is fixed when the session is created — the host refuses to adopt an existing session under a different one, because that session's history was produced under the first preset's tools. So this row cannot be a live switch, and it says so: changing it applies to sessions started afterwards while running sessions keep the composition they began with.\n\n## The new-session chip\n\nA second surface, beside the workspace picker on the new-session screen. It sits there rather than in the composer because that is where the choice is still open: a control that spends most of its life disabled belongs on the screen where it still works.\n\nThe chip opens on the deployment default and its pick is *staged* — the screen precedes the session it would apply to. The stage reaches a session when one becomes current and is still blank, which covers both the session the workspace connect created and the blank one it reused; riding along on `sessions.create` would miss the second. It is spent on first use, so the next new session opens on the default again, exactly like the workspace picker beside it.\n\nA session that has started is refused rather than queued: the host answers `agent-preset-locked`, and the stage is dropped instead of waiting for a session that will never accept it.\n\n## The session-header label\n\nA third surface, beside the session title: the preset THIS session runs, as static chrome. A control there would promise a switch the host refuses outright. It reads the preset from the session's own summary — a resumed session runs what it was created with, not today's default — and resolves the display name against the same roster the General row reads.\n\n## What it reads and writes\n\nOptions and the current default both come from one `agentPreset.list` call. The roster already reports which id a session with no explicit choice gets, so the row needs no settings-schema introspection; the write targets the `agent-presets` settings namespace's `default` field, which is what the host resolves at creation.\n\nA locally authored preset is exactly as privileged as the plugins it names, so the list marks `user` rows rather than presenting every preset as shipped and vetted.\n\nPreset files publish one unlocalized `name` and `description`, which Web uses for every `user` row and unknown `system` row. For the four shipped ids (`standard`, `code`, `minimal`, and `cordis`), Web resolves both fields from its active locale only when the roster marks the row `system`; an identically named `user` preset keeps its file metadata.\n\nThe row re-reads on `settings/changed` for its own namespace and on `connection/reset`: the roster is a live directory and the default is a settings field, so an external edit or a reconnect can both move it.\n\n## The management section\n\nA fourth surface, its own settings page (`settings.section` id `agent-presets`, ordered after Models — choosing a model is routine, composing an agent is the deployment-shaping act behind it): the roster as cards, a copy dialog as the only way a preset is created, and a read-only viewer over the shipped compositions.\n\nThe browser edits no composition text. Editing YAML in a web textarea was a weak surface (no completion, no highlighting, no diff), so a new preset is a host-side copy of an existing one — the dialog collects an id (it becomes the directory name, which is why it must be named up front and cannot change later) and an optional display name, and `{ from, id, name? }` is all that crosses the wire. Everything else — description, composition, skills — is edited in the preset's own files, and the page's other job is getting the user TO those files: the copy completes by opening the new directory, and every custom row keeps a location action. Where the host has no desktop opener (`hasDocument: false` on the roster; remote and container deployments), the same actions answer the directory as text on the row instead of offering a button that would spawn into nothing.\n\nA shipped preset opens in the read-only viewer. It is the known-good composition a copy starts from, so reading it is the point; it offers no location and no delete — its install is overwritten by upgrades and is not the user's to manage. The intro carries the guidance a create button used to imply: duplicate an existing preset and make it yours, or let the agent draft one in Creator mode.\n\nBeside copying sits the conversational entry: when the roster carries the self-referential `cordis` preset, a dashed add-card (the Models page's affordance) stages it and starts a new session — the section closes the settings panel through the shell's owner-prop `close` and the new-session chip's own applier composes the blank session the workspace flow produces. The seat keeps a late roster load from regressing the display: staged pick first, then the composition the current session already carries, then the deployment default.\n\nThe dialog mirrors the host's own containment rule (`[a-z0-9][a-z0-9-]*`) and refuses a name already in use — a copy never overwrites. Both checks are conveniences: the host re-applies them and its answer is what the dialog reports on failure.\n\nDeleting removes the preset directory. Sessions already composed from it keep running — a composition is mounted once at session creation and nothing re-reads the file.\n\nA roster row carrying `broken` (the host's shape check found the composition missing or unloadable) renders as a marked card: red border, a Broken badge, the reason verbatim, the body disabled — it cannot become the default — and duplication disabled, since a copy of a broken preset is another broken preset. A broken custom row keeps its location and delete actions, because the files are where it gets fixed and deleting is how a ghost directory (composition deleted by hand, directory still blocking the id) is cleared; a broken shipped row withholds the viewer too — there is no readable composition to show. The two pickers (the General row and the new-session chip) drop broken presets entirely: they choose the NEXT session's composition, and offering one that cannot compose would only defer the failure to the session start.\n\nSetting the default writes the `agent-presets` settings namespace, which the host exposes to configuration clients ([`dsh-apiproxy`](../../host/apiproxy/README.md) keeps an explicit allowlist — a namespace outside it makes a picker move and then silently forget).\n\n`agentPreset.read`, `copy`, `openDocument`, and `remove` are loopback-pinned ([`dsh-client-connection`](../connection/README.md)): a composition names the plugins a session runs, so reading one is reconnaissance, and the rest manage the roster and drive the host desktop. `agentPreset.list` is not — it carries ids, trust, and the two path-free capability flags, and a LAN client's picker needs it.\n\n## When the surfaces are absent\n\nA deployment that composes no presets answers with an empty roster, and the row, the chip, the label, and the section all render nothing — every session then shares the host composition, and there is nothing to choose between or manage. A deployment that configures no writable root answers `authorable: false`, and the section stays a read-only browser: the shipped compositions still open in the viewer, but every copy action is disabled with the reason as its tooltip rather than offering a dialog whose create always fails.\n\n## Model Experience\n\nIndirectly, through the preset a later session is composed from; [`dsh-agent-presets`](../../preset/agent-presets/README.md) owns what that composition puts in front of the model.\n\n#### KV Cache effect\n\nNo direct invalidation. Changing the default never touches a running session's prefix; a session created afterwards establishes its own prefix from its own composition.\n\n## Known Limitations and Deferred Work\n\n- **A preset without metadata is listed by id** — display text is optional, and a copy given no name deliberately falls back to its directory name rather than presenting itself identically to its source.\n- **A revealed path is display text, not a link** — where the host has no desktop opener the row shows the directory to copy by hand; the browser cannot open a host filesystem location itself.\n- **Composition edits are invisible to the page** — the files are edited outside the browser and nothing on the wire announces a file change, so the roster re-reads on its own actions, `settings/changed`, and `connection/reset`, not on every disk edit.",
+  "_attachments": {}
+}

@@ -1,0 +1,917 @@
+{
+  "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+  "versions": {
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "a75efe3ce916eb3442e4b550d7fe077b93e821b4",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.1.0-rc.2.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-OlgtM8lClCeZJoZ88qPm0P3SO02TzxaBl//sECeFL2dRktkAW5IAzBjaayx0MM8H+8YLWFBK09wiY1Jm6c5FbQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIGAytlKquisROw0WE+5sINucQBXN0rJnC+LH7EqJ4JJZAiBkvfWBJDI0G94shsOMJ/DzA5Mnfg8tde4+MF/I7+nt/Q==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 25509,
+        "size": 9444
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-OlgtM8lClCeZJoZ88qPm0P3SO02TzxaBl//sECeFL2dRktkAW5IAzBjaayx0MM8H+8YLWFBK09wiY1Jm6c5FbQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.2",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.1.0-rc.2_1786613793704_0.8993410470001488",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:36:33.833Z",
+      "publish_time": 1786613793833,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "version": "0.1.0-rc.3",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.1.0-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "d62bddd2016c3b1ef2c1e4b996e0c0eb599ae109",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.1.0-rc.3.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-VKGHtEH3e4XTpqDgzONm1FQeY69nm0VT6qIk1t8YuwxKO5wrtK6f2PaEzm8gMEaekLjHOUBwNGvgb0fHzUHReg==",
+        "signatures": [
+          {
+            "sig": "MEQCIGaISgV0QRA6bOE0mYeTlcr5qMXhJgHZ85Q+Qg9I+NKeAiBER/gZCQcuAENq36GFC5Wp6Gv7jI3+uziPgfu8fCtAtQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 25509,
+        "size": 9447
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.3.tgz",
+      "_integrity": "sha512-VKGHtEH3e4XTpqDgzONm1FQeY69nm0VT6qIk1t8YuwxKO5wrtK6f2PaEzm8gMEaekLjHOUBwNGvgb0fHzUHReg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.1.0-rc.3_1786619008756_0.14554970749068263",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T11:03:28.908Z",
+      "publish_time": 1786619008908,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "7076a0d6ec6535f356dbfd7cb496f295793bd273",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.0.1-rc.3.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-wLJvLKjDg6WZRTa0F19/BGtFG7zbpzFAB4+9olGQ2Ttt4lnrS11AFdDp0LLCNiK3DEyvBckfy3YXU7W6najCBw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDcCMRMlfrlHIKeLNzftiFTmQy50mN9W2pKFc8+MTED3wIhAKrr1QtyEs3WupgcmrjmARsFZuH+vPoqM56TJG6p1gvF",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 25973,
+        "size": 9639
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-wLJvLKjDg6WZRTa0F19/BGtFG7zbpzFAB4+9olGQ2Ttt4lnrS11AFdDp0LLCNiK3DEyvBckfy3YXU7W6najCBw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-compaction": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-token-meter": "^0.0.1-rc.3",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.1-rc.1",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.5-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-compaction": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-token-meter": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.0.1-rc.3_1786566686820_0.6671512761232232",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:31:26.989Z",
+      "publish_time": 1786566686989,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "e89d4144233dfb67b3afaba9c3b0995b4f7c318a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.0.1-rc.5.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-ZEEqk2mKeJQsoGmRqVq/vo6vMtscSv7OiSdGpkKCqaXnrondx/GxOu2+evJwXqluYogat2uLnd3axu4miLGfww==",
+        "signatures": [
+          {
+            "sig": "MEUCIQD4N97db9YBBSIAuXehYyWmkpH1YCts6hNgY5PawhqqqwIgBLoAZ6dxbrrwxnFWrcktGlVMhB3htzOGjjqvLHEDxO4=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 25973,
+        "size": 9645
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-ZEEqk2mKeJQsoGmRqVq/vo6vMtscSv7OiSdGpkKCqaXnrondx/GxOu2+evJwXqluYogat2uLnd3axu4miLGfww==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.4"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-compaction": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-token-meter": "^0.0.1-rc.5",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2-rc.4",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6-rc.4"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-compaction": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-token-meter": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.0.1-rc.5_1786573745374_0.5397833046389744",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:29:05.515Z",
+      "publish_time": 1786573745515,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-xLtF3Js38AvKRITHi1ghWShsIphgT4EPpgr65VecCVpzCun0Agok2rZwKE7Kecw+pw2oC8kafHAc32SfmUudqw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-xLtF3Js38AvKRITHi1ghWShsIphgT4EPpgr65VecCVpzCun0Agok2rZwKE7Kecw+pw2oC8kafHAc32SfmUudqw==",
+        "shasum": "490d7d0c5d4600c8015d2b2119d18a565a48e6ae",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.1.0-rc.6.tgz",
+        "fileCount": 11,
+        "unpackedSize": 25505,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIE5SOvBaB5mrfA071uRiWkJ4oRzaiJq3/XogZzuiwUGdAiAVBI82ooLse1msSF054LjS6dAJwm5ly1D520vNwSNDvw=="
+          }
+        ],
+        "size": 9452
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.1.0-rc.6_1786623183810_0.25950349585897037"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:13:03.971Z",
+      "publish_time": 1786623183971,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-W4SbSgHlAhCB6ZXjr1/BdRiTn1F1x5nZdCY+0AazHoJY9FDACN0hUd6Rlkc40n3x0BHxXN/sZFDHCtT/26Fw+Q==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-W4SbSgHlAhCB6ZXjr1/BdRiTn1F1x5nZdCY+0AazHoJY9FDACN0hUd6Rlkc40n3x0BHxXN/sZFDHCtT/26Fw+Q==",
+        "shasum": "613660f70953f1f34cb6a9f83c9f0257b22048ab",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.1.0-rc.7.tgz",
+        "fileCount": 11,
+        "unpackedSize": 25505,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCID3XFPukbV9deLfF/c9BqaR/B97UAcYZhEAthorhhKsIAiEAlFw2sV8a6VIkl0DmmfznOgvgAHaXGmr4Jk7cuIBu8hQ="
+          }
+        ],
+        "size": 9450
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.1.0-rc.7_1786966813367_0.1508065095740314"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:40:13.550Z",
+      "publish_time": 1786966813550,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.8"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-token-meter": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-Mk1QE57HxCMScgQ9ury0o7AM14h6g41cDg1G2kiNqD4Z2LBwFTlZJJAgipyhts4mcr1hz2WZTc8Xgbl9067ONA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-Mk1QE57HxCMScgQ9ury0o7AM14h6g41cDg1G2kiNqD4Z2LBwFTlZJJAgipyhts4mcr1hz2WZTc8Xgbl9067ONA==",
+        "shasum": "5354a63d26b7e24fc1210948638bf92c3515a8d6",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.1.0-rc.8.tgz",
+        "fileCount": 11,
+        "unpackedSize": 25505,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIEPCjlTnt9wE4CgBpfxxpxLmHZ+k8P8gwRVgHx4xmWKzAiEAzL0q9WSY1OnVpCz1CALTZbItRvF77eNBSsw57SKzGWA="
+          }
+        ],
+        "size": 9454
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.1.0-rc.8_1787153570555_0.7779299341677159"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:32:50.709Z",
+      "publish_time": 1787153570709,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-compaction": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-token-meter": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-compaction": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-token-meter": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-pRFLE04eJRkH46NMH4F6HvCz7lQMxdua2MifcyAdfuHLRCfGtmzJtlkNJkHd7936rJqHaRmVUz3+UMt86MbyBQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-pRFLE04eJRkH46NMH4F6HvCz7lQMxdua2MifcyAdfuHLRCfGtmzJtlkNJkHd7936rJqHaRmVUz3+UMt86MbyBQ==",
+        "shasum": "3819076e466c2d34fd6a0c22841203d6bcf25eb7",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.1.1-rc.1.tgz",
+        "fileCount": 11,
+        "unpackedSize": 25508,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQCnhHVHvz1vQWHcqz+bNGQ1FF9Q3n2t7bqoqV3KkdEHUQIhAKg3UXK5hk6aGa5Bcw0FJAiTN6u8uF1dgBLPfTLORhfL"
+          }
+        ],
+        "size": 9453
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.1.1-rc.1_1787294468549_0.8024605551967519"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:41:08.705Z",
+      "publish_time": 1787294468705,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+      "description": "Replay-safe model-free head/middle/tail pruning for tool-result surface nodes",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/compaction-tool-result-pruner"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-compaction": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-token-meter": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-token-meter": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-HUS95EsuveR8fuzaZW0qSv90mVWbv6aj7W9zfWPbr5BmLJsmomQlw6jFX3GodN1Iv8qWtrzFkMuxDHk4ZTHcAA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-compaction-tool-result-pruner-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-HUS95EsuveR8fuzaZW0qSv90mVWbv6aj7W9zfWPbr5BmLJsmomQlw6jFX3GodN1Iv8qWtrzFkMuxDHk4ZTHcAA==",
+        "shasum": "2a4802755ddc24d22fd4284d15a64c0ce615a3be",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-compaction-tool-result-pruner/-/dsh-compaction-tool-result-pruner-0.1.1-rc.2.tgz",
+        "fileCount": 11,
+        "unpackedSize": 25508,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIBnHqKTwPYI0fF0oDNLlpt4ZWvymAoUIu5bCmazuKsNuAiBb+6xrW3+dcfhun4n1eFzuUQKRA23Y35s5Vs9OVXkI1A=="
+          }
+        ],
+        "size": 9451
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-compaction-tool-result-pruner_0.1.1-rc.2_1787315651310_0.5415493794790509"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:34:11.479Z",
+      "publish_time": 1787315651479,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:13:19.764Z",
+    "modified": "2026-08-21T12:34:26.473Z",
+    "0.1.0-rc.2": "2026-08-13T09:36:33.833Z",
+    "0.1.0-rc.3": "2026-08-13T11:03:28.908Z",
+    "0.0.1-rc.3": "2026-08-12T20:31:26.989Z",
+    "0.0.1-rc.5": "2026-08-12T22:29:05.515Z",
+    "0.1.0-rc.6": "2026-08-13T12:13:03.971Z",
+    "0.1.0-rc.7": "2026-08-17T11:40:13.550Z",
+    "0.1.0-rc.8": "2026-08-19T15:32:50.709Z",
+    "0.1.1-rc.1": "2026-08-21T06:41:08.705Z",
+    "0.1.1-rc.2": "2026-08-21T12:34:11.479Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.3",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-d06eb3e90448bcfa",
+  "_id": "@deepseek-ai/dsh-compaction-tool-result-pruner",
+  "readme": "# @deepseek-ai/dsh-compaction-tool-result-pruner\n\nEnglish | [中文](README.zh.md)\n\nThe replay-safe model-free pruning service (`ctx.toolResultPruner`). It rewrites over-budget `tool/result` surface nodes to a bounded head, a fixed omission marker, and a bounded tail while retaining the full original event in the append-only session log.\n\nThis is a concrete companion to [`dsh-compaction-basic`](../compaction-basic/README.md), not a compaction backend or model-facing tool. Compact-basic reads it through optional `ctx.get('toolResultPruner')`, so either package remains independently composable.\n\n## Service API\n\n`pruneSession(session)` scans one stable snapshot of the current surface. Every over-budget tool result is replaced by one newly appended `tool/result` carrying `{ surfaceOp: { op: 'replace', start: originalSeq, end: originalSeq }, sourceEventSeqs: [originalSeq] }`. The replacement spreads the complete original data and changes only `content`, preserving `turn`, `step`, `callId`, error fields, `meta`, and later data additions. The original event remains available for persistence, replay, and exact-log inspection.\n\nThe method throws synchronously when the session rejects a replacement. Replacements committed earlier in the pass remain durable.\n\n`measureContent(blocks)` counts Unicode code points in `text` blocks. `pruneContent(blocks)` returns the bounded replacement or `null` when content is already within the threshold. Non-text blocks are retained at their original relative positions; text slicing never splits a UTF-16 surrogate pair, though it can split a multi-code-point grapheme cluster.\n\nEvery emitted result has exactly the configured head budget, fixed marker, and tail budget in text code points, is no larger than `thresholdChars`, and is strictly smaller than the triggering input. A second pass therefore emits no replacement.\n\n## Config\n\nUnrecognized keys fail at plugin construction. Resolved config is detached and deeply immutable.\n\n| Key | Required | Meaning |\n|---|---|---|\n| `thresholdChars` | no (default `8192`) | Prune when combined text exceeds this many Unicode code points. |\n| `headChars` | no (default `4096`) | Leading Unicode code points retained. |\n| `tailChars` | no (default `1024`) | Trailing Unicode code points retained. |\n\nAll values are integers; the threshold is positive and head/tail are non-negative. `headChars + marker + tailChars` must fit within `thresholdChars`, so a valid configuration can prune every over-budget result without growth or repeated rewriting.\n\n## Usage\n\n```ts\nimport type { Context } from '@deepseek-ai/cordis'\nimport ToolResultPruner from '@deepseek-ai/dsh-compaction-tool-result-pruner'\n\nexport function apply(ctx: Context): void {\n  ctx.plugin(ToolResultPruner)\n}\n```\n\n## Model Experience\n\n### Pruned tool result\n\n#### What the model sees\n\nOnce a compaction trigger qualifies, future requests see the retained head, `\\n\\n[... tool result middle pruned ...]\\n\\n`, and retained tail in place of the removed text. Rich blocks keep their order. The model does not see a second copy of the original.\n\n#### Token effect\n\nEach rewritten tool result has at most `thresholdChars` text code points. Pruning itself makes no model call; compaction-basic skips summarization when the remeasured request falls below pressure, otherwise the summarizer reads the pruned surface.\n\n#### KV Cache effect\n\nReplacing an earlier result invalidates reuse from the first changed token. The pruned prefix is eligible for reuse while its route, envelope, and preceding history remain identical.\n\n## Known Limitations and Deferred Work\n\n- **Character budgets are not token budgets** — provider token density varies, so `ctx.tokenMeter` remains the authority for deciding whether pruning relieved request pressure.\n- **Pruning is syntactic** — it retains the beginning and end without interpreting which middle lines are semantically important.\n- **Grapheme clusters can split** — code-point slicing protects surrogate pairs but does not perform locale-aware grapheme segmentation.",
+  "_attachments": {}
+}

@@ -1,0 +1,1265 @@
+{
+  "name": "@deepseek-ai/dsh-client-ui-layout",
+  "versions": {
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-layout"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-dUoF5+fLtzwR56C9k5enSVT4qxivHEsruxEiL/YF2YmAZQlSgMe7jYpS9UUNPuzqfGteZ+L750KM15RkzskYlQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-dUoF5+fLtzwR56C9k5enSVT4qxivHEsruxEiL/YF2YmAZQlSgMe7jYpS9UUNPuzqfGteZ+L750KM15RkzskYlQ==",
+        "shasum": "c1ade5c9bb1a02f7e95cfefc715530c925b10d49",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.1.0-rc.3.tgz",
+        "fileCount": 16,
+        "unpackedSize": 45848,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIETtRidz9/OQaZUd77/Tx600/pdCVBMaH1vbFKLMZRQ2AiEAmzdd3hif3RMJM3KQ21bsQYz0tQvfEdDyiYmb4UcKc4A="
+          }
+        ],
+        "size": 16086
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-layout_0.1.0-rc.3_1786619584470_0.5794817162503698"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:13:04.614Z",
+      "publish_time": 1786619584614,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "6a6d25ebdedbb40b331e66cb15f20f76667f4b40",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.1.0-rc.2.tgz",
+        "fileCount": 16,
+        "integrity": "sha512-yPvjOuq6YtNTnvhXa1vnDPDEo9O1r3MxXBXyikLOX06QMR/k8UgSDCVb9AW/0nYaN8NA/Wi/QT5gjMjeauy9vQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIBh9yK0sj7Kj53pr5Q2N0NHaarCB5xbOkxFm/iF98xFnAiEAucUJKqmPiesDUWg1RcwMyn2FckL38RSVfjiPWWIkjFY=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 45848,
+        "size": 16085
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-yPvjOuq6YtNTnvhXa1vnDPDEo9O1r3MxXBXyikLOX06QMR/k8UgSDCVb9AW/0nYaN8NA/Wi/QT5gjMjeauy9vQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-layout"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-layout_0.1.0-rc.2_1786614322543_0.2908290439042649",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:45:22.683Z",
+      "publish_time": 1786614322683,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "f048eb2cc3cc3dfe0ad148f4fa9f5e3028a6fc4e",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.0.1-rc.5.tgz",
+        "fileCount": 16,
+        "integrity": "sha512-o5XF2bHbt42dybvzE7ufX1LKQXx5iHDBRIcoi6swAgEF+fCfXomLBgXNjqB6F3lPu1Kjb8ujKk2fMFYCBjemtQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCrlNlX45gQIBjbkWidbSk6AcEcIqE1xLCvELAmIG6kWQIgG0+KUk2YQL8YpCkBax5svNTZ6UoD0tu6i0fciY97sBA=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 46297,
+        "size": 16275
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-o5XF2bHbt42dybvzE7ufX1LKQXx5iHDBRIcoi6swAgEF+fCfXomLBgXNjqB6F3lPu1Kjb8ujKk2fMFYCBjemtQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-layout"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-layout_0.0.1-rc.5_1786574060699_0.5869624819933121",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:34:20.832Z",
+      "publish_time": 1786574060832,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "a33cb407c1543c94ad68b7e44795326698607ff0",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.0.1-rc.2.tgz",
+        "fileCount": 16,
+        "integrity": "sha512-8RNN/UhV4vFWLe2JkR3bNAItY2YvHMgX8keZbxBGV5r54/FNygXYhUkNDd4aNVjvj3V+ZbevBJIXQkriK8ez3Q==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDK8TnMpwIe/2WZDKMm0BF+OVBwS4j3iUv8l0VNmiXUuAIgaonN0aj+QOuAnsv1ICSQl4bh5SL/cnAq9dLJB/X1kHg=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 43349,
+        "size": 15288
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-8RNN/UhV4vFWLe2JkR3bNAItY2YvHMgX8keZbxBGV5r54/FNygXYhUkNDd4aNVjvj3V+ZbevBJIXQkriK8ez3Q==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-layout"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-layout_0.0.1-rc.2_1786461754169_0.4242051626925645",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:22:34.303Z",
+      "publish_time": 1786461754303,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "7844affea9a25c92c090999761d6fe6733b6ba00",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.0.1-rc.1.tgz",
+        "fileCount": 16,
+        "integrity": "sha512-jwGtHhFGGp/KjjjzX31MCxMcLvZ4PnHLIjQ276fJa9o4HjEjUFXrG6KZv+oFtE6HNXKYVyXejAOdWB7oz05+KA==",
+        "signatures": [
+          {
+            "sig": "MEQCIDzpAqDHKVhE+Yz5eBJe2IABxnCsfzrTsklZJV17Lk6CAiBxghfYJcXJYhL5ty75Tr3noMuSrBVqzaK+vw9tokvElQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 43367,
+        "size": 15307
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-jwGtHhFGGp/KjjjzX31MCxMcLvZ4PnHLIjQ276fJa9o4HjEjUFXrG6KZv+oFtE6HNXKYVyXejAOdWB7oz05+KA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-layout"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-layout_0.0.1-rc.1_1786390791461_0.776998714924191",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:39:51.607Z",
+      "publish_time": 1786390791607,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "dist": {
+        "shasum": "548abbe3d82294ef07b5bbaf8e9c3e25a36abd0d",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.0.1-rc.3.tgz",
+        "fileCount": 16,
+        "integrity": "sha512-DAsluau3zba5AJcjIRyC9ssZcHJAQHJihEZaBiM/4Oxk+wBfJR4RPu765oKDZyaXjUikcEYmJAH33RZySaELDA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCJqDpJKsGarEwpfS0AXa95QOhYzdO/gd7ePInznIvsTQIhANlxNZ7anBQ8RHOwLsNaA6zhcg74+gmCbwhjnAq5JCx9",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 46297,
+        "size": 16265
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-DAsluau3zba5AJcjIRyC9ssZcHJAQHJihEZaBiM/4Oxk+wBfJR4RPu765oKDZyaXjUikcEYmJAH33RZySaELDA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/ui-layout"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "react": "^18.2.0",
+        "@types/react": "~18.3.1",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-locale": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-runtime": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-ui-layout_0.0.1-rc.3_1786567063939_0.20018692017894057",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:37:44.085Z",
+      "publish_time": 1786567064085,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-layout"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-JpQ5rzySpK7molQBfMqrcBCGDWYQngqZmFuFqhcxecIc2n5mBYVP0F5UbGITgxo+D7sDOy78RA1PWqZ/5b/g0g==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-JpQ5rzySpK7molQBfMqrcBCGDWYQngqZmFuFqhcxecIc2n5mBYVP0F5UbGITgxo+D7sDOy78RA1PWqZ/5b/g0g==",
+        "shasum": "5caa52f962dc42b26ccb0c0cc63c6e232d29c417",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.1.0-rc.6.tgz",
+        "fileCount": 16,
+        "unpackedSize": 45844,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCICgLwRAKOb8lYJg9SOgoukqgh01766fDM3Et8jan+AHbAiB+3byJDfdsge/Bn3byMNC6x+gmmgQUR33RfdOMf7dxIg=="
+          }
+        ],
+        "size": 16082
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-layout_0.1.0-rc.6_1786624162812_0.7547032391443436"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:29:22.952Z",
+      "publish_time": 1786624162952,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-layout"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-4z5xkH/O8GT6ve1IX15WTel236fJwSuRZusMKJ9qIxdslZZ1h+wMbtgX3tCqg7mTtMznRDspCpC1b1QSAt4nTg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-4z5xkH/O8GT6ve1IX15WTel236fJwSuRZusMKJ9qIxdslZZ1h+wMbtgX3tCqg7mTtMznRDspCpC1b1QSAt4nTg==",
+        "shasum": "846fffd039f5605598272f6b268faf14efbe5f44",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.1.0-rc.7.tgz",
+        "fileCount": 16,
+        "unpackedSize": 45844,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCmWd2P84G01YLIajuvq/qOQunWMTAjAiVnZ+cTcuRKdgIgKdjzAma1jIpmiu7zWoXA1MV/xYgkxmrNboCz0aXWWmY="
+          }
+        ],
+        "size": 16082
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-layout_0.1.0-rc.7_1786967348617_0.565945933630017"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:49:08.791Z",
+      "publish_time": 1786967348791,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-layout"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-locale": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-tbHawbf8FsJqdwnXrU46V8u13bfAFVQQf0hA0OXH4k0PiLiThdZgQFn/T94+56JMUzD1QLqe7DLmNz29cwmjvQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-tbHawbf8FsJqdwnXrU46V8u13bfAFVQQf0hA0OXH4k0PiLiThdZgQFn/T94+56JMUzD1QLqe7DLmNz29cwmjvQ==",
+        "shasum": "bea52010ceba1345dd51ccdf222c7b9baab89710",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.1.0-rc.8.tgz",
+        "fileCount": 16,
+        "unpackedSize": 45765,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIAszGAtjCfTtXsiwIeLHryhz/eJALra58gOjm1wAgYnGAiEA/Iv0jREgmPsn9hG0RBGbGKbtsFjW+5Tz00ztsPA1Bm4="
+          }
+        ],
+        "size": 16075
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-layout_0.1.0-rc.8_1787153842008_0.8478328764998311"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:37:22.170Z",
+      "publish_time": 1787153842170,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-layout"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-locale": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-cqZj1SRW7Z5I6imNt0BjVu+S2SztNi/EQ2vjl+OqyVV6jLxJKYIhYIFOZaZTHuUpMb6NkxIO8qfPDBqFWE9F5Q==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-cqZj1SRW7Z5I6imNt0BjVu+S2SztNi/EQ2vjl+OqyVV6jLxJKYIhYIFOZaZTHuUpMb6NkxIO8qfPDBqFWE9F5Q==",
+        "shasum": "c9838eff2f264c545b11f69aee39c3c27a320bbc",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.1.1-rc.1.tgz",
+        "fileCount": 16,
+        "unpackedSize": 45765,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDMlapNi4i5UPzJCjsvKpuwPugBioG0590EhVqoJNzU4AIgRszrAt6H54nltdzYpkDHyXjCT/8aCMnsjKM3kJskg3o="
+          }
+        ],
+        "size": 16082
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-layout_0.1.1-rc.1_1787294717466_0.20526700522667962"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:45:17.674Z",
+      "publish_time": 1787294717674,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-client-ui-layout",
+      "description": "Shell plugin: three-column AppFrame with drag handles, ctx.layout viewing-state service (navigation + panels)",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/ui-layout"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "inject": [
+            "@deepseek-ai/dsh-client-runtime",
+            "@deepseek-ai/dsh-client-ui-theme"
+          ],
+          "platform": "web"
+        }
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@types/react": "~18.3.1",
+        "react": "^18.2.0",
+        "@deepseek-ai/dsh-client-ui-slots": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-locale": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-runtime": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-client-ui-theme": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-ui-layout@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-y7xSQyQYGuahLyJcSXpB+JbH1F5lGEc3L9K8cjLy5vd/L9N6gLFLWyeGdlGxxM4jxRt1+rAHDDZ/zl7b8GC5zQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-ui-layout-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-y7xSQyQYGuahLyJcSXpB+JbH1F5lGEc3L9K8cjLy5vd/L9N6gLFLWyeGdlGxxM4jxRt1+rAHDDZ/zl7b8GC5zQ==",
+        "shasum": "e9bf4b7fd943c99ce64eaeb7c814ee83f4364772",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-ui-layout/-/dsh-client-ui-layout-0.1.1-rc.2.tgz",
+        "fileCount": 16,
+        "unpackedSize": 45765,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIEZorhXsN1BYJpwkPd6tP58ndg0m2ivvIuDUnrWFYE07AiEAlXRQA6Y28x9lLVHa7TMitqXHK3ecWn72CHZ9u/nYXS4="
+          }
+        ],
+        "size": 16082
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-ui-layout_0.1.1-rc.2_1787315903529_0.24411504958532593"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:38:23.724Z",
+      "publish_time": 1787315903724,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:29:34.684Z",
+    "modified": "2026-08-21T12:38:38.974Z",
+    "0.1.0-rc.3": "2026-08-13T11:13:04.614Z",
+    "0.1.0-rc.2": "2026-08-13T09:45:22.683Z",
+    "0.0.1-rc.5": "2026-08-12T22:34:20.832Z",
+    "0.0.1-rc.2": "2026-08-11T15:22:34.303Z",
+    "0.0.1-rc.1": "2026-08-10T19:39:51.607Z",
+    "0.0.1-rc.3": "2026-08-12T20:37:44.085Z",
+    "0.1.0-rc.6": "2026-08-13T12:29:22.952Z",
+    "0.1.0-rc.7": "2026-08-17T11:49:08.791Z",
+    "0.1.0-rc.8": "2026-08-19T15:37:22.170Z",
+    "0.1.1-rc.1": "2026-08-21T06:45:17.674Z",
+    "0.1.1-rc.2": "2026-08-21T12:38:23.724Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "7-d30093a6b8f7342b",
+  "_id": "@deepseek-ai/dsh-client-ui-layout",
+  "readme": "# @deepseek-ai/dsh-client-ui-layout\n\nEnglish | [中文](README.zh.md)\n\nShell plugin: three-column AppFrame (drag handles and concession chain) plus the `ctx.layout` panel-geometry service; it registers into the runtime-owned `root` slot and declares `sidebar`, `conversation`, `details`, and `conversation.empty`. The sidebar resize boundary is an invisible hit strip, while the details boundary retains its floating pill; only details shrinks during concession and then auto-closes. A closed sidebar retains a 56px control rail while details closes to zero width. The package also seats the theme presenter: it consumes resolved `ctx.theme` snapshots and projects them onto the document (`html { color-scheme }` for native UA chrome, `body[data-ds-dark-theme]` from the active color scheme, the theme's alias tokens as inline variables on body, and one owned `<meta name=\"theme-color\">` whose content follows the computed body background). Measuring after palette and token application keeps the rendered background as the single color authority; disposing the presenter removes its metadata node with its other global writes.\n\nAppFrame always mounts the conversation and details columns; a connected Session renders through `SessionProvider`. The transient layout store starts the sidebar at its default width and details closed, and it never reads or writes `localStorage`. Hero and other unselected states also derive a zero rendered details width without changing that stored preference. AppFrame retains the last non-blank Session id across those states: the first Session remains closed, an explicit details action opens the contract default width, returning to the same Session restores its unchanged width, and selecting a different Session closes details before paint. The conversation owner share is empty, while the sidebar owner share contains only `collapsed` and `width`; registrants obtain business data from standard hooks and actions from their own inject faces.\n\nThe `/client` export surface is the plugin body (`apply`/`inject`), `LayoutService`, and the four owner-share interfaces. AppFrame, the panel store, and the concession solver remain package-internal.\n\n## Model Experience\n\nNone, as the layout shell manages browser viewing state; nothing here reaches a model request.\n\n#### KV Cache effect\n\nNone; this package neither assembles nor sends a provider request.\n\n## Known Limitations and Deferred Work\n\n- **Panel geometry is transient** — reload restores the sidebar default and details closed; switching between distinct Session ids also closes details and forgets its dragged width, while unselected surfaces render details at zero width without modifying geometry.\n- **Concession-chain auto-close derives a zero width without touching the preferred width** — the panel restores itself when the window widens; consumers must not read the stored details width as the rendered truth.\n- **No scroll anchoring during squeeze reflow** — layout changes may move the reader's viewport.",
+  "_attachments": {}
+}

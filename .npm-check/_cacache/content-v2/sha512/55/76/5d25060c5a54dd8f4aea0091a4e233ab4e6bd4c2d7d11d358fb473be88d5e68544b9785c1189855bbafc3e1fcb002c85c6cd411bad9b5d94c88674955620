@@ -1,0 +1,899 @@
+{
+  "name": "@deepseek-ai/dsh-skill-filesystem",
+  "versions": {
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "379ea4f5708549d0a2a6dc101a7603acc5d14214",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.0.1-rc.3.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-L77gIAaX59NSFeiTI5lk2S3oAluAaoroBZP6w+vZfatwGz7MPz2ZUSXPTA7Ma7jar+C4/owsCFRgg9ccn7CvOA==",
+        "signatures": [
+          {
+            "sig": "MEQCIE62imfD+k8qK13amE/q7D/XbEgq2NL7qXtmBDPSYe/xAiBOPUUGg+k/RPgxx5QqunK7eydIGQSjhogJ4vTsxViUQw==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56545,
+        "size": 19138
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-L77gIAaX59NSFeiTI5lk2S3oAluAaoroBZP6w+vZfatwGz7MPz2ZUSXPTA7Ma7jar+C4/owsCFRgg9ccn7CvOA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "yaml": "^2.4.2",
+        "chokidar": "^5.0.0",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-skill": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-home-paths": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-skill": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-home-paths": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-skill-filesystem_0.0.1-rc.3_1786566785292_0.606238855444003",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:33:05.476Z",
+      "publish_time": 1786566785476,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.6"
+      },
+      "dependencies": {
+        "chokidar": "^5.0.0",
+        "yaml": "^2.4.2",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-NCgz8lCAdvd0oSGIF0EKg1OXfIC7x9r0an7mgC19F0DGzYZJe5ve6AwEYpSvKITE3V8W4NbUzLKyyZG3VH5QtQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-NCgz8lCAdvd0oSGIF0EKg1OXfIC7x9r0an7mgC19F0DGzYZJe5ve6AwEYpSvKITE3V8W4NbUzLKyyZG3VH5QtQ==",
+        "shasum": "7bc090482450e48ce8eee90a795c83ddfc003bb1",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.1.0-rc.6.tgz",
+        "fileCount": 9,
+        "unpackedSize": 56087,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIE3GbWbn8UL8kS5tbhWKLk0jBKCDRUJ+UDdaGdgRCdzmAiBgrzFwzRVJQxHGPuELcsPnsaH/sFNXs51hd1l12ngGRA=="
+          }
+        ],
+        "size": 18960
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-skill-filesystem_0.1.0-rc.6_1786623448553_0.6481339085309765"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:17:28.714Z",
+      "publish_time": 1786623448714,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "496547bd4cffed395e962430342e0b52a77ba4d8",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.0.1-rc.5.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-23ZvLSqAGzkNJRr5C4UuqjF84LM6h95IU8oBX4X4beMp6SDT059g5kA20MK+Fd/fhYdzGIERitrzZXN9oem1cw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCmPDRVcqQJsxqlr/lSohSHCKqW4i/XczhgSBvcq+sq9QIhALUoZMXhFd1W2gM0DV/nrjUy76XvadBGash1ZUHIPZUQ",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56545,
+        "size": 19149
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-23ZvLSqAGzkNJRr5C4UuqjF84LM6h95IU8oBX4X4beMp6SDT059g5kA20MK+Fd/fhYdzGIERitrzZXN9oem1cw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "yaml": "^2.4.2",
+        "chokidar": "^5.0.0",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.4"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-skill": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-home-paths": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-skill": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-home-paths": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-skill-filesystem_0.0.1-rc.5_1786573827643_0.9266043423110737",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:30:27.799Z",
+      "publish_time": 1786573827799,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "35530c0899a87f19d8edfc0ea5eac1b19d415c72",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.1.0-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-BN/uhMyADWyUgJUkUeeftocDd3OfI8Rt6+HRKk9mCou66jqEQDzKCDXrR5xx5m4zJZ2+legFYa28MAe3fg1ThA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQC0h1hxozhV+V2XLQml6/mbtXMrAeXRZXwJSKf2csUlIAIgATjU5YMo/168ck914G+oJcDOGeyc07PL9ey8MoUf82U=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56091,
+        "size": 18955
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-BN/uhMyADWyUgJUkUeeftocDd3OfI8Rt6+HRKk9mCou66jqEQDzKCDXrR5xx5m4zJZ2+legFYa28MAe3fg1ThA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "yaml": "^2.4.2",
+        "chokidar": "^5.0.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-skill-filesystem_0.1.0-rc.2_1786613939664_0.8986289635576605",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:38:59.806Z",
+      "publish_time": 1786613939806,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "version": "0.1.0-rc.3",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.1.0-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "3bb46be20bcaa63a9fdde8a88299b65ccccc711f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.1.0-rc.3.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-/Tpre7kLOzB4qETQzGA7oLawIXF1lS3I9zKH0xzM+oMUlSwhnjU1+g9NwuOY41R9NgjbnjcDSIC3IPxi1I3EEg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCNKT1VOqr21Z7xooCLALyCOo+EXMkfagEspWlyWrxkOAIgepMidNyCFFhtWWhZUxfzs4dpn3PYNWGvpzYJJ+mnOjA=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56091,
+        "size": 18966
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.3.tgz",
+      "_integrity": "sha512-/Tpre7kLOzB4qETQzGA7oLawIXF1lS3I9zKH0xzM+oMUlSwhnjU1+g9NwuOY41R9NgjbnjcDSIC3IPxi1I3EEg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "yaml": "^2.4.2",
+        "chokidar": "^5.0.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-skill-filesystem_0.1.0-rc.3_1786619165974_0.8838595233226683",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T11:06:06.130Z",
+      "publish_time": 1786619166130,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "chokidar": "^5.0.0",
+        "yaml": "^2.4.2",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-i95xycP3vkz4IZnIO4BTzGNB6waKl1M5AsW2x04C0FIqLa4BSILvVUVwqcbwpBZm7Cd/KF50Q050au3NvauGrw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-i95xycP3vkz4IZnIO4BTzGNB6waKl1M5AsW2x04C0FIqLa4BSILvVUVwqcbwpBZm7Cd/KF50Q050au3NvauGrw==",
+        "shasum": "782fbd2ccc50088e7a3588811dab071e9331d241",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.1.0-rc.7.tgz",
+        "fileCount": 9,
+        "unpackedSize": 56087,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCID+Hyr9o97MdeYhRdmIUip4iBl9BfqzF81g5xKmNuJsGAiB/3Yoyo9UwEGgq7l4kIazNsoDa829SVPnkuDq38HHeXA=="
+          }
+        ],
+        "size": 18957
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-skill-filesystem_0.1.0-rc.7_1786966983273_0.0015568186595857902"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:43:03.405Z",
+      "publish_time": 1786966983405,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.8"
+      },
+      "dependencies": {
+        "chokidar": "^5.0.0",
+        "yaml": "^2.4.2",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-home-paths": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-skill": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.8"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-A87t/1+wxPiMkUXWVdf4DfgxA8rp1eLmStMvzfdthR/WxtGPzuEv2L5oyNDzKiCBwIcxBN6Fy2THNa2Xba2kQQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-A87t/1+wxPiMkUXWVdf4DfgxA8rp1eLmStMvzfdthR/WxtGPzuEv2L5oyNDzKiCBwIcxBN6Fy2THNa2Xba2kQQ==",
+        "shasum": "d2950883f503c4486f1674ee844f88a0071cd2b4",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.1.0-rc.8.tgz",
+        "fileCount": 9,
+        "unpackedSize": 56087,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIAr648S0EuO8yuskYHgemTAcrm38UmCgmXFnHFaN7npHAiBVrSciXBVgl2kQnsxjZmVz8aGitII+M+sQFY1eqx9VsQ=="
+          }
+        ],
+        "size": 18966
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-skill-filesystem_0.1.0-rc.8_1787153688086_0.3837196708566133"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:34:48.238Z",
+      "publish_time": 1787153688238,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-home-paths": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-skill": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "chokidar": "^5.0.0",
+        "yaml": "^2.4.2",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-home-paths": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-skill": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-ReGxRVmlVJ0S23lEPWlADnPie4Sff0vUdjt5/W4h1o1wZLyXG4STrCoa4Nkm4Rhx3ES5WfLa0Wr9TPzTkLEieg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-ReGxRVmlVJ0S23lEPWlADnPie4Sff0vUdjt5/W4h1o1wZLyXG4STrCoa4Nkm4Rhx3ES5WfLa0Wr9TPzTkLEieg==",
+        "shasum": "634dd3f307345b82b103605a9d4809e0702496dd",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.1.1-rc.1.tgz",
+        "fileCount": 9,
+        "unpackedSize": 56090,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIBRKXyMFEyIyalJUAw4RMuTATHjDN/1Mpx2qb43XpFFrAiEAs9Im5OJ4v0egoeMhbPQbkwI85oS06CD15MdtTlPL7pI="
+          }
+        ],
+        "size": 18949
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-skill-filesystem_0.1.1-rc.1_1787294576161_0.1800958383170843"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:42:56.301Z",
+      "publish_time": 1787294576301,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-skill-filesystem",
+      "description": "Local filesystem skill provider for the DeepSeek Harness",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/skill/skill-filesystem"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-home-paths": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-skill": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "chokidar": "^5.0.0",
+        "yaml": "^2.4.2",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-home-paths": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-skill": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-skill-filesystem@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-eyQGv4046c392kIvOCom+gvJpiFbkWsf/VqB7dCQXTZrdXEx99P8oOm3jsagnllcLKYyZVVETs75pPgznye/iw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-skill-filesystem-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-eyQGv4046c392kIvOCom+gvJpiFbkWsf/VqB7dCQXTZrdXEx99P8oOm3jsagnllcLKYyZVVETs75pPgznye/iw==",
+        "shasum": "66f3ea10a553fbf33e523d174182e2ced16bf401",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-skill-filesystem/-/dsh-skill-filesystem-0.1.1-rc.2.tgz",
+        "fileCount": 9,
+        "unpackedSize": 56090,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDlRskUuGM2kTXeJTggTQwCwC8s2XgoLnHQv5CFjI6mnQIgIRRifn+HgnPn6dQgbdvBETlLcP1llB/CIOGfoZeMoQ0="
+          }
+        ],
+        "size": 18947
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-skill-filesystem_0.1.1-rc.2_1787315761945_0.3993652198849136"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:36:02.098Z",
+      "publish_time": 1787315762098,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:17:42.702Z",
+    "modified": "2026-08-21T12:36:22.536Z",
+    "0.0.1-rc.3": "2026-08-12T20:33:05.476Z",
+    "0.1.0-rc.6": "2026-08-13T12:17:28.714Z",
+    "0.0.1-rc.5": "2026-08-12T22:30:27.799Z",
+    "0.1.0-rc.2": "2026-08-13T09:38:59.806Z",
+    "0.1.0-rc.3": "2026-08-13T11:06:06.130Z",
+    "0.1.0-rc.7": "2026-08-17T11:43:03.405Z",
+    "0.1.0-rc.8": "2026-08-19T15:34:48.238Z",
+    "0.1.1-rc.1": "2026-08-21T06:42:56.301Z",
+    "0.1.1-rc.2": "2026-08-21T12:36:02.098Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.3",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-6c4f062adaea080f",
+  "_id": "@deepseek-ai/dsh-skill-filesystem",
+  "readme": "# @deepseek-ai/dsh-skill-filesystem\n\nEnglish | [中文](README.zh.md)\n\nLocal filesystem provider for the `ctx.skills` registry.\n\nThis package implements one skill source. It scans local project, custom, and user skill roots, parses `SKILL.md` or flat Markdown skill files, and registers the provider on `ctx.skills`. The registry remains in `@deepseek-ai/dsh-skill`; the durable session catalogs and model-facing loader tool remain in `@deepseek-ai/dsh-tool-skill`.\n\n## Plugin\n\nRequires `ctx.skills` (`inject: ['skills']`).\n\n### Config\n\n| Field | Default | Meaning |\n|---|---|---|\n| `providerName` | `filesystem` | Unique name used to register this provider on `ctx.skills`. |\n| `includeDefaultRoots` | `true` | Include project and user roots around `customSkillDirs`; set false for an isolated custom-root provider. |\n| `dshHome` | `$DSH_HOME` or `~/.dsh` | DeepSeek Harness config root resolved by [`@deepseek-ai/dsh-home-paths`](../../util/home-paths/README.md); scans `skills` under this directory. |\n| `agentsHome` | `$DSH_AGENTS_HOME` or `~/.agents` | Shared agent config root scanned for compatible skills. |\n| `customSkillDirs` | `[]` | Additional local skill roots scanned after project roots and before user roots. |\n| `watch` | `true` | Watch host-local roots and invalidate the local provider when catalog membership or frontmatter may have changed. |\n| `watchUsePolling` | `false` | Use Chokidar polling instead of native events for existing skill roots. |\n| `watchStabilityThresholdMs` | `200` | Stable-write window for Chokidar `add` and `change` events. |\n| `watchPollIntervalMs` | `100` | Chokidar polling/stability interval and missing-path probe interval. |\n| `watchMaxProjects` | `128` | Maximum distinct project roots retained in the watcher LRU. |\n| `watchFollowSymlinks` | `true` | Follow symbolic links while watching existing roots. |\n\n## Discovery\n\nDefault roots are resolved in this provider's rank order:\n\n| Rank | Source | Path |\n|---|---|---|\n| 100 | `project-dsh` | `<projectRoot>/.dsh/skills` |\n| 200 | `project-agents` | `<projectRoot>/.agents/skills` |\n| 300 | `custom` | `Config.customSkillDirs` |\n| 400 | `user-dsh` | `<dshHome>/skills` |\n| 500 | `user-agents` | `<agentsHome>/skills` |\n\nThe project root is the nearest ancestor containing `.git`; without one, the current cwd is used. The user DSH root skips its `.system` child so system-owned directories are not treated as normal user skills. `includeDefaultRoots: false` omits the project and user rows and the `$DSH_BUNDLED_SKILL_DIR` environment default while retaining explicitly configured custom and bundled roots, allowing several uniquely named isolated providers to see only their own roots. This provider supplies project and user skills; another provider may supply built-in system skills.\n\nWhen `ctx.fs` is available, discovery lists roots through `ctx.fs.listDir`, reads skill files through `ctx.fs.readText`, and probes `.git` through the filesystem service. Full skill loads forward the lookup abort signal to filesystem metadata and content reads. Without a filesystem service, the provider falls back to abortable Node filesystem I/O so minimal local contexts can still load skills. Confirmed missing paths are valid empty state, malformed or non-text entries warn and skip, and unexpected discovery/read failures make the registry snapshot incomplete rather than replacing a last-good model catalog with a misleading deletion.\n\n## Catalog Change Detection\n\nExisting skill roots are watched with Chokidar. Before opening a native watcher, the provider realpaths the existing root or ancestor and restores the next missing segment; when `watchFollowSymlinks` is false and the root itself is a symbolic link, it preserves that final link so Chokidar can enforce the configured boundary. Discovery and diagnostics retain the configured path, while Windows cannot otherwise mix an 8.3 alias with long-form libuv events. The provider observes direct bundle directory additions/removals, flat Markdown additions/removals, and direct `SKILL.md` additions/removals/changes; `change` exists to rediscover catalog frontmatter such as `name` and `description`. Changes below `references`, `scripts`, `assets`, or other bundle resources do not invalidate the catalog. Events delivered in the same microtask batch collapse to one provider invalidation.\n\nA root that does not exist is followed from the nearest existing ancestor one missing path segment at a time. The next segment is probed with `fs.watchFile`; once `.agents`, `skills`, or the configured root appears, observation advances until Chokidar can attach to the real root. Root deletion reverses this process, so deleting and recreating an entire skills directory remains observable. Project-scoped watchers are bounded by `watchMaxProjects`; revisiting an evicted project reattaches observation during discovery.\n\nThe first-party filesystem `write` and `edit` tools also synchronously invalidate the provider through `fs/observed` when their target could affect a watched skill entry. This fast path makes the next model step observe its own filesystem mutation without waiting for the host watcher. External IDE, Git, shell, and process changes rely on Chokidar or the missing-path probe. Existing-root watchers remain persistent until effect teardown so Chokidar owns asynchronous native error events; startup/runtime watcher failures are logged and retried. Discovery still scans readable roots and returns their candidates for direct loading, but marks the observation incomplete so it is not cached or published as an authoritative model catalog. Effect teardown closes every watcher and contains late callbacks.\n\n## Skill Format\n\nSkills can be single-level directory bundles (`<name>/SKILL.md`) or flat Markdown files (`<name>.md`). Nested `**/SKILL.md` discovery is deliberately excluded. Frontmatter is parsed as an open YAML object with the `yaml` package; this provider interprets required `name` and `description`, plus optional `whenToUse`, `metadata`, `disable-model-invocation`, and `user-invocable`. Names must be kebab-case.\n\nThe two invocation fields accept YAML booleans and the case-insensitive forms `true`/`false`, `yes`/`no`, `on`/`off`, and `1`/`0`. `disable-model-invocation: true` excludes the skill from model-facing catalogs and loaders; `user-invocable: false` excludes it from human-facing commands. Each omitted field defaults to permitting its surface, and the provider always emits both positive internal policy values, including when both keys are absent. A rejected camel-case spelling or a non-boolean invocation value drops the entire skill from discovery with a warning instead of discarding only that field or falling back to a permissive default. Invocation policy fails closed because ignoring invalid data could expose a skill on a disabled surface; wrong-typed optional `whenToUse` and `metadata` values are omitted because neither currently grants invocation.\n\nThe catalog and body have separate lifecycles. Discovery parses frontmatter to produce the summary. Every `skill(name)` load rereads and reparses the current file, so body edits need no hash, revision, cache invalidation, or proactive model notification. A frontmatter rename between discovery and loading rejects the stale name and invalidates the provider; the next catalog observation publishes the new name.\n\n## Model Experience\n\nIndirectly, through `dsh-tool-skill`, which renders this provider's invocable names and capped descriptions into the initial or replacement catalog and a selected current instruction body plus resource-base guidance into retained tool history while paths, provider ranks, and disabled skills remain hidden.\n\n#### KV Cache effect\n\nWatcher invalidation can cause the named consumer to append a replacement catalog to the existing request history. Body-only edits leave the catalog digest unchanged.\n\n## Known Limitations and Deferred Work\n\n- **Discovery is one level deep** — only `<root>/<name>/SKILL.md` and `<root>/<name>.md` are recognized; nested skill trees and package manifests are ignored.\n- **Project scope is the nearest `.git` ancestor** — workspaces without that marker fall back to the supplied cwd, with no alternate project-root marker or monorepo subproject selection.\n- **Malformed entries disappear with a warning** — the model catalog receives no per-skill diagnostic and cannot distinguish an absent skill from an invalid one; unexpected I/O failures preserve the last-good catalog instead.\n- **Missing-root observation polls one path segment** — roots absent at startup use `fs.watchFile` at `watchPollIntervalMs` until Chokidar can attach, trading bounded detection latency for reliable creation detection across IDE, Git, and shell workflows.\n- **No body revision protocol** — a loaded body is ordinary retained tool history; later file edits affect later calls but neither rewrite old results nor announce that the body changed.",
+  "_attachments": {}
+}

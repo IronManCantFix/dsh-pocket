@@ -195,7 +195,7 @@ function PocketSettingsTab({ rpcCall, t }) {
   }, []);
 
   // 版本信息（host 当前版本 + 磁盘已更新版本 + GitHub 最新版本）
-  // 不做自动更新检测、不轮询——本插件（shaobeichen/dsh-pocket）通过 GitHub Releases 发布，
+  // 不做自动更新检测、不轮询——本插件（IronManCantFix/dsh-pocket）通过 GitHub Releases 发布，
   // 与 npm registry 的 dsh-pocket 无关。GitHub 查询由服务端代理（避免浏览器 CORS/限流/网络封锁），
   // 失败时静默降级：githubLatest 为 null，UI 显示「获取失败」+ 「打开 GitHub」链接。
   // 桌面端（isDesktop）：更新/重启由 DSH Desktop 管理，只显示版本信息，不提示重启。
@@ -207,7 +207,7 @@ function PocketSettingsTab({ rpcCall, t }) {
         current: v?.current ?? null,
         loaded: v?.loaded ?? null,
         githubLatest: gh?.version ?? null,
-        githubUrl: gh?.url ?? 'https://github.com/shaobeichen/dsh-pocket/releases/latest',
+        githubUrl: gh?.url ?? 'https://github.com/IronManCantFix/dsh-pocket/releases/latest',
         loading: false,
         failed: false,
       });
@@ -366,7 +366,7 @@ function PocketSettingsTab({ rpcCall, t }) {
       h('div', { style: { fontSize: 12, color: 'var(--dsw-alias-label-tertiary,#8b93a1)', textAlign: 'right' } },
         h('div', { style: { whiteSpace: 'nowrap' } }, t('developer')),
         h('div', { style: { whiteSpace: 'nowrap' } }, t('starAsk')),
-        h('a', { href: 'https://github.com/shaobeichen/dsh-pocket', target: '_blank', rel: 'noreferrer', style: { color: 'var(--dsw-alias-brand-primary,#4f6ef7)', fontSize: 12, lineHeight: 1.6, textDecoration: 'underline' } },
+        h('a', { href: 'https://github.com/IronManCantFix/dsh-pocket', target: '_blank', rel: 'noreferrer', style: { color: 'var(--dsw-alias-brand-primary,#4f6ef7)', fontSize: 12, lineHeight: 1.6, textDecoration: 'underline' } },
           t('starCta')),
       ),
     ),
@@ -394,7 +394,7 @@ function PocketSettingsTab({ rpcCall, t }) {
         : (!versionInfo.githubLatest || versionInfo.failed)
           ? h('span', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)' } },
               t('versionGithubFail'),
-              h('a', { href: versionInfo.githubUrl ?? 'https://github.com/shaobeichen/dsh-pocket/releases/latest', target: '_blank', rel: 'noreferrer', style: { color: 'var(--dsw-alias-brand-primary,#4f6ef7)', marginLeft: 6 } }, t('versionGithubOpen')),
+              h('a', { href: versionInfo.githubUrl ?? 'https://github.com/IronManCantFix/dsh-pocket/releases/latest', target: '_blank', rel: 'noreferrer', style: { color: 'var(--dsw-alias-brand-primary,#4f6ef7)', marginLeft: 6 } }, t('versionGithubOpen')),
             )
           : h('span', null,
               h('a', {
@@ -628,7 +628,7 @@ function PocketSettingsTab({ rpcCall, t }) {
 
     // 页面最底部：反馈入口
     h('div', { style: { ...styles.block, textAlign: 'center' } },
-      h('a', { href: 'https://github.com/shaobeichen/dsh-pocket/issues', target: '_blank', rel: 'noreferrer', style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', textDecoration: 'none' } },
+      h('a', { href: 'https://github.com/IronManCantFix/dsh-pocket/issues', target: '_blank', rel: 'noreferrer', style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', textDecoration: 'none' } },
         t('feedback')),
     ),
   );

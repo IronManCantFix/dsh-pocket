@@ -1,0 +1,1051 @@
+{
+  "name": "@deepseek-ai/dsh-fs-local",
+  "versions": {
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-fs-local@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "0ae35f8da958aff14803a5f03dc1ba3a4846129c",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.0.1-rc.3.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-lyZ0ZV99inh9ANpg2sXgXUINZ1Z/YwURWZXfiXXcUBkKcYXYQ1KanjsHvomazphDgD6lAnKHBn+7ynf2ArUKAA==",
+        "signatures": [
+          {
+            "sig": "MEQCIAgg9K/xoDDBedA1P7qVZTzQVr98IDmTgcc4G/ZjmUOvAiBFOxMpkPS13nC45+wCgsKo4pjEYps2e+KlWi0b8TS67A==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 75023,
+        "size": 24842
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-lyZ0ZV99inh9ANpg2sXgXUINZ1Z/YwURWZXfiXXcUBkKcYXYQ1KanjsHvomazphDgD6lAnKHBn+7ynf2ArUKAA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/fs/fs-local"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-fs-local_0.0.1-rc.3_1786566693583_0.2803038451307416",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:31:33.729Z",
+      "publish_time": 1786566693729,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/fs/fs-local"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-fs-local@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-emPexRronNQHObcKyRTJjpvNPVJimEgJGLwXZdmBnoyETmQdBVuF7j8FP2lcw/ESZ7PqDwSbZdg5uRM0w7X02w==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-emPexRronNQHObcKyRTJjpvNPVJimEgJGLwXZdmBnoyETmQdBVuF7j8FP2lcw/ESZ7PqDwSbZdg5uRM0w7X02w==",
+        "shasum": "24a2f1abb867762fde331d6df7e7b4bb848b1f10",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.1.0-rc.3.tgz",
+        "fileCount": 11,
+        "unpackedSize": 74569,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDALIjGCMYrshyjcWQidlwnfNwlnijaJ6AswkQ7uSan2wIgQvVA1cuR+hmBLoOoecjSjcl6VdWXaPHPhOTx/pRO4mg="
+          }
+        ],
+        "size": 24637
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-fs-local_0.1.0-rc.3_1786619019202_0.9846852513391229"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:03:39.357Z",
+      "publish_time": 1786619019357,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-fs-local@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "e43e9fcc3b0b9c81fee9894828ba8408fe1971c0",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.0.1-rc.1.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-H84Ww/11Ybm0gCgO7mBB1FDJQ7z/aJe8XpRXWABcmtS3DyMWLbvq5FVW1xoohjZSzBtiUCnWdKAwZ+kl43jWiA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQD2Oeoh8nPQYvnymMSKmIC54XIvAYfSkxHpjPjrwjiFMgIhAOYUJuS6vqobrGWvMc5d1VuqEc46JxHFyl1ZhOe3uBNP",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 71398,
+        "size": 23887
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-H84Ww/11Ybm0gCgO7mBB1FDJQ7z/aJe8XpRXWABcmtS3DyMWLbvq5FVW1xoohjZSzBtiUCnWdKAwZ+kl43jWiA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/fs/fs-local"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-fs-local_0.0.1-rc.1_1786390508735_0.44063843608329023",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:35:08.895Z",
+      "publish_time": 1786390508895,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-fs-local@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "95c57c8a918ae17c61fa23b244011417103e0ad9",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.1.0-rc.2.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-ZeqeVlf0v+CvnwjL3DEo6FEDbjWGpwdckKkLn6l7DmcHeIqSNjq+KefSwAeKlkSVSpW4mdiws8TXf+FzW6H6QQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIC3BC5oXytaCfH+AunT4LGKV//izgNw0SZSJBxuvaMbjAiEA75XPmIEHwckBYvgxCQONK1nfC31POOddKQSpkhgVPyU=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 74569,
+        "size": 24639
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-ZeqeVlf0v+CvnwjL3DEo6FEDbjWGpwdckKkLn6l7DmcHeIqSNjq+KefSwAeKlkSVSpW4mdiws8TXf+FzW6H6QQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/fs/fs-local"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-fs-local_0.1.0-rc.2_1786613803052_0.5816469696935394",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:36:43.196Z",
+      "publish_time": 1786613803196,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-fs-local@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "bbfec79393f7e6ed8674c8b40936b80f4cb3960b",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.0.1-rc.5.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-SqGFoev+5C3CSqD70a6zCIB0kxPzgtEFjP1QlkxpZ8FrLpOVYpusvCk3ronFSdjiUR7XrboNpVsP7eJtP3Jn0g==",
+        "signatures": [
+          {
+            "sig": "MEUCIGn8uNGq+C2Z6N3CMPTUOtGmfqzzKn22qHfyg2ReAt76AiEAjR+VXSZGkB8AQW/rEXteyf3JKJvaPqIWOkL2tnFRL/c=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 75023,
+        "size": 24841
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-SqGFoev+5C3CSqD70a6zCIB0kxPzgtEFjP1QlkxpZ8FrLpOVYpusvCk3ronFSdjiUR7XrboNpVsP7eJtP3Jn0g==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/fs/fs-local"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.4"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-fs-local_0.0.1-rc.5_1786573750232_0.5265921919945671",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:29:10.380Z",
+      "publish_time": 1786573750380,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-fs-local@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "1e0997e51cb70646a9dee3cf637a66a69ebfa621",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.0.1-rc.2.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-iUnaFc56DmdQve4CNTwcM0ZbU8HM0HSK6fybLWLnPqPFURJUP6yBYMo3+qoefRBa6ZtCXN4MC4YZHm1ehZDqXw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDR+e6pOWYK5cFr+89mKtViVM2DPmX1z5XuojX40v0QogIgBwYg0UrV+vYsDvARnezOamcb4QSkIvQ5dD0Son2IzBs=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 74987,
+        "size": 24830
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-iUnaFc56DmdQve4CNTwcM0ZbU8HM0HSK6fybLWLnPqPFURJUP6yBYMo3+qoefRBa6ZtCXN4MC4YZHm1ehZDqXw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/fs/fs-local"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-fs": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-fs-local_0.0.1-rc.2_1786461405664_0.38419198540225463",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:16:45.826Z",
+      "publish_time": 1786461405826,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/fs/fs-local"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-fs-local@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-zP0OW474s7tvzEVQnBBTGL6Jrv/YyQXt4nswIbc3Aqr9JyHSfhZ/5IJoipZqfYXLS3ISWMhrF2npRg8L1NGsIQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-zP0OW474s7tvzEVQnBBTGL6Jrv/YyQXt4nswIbc3Aqr9JyHSfhZ/5IJoipZqfYXLS3ISWMhrF2npRg8L1NGsIQ==",
+        "shasum": "86133ac8feed2bd8bcb14454f9d51496f36d9e45",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.1.0-rc.6.tgz",
+        "fileCount": 11,
+        "unpackedSize": 74565,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQDmG9FK6tK0CIonhDGA5V5l5kN9VnVXQlpDHlwfrI1HLAIhAKBi39bb++2L5pmkDPUFDhMjDjzQo5pDat9UeC4qTDje"
+          }
+        ],
+        "size": 24634
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-fs-local_0.1.0-rc.6_1786623201248_0.08415734716298018"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:13:21.391Z",
+      "publish_time": 1786623201391,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/fs/fs-local"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-fs-local@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-gbiH8xBrBw/1iRM3MLwI9zlFqLRg+1d+hNs8Etdn240xjWPuFdv5Hjg+eu4V5I+lU3M/lZieahEUpwYRScGuVw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-gbiH8xBrBw/1iRM3MLwI9zlFqLRg+1d+hNs8Etdn240xjWPuFdv5Hjg+eu4V5I+lU3M/lZieahEUpwYRScGuVw==",
+        "shasum": "31180f3340609cce972bde9b513c4a2733dd009f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.1.0-rc.7.tgz",
+        "fileCount": 11,
+        "unpackedSize": 74565,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQCE3GBnyf02qeS2R/ihQD96njr/rgjTucV7kKQPyHoz9gIhAPfGJzGZIKVwbJ1SRE7/V6qgzBqLA2uMERZtZivxYeb1"
+          }
+        ],
+        "size": 24634
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-fs-local_0.1.0-rc.7_1786966829142_0.3101040114508753"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:40:29.278Z",
+      "publish_time": 1786966829278,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/fs/fs-local"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-fs": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-fs-local@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-yWk6WrAHs8b6395XnZZOCf3wY90xYKjh/tyU3/rwFy4oU8zq9gzn/x8rdaZD0zUp+wE0XqfBf2AS4Jo03SKHyQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-yWk6WrAHs8b6395XnZZOCf3wY90xYKjh/tyU3/rwFy4oU8zq9gzn/x8rdaZD0zUp+wE0XqfBf2AS4Jo03SKHyQ==",
+        "shasum": "867c4b563479c3fa1b1eaf5008f41658991055d5",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.1.0-rc.8.tgz",
+        "fileCount": 11,
+        "unpackedSize": 74565,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDGX7p9Vdx2NxEYZC3Ruv2AlAhhOEXUTSePl0A+Pys76wIgfzJInTaNzond/bC5x2tUpBuG3kyxX1ynUHXcAlkN1RI="
+          }
+        ],
+        "size": 24638
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-fs-local_0.1.0-rc.8_1787153583342_0.0016667152985738731"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:33:03.496Z",
+      "publish_time": 1787153583496,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/fs/fs-local"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1"
+      },
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-fs-local@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-1vKUUxl9gZ0xh/wniBs0e4/h8+BEBHuBrIhpgf4Jr1IuPJIQbzTDgJVvFM9657zWxdNzcmb+5QV3N25GWcayvQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-1vKUUxl9gZ0xh/wniBs0e4/h8+BEBHuBrIhpgf4Jr1IuPJIQbzTDgJVvFM9657zWxdNzcmb+5QV3N25GWcayvQ==",
+        "shasum": "e4a42508d3c07efa0dbe615576dcaeeb209ea3c2",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.1.1-rc.1.tgz",
+        "fileCount": 11,
+        "unpackedSize": 74577,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQDgIDJJcvP3XHLk8fjZCr3T+SWClNhNsvnkPJPvDkfg5gIhANhC9BtbVwKQ8+WuQBlJcP/e+GQx7kDy19ciemuwBW8S"
+          }
+        ],
+        "size": 24656
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-fs-local_0.1.1-rc.1_1787294480429_0.3387304269869693"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:41:20.568Z",
+      "publish_time": 1787294480568,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-fs-local",
+      "description": "Local-filesystem implementation of the DeepSeek Harness filesystem seam (ctx.fs)",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/fs/fs-local"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2"
+      },
+      "dependencies": {
+        "koffi": "^3.1.0",
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-fs": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-fs-local@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-jvn1MsAMqCmt5SjRNkPjmpc+RIWrZQrBVtf/OpmKr2PaBEGqSbCkPApWDE9iSMhcuQg6k5evScOXwAsduzKOLA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-fs-local-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-jvn1MsAMqCmt5SjRNkPjmpc+RIWrZQrBVtf/OpmKr2PaBEGqSbCkPApWDE9iSMhcuQg6k5evScOXwAsduzKOLA==",
+        "shasum": "39b836123e00ed4e5758ddfa144f47464cc9468b",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-fs-local/-/dsh-fs-local-0.1.1-rc.2.tgz",
+        "fileCount": 11,
+        "unpackedSize": 74577,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIEX2qayp1GK0b8qZnxLPydfz+T0IWCkn8J/tv0dlPaQuAiEA2UGnPfL8aJcpR5An2DiK3TxbLhftaJ/5MFwT56GgSng="
+          }
+        ],
+        "size": 24660
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-fs-local_0.1.1-rc.2_1787315663086_0.4576131958675915"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:34:23.246Z",
+      "publish_time": 1787315663246,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:13:29.859Z",
+    "modified": "2026-08-21T12:34:41.759Z",
+    "0.0.1-rc.3": "2026-08-12T20:31:33.729Z",
+    "0.1.0-rc.3": "2026-08-13T11:03:39.357Z",
+    "0.0.1-rc.1": "2026-08-10T19:35:08.895Z",
+    "0.1.0-rc.2": "2026-08-13T09:36:43.196Z",
+    "0.0.1-rc.5": "2026-08-12T22:29:10.380Z",
+    "0.0.1-rc.2": "2026-08-11T15:16:45.826Z",
+    "0.1.0-rc.6": "2026-08-13T12:13:21.391Z",
+    "0.1.0-rc.7": "2026-08-17T11:40:29.278Z",
+    "0.1.0-rc.8": "2026-08-19T15:33:03.496Z",
+    "0.1.1-rc.1": "2026-08-21T06:41:20.568Z",
+    "0.1.1-rc.2": "2026-08-21T12:34:23.246Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-a27ec05a24d2397b",
+  "_id": "@deepseek-ai/dsh-fs-local",
+  "readme": "# @deepseek-ai/dsh-fs-local\n\nEnglish | [中文](README.zh.md)\n\nThe **local-filesystem implementation** of the `ctx.fs` provider contract ([`@deepseek-ai/dsh-fs`](../fs)). Backs the eleven `FileSystem` primitives with the host filesystem; loading it as a plugin populates `ctx.fs`.\n\n```ts ignore-check\nimport { LocalFileSystem } from '@deepseek-ai/dsh-fs-local'\n\nawait ctx.plugin(LocalFileSystem, { cwd: process.cwd() })\n// ctx.fs uses the local backend; load @deepseek-ai/dsh-fs-policy for the\n// freshness policy gate and @deepseek-ai/dsh-tool-fs to expose read/write/edit.\n```\n\n## Behavior\n\n- **`resolve(path, opts?)`** — a relative `path` resolves against `opts.cwd` when the caller supplies one (the model-facing tools pass the calling agent's session cwd — see [the per-session cwd Agent Note](../../../.agents/notes/implemented/architecture/2026-07-02-fs-per-session-cwd.md)), else `config.cwd` (default `process.cwd()`); an absolute `path` ignores both. `opts.signal` is checked before and after local resolution, while a remote sibling backend may use it to abort its round-trip. The `targetKey` is the file's `realpath`, so two input paths reaching the same file through symlinks share one identity, and writes/edits land on the link target (preserving the link). A not-yet-existing path uses the realpathed parent directory plus basename when the parent exists; only an unresolvable parent falls back to the absolute path. `displayPath` is the absolute (un-resolved) path.\n- **Execution-world coordinates** — `processPath` exposes the target's canonical host path, `fileUrl` encodes that path through Node's platform-aware URL conversion, and `contains` uses platform path semantics to test identity or descendant containment without consumers parsing `targetKey`.\n- **`stat` / `lstat`** — return target metadata or `undefined` when absent. `stat` reports `FsInfo` for an already resolved target (`version` = an opaque token derived from bigint `dev:ino:size:mtimeNs:ctimeNs`, `type` of `file`/`directory`/`other`, byte `size`); path-shaped `lstat` reports `FsPathInfo` without following the final symlink and can therefore return `symlink`. Both check cancellation before and after their asynchronous metadata probe, so an abort that lands in flight reports `FS_ABORTED` rather than stale absence.\n- **`readText` / `streamText`** — UTF-8 only. `readText` reads the whole file; `streamText` decodes chunks so a huge file need not be held whole in memory and consumers can enforce their own retention bounds. Both reject invalid UTF-8 and NUL-byte binary samples (`FS_NOT_TEXT`) and non-regular targets. The `read` tool (`@deepseek-ai/dsh-tool-fs`) owns line windowing.\n- **`listDir`** — lists one directory level in stable `name.localeCompare()` order. Each entry carries the child basename, type, resolved child target (`displayPath` under the listed directory, `targetKey` as the realpath identity), and cheap stat metadata (`version`, plus `size` for regular files). It never opens or decodes file contents. Missing targets report `FS_NOT_FOUND`, file/special-file targets report `FS_NOT_DIRECTORY`, aborted calls report `FS_ABORTED`, permission failures report `FS_PERMISSION_DENIED`, and other listing or child metadata I/O failures report `FS_IO_ERROR`. Broken/disappeared children are returned as `other` without metadata, but permission/IO failures while resolving a child fail the whole listing with a structured `FsError`.\n- **`writeText`** — atomic: writes to a temp file opened exclusively (`wx`, `0o600`) inside a randomly-named private staging dir (`0o700`) next to the target, then fsyncs and publishes. An existing file's mode is preserved, while new files default to `0o600`; on Windows a new file inherits the destination directory's DACL, while replacement copies the target DACL onto the empty temp before writing and publishes through `ReplaceFileW` so the original access policy survives ([Windows DACL preservation Agent Note](../../../.agents/notes/implemented/bug-fix/2026-07-19-windows-atomic-write-dacl-preservation.md)). The `expected` guard is OPTIONAL: omitting it unconditionally creates-or-overwrites; `createIfAbsent` hard-links the staged file into place as an atomic no-replace publication, so a regular file created after the initial probe is preserved and rejected with `FS_NOT_OBSERVED`, while a non-regular path entry is preserved and rejected with `FS_NOT_REGULAR_FILE`; `replaceIfVersion` replaces only at the observed version (a missing target or mismatch is `FS_STALE_VERSION`). An overwrite returns the prior text as its contextual diff basis only when both the opened prior file and UTF-8 replacement are strictly below `config.diffBasisMaxBytes` (default 10 MiB). The descriptor read enforces that limit even if an external writer replaces or changes the file size after the initial probe. Otherwise the provider returns `before: null`, so presentation uses its whole-file fallback.\n- **`editText`** — atomic literal read-modify-write over the same primitive, serialized per target by a mutation lock. The `expected` guard is OPTIONAL: when supplied it verifies the version BEFORE literal matching (a stale edit reports `FS_STALE_VERSION`, never `FS_EDIT_NOT_FOUND`/`FS_AMBIGUOUS_EDIT` against newer content); omitting it edits the current content unconditionally. A missing target reports `FS_STALE_VERSION` either way. LF-normalizes for matching, restores the file's dominant CRLF/LF style, and rejects empty `oldString` / zero matches (`FS_EDIT_NOT_FOUND`) or ambiguous multi-matches without `replace_all` (`FS_AMBIGUOUS_EDIT`).\n\nThe package-root SDK surface is the default/named `LocalFileSystem` class plus `Config`. Raw I/O lives in `src/fsio.ts` (Cordis-free, independently unit-tested); `src/index.ts` is the thin service wiring.\n\n## Model Experience\n\nIndirectly, through [`dsh-tool-fs`](../tool-fs/README.md), which renders this provider's line-windowed UTF-8 content, mutation acknowledgements, and exact provider messages in capped retained results while versions, atomic-write mechanics, and directory metadata remain internal.\n\n#### KV Cache effect\n\nNo direct invalidation; the named consumer owns any request-prefix changes.\n\n## Known Limitations and Deferred Work\n\n- **`config.cwd` is not a sandbox** — it is a resolution default, not containment: absolute paths and `..` escape it. Enforce containment with a stricter `ctx.fs` backend or a permission plugin on the `tools/execute` waterfall ([capability-seam Agent Note](../../../.agents/notes/implemented/architecture/2026-06-17-filesystem-capability-seam.md#consequences)).\n- **Version tokens depend on filesystem metadata** — they combine device, inode, size, nanosecond mtime, and nanosecond ctime; a storage layer that cannot update any of those facts for a rewrite can still defeat the stale guard.\n- **`editText` holds the whole file (plus the edited copy) in memory** — streaming exists only on the read path.\n- **A sub-limit overwrite still buffers a contextual basis** — `writeText` may retain up to just below `config.diffBasisMaxBytes` of prior text in addition to the caller-owned replacement; the bound does not cap the returned `after` value or presentation's whole-file fallback.\n- **Binary detection is asymmetric** — reads NUL-sample only the first 8192 bytes while edits scan the whole buffer, so a file with a late NUL reads fine but rejects edits.\n- **The per-target mutation lock is in-process only** — guarded create still uses an atomic no-replace publication across processes, but replacement writers in another process are caught only when the optional version guard observes their metadata change; they are never serialized.\n- **Guarded creation requires hard-link support** — filesystems or mounts that reject hard-link publication cannot serve `createIfAbsent`; the provider preserves the missing target and reports `FS_IO_ERROR`.\n- **Post-commit cleanup is best effort** — a successful publication remains successful if removal of its owner-only staging directory fails, leaving private residue for later operator cleanup.",
+  "_attachments": {}
+}

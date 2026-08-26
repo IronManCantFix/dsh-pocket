@@ -1,0 +1,1073 @@
+{
+  "name": "@deepseek-ai/dsh-command-compact",
+  "versions": {
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-command-compact@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "afaa049d92793a19d43a433ab2f9459e4305b8bc",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.1.0-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-z9Rn3YZxzj1asN3zzosLW1GH6ycmvirD26xKrLE/EzyKTw5bQCIu/WqR1tIhVcwj9Hu0cuJlOh5wyt2gfnsSBA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDQyDg+mz/7l3RxGjT+UECGIbhVdMDDTdHe82rYbpr5EwIgW4ZVBOBA37WhBihxUW1mj9F4q7xsOZvh4M3XgWgeu0U=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 18355,
+        "size": 7706
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-z9Rn3YZxzj1asN3zzosLW1GH6ycmvirD26xKrLE/EzyKTw5bQCIu/WqR1tIhVcwj9Hu0cuJlOh5wyt2gfnsSBA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Human-facing slash command for explicit session compaction",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-command-compact_0.1.0-rc.2_1786613770220_0.9463467642960415",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:36:10.360Z",
+      "publish_time": 1786613770360,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-command-compact@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "499367dcdb33bbd79ce0858f2fc83c7901bfce80",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.0.1-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-+Q0VT1bBAxMLYg+KDfkHwFhVGtKLI3QZEEFvxJr4pdMkWqUglSnp9p7jacbTk5a7Gcvxl76lNo/a5+TlL0yGUw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDTTchUd8wRg5GYnR/Q93UfdnAB0CF/Cpl5n03jiO7jbgIgVitQiehWMsVgcjiCGoqymP3pdE1Dhly7MbGo+U64UGo=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 18739,
+        "size": 7872
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-+Q0VT1bBAxMLYg+KDfkHwFhVGtKLI3QZEEFvxJr4pdMkWqUglSnp9p7jacbTk5a7Gcvxl76lNo/a5+TlL0yGUw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compact/command-compact"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Human-facing slash command for explicit session compaction",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-compact": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-commands": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.1-rc.1",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.5-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-compact": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-commands": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-command-compact_0.0.1-rc.2_1786461380156_0.26806156118440194",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:16:20.301Z",
+      "publish_time": 1786461380301,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "version": "0.1.0-rc.3",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-command-compact@0.1.0-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "23436eaa78883dd1f679237882aa66fdf001d3ca",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.1.0-rc.3.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-AYvScK8zhbMTAR3+/v0JZQrshO+klPLZpJZyCW9M0PBQCt4F7F8qSFpcoHmM4I87U7f8iPeUP9DA98naSjbgiw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDouv+lFQvs8lpia3fMp46WIhZihZscOxrqmwqHBUkFmQIhAPa6moBVlSWHgrZgbKFNsi4Qx8vz75GI9t9xgOGOU6Bh",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 18355,
+        "size": 7694
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.3.tgz",
+      "_integrity": "sha512-AYvScK8zhbMTAR3+/v0JZQrshO+klPLZpJZyCW9M0PBQCt4F7F8qSFpcoHmM4I87U7f8iPeUP9DA98naSjbgiw==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Human-facing slash command for explicit session compaction",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-command-compact_0.1.0-rc.3_1786618983991_0.5911670420595294",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T11:03:04.145Z",
+      "publish_time": 1786618984145,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-command-compact@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "02416d17819ece61bedba3c9a5e6ee1c0099dc04",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.0.1-rc.1.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-OfOWgcZrGUtX/mQEEbX3ZhQtPwmDfkG7hQOuHCCe2oKsXg/zs/kOxJFKiPKy3QMKzyfzGOLhYubZSi7T/hfWpg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDuxsRuKp0M6InmfwFGGh/QBdZZqwDhJ9vxtCLuo0SZdQIgQKuqiFExT2nr7+lBzMH46m5O2dmLw03q+pnBaPRkqJQ=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 18739,
+        "size": 7871
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-OfOWgcZrGUtX/mQEEbX3ZhQtPwmDfkG7hQOuHCCe2oKsXg/zs/kOxJFKiPKy3QMKzyfzGOLhYubZSi7T/hfWpg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compact/command-compact"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Human-facing slash command for explicit session compaction",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-compact": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-commands": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.1-rc.1",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.5-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-compact": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-commands": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-command-compact_0.0.1-rc.1_1786390491861_0.14244858364230772",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:34:51.990Z",
+      "publish_time": 1786390491990,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-command-compact@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "d406cd3f60064c2773883816f06de9c40586c080",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.0.1-rc.3.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-fkondHjAHolT8z8Pa6RltIqLOoqZ/3MNJX7pjAf+LgVwBSpFvs5caj1Sf79lu58KT4dwL5jZD6AYuG8jODvr7w==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCtNn9XfNxwOyIKTXVKfQrj9xVKQjRZo8J5sR5lMfJ9gwIhAMmC7x0tP25K2PhWOhQNtiDz0tYk4d4OV6AZqZgV6E0z",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 18814,
+        "size": 7890
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-fkondHjAHolT8z8Pa6RltIqLOoqZ/3MNJX7pjAf+LgVwBSpFvs5caj1Sf79lu58KT4dwL5jZD6AYuG8jODvr7w==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Human-facing slash command for explicit session compaction",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-commands": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-compaction": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.1-rc.1",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.5-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-commands": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-compaction": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-command-compact_0.0.1-rc.3_1786566671207_0.5114182147840143",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:31:11.352Z",
+      "publish_time": 1786566671352,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "description": "Human-facing slash command for explicit session compaction",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-command-compact@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-aTadVzxYa+Me/9QqolHnXaduRVKPxe8z3XraZ9EdQp6Cz/QrYS9DMUbO2Bp434qgwAdye0SytuHLBBb9h8GVQw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-aTadVzxYa+Me/9QqolHnXaduRVKPxe8z3XraZ9EdQp6Cz/QrYS9DMUbO2Bp434qgwAdye0SytuHLBBb9h8GVQw==",
+        "shasum": "38274348b4f3926bf48698f3fab7385e96fd399a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.1.0-rc.6.tgz",
+        "fileCount": 9,
+        "unpackedSize": 18351,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQDO/NUvy7XgEMSjq6P/0BMOaDTMaWACdPCuM5ApjCT0cgIhANEMt4HdvFucdEQfCWm1VDPG3nypikN90mGUSDKWQpd0"
+          }
+        ],
+        "size": 7691
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-command-compact_0.1.0-rc.6_1786623138527_0.7886656971409907"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:12:18.663Z",
+      "publish_time": 1786623138663,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-command-compact@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "f3298c9d600383f1d0eb935cf80dbc6fd3988921",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.0.1-rc.5.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-HRsB5Jo/nUHJ+Kq58CDV4CvkOodJLV9hYuJR86Wi/sygcQj1/96jGnio6Zneym077FUSMULse7hijQAs5LjwUg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCXym2sUjLjkLhANE3V2N8vXmWGpwtQfMUZ9VVIOXKzhwIgZibhXPr/F6D1yhq0SAMaBwGVwFiM5dUWhDOmFdsxOYA=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 18814,
+        "size": 7893
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-HRsB5Jo/nUHJ+Kq58CDV4CvkOodJLV9hYuJR86Wi/sygcQj1/96jGnio6Zneym077FUSMULse7hijQAs5LjwUg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Human-facing slash command for explicit session compaction",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-commands": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-compaction": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2-rc.4",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6-rc.4"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-commands": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-compaction": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-command-compact_0.0.1-rc.5_1786573732947_0.7731538952803831",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:28:53.090Z",
+      "publish_time": 1786573733090,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "description": "Human-facing slash command for explicit session compaction",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.7"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-command-compact@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-zDBNVlCAwnieffyctzqZ7hUGLJqyTjqvtCEvzSNckmd2owyuYNPDIeFu4NTo/xN8Z/TISiuGbgA0wnIBCIsNtQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-zDBNVlCAwnieffyctzqZ7hUGLJqyTjqvtCEvzSNckmd2owyuYNPDIeFu4NTo/xN8Z/TISiuGbgA0wnIBCIsNtQ==",
+        "shasum": "34f0a90a88b2d2b521cd03c01e41ce07f36a4597",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.1.0-rc.7.tgz",
+        "fileCount": 9,
+        "unpackedSize": 18351,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDx2+t/ODiyOKG0uN76pKuV8FWiXAHR1sLPGbz8rYs20gIgJgj7FpgIgPlvJRndK4r35jc/V+bvupDF3rG4P54gl7c="
+          }
+        ],
+        "size": 7691
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-command-compact_0.1.0-rc.7_1786966782662_0.9296237958277955"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:39:42.813Z",
+      "publish_time": 1786966782813,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "description": "Human-facing slash command for explicit session compaction",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-commands": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-compaction": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-command-compact@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-3Zlgw9ghDvj2/22/O7V4kvkxKRfknQw4t9ks5GtBEEVRuU9ullpFElAwq/EZ049zeCnmHnyskyJmwYZRIGaiRA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-3Zlgw9ghDvj2/22/O7V4kvkxKRfknQw4t9ks5GtBEEVRuU9ullpFElAwq/EZ049zeCnmHnyskyJmwYZRIGaiRA==",
+        "shasum": "b0eeeb6dfff25cbc6fb930b010bbb1b2c9bbc661",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.1.0-rc.8.tgz",
+        "fileCount": 9,
+        "unpackedSize": 18351,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIG8w2hRIOoR8QXtcbuug0lDqQGyDF56S17Mgp/gehomJAiBROgMGAa2Ze6OJ82MhZANzb3uOZrWXk2fzurtQ73qJpg=="
+          }
+        ],
+        "size": 7694
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-command-compact_0.1.0-rc.8_1787153544841_0.3248820259474072"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:32:25.010Z",
+      "publish_time": 1787153545010,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "description": "Human-facing slash command for explicit session compaction",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-commands": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-compaction": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-commands": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-compaction": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-command-compact@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-XETnZp1RAgLMM4oRJxFmIngQMJDT0Sm521GaUfdVLAXhu+BKJxXVcrf4WkhhR1zMZdKYl7aT6TU1IvTNH1H5uA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-XETnZp1RAgLMM4oRJxFmIngQMJDT0Sm521GaUfdVLAXhu+BKJxXVcrf4WkhhR1zMZdKYl7aT6TU1IvTNH1H5uA==",
+        "shasum": "c28d77f78ef40a71c60254ceb47a3c23a85ef470",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.1.1-rc.1.tgz",
+        "fileCount": 9,
+        "unpackedSize": 18360,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIFc+9zKScPFeELQKcFttcL3PMl96llVbHircs+CTQGeYAiANggxIXTZcaC9K/zT0MyDvhGbyjJ3j2JGSc7y31nmj9g=="
+          }
+        ],
+        "size": 7706
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-command-compact_0.1.1-rc.1_1787294444033_0.2549704572162421"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:40:44.230Z",
+      "publish_time": 1787294444230,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-command-compact",
+      "description": "Human-facing slash command for explicit session compaction",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/compaction/command-compact"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "peerDependencies": {
+        "@deepseek-ai/dsh-commands": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-include": "^1.0.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-commands": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-compaction": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-command-compact@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-rLNBnq5jo9nm4Etw5PrVtcYlFDTM8IQt8w5aL+7CQiEpC6OevP7QzvGrIbJ2VTG2GX9yN6fJosPd0Ky18EQuYQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-command-compact-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-rLNBnq5jo9nm4Etw5PrVtcYlFDTM8IQt8w5aL+7CQiEpC6OevP7QzvGrIbJ2VTG2GX9yN6fJosPd0Ky18EQuYQ==",
+        "shasum": "fb979e42bc806c96151d79a7bbd7cafb855d910f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-command-compact/-/dsh-command-compact-0.1.1-rc.2.tgz",
+        "fileCount": 9,
+        "unpackedSize": 18360,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQCfrSdu0g491kCvSGapYlrtzuNzobLTJt5zYfCK42UJ6wIhAK7LNvd5Tv+Vc02nLiMcKn1TnUTMsod1fnvVTXBGWXel"
+          }
+        ],
+        "size": 7701
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-command-compact_0.1.1-rc.2_1787315627613_0.5294746167126363"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:33:47.750Z",
+      "publish_time": 1787315627750,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:12:34.815Z",
+    "modified": "2026-08-21T12:34:05.848Z",
+    "0.1.0-rc.2": "2026-08-13T09:36:10.360Z",
+    "0.0.1-rc.2": "2026-08-11T15:16:20.301Z",
+    "0.1.0-rc.3": "2026-08-13T11:03:04.145Z",
+    "0.0.1-rc.1": "2026-08-10T19:34:51.990Z",
+    "0.0.1-rc.3": "2026-08-12T20:31:11.352Z",
+    "0.1.0-rc.6": "2026-08-13T12:12:18.663Z",
+    "0.0.1-rc.5": "2026-08-12T22:28:53.090Z",
+    "0.1.0-rc.7": "2026-08-17T11:39:42.813Z",
+    "0.1.0-rc.8": "2026-08-19T15:32:25.010Z",
+    "0.1.1-rc.1": "2026-08-21T06:40:44.230Z",
+    "0.1.1-rc.2": "2026-08-21T12:33:47.750Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-9820884c1f95ead2",
+  "_id": "@deepseek-ai/dsh-command-compact",
+  "readme": "# @deepseek-ai/dsh-command-compact\n\nEnglish | [中文](README.zh.md)\n\nHuman-facing `/compact` control over [`ctx.compact`](../compact/README.md). The plugin registers one global command through [`ctx.commands`](../../interaction/commands/README.md), so every composed command adapter discovers and executes it without a model turn. The [queued manual compaction Agent Note](../../../.agents/notes/implemented/feature/2026-07-30-queued-manual-compaction.md) owns the admission, lock, and durability decisions.\n\n## Command contract\n\n| Input | Result |\n|---|---|\n| `/compact` | Summarize one useful balanced older span even below automatic pressure, then report the replaced history-item count and estimated tokens after the standalone bracket is flushed. |\n| `/compact` with no compactable history | `No compactable history yet.` — no marker or surface mutation is written. |\n| `/compact <anything>` | `Usage: /compact (no arguments)` — the command takes no arguments and calls no compaction backend. |\n\nThe command is backend-independent: it depends only on `compactNow(agent, signal)`. The invoking agent is the exact target, and the dispatching UI's cancellation signal is forwarded through the seam. Every resolved invocation records the executor-owned log-only pair `command/run` / `command/done`; neither event joins model history. On success, `command/done.sourceEventSeq` names the transaction's `compact/summary` event so a presentation can fold the command lifecycle into its checkpoint without parsing result text or assuming adjacent rows.\n\nExpected `ManualCompactionError` codes become stable direct errors:\n\n| Code | Direct result |\n|---|---|\n| `busy` | `Compaction is unavailable because this process has an active compaction, or the agent is not idle.` |\n| `changed` | `The history selected for compaction changed before it could be replaced. The conversation is unchanged; the attempt is recorded in the session log.` |\n| `summary` | `Compaction could not produce a useful summary. The conversation is unchanged; the attempt is recorded in the session log.` |\n| `commit` | `Compaction did not finish cleanly; some session history may have changed. Inspect the current session state before retrying.` |\n| `persistence` | `Compaction finished, but the session could not be saved.` |\n\nThe busy result is intentionally process-scoped: a live unmatched marker blocks, while a marker older than the newest `session/end-seed` is stale and does not. Unexpected implementation failures reject dispatch. Cancellation remains authoritative; the backend completes its required close/flush cleanup, and the command settles internally as `Compaction cancelled.` while the command executor stops waiting with its cancellation error. Plugin disposal first unregisters `/compact`, then drains every handler that already started, so root teardown cannot pass an aborted command's close or flush boundary.\n\nPrompts submitted while compaction runs remain accepted in the agent's ordinary FIFO with the same identity and wakeup facts. They start only after the compaction's explicit durability checkpoint and admission release. Idle injected context is not held: it may be logged between `compact/start` and `compact/end`, and positional replacement leaves it visible after the checkpoint.\n\n## Composition\n\nThe producer injects `commands` and `compact`. Mount the command registry, one backend, and this plugin:\n\n```yaml\n- id: commands\n  name: '@deepseek-ai/dsh-commands'\n- id: compact-basic\n  name: '@deepseek-ai/dsh-compact-basic'\n- id: command-compact\n  name: '@deepseek-ai/dsh-command-compact'\n```\n\nThe shipped `dsh` base mounts it beside `compact-basic`, and the Web client provides the command adapter. Automation surfaces that compose no command adapter keep automatic compaction only.\n\n## Model Experience\n\n### Human `/compact` control\n\n#### What the model sees\n\nThe slash input and direct result never enter a model request. An accepted compaction separately replaces an older span with the backend's user-role checkpoint inside a standalone `compact/* { turn: null }` bracket.\n\n#### Token effect\n\nThe command lifecycle adds no model tokens. A successful compaction reduces later requests by replacing the selected span with one framed summary; summarization itself is one auxiliary request.\n\n#### KV Cache effect\n\nDiscovery and command bookkeeping do not affect the cache. The accepted surface replacement invalidates reuse from the first shadowed history token.\n\n## Known Limitations and Deferred Work\n\n- **Idle-only** — `/compact` reports `busy` when a turn or already accepted waking prompt has right of way; the command itself is not queued.\n- **No range or policy arguments** — the argument-free form keeps behavior stable across command adapters. Explicit ranges remain the programmatic `compactRegion()` path.\n- **Command adapters only** — surfaces without `ctx.commands` cannot invoke it and rely on automatic pressure compaction.",
+  "_attachments": {}
+}

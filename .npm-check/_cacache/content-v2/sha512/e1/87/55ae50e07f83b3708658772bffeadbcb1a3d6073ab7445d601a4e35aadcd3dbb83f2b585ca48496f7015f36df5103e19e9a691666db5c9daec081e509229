@@ -1,0 +1,1667 @@
+{
+  "name": "@deepseek-ai/dsh-subagent",
+  "versions": {
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/subagent/subagent"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        }
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-storage": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-storage-domain": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.6"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-subagent@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-vROmBDAlaFAzzSlTBOlvg/7fO55zxhUztnLtB3lKmN5RevrNQBjTsbeIMDQ8ow5ZplxEOnLU+sikFoA5JaoH8A==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-vROmBDAlaFAzzSlTBOlvg/7fO55zxhUztnLtB3lKmN5RevrNQBjTsbeIMDQ8ow5ZplxEOnLU+sikFoA5JaoH8A==",
+        "shasum": "1c02615bba8523e470eca20c5142caf754702f8f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.1.0-rc.6.tgz",
+        "fileCount": 43,
+        "unpackedSize": 436743,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCuWIlvvTPAHgNVG9C/mSVB8LDQCzhOgIJQ+mqfHR9PHwIgBAHmkcB5ZIavsBDZUeXRhRxgOtlZJMk8IxzI5LMdym0="
+          }
+        ],
+        "size": 124409
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-subagent_0.1.0-rc.6_1786623475428_0.7718439078868771"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:17:55.577Z",
+      "publish_time": 1786623475577,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-subagent@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "d8c4243d326be399e3c4389efac13361f9d087c9",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.0.1-rc.5.tgz",
+        "fileCount": 43,
+        "integrity": "sha512-Gybu1KWxe3ndQW4j+Q15ju5jfQG5ryKnbtM2Jv+29LQACLQLNNQgeuDjO9cRThSWFI/0iZ7r/cTxwVCln/QYpQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCM2Umb7OjTaBrnrLQQgcXnT753+to31JDIGlGy2s4fqAIhAPIQyEuH64DEEHIyj3CCOeSrwEh0iMZEnLlzcxKEX5vV",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 436611,
+        "size": 124387
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-Gybu1KWxe3ndQW4j+Q15ju5jfQG5ryKnbtM2Jv+29LQACLQLNNQgeuDjO9cRThSWFI/0iZ7r/cTxwVCln/QYpQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/subagent/subagent"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-jobs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-scope": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-storage": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent-presets": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-storage-domain": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session-persistence": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-jobs": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-scope": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent-presets": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session-persistence": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.0.1-rc.5"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        }
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-subagent_0.0.1-rc.5_1786573835746_0.7733875708144478",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:30:35.931Z",
+      "publish_time": 1786573835931,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "version": "0.1.0-rc.3",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-subagent@0.1.0-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "0fe73060dfc8d0d543aaba01fdb848878d591030",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.1.0-rc.3.tgz",
+        "fileCount": 43,
+        "integrity": "sha512-xupsOOnvnk4gbQibEaov0Adj+QFbOMLqlmPBKTo+GyR6mZawm0GvkzKRLGs527ITywqxQxoa1tRdRjI9monEgA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCqWJC5mIvVvZn1OGZ1W2pLLMKUOa1FSE//akpBeL1GyQIgW50/LfN8fFV15vwwU4FCJ0S7ZFVkakkScS6Yphz0+kk=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 436747,
+        "size": 124425
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.3.tgz",
+      "_integrity": "sha512-xupsOOnvnk4gbQibEaov0Adj+QFbOMLqlmPBKTo+GyR6mZawm0GvkzKRLGs527ITywqxQxoa1tRdRjI9monEgA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/subagent/subagent"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-storage": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-storage-domain": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.3"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        }
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-subagent_0.1.0-rc.3_1786619181003_0.986942885726463",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T11:06:21.163Z",
+      "publish_time": 1786619181163,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-subagent@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "76fec8e57cacce1f8ff3ea31a7b8e37c4bb57eea",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.0.1-rc.3.tgz",
+        "fileCount": 43,
+        "integrity": "sha512-Gs1OpGDqDBUYYV2W+jXlUACAY14jXRQRF0WDKWZRNgVPbcJQaQQFpxKiIQ8NNnJVN1kZhHT+V4w6UzmefdbWlg==",
+        "signatures": [
+          {
+            "sig": "MEUCIE6PtO2PuGC4nwWJLm5xYN4TvdPB3y0QvEoLfKciN0KxAiEA0OhI91d3Dk8PnMsHgMAl2lEa/0oPKlznY5gypTLH77I=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 436611,
+        "size": 124388
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-Gs1OpGDqDBUYYV2W+jXlUACAY14jXRQRF0WDKWZRNgVPbcJQaQQFpxKiIQ8NNnJVN1kZhHT+V4w6UzmefdbWlg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/subagent/subagent"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-jobs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-scope": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-storage": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent-presets": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-storage-domain": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session-persistence": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-jobs": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-scope": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent-presets": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session-persistence": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.0.1-rc.3"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        }
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-subagent_0.0.1-rc.3_1786566795512_0.5670431879663842",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:33:15.702Z",
+      "publish_time": 1786566795702,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-subagent@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "b4f69490b13d1dc907dde0e17c624a728c9af188",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.0.1-rc.1.tgz",
+        "fileCount": 41,
+        "integrity": "sha512-HBx1nUlXSHzDGk9OqnNBGVxWW9PVjJpgD0ifklU66Y0wKyXbgv858+75+9oGYdFyi0AVYxF7IJ443yDvEubeEQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCXSZOkO+zge1FrsBwrGBMsa6cNsOxeHTuCWJlAy/SUmwIhAMPU3LG9BuiZdzCQPVomenFOnqO3il9FDTbbT0qjPNM/",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 399698,
+        "size": 110539
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-HBx1nUlXSHzDGk9OqnNBGVxWW9PVjJpgD0ifklU66Y0wKyXbgv858+75+9oGYdFyi0AVYxF7IJ443yDvEubeEQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/subagent/subagent"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-scope": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tasks": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-storage": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent-presets": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-storage-domain": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session-persistence": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-scope": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tasks": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent-presets": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session-persistence": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.0.1-rc.1"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-tasks": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        }
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-subagent_0.0.1-rc.1_1786390589745_0.80241588270671",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:36:29.919Z",
+      "publish_time": 1786390589919,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-subagent@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "b98e37fbf8c6c46382c071eb63c385ea127080bb",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.1.0-rc.2.tgz",
+        "fileCount": 43,
+        "integrity": "sha512-SL7K5o5S0xdeoVBtLvaqx+qMRTOREborWgb/V7YqwkXATGrPoamk70ZuINwkpgZkWx6E+zj1mQ42mlZcC3CS5Q==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDcUDBOppZe5rU+Xse3ajdI4xbRp2aa6y3VYdVE3FAtqAIhAISTOGSZQhDhBsDvfdDKR64vXEWI+G4vQ7VSWkEocUS7",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 436747,
+        "size": 124430
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-SL7K5o5S0xdeoVBtLvaqx+qMRTOREborWgb/V7YqwkXATGrPoamk70ZuINwkpgZkWx6E+zj1mQ42mlZcC3CS5Q==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/subagent/subagent"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-storage": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-storage-domain": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.2"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        }
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-subagent_0.1.0-rc.2_1786613953281_7.179271470647564e-7",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:39:13.402Z",
+      "publish_time": 1786613953402,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-subagent@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "dea10d85b58b7e57c2f95bd7bf4232eb8adad268",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.0.1-rc.2.tgz",
+        "fileCount": 43,
+        "integrity": "sha512-ohNvjLQ9fr/8f5cdo/JXzU0OYdbN4DuHESZkP2+nkWeJxNRdk/AMesZs9zxLvxrfyLrPQDt9YynMTOgxfgDWxA==",
+        "signatures": [
+          {
+            "sig": "MEQCIGMxDcwBwzjZwtWPTxyv9Q1DRadXNz6aR/IY3x1Se47uAiBkC320GLD2G0BjinGq+i7TJVQuvA17ckhaDMqVYLLqng==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 436589,
+        "size": 124374
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-ohNvjLQ9fr/8f5cdo/JXzU0OYdbN4DuHESZkP2+nkWeJxNRdk/AMesZs9zxLvxrfyLrPQDt9YynMTOgxfgDWxA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/subagent/subagent"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-scope": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tasks": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-storage": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent-presets": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-storage-domain": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session-persistence": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-scope": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tasks": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-tools": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent-presets": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session-persistence": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.0.1-rc.2"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-tasks": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        }
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-subagent_0.0.1-rc.2_1786461502325_0.3239416997697233",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:18:22.478Z",
+      "publish_time": 1786461502478,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/subagent/subagent"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        }
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-storage": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-storage-domain": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.7"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-subagent@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-PEpA9XT6E4hg7N8m7GYQyDLwFUwoqWTz0Cm9SrdAoNcju4byG08qy4+muDZbG0a1tm3PR4rxNB5zKcobDhDocg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-PEpA9XT6E4hg7N8m7GYQyDLwFUwoqWTz0Cm9SrdAoNcju4byG08qy4+muDZbG0a1tm3PR4rxNB5zKcobDhDocg==",
+        "shasum": "1713e2b06729ff4759bb83edf1e5eb0bf98c6606",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.1.0-rc.7.tgz",
+        "fileCount": 43,
+        "unpackedSize": 436743,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQCnI8/D+ISkIEMHRWZVJh3Tvb0uFQM7eWtg0iPv/PewvgIhAIURuKyNuj72T5gG2Kp6qMcFMbkQGm4Cv/3SABNSkR3c"
+          }
+        ],
+        "size": 124429
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-subagent_0.1.0-rc.7_1786966718324_0.5399160323909447"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:38:38.471Z",
+      "publish_time": 1786966718471,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/subagent/subagent"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        }
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-brand": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-scope": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-projection": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-storage": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-storage-domain": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-jobs": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-tools": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-user-approval": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-subagent@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-EI94+hYMfAe8BQkkH/FTcciGxajFfAdQe66Jhy2/eyR3dssRAZ+oJsV6SzU20x3m2yd0gmMaXzO1iV3gwYhY+g==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-EI94+hYMfAe8BQkkH/FTcciGxajFfAdQe66Jhy2/eyR3dssRAZ+oJsV6SzU20x3m2yd0gmMaXzO1iV3gwYhY+g==",
+        "shasum": "3c1d44094c4cf6348d98320bed3fff8af71b3f91",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.1.0-rc.8.tgz",
+        "fileCount": 43,
+        "unpackedSize": 451001,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIC4Gshv70ZWq9BvhVNLlrMcPYFeqW/s0dhBY2M8TX6g9AiBGJwARitDG6cAar81U/4rhSzt3/S5Pv+fRaOyJULLmwg=="
+          }
+        ],
+        "size": 128149
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-subagent_0.1.0-rc.8_1787153493103_0.0471824918278696"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:31:33.285Z",
+      "publish_time": 1787153493285,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/subagent/subagent"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent-presets": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-scope": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-jobs": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-user-approval": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session-projection": "^0.1.1-rc.1"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        }
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-scope": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session-projection": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-storage": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-storage-domain": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-user-approval": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-jobs": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-subagent@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-MhsAoQc0KFvZyNzEsnrWRX1DwMlgPZ6KeTRUPdMwfpqmCcLgNmz36dl2OdiuUr71kbQyeF6HHO06EvrGhH1Qhg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-MhsAoQc0KFvZyNzEsnrWRX1DwMlgPZ6KeTRUPdMwfpqmCcLgNmz36dl2OdiuUr71kbQyeF6HHO06EvrGhH1Qhg==",
+        "shasum": "024d16710bf1a625b7f5a2af049ba8301f724b99",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.1.1-rc.1.tgz",
+        "fileCount": 43,
+        "unpackedSize": 454180,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCZprfCUPRHYfIKMF0rUR0ON8hMnAU5jRPsN0h5yV6ZowIgXamvNQELwSIm59tcdEXnkYNEcxIPbj0YiWRIOU7oxEU="
+          }
+        ],
+        "size": 128875
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-subagent_0.1.1-rc.1_1787294392394_0.15703053702182634"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:39:52.602Z",
+      "publish_time": 1787294392602,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-subagent",
+      "description": "Abstract subagent seam (ctx.subagents): named-provider registry for delegating to child agents",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/subagent/subagent"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./client": {
+          "types": "./lib/types/client.d.ts",
+          "default": "./lib/types/client.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "zod": "^4.4.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-scope": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-jobs": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.2"
+      },
+      "peerDependenciesMeta": {
+        "@deepseek-ai/dsh-agent-presets": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-sandbox-policy": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-persistence": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-session-projection-cache": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-jobs": {
+          "optional": true
+        },
+        "@deepseek-ai/dsh-user-approval": {
+          "optional": true
+        }
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-agent-presets": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-brand": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-sandbox-policy": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-scope": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-persistence": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-projection": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session-projection-cache": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-storage": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-storage-domain": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-user-approval": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-tools": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-jobs": "^0.1.1-rc.2"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-subagent@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-CNa0WuFCR69TMnBKYQInz49/olDSaVHiYkDTyTuDh7YW7Y80/f/HjQe5G0fQaqZMLla3IUSXCIPl5EssWmjcQw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-subagent-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-CNa0WuFCR69TMnBKYQInz49/olDSaVHiYkDTyTuDh7YW7Y80/f/HjQe5G0fQaqZMLla3IUSXCIPl5EssWmjcQw==",
+        "shasum": "eba6bbe0d3d4c91fba2228b9240c00881719a9bc",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-subagent/-/dsh-subagent-0.1.1-rc.2.tgz",
+        "fileCount": 43,
+        "unpackedSize": 454180,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDjBZeWtQ/dZ7IxQK0MJHZuGGwqacp2W6h50CYaM8Qt0gIgcUCFaGApknNZIAN+jkWjyJe0gzRgxrCYsRjomZH3jo8="
+          }
+        ],
+        "size": 128857
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-subagent_0.1.1-rc.2_1787315578858_0.43886060089063994"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:32:59.014Z",
+      "publish_time": 1787315579014,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:18:13.104Z",
+    "modified": "2026-08-21T12:33:15.895Z",
+    "0.1.0-rc.6": "2026-08-13T12:17:55.577Z",
+    "0.0.1-rc.5": "2026-08-12T22:30:35.931Z",
+    "0.1.0-rc.3": "2026-08-13T11:06:21.163Z",
+    "0.0.1-rc.3": "2026-08-12T20:33:15.702Z",
+    "0.0.1-rc.1": "2026-08-10T19:36:29.919Z",
+    "0.1.0-rc.2": "2026-08-13T09:39:13.402Z",
+    "0.0.1-rc.2": "2026-08-11T15:18:22.478Z",
+    "0.1.0-rc.7": "2026-08-17T11:38:38.471Z",
+    "0.1.0-rc.8": "2026-08-19T15:31:33.285Z",
+    "0.1.1-rc.1": "2026-08-21T06:39:52.602Z",
+    "0.1.1-rc.2": "2026-08-21T12:32:59.014Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-b84b033e23dac641",
+  "_id": "@deepseek-ai/dsh-subagent",
+  "readme": "# @deepseek-ai/dsh-subagent\n\nEnglish | [中文](README.zh.md)\n\nThe subagent seam lets one agent delegate work to a child through a named provider. Callers use one service API (`ctx.subagents`); providers decide whether the child runs in this process, in another process, or through a future transport.\n\nThe [subagent family overview](../README.md) maps implementations and model-facing consumers. This package owns the provider registry, shared request and result contracts, durable descriptors, and continuable-child orchestration. Multiple named providers may coexist behind that contract.\n\n## Service API\n\n`SubagentService` has these operations:\n\n| Member | Meaning |\n|---|---|\n| `registerProvider(provider)` | Register one trusted same-process implementation by name. Registration is effect-scoped; removing it prevents new starts but does not revoke runs already returned to callers. Duplicate names fail loud. |\n| `getProvider(name)` | Return the provider, or `undefined` when absent. |\n| `list()` | Return provider names in insertion order. |\n| `start(name, request)` | Validate an ordinary caller request, resolve its detached `one-shot` descriptor, then await the provider until a real one-shot child is published. Fulfillment returns a holder-owned `SubagentRun`; rejection means the provider has already cleaned every unpublished startup resource, while post-publication turn or infrastructure faults settle through the run. Continuable children never enter through this operation. |\n| `startContinuable(spec)` | Establish one durable continuable child and deliver its initial prompt. Resolves with `{ childId, messageId }` when the child's inbox accepts that prompt, without waiting for the turn to start or for the message to reach the Session log; any earlier failure rejects with no ids and rolls the child back entirely. Requires `ctx.agents`, session persistence, and a provider with the `prepareContinuable` capability. |\n| `followup(parent, childId, content, { source, signal })` | Deliver one later message from the exact live direct parent as the child's next FIFO turn, matching `Agent.followup()` terminology, and return the accepted `MessageId`. A resident child's inbox accepts it directly (waking a waiting Activation); an absent one cold-resumes from its persisted Session. Requires `ctx.agents`; cold resume also requires session persistence. |\n| `interrupt(targetSessionId, authority)` | Interrupt one live continuable child's current turn under a human durable parent address (`{ kind: 'user', parentSessionId }`) or an exact live ancestor Agent (`{ kind: 'ancestor', agent }`). Admission is synchronous and the effect asynchronous: it issues `Agent.cancel(cause, { keepInbox: true })` and returns without waiting for the target to observe the signal. Unclaimed pending inbox work, the Activation, and published descendants are preserved; work already claimed into the interrupted turn is not requeued. An absent target is an accepted no-op; a wrong parent address or a stale, self-targeting, or non-ancestor caller rejects with `UNAUTHORIZED`. |\n| `reportFrom(child, content, { delivery, signal })` | Deliver one selected message from the exact live continuable child to its exact live direct parent and return the accepted stable `MessageId`. Quiet delivery injects context; waking delivery submits one later parent turn. |\n| `registerContinuableSetup(contribution)` | Compose an optional deployment capability into each continuable child's unpublished scope, with immediate revocation from resident children. |\n| `drainContinuableDescendants(parents)` | Close admission below exact live host-owned parent Agents, stop only their visible continuable descendants, await materializations admitted below those roots through publication or rollback, then release the selected forests child-first. The cutoff lasts until each exact parent leaves the registry; unrelated parent forests and manager-wide admission remain live. |\n| `listChildren(parentSessionId, signal?)` | List direct session-backed subagents with their `one-shot`/`continuable` mode, `running`/`inactive` activity, origin-classified one-level `hasChildren` hint, and per-child diagnostics, ordered by `createdAt` then id, without loading or resuming them. Reads the live session store and optional session persistence directly (live-only enumeration when persistence is absent) and requires the mounted `sessionProjections` registry; it does not require `ctx.agents`, the continuation manager, or any query service. |\n| `listDescendants(rootSessionId, signal?)` | Flatten the root's complete session tree in stable pre-order from the same live-preferred corpus, adding each subagent entry's durable `parentId` and root-relative `depth`. Ordinary sessions and one-shot children remain traversal nodes so continuable descendants below them are discovered. Identity, diagnostics, dependencies, and cancellation follow `listChildren()`. |\n\n`SubagentStartRequest.label` is an optional short durable display label for a session-backed one-shot child. Model-facing delegation supplies its existing `description`; lower-level callers need not invent presentation metadata. Continuable starts always carry their own required label. `signal` is required and is the canonical cancellation channel for a one-shot `start`. An abort before publication makes `start()` reject after rollback; an abort after publication cancels the returned run's remaining turn work without hiding its id. The request may also select a model, require structured output, cap delegation depth, restrict child tools, or set a child persona. For a continuable start or follow-up, the caller signal owns lookup, materialization, and admission only until inbox acceptance; afterward the manager owns the Activation independently, so later caller cancellation neither cancels the accepted turn nor disposes the child.\n\nFollow-up authority comes from the exact live direct parent recorded in the child's durable header. Cold resume checks that authority before reconstruction and again in the final no-await inbox-admission span, so a parent unregistered or replaced during materialization cannot authorize delivery. The `source` on a follow-up records who supplied the delivered message and grants no authority.\n\nSame-process requests, descriptors, results, and event payloads are trusted typed values borrowed as immutable. The service does not clone or freeze them; serialization and hostile-input validation belong at actual process, worker, persistence, and model boundaries.\n\n## Capabilities\n\nStart-time features are advertised in `provider.capabilities` because the service must reject an unsupported one-shot request before child creation:\n\n- `outputSchema` — enforce a structured final result.\n- `depthLimit` — enforce `maxDepth`.\n- `toolFilter` — apply the requested child tool restriction.\n- `persona` — apply a per-child persona.\n\nEvery in-process child is composed by one call, `applyChildComposition(childCtx, parent, composition)`, which joins the parent's agent-preset composition before applying the child's own persona and tool filter. The join is what gives the child its capabilities: with every model-facing row on the agent plane, a child that joined nothing would reach the model with an empty tool registry ([`dsh-agent-presets`](../../preset/agent-presets/README.md)). Taking the parent as a parameter is deliberate — it makes composing a child WITHOUT that join unrepresentable at the call sites, which is the defect the one call exists to prevent. A deployment composing no preset roster joins nothing and needs nothing: its model-facing rows sit in the host composition, where the child already resolves them through the tool registry's global layer.\n\n`childSessionMeta()` records the joined preset id on the child's durable header for the same reason a top-level session records its own: the preset decides the tool schemas and prompt sections the model saw, so a cold read of the child's history has to rebuild that composition rather than the deployment default. It is read from the parent's live scope chain, not from the parent header, because a parent that switched preset while blank runs on the newer composition while its header still names the older one.\n\nContinuable creation is the optional `SubagentProvider.prepareContinuable?()` method: its presence is the capability check, so the service rejects a configured continuable start on a provider without it, while a provider that has it may still serve ordinary one-shot delegations. The method returns only a detached `ContinuableCreateSpec` (`{ seed? }`) — data, never a capability: it carries no Agent, `AgentHandle`, prompt delivery, result, disposal, or resume operation, because the continuation manager owns identity reservation, composition, Agent creation, prompt delivery, cold resume, ownership, and disposal after preparation. A one-shot `SubagentRun` represents one disposable foreground delegation with one result and no cold-resume operation.\n\n## The durable descriptor\n\nThe Service Definition owns the versioned `subagent/descriptor` session event vocabulary (`src/descriptor.ts`): `snapshotSubagentDescriptor()` validates and detaches the record before provider work, and `foldSubagentDescriptor()` validates the complete current-version payload before recovering it from a loaded child log. Every local session-backed start appends one descriptor with the provider name and lifecycle `mode`. A `one-shot` descriptor optionally carries the caller-owned durable display `label`; a `continuable` descriptor requires its durable creation label and additionally records resolved child `agentOptions.provider`/`model` and optional `persona`/`toolFilter` for cold resume. These are explicit fields, never the merge-extensible `AgentOptions` object, so an unrelated extension value cannot break continuation. The descriptor omits `subagentDepth` (the persisted header's `delegationDepth` is the monotone floor) and `outputSchema` (an Activation's result contract). The event is log-only: no `surfaceOp`, absent from model history, and retained by the append-only log across compaction. Malformed current-version payloads are corrupt; unsupported versions cannot be classified by this runtime.\n\n## Delegation depth\n\nThe seam owns the depth vocabulary shared by Service providers and Consumers: the `AgentOptions.subagentDepth` declaration, `assertSubagentMaxDepth`, and `delegationDepthOf(agent)`. The persisted `SessionHeader.delegationDepth` is authoritative and monotone — runtime options may deepen the count but never lower it, so a resumed child cannot be re-counted as top-level.\n\n`inheritsParentContext` is descriptive rather than enforceable. It says only whether the child sees completed parent conversation history (`fork` does; `spawn` and the out-of-process one-shot providers do not), not whether it inherits tools, services, or authority.\n\n## Delegated policy\n\nBoth in-process delegation paths fix the child's permission scope at the delegation boundary through the shared child-agent helpers. `captureDelegatedPolicyOverrides(parent)` snapshots the parent session's explicit sandbox override (`sandboxPolicy.overrideOf()`) and pins the child's approval policy to `'never'` whenever the approval capability is composed — regardless of the parent's own policy — so a delegated child acts only within its inherited sandbox scope and every ask (for example a `sandbox_permissions` escalation) is rejected deterministically instead of waiting on a prompt no one is watching (both services are optional `ctx.get` consumers). `appendDelegatedPolicyOverrides()` writes each value onto the child's own log as a `source: 'delegation'` `sandbox/mode` or `approval/policy` event during unpublished setup, after any fork seed — so fresh policy wins stale seed state and the child's effective policy stays reconstructable from its log alone. The sandbox deployment default is never copied: an unswitched parent stamps no `sandbox/mode` and its child follows the deployment default dynamically. A continuable start captures before its first await and seeds only fresh materialization; a cold resume replays the persisted delegation events instead of re-capturing the parent, so a parent switch after creation never retroactively changes a durable child. Every in-process child also receives a scoped runtime-context statement (`subagent:delegation`) telling it the scope is fixed and that a task needing wider access ends with a reported limitation, not retries. See the [one-shot](../../../.agents/notes/implemented/feature/2026-07-25-subagent-policy-inheritance.md) and [continuable](../../../.agents/notes/implemented/feature/2026-08-10-continuable-subagent-policy-inheritance.md) delegation-policy Agent Notes.\n\n## One-shot ownership and lifecycle\n\n`provider.start(request): Promise<SubagentRun>` is the ownership-transfer boundary; the delegation tool also uses it inside its one-shot Task-backed background path. Before fulfillment, the provider owns setup and must cancel, roll back, and quiesce unpublished resources on every failure. After fulfillment, the caller owns the run and must call `dispose()` on every path; remaining prompt and turn work belongs to `SubagentRun.result`.\n\n`SubagentRun.result` resolves to `{ output, structured?, stopReason }`. Child-level failures resolve with a non-`completed` reason; only an infrastructure fault that the seam cannot represent may reject. `dispose()` is idempotent, cancels remaining work, and waits for both result settlement and child-resource quiescence. A result rejection remains on `result`; `dispose()` rejects only for an independent resource-release failure.\n\nA local run publishes an ordinary child agent/session before `start()` fulfills, returns that shared session id as `SubagentRun.id`, exposes the exact child as `SubagentRun.localAgent`, records `request.parent.session.id` in the child's `parentSession` header, and appends the resolved descriptor inside its initial turn. Remote providers instead mint a parent-scoped lifecycle id and return `localAgent: undefined`; without a local child session, their one-shot runs are not part of trace-backed enumeration.\n\n## Continuable children and Activations\n\nA continuable child has one durable Session and at most one process-local **Activation** — one residency epoch for a reconstructed child Agent, not a request, result, cancellation, or Task boundary. The Agent inbox is the only turn queue, so the continuation manager owns residency while the Agent loop owns all turn ordering and execution. No continuable path creates a Task or an intermediate result-bearing wrapper.\n\nThe manager derives three internal residency conditions from Agent quiescence and the owned-child set rather than maintaining a second state machine: running (an active admission, open turn, or waking inbox work), waiting (quiescent but still owning at least one undisposed child), and settled (quiescent with every owned child disposed, so the manager disposes the `AgentHandle` and removes the Activation). Every continuation message uses `Agent.followup()` and becomes one FIFO turn with no steering of the current turn. Routing depends only on residency: running enqueues, waiting wakes the same Agent, and an absent Activation cold-resumes a new one.\n\nThe manager reserves the child identity, resolves the durable descriptor, calls `ctx.agents.create()` (or `ctx.agents.resume()` for cold resume) through a private activation-owner scope, installs the returned `AgentHandle` in the Activation, establishes any continuable-parent ownership, and then submits the prompt. Cold resume never dispatches through a provider because the persisted Session already holds the initial prefix and the folded descriptor is the whole reconstruction input.\n\nA continuation-managed parent Activation records each child Session id in an `ownedChildren` set before the child can run and disposes only after every owned child Activation completes `AgentHandle` disposal (child-first). Teardown propagates Agent cancellation top-down before awaiting slow descendants, while handle release remains child-first. Top-level and other non-continuation Agents have no Activation and stay outside this waiting graph. Final settlement awaits a best-effort `ctx.sessions.flush(child.session)` before handle disposal. A listener rejection is logged without failing the Activation because listener participation does not identify a persistence backend; the persisted state may therefore be missing or stale on resume.\n\n## Lifecycle events\n\nThe service emits a `subagent/start`/`subagent/end` pair for each one-shot run and each resident continuable Activation epoch, so continuable children are observable with the same vocabulary as one-shot runs without exposing whether the manager materialized, woke, or cold-resumed them. For a one-shot start it attaches the result observer before the synchronous `subagent/start`, so even an already-settled child still produces `subagent/start` before `subagent/end`; a continuable epoch that fails before residency emits neither edge. The pair shares a service-minted `runId`; the `local` flag is snapshotted from the provider's exact `localAgent` (always true for a continuable child), so observers never infer run identity or locality from reusable provider/session names. The `provider` field contains the provider name recorded when the child was first created rather than claiming current registration: an accepted one-shot run may settle after provider removal, and a cold-resumed epoch reads the initial provider name from its descriptor without calling or registering that provider.\n\nRun events are scoped to the delegating parent. Every listener is independently contained: a synchronous throw or rejected returned promise is logged without starving peer listeners or changing the run.\n\nProvider additions and removals also emit `subagent/provider-added` and `subagent/provider-removed`. Consumers such as the model-facing tool use those events because Cordis may load sibling plugins concurrently; configuration order does not prove registration order.\n\nContinuable children do not create `SubagentRun` or Tasks. The continuation manager directly owns one process-local Activation and retained `AgentHandle` per resident child Session, uses the Agent inbox as the only FIFO, and cold-resumes from the durable descriptor. Exact live direct-parent identity authorizes parent-to-child delivery. Exact live child identity authorizes reports; the manager derives the recipient from durable `parentSession`, and `MessageSource` records the sender without granting authority. Interrupt authority is deliberately wider than delivery authority: a human presents the durable direct-parent address so a live child stays stoppable while its parent Agent is offline, and any exact live ancestor recorded in the Activation's materialization lineage may stop its descendant, because stopping a turn is idempotent and delivers no content.\n\nWhen `ctx.sessionProjections` is available, the service registers two projection units. `subagentTiming` resets at each descriptor so a fork seed's ancestor work cannot enter the child's total, then accumulates `turn/start` → `turn/end` active time and retains same-cut `active.since` and `active.through` bounds for an open turn; while that turn remains open, `active.through` follows the latest folded event, giving an inactive consumer a conservative crash bound without mixing in newer session metadata. `subagent` folds the durable identity — mode plus creation label — from `subagent/descriptor` events with the same last-wins reset discipline, so a fork seed's ancestor descriptor stands only until the child's own overrides it; a malformed or unrecognized-version payload folds to the serializable `null` sentinel — indistinguishable from a log with no descriptor, and surviving every JSON push frame so a consumer replaces a stale identity instead of keeping it — and never throws.\n\n`registerContinuableSetup()` lets optional packages add child-scoped capabilities without teaching the continuation manager their names. Contributions install synchronously before Activation publication, roll back with failed setup, and are released with the child scope. New grants wait for the next Activation, while contribution removal revokes every resident installation immediately.\n\n## Collection model\n\nThe model-facing tool collects synchronously by default: it awaits the child result and disposes the run before returning. One-shot background delegation registers a plain Task in the tool, whose generic status, collection, and cancellation tools own later interaction, and persists its model-supplied `description` as the optional display label. Continuable background delegation calls `ctx.subagents.startContinuable()` and returns only the durable child id; the child owns its own turns from inbox acceptance, so there is no Task and no result promise — a caller sends later work with the `send_message` follow-up tool, and `interrupt()` stops only the current turn without disposing the child, and the durable child Session remains the source of the child's detailed output. The continuation manager exists only while `ctx.agents` is available, and session persistence is resolved per continuation operation. Independently, `listChildren()` enumerates the live-preferred merge of the live session store and optional session persistence — live-only when persistence is absent, since a cold child cannot be resumed then either — and serves each child's durable mode/label from the registered `subagent` projection unit: the registry's watermark snapshot for a live child; for a cold one, a durable projection-cache row when it serves an own-suffix identity — its `seq` gate proves the value postdates the fork seed, where a child's own descriptor is immutable once appended — else one bounded-concurrency persistence inspection folded through the registry, whose result must still name the enumerated lifecycle (a re-published id degrades to a `corrupt` diagnostic). A throwing cache read renders no verdict — the cache is derived data — and silently falls through to that authoritative re-fold. The projection fold is the single classification authority; listing parses no descriptor itself. A served identity produces a child row; a settled candidate whose fold served no identity is a `corrupt` diagnostic, a failed inspection is a transient `unavailable` retried on the next listing, and a running candidate without an identity yet is omitted (the creation window before its descriptor is appended). It never consults the continuation manager, Agent registrations, Activations, or providers. Each child row derives its read-time `hasChildren` hint from merged headers carrying durable `origin: 'subagent'`; it does not read descendant event logs, and the descriptor-backed child catalog remains authoritative when expanded. Service consumers such as a UI can retain both modes and choose a fallback for an unlabeled one-shot child; the model-facing `list_agents` tool projects only `continuable` entries and refines status through the live Agent registry (`running`/`idle`/`complete`) and walks `listDescendants()` for its `descendants` scope. The listing forwards the caller's signal to every persistence read, checks cancellation around each of those awaits, and reports every observed abort as `SubagentError` code `CANCELLED`; an unmounted projection registry fails loud with `SUBAGENT_CONTROL_PROJECTIONS_UNAVAILABLE`, and a missing session store with `SUBAGENT_CONTROL_SESSION_STORE_UNAVAILABLE`. See the [background subagent tasks Agent Note](../../../.agents/notes/implemented/feature/2026-07-08-background-subagent-tasks.md), the [continuable background subagents Agent Note](../../../.agents/notes/implemented/feature/2026-07-21-continuable-background-subagents.md), the [durable catalog Agent Note](../../../.agents/notes/implemented/feature/2026-07-22-durable-subagent-catalog-and-list-agents.md), the [merged-service Agent Note](../../../.agents/notes/implemented/simplification/2026-07-26-merge-subagent-control-service.md), the [capability-seam Agent Note](../../../.agents/notes/implemented/feature/2026-06-21-subagent-capability-seam.md), and `src/types.ts` for the complete contracts.\n\nContinuable Activations await a best-effort final session flush without treating listener participation as durability confirmation. One-shot runs retain best-effort session checkpointing, so a completed one-shot child is discoverable after disposal only when its session actually reached persistence; the service does not invent a catalog entry from Task history when that checkpoint is absent.\n\n## Model Experience\n\n### Child delegation-scope statement\n\n#### What the model sees\n\nEvery in-process child's runtime-context snapshot carries the `subagent:delegation` statement below, after the sandbox-policy and approval-policy sentences; parent-side rendering stays with `dsh-tool-subagent` (delegation schemas), `dsh-tool-subagent-control` (continuation and discovery), and `dsh-tool-subagent-report` (the child-scoped `report`).\n\n##### The delegation-scope statement\n\n```markdown\nYou are a delegated subagent: your permission scope was fixed when you were started and cannot be widened from inside this session — operations that require approval are rejected automatically. When the task needs access beyond that scope, do not retry the denied operation; state the limitation in your reply so the delegating agent can handle it.\n```\n\n#### Token effect\n\nOne fixed statement in each child's runtime-context snapshot; none in the parent's requests.\n\n#### KV Cache effect\n\nPrefix-stable within a child: the statement never changes during the child's lifetime, so it is written once into the first runtime-context snapshot. Parent-side, no direct invalidation; the named tool consumers own any request-prefix changes.\n\n## Known Limitations and Deferred Work\n\n- **ACP children remain one-shot and are not trace-enumerable** — an ACP run has no local child session in the parent's session corpus. An ACP `prepareContinuable` requires persisting the remote session id in provider-specific descriptor data and a per-child continuation advertisement, since ACP `loadSession` support is negotiated per child rather than established by the method's presence. Remote providers also require a separate Activation ownership contract with equivalent authenticated control and child-first quiescence before they support continuable children.\n- **No host-user continuation** — `followup()` requires the exact live direct parent. Only `interrupt()` accepts a durable parent-address user authority, because stopping a turn is idempotent and delivers no content; a future host adapter needs a concrete authenticated interaction before the seam gains a user delivery capability.\n- **No current-turn steering** — continuable messages and waking reports enqueue later turns; neither redirects an open turn.\n- **Wake gap during cancellation convergence** — a waking follow-up accepted after the interrupt signal is issued but before the active driver becomes idle remains queued until another waking send. Issue #1838 owns the agent-loop wake latch, which also affects ordinary session cancellation.\n- **Process-local residency** — the Activation inbox and ownership graph do not coordinate two harness processes; concurrent access to one persistence store still requires a durable mailbox and cross-process lease protocol.\n- **No replay of accepted-but-unlogged messages** — only messages written to the child Session log are reconstructable with the source that supplied them. A crash may lose an accepted initial prompt or follow-up that never reached the log; a later authorized message can cold-resume the child, but the lost message is not replayed automatically.\n- **No durable report mailbox** — reports require a live direct parent and provide acceptance identity rather than exactly-once delivery or a read receipt.\n- **Lifecycle events are observe-only** — a run-affecting `subagent/end` continuation or decision surface waits for a concrete consumer.",
+  "_attachments": {}
+}

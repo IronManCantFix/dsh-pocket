@@ -1,0 +1,1095 @@
+{
+  "name": "@deepseek-ai/dsh-tmux-context",
+  "versions": {
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "version": "0.1.0-rc.3",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.1.0-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "874ce45530b97554b13ef6246124ed6d4b75413f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.1.0-rc.3.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-W4vHtmHXGvcH2khqOI3SIvwIJROZjIsuJjhifVGr1aNSBC5ambIe7eKf0pnEHRT8bn0gjoCefvYau2tnNGEiFA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQC90VFOajup3fg/0aXyxiaELm2cJzjTbqZ7b9egwS5AwwIgPNkufBjNdZ6XmF99mEKollRj6X/DqX8K72EWT0L4NRA=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 30796,
+        "size": 12162
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.3.tgz",
+      "_integrity": "sha512-W4vHtmHXGvcH2khqOI3SIvwIJROZjIsuJjhifVGr1aNSBC5ambIe7eKf0pnEHRT8bn0gjoCefvYau2tnNGEiFA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/context/tmux-context"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tmux-context_0.1.0-rc.3_1786619421478_0.8625111939421806",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T11:10:21.658Z",
+      "publish_time": 1786619421658,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "2dc8b8ab665301d7e377dae1919d5d073e092ed7",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.0.1-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-4Ta0HwYQOPpz84GbsNlGpFpLfgNTcCKhDAKFgtyxTR9uFLxKN2uuCYGZzU6/zX9KHjs4+CqSjplgg42lq9KP7w==",
+        "signatures": [
+          {
+            "sig": "MEUCIAXUQm/X4rguUVD4wJ4M6c5xohZoyv0wI+L4BscFmmNLAiEAkn/Mrp+UC8PrtEDnxe6h7fE37cPpj7b7HIWwoQpOuJw=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 31209,
+        "size": 12365
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-4Ta0HwYQOPpz84GbsNlGpFpLfgNTcCKhDAKFgtyxTR9uFLxKN2uuCYGZzU6/zX9KHjs4+CqSjplgg42lq9KP7w==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/context/tmux-context"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-bash": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-bash": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tmux-context_0.0.1-rc.2_1786461651621_0.6914134228127511",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:20:51.785Z",
+      "publish_time": 1786461651785,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "20bf42e13d8c1bdb6d7fa9c405f5a360f692a809",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.0.1-rc.3.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-ZF5JuQ0FnBRhgFaoU3Cd/yqxAUfsxiHcAt/SmH41mxwWsSldrra6nvep1yqhIaSo8MdeSrkFvK4dhI3FvdeCkQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIBjvjbv/fHOkMzWG8iV2HZbI8UmfsV+sYTnask2PzLnKAiEAqLXJBUAYwlhTqfg5n2+shU6toPJ4fSfJrWzr6NXtx9Y=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 31250,
+        "size": 12370
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-ZF5JuQ0FnBRhgFaoU3Cd/yqxAUfsxiHcAt/SmH41mxwWsSldrra6nvep1yqhIaSo8MdeSrkFvK4dhI3FvdeCkQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/context/tmux-context"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-shell": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-shell": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tmux-context_0.0.1-rc.3_1786566953797_0.39184226955003054",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:35:53.943Z",
+      "publish_time": 1786566953943,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "76bba359e6347fe8ba5db272e1808b544af2163f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.1.0-rc.2.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-zuDlKgOQlSRAzJgWBkLi36GIg7CvnFW/QnpQaHVNIjO5Oks55y/0zHQU/OfsAQkMJvsPnc2/JCF1/n/KhxNxYQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIDkRp2XEAV6AiyUymC7GoPB9vG1cSa7u+/ThDhKuRQoQAiACb6j6Lh/Y5onMyTHNXyVSvT11LfbQZMI4nR0xXol+FA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 30796,
+        "size": 12170
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-zuDlKgOQlSRAzJgWBkLi36GIg7CvnFW/QnpQaHVNIjO5Oks55y/0zHQU/OfsAQkMJvsPnc2/JCF1/n/KhxNxYQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/context/tmux-context"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tmux-context_0.1.0-rc.2_1786614172265_0.9059872973752767",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:42:52.474Z",
+      "publish_time": 1786614172474,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "8e4ac9c482f1d276f5a48d3fa393c81050270628",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.0.1-rc.5.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-WPfWHa+HDm0O4pOa0PUgfaN6BJrHA4+MUFR9AgCKx9carBng+S9OoCcKIjYLgcxMq9kItxytEPLi3y2mgJX1zQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIH8yoPAyuHhs+qrmlkoOCALs3FVwegHkED279KjumUxGAiBmurhFk2VL/2JkjCvda32iiS34l267BfONNELpfuXhgA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 31250,
+        "size": 12370
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-WPfWHa+HDm0O4pOa0PUgfaN6BJrHA4+MUFR9AgCKx9carBng+S9OoCcKIjYLgcxMq9kItxytEPLi3y2mgJX1zQ==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/context/tmux-context"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.4"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-shell": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.5"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-shell": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tmux-context_0.0.1-rc.5_1786573974115_0.3576386209051634",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:32:54.260Z",
+      "publish_time": 1786573974260,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/context/tmux-context"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.6",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-Wl7oOUO9XH7i6Bfu5L0+Nph2jzyF972eb949Hx/6akcKq+uNLFrq07L96LcAAQRezU8AQqtowzVs2LUbJ5dViA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-Wl7oOUO9XH7i6Bfu5L0+Nph2jzyF972eb949Hx/6akcKq+uNLFrq07L96LcAAQRezU8AQqtowzVs2LUbJ5dViA==",
+        "shasum": "da5e0d91539d93cb43b139d7eaa7fba2591f6c23",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.1.0-rc.6.tgz",
+        "fileCount": 9,
+        "unpackedSize": 30792,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIGaVn9WLHf7TACmJ2XtqL3FYxedloVNhQdn1RifjIvpqAiBtn6tptkGE78vLQT9XQZhZcxAQCwEKRNwdVf5cW3CB6A=="
+          }
+        ],
+        "size": 12160
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tmux-context_0.1.0-rc.6_1786623879422_0.049928890932166015"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:24:39.557Z",
+      "publish_time": 1786623879557,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dist": {
+        "shasum": "1afe57f9e5efd36861a531883f2321d53e0d4eb9",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.0.1-rc.1.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-Va0EuUPxymrrlUwaKG1CzhKPJzSKhOcx6cCYbJ3TqoNIR8bi/TOLKYJAUvTGS7BJcTOmd0CLVgHMvZmd0HfFLA==",
+        "signatures": [
+          {
+            "sig": "MEUCIFQWE9hslF4rvnI7oz5dUMz9Ej/6d4GkB6fDUad2ufuWAiEAjjeAXH2XtU5qLJdROsymwBBQDcAl0T6Jm9v1ibIol6M=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 31209,
+        "size": 12360
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-Va0EuUPxymrrlUwaKG1CzhKPJzSKhOcx6cCYbJ3TqoNIR8bi/TOLKYJAUvTGS7BJcTOmd0CLVgHMvZmd0HfFLA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/context/tmux-context"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1-rc.1"
+      },
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-bash": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-bash": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-agent": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-tmux-context_0.0.1-rc.1_1786390713855_0.6631004337761028",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:38:34.004Z",
+      "publish_time": 1786390714004,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/context/tmux-context"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-DYoWGpJglqzWxCFDzynJ7ebt9m7Redlm2Iuon5U2tJ0rsyOSRIgKuwQMXI67FdN/MNVXvSQ2xybUqu+5V0krnA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-DYoWGpJglqzWxCFDzynJ7ebt9m7Redlm2Iuon5U2tJ0rsyOSRIgKuwQMXI67FdN/MNVXvSQ2xybUqu+5V0krnA==",
+        "shasum": "7888a09c32433c0bf8e7639492ca73dafb9df522",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.1.0-rc.7.tgz",
+        "fileCount": 9,
+        "unpackedSize": 30792,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIHIHOH3QcDxthJSAeFL6zhBva2tuPXXy8jQ1A3Pj4c53AiB/Ui1l6e120uloB6rI2dg3WkZSF6e4M+Ntqcq3031ULw=="
+          }
+        ],
+        "size": 12157
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tmux-context_0.1.0-rc.7_1786967292786_0.5537044133171658"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:48:12.927Z",
+      "publish_time": 1786967292927,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/context/tmux-context"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-llm": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-session": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-shell": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-ezhL3Wjpn4TqqvgSuKrJgNVG7jrWGekEWRYimqD1SvmAHQAS+Xr9q7DBl1uSFfJDWUOAPlAB8VAuo3k/CLUwKA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-ezhL3Wjpn4TqqvgSuKrJgNVG7jrWGekEWRYimqD1SvmAHQAS+Xr9q7DBl1uSFfJDWUOAPlAB8VAuo3k/CLUwKA==",
+        "shasum": "cacc33af0beaeb6495eac6b3fc145d8513dda97a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.1.0-rc.8.tgz",
+        "fileCount": 9,
+        "unpackedSize": 30792,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIHD7Cxx3K4a4xmCqFTgNotlBcKy/PYUnKowAgIgFu067AiBZh5nOQjYQgxIYiJZCTLjcT8GMMptBMcgd4jFWhFMpOA=="
+          }
+        ],
+        "size": 12163
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tmux-context_0.1.0-rc.8_1787153920611_0.5318536284502846"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:38:40.748Z",
+      "publish_time": 1787153920748,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/context/tmux-context"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-shell": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-shell": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.1"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-KvAviVyFybH1Gh08PLBDMV2VFUqVy1Pf1w8I8tI/EyiuHiZ3R8WXfYs4qp/oGN+n/atCHmJwkicR67xpG3LHFQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-KvAviVyFybH1Gh08PLBDMV2VFUqVy1Pf1w8I8tI/EyiuHiZ3R8WXfYs4qp/oGN+n/atCHmJwkicR67xpG3LHFQ==",
+        "shasum": "16b55b9511e1a37cb2ad2062244c2f5d5d0d3897",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.1.1-rc.1.tgz",
+        "fileCount": 9,
+        "unpackedSize": 30795,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDYVbRUWksQ8852vCym4jZ/98zn43EISr/zIUiYP7LxKwIgN2x9emLKJGQyZGfGBBZXwRiP4Cmfj4U88j8+Uo6lKs0="
+          }
+        ],
+        "size": 12174
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tmux-context_0.1.1-rc.1_1787294791336_0.8007193798034"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:46:31.480Z",
+      "publish_time": 1787294791480,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-tmux-context",
+      "description": "Opt-in durable per-step context with this agent's tmux pane and window location",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/context/tmux-context"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "license": "MIT",
+      "dependencies": {
+        "@deepseek-ai/schemastery": "^3.18.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-shell": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2"
+      },
+      "devDependencies": {
+        "@deepseek-ai/dsh-llm": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-session": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-system-prompt": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-agent": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-shell": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-tmux-context@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-gsOY/pbm9gdO2sKlqWymv4UxGocm3/4hU+84eTD/Wi6Vnt0QOPDSHEO/SjZ/sdIxiTxoKQLz4mqy0LYmc7DNDA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-tmux-context-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-gsOY/pbm9gdO2sKlqWymv4UxGocm3/4hU+84eTD/Wi6Vnt0QOPDSHEO/SjZ/sdIxiTxoKQLz4mqy0LYmc7DNDA==",
+        "shasum": "dd547ebf16d3177e4d0e7584e8ce268ee2939117",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-tmux-context/-/dsh-tmux-context-0.1.1-rc.2.tgz",
+        "fileCount": 9,
+        "unpackedSize": 30795,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCICuycKWF9Z5RABhapTfEsuQjW76HAPiWfK9GdXLRWsRJAiBVJleJoVhy+4XFMCnPUKyY7gXzs8c7ZPCXskn4tZ2M9A=="
+          }
+        ],
+        "size": 12176
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-tmux-context_0.1.1-rc.2_1787315976881_0.24991462028699818"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:39:37.013Z",
+      "publish_time": 1787315977013,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:24:51.189Z",
+    "modified": "2026-08-21T12:39:50.643Z",
+    "0.1.0-rc.3": "2026-08-13T11:10:21.658Z",
+    "0.0.1-rc.2": "2026-08-11T15:20:51.785Z",
+    "0.0.1-rc.3": "2026-08-12T20:35:53.943Z",
+    "0.1.0-rc.2": "2026-08-13T09:42:52.474Z",
+    "0.0.1-rc.5": "2026-08-12T22:32:54.260Z",
+    "0.1.0-rc.6": "2026-08-13T12:24:39.557Z",
+    "0.0.1-rc.1": "2026-08-10T19:38:34.004Z",
+    "0.1.0-rc.7": "2026-08-17T11:48:12.927Z",
+    "0.1.0-rc.8": "2026-08-19T15:38:40.748Z",
+    "0.1.1-rc.1": "2026-08-21T06:46:31.480Z",
+    "0.1.1-rc.2": "2026-08-21T12:39:37.013Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-54cfa95de137b808",
+  "_id": "@deepseek-ai/dsh-tmux-context",
+  "readme": "# @deepseek-ai/dsh-tmux-context\n\nEnglish | [中文](README.zh.md)\n\nOpt-in durable context naming the tmux session, window, and pane this agent process runs in, plus the window's pane-tree layout. It is sampled once per turn during model-request preparation and is not part of the shipped Web/headless composition. Decision record: [the tmux-context Agent Note](../../../.agents/notes/implemented/feature/2026-07-27-tmux-location-context.md).\n\n## Config\n\n```yaml\n- id: tmux-context\n  name: '@deepseek-ai/dsh-tmux-context'\n  config:\n    refreshIntervalMs: 60000 # optional; omit or set to 0 to inject on every changed turn\n```\n\n`refreshIntervalMs` must be a non-negative safe integer. Omission or `0` injects whenever the tmux state changed since the last injection. A positive value additionally suppresses injections that fall within that many milliseconds of the latest one.\n\n## How it reads tmux\n\nThe plugin prepends an `agent/pre-step` listener that runs only on the first step of each turn. When due, it runs one read-only command through the `ctx.bash` executor service:\n\n```sh\n[ -n \"$TMUX_PANE\" ] || exit 1\nself_tty=$(ps -o tty= -p <pid> | tr -d ' ')\npane_tty=$(tmux display-message -t \"$TMUX_PANE\" -p '#{pane_tty}') || exit 1\n[ \"$pane_tty\" = \"/dev/$self_tty\" ] || exit 1\nexec tmux display-message -t \"$TMUX_PANE\" -p '<format>'\n```\n\n`$TMUX_PANE` alone is insufficient: a terminal launched from a tmux shell (a VS Code integrated terminal, a desktop launcher) **inherits** `$TMUX` and `$TMUX_PANE` from that ancestor, so the variables are present even though the process does not live in that pane. The command therefore also compares the pane's `#{pane_tty}` against this process's own controlling terminal (`ps -o tty=` for its pid): a genuine pane owns this process's tty, while an inherited environment names some other pane's tty. Running through `ctx.bash` applies the deployment's sandbox and policy; the plugin owns no subprocess code. When `ctx.bash` is absent, the process is not in a real tmux pane (`$TMUX_PANE` unset, or the tty does not match ⇒ nonzero exit), or the reading is malformed, the attempt is a no-op, never an error. The location is optional, so an executor rejection — a policy refusal from `resolve()` or an infrastructure failure from `run()` — is contained and logged as a warning rather than failing the turn.\n\nState is pulled on every eligible turn — a moved, renamed, or re-laid-out pane is picked up without any tmux hook or background process. The plugin re-injects only when the rendered tmux state differs from its last injection, so an unchanged location adds nothing.\n\n## Timing semantics\n\nThe plugin prepends an `agent/pre-step` listener. When an injection is due and the downstream decision enters the proposed step, it prepends one sourced `UserMessage` to the returned batch. AgentLoop records that context after `step/start` with source `{ kind: 'plugin', plugin: 'tmux-context' }`. Change suppression and interval scheduling scan the raw durable session events for the latest injection of this source, so the schedule survives compaction and resumed processes without process-local cache state; sessions schedule independently. A downstream pre-step listener that rejects or fails prevents the reading from being recorded.\n\n## Model Experience\n\n### Preparation-time tmux location\n\n#### What the model sees\n\nOn each turn whose tmux state changed, one source-tagged context message with the three lines below. `<window-layout>` is tmux's compact pane-tree description; pane and window pixel sizes are intentionally excluded, and the contents of sibling panes are never captured.\n\n##### Changed-turn reading\n\n```markdown\ntmux location (turn <turn>):\nsession <session>, window <index> \"<name>\", pane <index> <pane-id>\nwindow active=<0|1>, pane active=<0|1>, layout <window-layout>\n```\n\n#### Token effect\n\nEach two-line reading accumulates until compaction shadows it. Unchanged locations and interval suppression add nothing.\n\n#### KV Cache effect\n\nAppend-only; newly visible content follows the reusable request prefix and does not invalidate existing KV-cache entries.\n\n## Known Limitations and Deferred Work\n\n- **First step only** — a pane moved or resized mid-turn is reflected on the next turn, not between steps.\n- **Own location only** — the plugin never captures the visible text of sibling panes.\n- **Layout, not size** — pane/window pixel dimensions are omitted; only the layout tree and active flags are reported.\n- **Tab-delimited fields** — a tmux window name containing the literal two-character sequence `\\t` would mis-split the reading and be skipped as malformed; ordinary names are unaffected.\n- **tty-based pane detection** — the process is considered \"in tmux\" only when its controlling terminal matches `$TMUX_PANE`'s `#{pane_tty}`. This deliberately excludes terminals that inherited `$TMUX`/`$TMUX_PANE` from a tmux ancestor (e.g. a VS Code integrated terminal). `ps -o tty=` is POSIX; the check is a no-op wherever it or `#{pane_tty}` is unavailable.",
+  "_attachments": {}
+}

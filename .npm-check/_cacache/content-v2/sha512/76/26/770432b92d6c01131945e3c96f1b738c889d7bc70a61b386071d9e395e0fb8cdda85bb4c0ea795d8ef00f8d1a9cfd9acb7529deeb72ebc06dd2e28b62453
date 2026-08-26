@@ -1,0 +1,1167 @@
+{
+  "name": "@deepseek-ai/dsh-client-modules",
+  "versions": {
+    "0.0.1-rc.5": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "version": "0.0.1-rc.5",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-modules@0.0.1-rc.5",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "848daab0bbdd0c3c0e0461b45aa9cd0429c5d8b3",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.0.1-rc.5.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-NNSmQ+nMTvBFLc4WrUURpv58pQzutpNQhv7ZGApvJ6xK4MiM5y2h5ixV7ALA3gz+fxjFVNmJ3TPGalC6+ZnuHA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCgNVB8o44if4va08Ot/JrxBYxmQ0iCgRZAcowu6mbl4QIgMKjnXrmC9Sn8J3jb7x/DbS1nkOKUUPwbNUQtT6DISb4=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56135,
+        "size": 18209
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.0.1-rc.5.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.0.1-rc.5.tgz",
+      "_integrity": "sha512-NNSmQ+nMTvBFLc4WrUURpv58pQzutpNQhv7ZGApvJ6xK4MiM5y2h5ixV7ALA3gz+fxjFVNmJ3TPGalC6+ZnuHA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/modules"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5",
+        "@deepseek-ai/dsh-host-webserver": "^0.0.1-rc.5",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2-rc.4"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.4",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.5"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-modules_0.0.1-rc.5_1786574029977_0.6245796733877158",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T22:33:50.130Z",
+      "publish_time": 1786574030130,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.3": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "version": "0.0.1-rc.3",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-modules@0.0.1-rc.3",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "688d90c92466567a65152003fc0faa0fe8282249",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.0.1-rc.3.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-mTb3DwGbZO1KrKogpCoP0MFMJUqKPaW/4UdQinctlGGz/zAiPVhIK84ooHQXjY8hk2PIdziR4QaURBYLCe5wJA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQD0syEckipuWUsO7jHyZhWdppZHJdbslFKv2VtcWvrgtgIhAMkk2sudI8k4yTqRCIbaSa1d1ENzgoiCCpNnu63M7Nng",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56135,
+        "size": 18209
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.0.1-rc.3.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.0.1-rc.3.tgz",
+      "_integrity": "sha512-mTb3DwGbZO1KrKogpCoP0MFMJUqKPaW/4UdQinctlGGz/zAiPVhIK84ooHQXjY8hk2PIdziR4QaURBYLCe5wJA==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/modules"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3",
+        "@deepseek-ai/dsh-host-webserver": "^0.0.1-rc.3",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.3"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-modules_0.0.1-rc.3_1786567029255_0.051929176584115",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-12T20:37:09.399Z",
+      "publish_time": 1786567029399,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.2": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "version": "0.0.1-rc.2",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-modules@0.0.1-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "bddc2df35e08bb62eb9858427b5ae6da3bac6be4",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.0.1-rc.2.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-fSP9iCJBofwZslJW1OzayrD8sjrYEKG6D3M9GT+Robb+W95uQq9pelsfVeYSbHY5h1wHVc5ni+SIdMki/c/m2Q==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDDoZqtkmakvy54BIJ9c/hbfMPXI823aGlsL1sfWTp4cwIgaMgOIgYrBjkyWngk3lKycIiPOMk1Qc7WEVyCa1Hbz8I=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56192,
+        "size": 18215
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.0.1-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.0.1-rc.2.tgz",
+      "_integrity": "sha512-fSP9iCJBofwZslJW1OzayrD8sjrYEKG6D3M9GT+Robb+W95uQq9pelsfVeYSbHY5h1wHVc5ni+SIdMki/c/m2Q==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/modules"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.0.1-rc.2",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-modules_0.0.1-rc.2_1786461727492_0.8071328397920519",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-11T15:22:07.669Z",
+      "publish_time": 1786461727669,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.0.1-rc.1": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "version": "0.0.1-rc.1",
+      "license": "BSD-3-Clause",
+      "_id": "@deepseek-ai/dsh-client-modules@0.0.1-rc.1",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "d7a38a299d8be5f06824351e150175109fa7e3d5",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.0.1-rc.1.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-3VJnOrxLKWzQehryqnk4dv8LSlftvnpZbnnfLMGIVpQOOmWg0zWyrOaSqJnlV3y26l74Sqqi/Bopqc4D+9tKRg==",
+        "signatures": [
+          {
+            "sig": "MEQCIE25/zHZnRUcal96syY45lkbfcCh+mQpdLz+K/TdfvazAiA0RTqSCybqbw9xjKsLu/uY+IDpEhqevF3IUzOUX6XVyA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56251,
+        "size": 18220
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.0.1-rc.1.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.0.1-rc.1.tgz",
+      "_integrity": "sha512-3VJnOrxLKWzQehryqnk4dv8LSlftvnpZbnnfLMGIVpQOOmWg0zWyrOaSqJnlV3y26l74Sqqi/Bopqc4D+9tKRg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/modules"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1",
+        "@deepseek-ai/dsh-host-webserver": "^0.0.1-rc.1",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.1-rc.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.0.1-rc.1"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-modules_0.0.1-rc.1_1786390767763_0.2462839298682966",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-10T19:39:27.914Z",
+      "publish_time": 1786390767914,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.2": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "version": "0.1.0-rc.2",
+      "license": "MIT",
+      "_id": "@deepseek-ai/dsh-client-modules@0.1.0-rc.2",
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "dsh": {
+        "client": {
+          "inject": [],
+          "platform": "web",
+          "immediately": true
+        }
+      },
+      "dist": {
+        "shasum": "47a26490df74ab736d67c15f96ed19955a7f582f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.1.0-rc.2.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-S25T0GKg/glb3ilRWEm6z/g93acCvb+TpYN7NCs0sVrG9DLArb9+8JyU/hovVYwk6EICJxVXDQ2AkWHl46DBNg==",
+        "signatures": [
+          {
+            "sig": "MEUCIGWzOTKkEb/rmXJpOpVlEvNaNqEsD524BOpE2sm83od0AiEA8/TdjB951R2X4gCdU9bU0BK2EFlBQABNLDSggLtOrw4=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 55681,
+        "size": 18007
+      },
+      "main": "lib/index.js",
+      "type": "module",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.2.tgz",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./src/*": "./src/*",
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./package.json": "./package.json"
+      },
+      "scripts": {
+        "watch": "tsdown --watch",
+        "bundle": "tsdown"
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.2.tgz",
+      "_integrity": "sha512-S25T0GKg/glb3ilRWEm6z/g93acCvb+TpYN7NCs0sVrG9DLArb9+8JyU/hovVYwk6EICJxVXDQ2AkWHl46DBNg==",
+      "repository": {
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "type": "git",
+        "directory": "packages/client/modules"
+      },
+      "_npmVersion": "11.16.0",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "directories": {},
+      "_nodeVersion": "24.18.0",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "_hasShrinkwrap": false,
+      "readmeFilename": "README.zh.md",
+      "devDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.0-rc.2",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.2"
+      },
+      "_npmOperationalInternal": {
+        "tmp": "tmp/dsh-client-modules_0.1.0-rc.2_1786614270695_0.695300965061886",
+        "host": "s3://npm-registry-packages-npm-production"
+      },
+      "_cnpmcore_publish_time": "2026-08-13T09:44:30.836Z",
+      "publish_time": 1786614270836,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.3": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "version": "0.1.0-rc.3",
+      "publishConfig": {
+        "access": "restricted"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/modules"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "platform": "web",
+          "inject": [],
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.3",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-modules@0.1.0-rc.3",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-8rdbf27ZDgK8W4bQAdpNdqjyFTxwUVQLr8qlULaIzSJS8M1nnyI9QP/RpnHFi/8cEVKk/oVNmPvqcwslxjZjbg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.3.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.3.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-8rdbf27ZDgK8W4bQAdpNdqjyFTxwUVQLr8qlULaIzSJS8M1nnyI9QP/RpnHFi/8cEVKk/oVNmPvqcwslxjZjbg==",
+        "shasum": "29fb9f635f64aba5a4760f4a44254842f8d01c27",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.1.0-rc.3.tgz",
+        "fileCount": 13,
+        "unpackedSize": 55681,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEYCIQDL3DpqUQG7bu6bdEjtFcJVclK6YcNz7pdFGUNdKCilegIhAJ5kHfElJ9M/ghAzY669cuP76QmirgWxhh29w2Z/puCC"
+          }
+        ],
+        "size": 18011
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-modules_0.1.0-rc.3_1786619528880_0.4324222236852937"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T11:12:09.025Z",
+      "publish_time": 1786619529025,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.6": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "version": "0.1.0-rc.6",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/modules"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "platform": "web",
+          "inject": [],
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "devDependencies": {
+        "@deepseek-ai/dsh-host-webserver": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.6",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-modules@0.1.0-rc.6",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-DFeXjfbfrU2LvVziHsqBsfvnYVuqXTpvNybwBDJqGBNR4VjPVUbvCUrH8pzFRkv0bQO6Vq6dLKUR0Q2ZUYdTwg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.6.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.6.tgz",
+      "_nodeVersion": "24.18.0",
+      "_npmVersion": "11.16.0",
+      "dist": {
+        "integrity": "sha512-DFeXjfbfrU2LvVziHsqBsfvnYVuqXTpvNybwBDJqGBNR4VjPVUbvCUrH8pzFRkv0bQO6Vq6dLKUR0Q2ZUYdTwg==",
+        "shasum": "18f7bb56451818d8d365ffa9d69d249ee4b90e0a",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.1.0-rc.6.tgz",
+        "fileCount": 13,
+        "unpackedSize": 55677,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIDhtZL5y0W/gW/yIfUlvl4QsUyLrmy0rtrQOPwrbxUuqAiEA8U/3j5BdgoJNqCMU38vYc9lUQ5vYdicZTvSjltRZg6E="
+          }
+        ],
+        "size": 17998
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-modules_0.1.0-rc.6_1786624066970_0.5169186138935575"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-13T12:27:47.110Z",
+      "publish_time": 1786624067110,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.7": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "version": "0.1.0-rc.7",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/modules"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "platform": "web",
+          "inject": [],
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.0-rc.7",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.7",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-modules@0.1.0-rc.7",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-hczFl0TRH5sLt/dS0+TMCtQvfDoeLw/r88L6n3rXfY6Q1e4Yddg6RAv4kGsUoMoLYgWi7qPwD6HcUGgyKkDPHg==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.7.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.7.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-hczFl0TRH5sLt/dS0+TMCtQvfDoeLw/r88L6n3rXfY6Q1e4Yddg6RAv4kGsUoMoLYgWi7qPwD6HcUGgyKkDPHg==",
+        "shasum": "2508dce0cc93c968a2896e5146aec358d72ff440",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.1.0-rc.7.tgz",
+        "fileCount": 13,
+        "unpackedSize": 55677,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIBOjeR75+ORxNRNtmgvFIC6/8uHIp4MzeB35kqANBJpkAiEA9O84gVJx+lTznhPVv2lSzUeePYpz4qacf7nMQ2rvoDE="
+          }
+        ],
+        "size": 18001
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-modules_0.1.0-rc.7_1786967218742_0.983601188842097"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-17T11:46:58.887Z",
+      "publish_time": 1786967218887,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.0-rc.8": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "version": "0.1.0-rc.8",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/modules"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "platform": "web",
+          "inject": [],
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.0-rc.8",
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.0-rc.8",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.0-rc.8"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-modules@0.1.0-rc.8",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-K+uDZSmSbpmHFpvrKkdctHHDIjimv1NWDZoc7CYy7QIk0Vuis4jShDau6H5L0B9TScWBDyXAz/R7rXttFlwseA==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.8.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.0-rc.8.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-K+uDZSmSbpmHFpvrKkdctHHDIjimv1NWDZoc7CYy7QIk0Vuis4jShDau6H5L0B9TScWBDyXAz/R7rXttFlwseA==",
+        "shasum": "4c5a4271fad6bcae41bafeab2712b6c82414393f",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.1.0-rc.8.tgz",
+        "fileCount": 13,
+        "unpackedSize": 73729,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCz4r9xVN70Y1RkZoj16/lNP2kQx1wR8SOW87CRc/OmoQIgUmqwk7PlxYr+0nFwJU0lB/tIjlsnvzvkIMe9SiH/Jr8="
+          }
+        ],
+        "size": 22821
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-modules_0.1.0-rc.8_1787153868172_0.49489359845730463"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-19T15:37:48.340Z",
+      "publish_time": 1787153868340,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.1": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "version": "0.1.1-rc.1",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/modules"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "platform": "web",
+          "inject": [],
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.1-rc.1",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.1",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.1-rc.1"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-modules@0.1.1-rc.1",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-cdBFlFE8sb+vD/w3gYKTu8LH+yH4OyPHXhxJTkzhQJF3bAhdC24k25mogaxkpZXg4rcHS16zWyCriZaOGQRgsQ==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.1-rc.1.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.1-rc.1.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-cdBFlFE8sb+vD/w3gYKTu8LH+yH4OyPHXhxJTkzhQJF3bAhdC24k25mogaxkpZXg4rcHS16zWyCriZaOGQRgsQ==",
+        "shasum": "8a767da525d9084cb82f530139118bcec956de01",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.1.1-rc.1.tgz",
+        "fileCount": 13,
+        "unpackedSize": 73266,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIEP8/dV0l+C3SzUMYcjpVyiqTn5Cn9/r0wkoIV3GePiSAiEAuaqvMqLEuBEYfogIl513eRWbik1TX8/FT9jMSEmmcW8="
+          }
+        ],
+        "size": 22653
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-modules_0.1.1-rc.1_1787294742263_0.33722914290368"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T06:45:42.396Z",
+      "publish_time": 1787294742396,
+      "_source_registry_name": "default",
+      "contributors": []
+    },
+    "0.1.1-rc.2": {
+      "name": "@deepseek-ai/dsh-client-modules",
+      "description": "Client module system, dual-face: node half composes the __DSH_BOOT__ entry graph (incremental dsh.client scan, bundle route, index tap, webPlugins service); browser half is the lazy-CJS module table the vendored cordis Loader consumes as its internal seam",
+      "version": "0.1.1-rc.2",
+      "publishConfig": {
+        "access": "public"
+      },
+      "repository": {
+        "type": "git",
+        "url": "git+https://github.com/deepseek-ai/deepseek-harness.git",
+        "directory": "packages/client/modules"
+      },
+      "type": "module",
+      "main": "lib/index.js",
+      "types": "lib/types/index.d.ts",
+      "exports": {
+        ".": {
+          "types": "./lib/types/index.d.ts",
+          "default": "./lib/index.js"
+        },
+        "./client": {
+          "types": "./lib/types/client/index.d.ts",
+          "default": "./lib/client.js"
+        },
+        "./invariant": {
+          "types": "./lib/types/invariant.d.ts",
+          "default": "./lib/invariant.js"
+        },
+        "./src/*": "./src/*",
+        "./package.json": "./package.json"
+      },
+      "dsh": {
+        "client": {
+          "platform": "web",
+          "inject": [],
+          "immediately": true
+        }
+      },
+      "license": "MIT",
+      "devDependencies": {
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.1-rc.2",
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1"
+      },
+      "peerDependencies": {
+        "@deepseek-ai/dsh-invariants": "^0.1.1-rc.2",
+        "@deepseek-ai/cordis": "^4.0.1",
+        "@deepseek-ai/cordis-plugin-loader": "^1.0.2",
+        "@deepseek-ai/dsh-host-webserver": "^0.1.1-rc.2"
+      },
+      "scripts": {
+        "bundle": "tsdown",
+        "watch": "tsdown --watch"
+      },
+      "readmeFilename": "README.zh.md",
+      "_id": "@deepseek-ai/dsh-client-modules@0.1.1-rc.2",
+      "bugs": {
+        "url": "https://github.com/deepseek-ai/deepseek-harness/issues"
+      },
+      "homepage": "https://github.com/deepseek-ai/deepseek-harness#readme",
+      "_integrity": "sha512-D0vRgJJpMeTB4ExJTGHk9ay01kLxfK5zvp6bgFjYGlk9sBJgCE3qsOGBFNqD369ylJx4W2oyExAH9lOZGNk3Rw==",
+      "_resolved": "/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.1-rc.2.tgz",
+      "_from": "file:/home/runner/work/deepseek-harness/deepseek-harness/dist/npm/deepseek-ai-dsh-client-modules-0.1.1-rc.2.tgz",
+      "_nodeVersion": "24.19.0",
+      "_npmVersion": "11.17.0",
+      "dist": {
+        "integrity": "sha512-D0vRgJJpMeTB4ExJTGHk9ay01kLxfK5zvp6bgFjYGlk9sBJgCE3qsOGBFNqD369ylJx4W2oyExAH9lOZGNk3Rw==",
+        "shasum": "6270aff81a793f4b77de9637624c23eefa5ef06e",
+        "tarball": "http://dev.owler.cn:11803/package/@deepseek-ai/dsh-client-modules/-/dsh-client-modules-0.1.1-rc.2.tgz",
+        "fileCount": 13,
+        "unpackedSize": 73266,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQCP/+dmQMjrIn9wiOvFszYsB/V4Jq5AN9JJ9OagxF5rcgIgTnuQrLgXHUw/hIlwvZAR7zYoKGAzZMMOGrw8LBD5TCg="
+          }
+        ],
+        "size": 22653
+      },
+      "_npmUser": {
+        "name": "imccyu",
+        "email": "imccyu@gmail.com"
+      },
+      "directories": {},
+      "maintainers": [
+        {
+          "name": "imccyu",
+          "email": "imccyu@gmail.com"
+        },
+        {
+          "name": "tianyicui-deepseek",
+          "email": "tianyi@deepseek.com"
+        }
+      ],
+      "_npmOperationalInternal": {
+        "host": "s3://npm-registry-packages-npm-production",
+        "tmp": "tmp/dsh-client-modules_0.1.1-rc.2_1787315927271_0.11724148045764804"
+      },
+      "_hasShrinkwrap": false,
+      "_cnpmcore_publish_time": "2026-08-21T12:38:47.420Z",
+      "publish_time": 1787315927420,
+      "_source_registry_name": "default",
+      "contributors": []
+    }
+  },
+  "time": {
+    "created": "2026-08-13T12:27:54.042Z",
+    "modified": "2026-08-21T12:39:00.210Z",
+    "0.0.1-rc.5": "2026-08-12T22:33:50.130Z",
+    "0.0.1-rc.3": "2026-08-12T20:37:09.399Z",
+    "0.0.1-rc.2": "2026-08-11T15:22:07.669Z",
+    "0.0.1-rc.1": "2026-08-10T19:39:27.914Z",
+    "0.1.0-rc.2": "2026-08-13T09:44:30.836Z",
+    "0.1.0-rc.3": "2026-08-13T11:12:09.025Z",
+    "0.1.0-rc.6": "2026-08-13T12:27:47.110Z",
+    "0.1.0-rc.7": "2026-08-17T11:46:58.887Z",
+    "0.1.0-rc.8": "2026-08-19T15:37:48.340Z",
+    "0.1.1-rc.1": "2026-08-21T06:45:42.396Z",
+    "0.1.1-rc.2": "2026-08-21T12:38:47.420Z"
+  },
+  "users": {},
+  "dist-tags": {
+    "latest": "0.0.1-rc.1",
+    "next": "0.1.1-rc.2"
+  },
+  "_rev": "6-05a623f497b0c536",
+  "_id": "@deepseek-ai/dsh-client-modules",
+  "readme": "# @deepseek-ai/dsh-client-modules\n\nEnglish | [中文](README.zh.md)\n\nClient module system: the browser peer of Node's internal ESM loader, built as a lazy CJS table. The web shell mounts the vendored cordis Loader for entry governance (fiber lifecycle, inject waiting, update/refresh) and injects this package's `ClientModuleLoader` through its `internal` contract — the vendored side's only consumption point is `EntryTree.import`, so replacing `internal` replaces exactly \"how plugin code arrives\" and nothing else.\n\nLazy CJS model (web2): executing a plugin bundle only REGISTERS its factory (`window.__ModuleLoader__.load({id, factory})`); every module body side effect — CSS injection included — lives in the factory closure and runs at materialization (`factory(require)` → export surface, memoized in `loadCache`), not at script execution. A factory that requires another registered-but-unmaterialized module materializes it recursively, so load order needs no external sequencing; require cycles throw (factory-form CJS cannot deliver partial exports). `<id>/client` and the bare id name the same surface (a plugin bundle IS its package's client half).\n\nResolution branch order (`import(specifier)`): platform seed word → shell instance; memoized record → surface; shell-own static registry (`registerStatic`, app-shell) → module; registered factory → materialize; graph row (`window.__DSH_BOOT__`) → load its external classic script + materialize; anything else throws — the runtime mirror of the build-time bundle purity gate. The synchronous `require` handed to factories walks the same order minus the asynchronous load branch and records observed edges into the module record. `prefetch` is the stage-one arrival hook (script load and factory registration only; concurrent calls share one in-flight task); `invalidate` drops the factory and materialized record so the next prefetch/import reloads the script (the HMR hook).\n\nThe Node half scans enabled Loader entries for web `dsh.client` packages, resolves each `exports[\"./client\"]`, hashes the built bundle into the boot graph, and serves it with its source map under `/plugins`. Source launch maps host imports to TypeScript source but still consumes this built client export; missing files share one build instruction followed by a package/path list, while unrelated filesystem errors remain separate failures.\n\n## Model Experience\n\nNone, as the module loader is browser-side kernel machinery; nothing here reaches a model request.\n\n#### KV Cache effect\n\nNone; this package neither assembles nor sends a provider request.\n\n## Known Limitations and Deferred Work\n\n- **Flat module graph by design** — every bundle is one module node whose edges point only at table leaves; the interface (`loadCache`/`edges`/`invalidate`) already supports a general module graph, so the externalization granularity can change without an interface change.\n- **No unload bookkeeping of its own** — style removal and fiber teardown ordering live with the HMR driver (`@deepseek-ai/dsh-client-hmr`); the loader only inventories owned style tag ids per record.",
+  "_attachments": {}
+}
