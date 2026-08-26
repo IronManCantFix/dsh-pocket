@@ -1,17 +1,18 @@
 # dsh-pocket-nas 自动构建 + GitHub Release 发布
 #
-# 触发：推送 tag（形如 v1.13.4）→ 自动执行：
+# 触发：推送 tag（形如 v1.15.0）→ 自动执行：
 #   1. npm ci 安装依赖
 #   2. node client/build.mjs 重新构建前端（client.js 必须是最新构建，否则安装后
 #      手机/设置页拿到旧前端）
-#   3. 同步版本号（tag v1.13.4 → package.json version 1.13.4）
+#   3. 同步版本号（tag v1.15.0 → package.json version 1.15.0）
 #   4. npm pack 打出 dsh-pocket-nas-<版本>.tgz
-#   5. gh release create 创建 GitHub Release 并上传 tgz
+#   5. 自动生成更新说明：对比上一 tag 的提交，按类型（新增/修复/CI/文档…）分组
+#   6. gh release create 创建 GitHub Release，附上更新说明并上传 tgz
 #
 # 注意：工作流不做 npm test——本地测好（npm test 全绿）再打 tag 发布。
 #
 # 用法：
-#   git tag v1.13.4 && git push origin v1.13.4
+#   git tag v1.15.0 && git push origin v1.15.0
 # 安装插件（URL 固定，永远最新）：
 #   dsh plugin --profile web add "https://github.com/IronManCantFix/dsh-pocket/releases/latest/download/dsh-pocket.tgz" -w
 
@@ -30,6 +31,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 需要完整历史 + 全部 tag：更新说明要「对比上一 tag」取提交记录
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -57,6 +61,60 @@ jobs:
       - name: 打 npm 包（生成 dsh-pocket-nas-<版本>.tgz）
         run: npm pack
 
+      - name: 生成更新说明（git log 对比上一 tag，按提交类型分组）
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          node - "$VERSION" <<'EOF'
+          const { execSync } = require('child_process');
+          const fs = require('fs');
+          const VERSION = process.argv[2];
+          const REPO = process.env.GITHUB_REPOSITORY || 'IronManCantFix/dsh-pocket';
+          let prev = '';
+          try { prev = execSync('git describe --tags --abbrev=0 HEAD^ 2>/dev/null').toString().trim(); } catch {}
+          const range = prev ? `${prev}..HEAD` : 'HEAD';
+          let commits = [];
+          try {
+            commits = execSync(`git log --no-merges --format=%s '${range}'`).toString().split('\n').map(s => s.trim()).filter(Boolean);
+          } catch {}
+          // 过滤上一版发布时工作流自动「同步版本」的噪音提交
+          commits = commits.filter(c => !/^chore: sync version to /i.test(c));
+          const groups = { feat: [], fix: [], perf: [], docs: [], ci: [], chore: [], other: [] };
+          for (const c of commits) {
+            const m = c.match(/^(feat|fix|perf|docs|ci|chore)(\([^)]*\))?:\s*(.*)$/);
+            if (m && groups[m[1]]) groups[m[1]].push(m[3] || c);
+            else groups.other.push(c);
+          }
+          const lines = [];
+          lines.push('自动构建发布 ✅', '');
+          lines.push(`## 本次更新（v${VERSION}）`, '');
+          const sections = [
+            ['feat', '✨ 新增功能'],
+            ['fix', '🐛 问题修复'],
+            ['perf', '⚡ 性能优化'],
+            ['docs', '📚 文档'],
+            ['ci', '🔧 CI / 构建'],
+            ['chore', '🧹 其他维护'],
+            ['other', '📝 其他改动'],
+          ];
+          let hasAny = false;
+          for (const [k, title] of sections) {
+            if (groups[k].length) {
+              hasAny = true;
+              lines.push(`### ${title}`, '');
+              for (const c of groups[k]) lines.push(`- ${c}`);
+              lines.push('');
+            }
+          }
+          if (!hasAny) lines.push('（无按类型拆分的提交，详见提交历史）', '');
+          lines.push('---', '', '## 安装 / 更新', '', 'URL 固定，永远指向最新版：', '', '```sh');
+          lines.push(`dsh plugin --profile web add "https://github.com/${REPO}/releases/latest/download/dsh-pocket.tgz" -w`, '```');
+          lines.push('', '已安装过的话更新：', '', '```sh');
+          lines.push('dsh plugin --profile web update dsh-pocket-nas --latest -w', '```', '');
+          lines.push('> 更新后请重启 dsh web 生效。', '');
+          fs.writeFileSync('/tmp/notes.md', lines.join('\n'));
+          console.log(`notes 生成完成：${commits.length} 条提交，上一 tag：${prev || '(首个发布，无对比)'}`);
+          EOF
+
       - name: 版本同步提交回仓库（package.json 永远跟随最新 tag）
         run: |
           git config user.name "github-actions[bot]"
@@ -78,13 +136,6 @@ jobs:
           # releases/latest/download/dsh-pocket.tgz 永远指向最新版，
           # 安装 URL 永久固定，以后更新无需换地址。
           mv "dsh-pocket-nas-${VERSION}.tgz" dsh-pocket.tgz
-          printf '%s\n' \
-            '自动构建发布 ✅' \
-            '' \
-            '安装（URL 固定，永远指向最新版）：' \
-            '```sh' \
-            'dsh plugin --profile web add "https://github.com/'"$GITHUB_REPOSITORY"'/releases/latest/download/dsh-pocket.tgz" -w' \
-            '```' > /tmp/notes.md
           gh release create "$GITHUB_REF_NAME" \
             "dsh-pocket.tgz" \
             --repo "$GITHUB_REPOSITORY" \
