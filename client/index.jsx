@@ -80,7 +80,14 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [tunnelState, setTunnelState] = useState(null); // 隧道进度 {phase, detail, startedAt}
   const [restartNotice, setRestartNotice] = useState(false); // 重启后提示
   // 版本信息（仅展示，不自动检测更新）：{ current, loaded, githubLatest, githubUrl, loading, failed }
-  const [versionInfo, setVersionInfo] = useState({ current: null, loaded: null, githubLatest: null, githubUrl: null, loading: true, failed: false });
+  const [versionInfo, setVersionInfo] = useState({ current: null, loaded: null, githubLatest: null, githubUrl: null, githubDownloadUrl: null, loading: true, failed: false });
+
+  // 安装/更新到最新版：优先「add + GitHub 最新版对应的版本化下载 URL」——
+  // 版本化 URL 每次不同，pnpm 会真正重新下载（releases/latest 固定 URL 会被 pnpm
+  // 按 URL 缓存旧包，装完还是旧版）；查不到 GitHub 最新版时回退到 update 命令。
+  const installCmd = versionInfo.githubDownloadUrl
+    ? `dsh plugin --profile web add "${versionInfo.githubDownloadUrl}" -w`
+    : UPDATE_CMD;
   // 磁盘已更新未重启时的重启状态：{ restarting, startedAt } | null
   const [restartState, setRestartState] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false); // DSH Desktop（Electron）环境：更新/重启由桌面版管理
@@ -208,6 +215,7 @@ function PocketSettingsTab({ rpcCall, t }) {
         loaded: v?.loaded ?? null,
         githubLatest: gh?.version ?? null,
         githubUrl: gh?.url ?? 'https://github.com/IronManCantFix/dsh-pocket/releases/latest',
+        githubDownloadUrl: gh?.downloadUrl ?? null,
         loading: false,
         failed: false,
       });
@@ -421,16 +429,17 @@ function PocketSettingsTab({ rpcCall, t }) {
       ),
       h('div', { style: { color: 'var(--dsw-alias-label-secondary,#6b7280)', marginTop: 10, fontSize: 12 } }, t('updateCmd')),
       h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 } },
-        h('code', { style: { ...styles.code, margin: 0, flex: 1, background: 'var(--dsw-alias-bg-layer-2,#f3f4f6)', padding: '6px 8px', borderRadius: 6 } }, UPDATE_CMD),
+        h('code', { style: { ...styles.code, margin: 0, flex: 1, background: 'var(--dsw-alias-bg-layer-2,#f3f4f6)', padding: '6px 8px', borderRadius: 6 } }, installCmd),
         h('button', {
           style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, flex: 'none' },
           onClick: async () => {
-            try { await navigator.clipboard.writeText(UPDATE_CMD); } catch { /* 剪贴板不可用则静默 */ }
+            try { await navigator.clipboard.writeText(installCmd); } catch { /* 剪贴板不可用则静默 */ }
             setCmdCopied(true);
             setTimeout(() => setCmdCopied(false), 2500);
           },
         }, cmdCopied ? t('copied') : t('copy')),
       ),
+      h('div', { style: styles.muted, marginTop: 6, fontSize: 12 }, t('updateHint')),
       // 磁盘已更新未重启（仅非桌面端提示重启生效）
       !isDesktop && versionInfo.current && versionInfo.loaded && compareVersions(versionInfo.current, versionInfo.loaded) > 0
         ? h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 10 } },

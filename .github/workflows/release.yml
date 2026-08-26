@@ -106,11 +106,11 @@ jobs:
             }
           }
           if (!hasAny) lines.push('（无按类型拆分的提交，详见提交历史）', '');
-          lines.push('---', '', '## 安装 / 更新', '', 'URL 固定，永远指向最新版：', '', '```sh');
-          lines.push(`dsh plugin --profile web add "https://github.com/${REPO}/releases/latest/download/dsh-pocket.tgz" -w`, '```');
-          lines.push('', '已安装过的话更新：', '', '```sh');
-          lines.push('dsh plugin --profile web update dsh-pocket-nas --latest -w', '```', '');
-          lines.push('> 更新后请重启 dsh web 生效。', '');
+          lines.push('---', '', '## 安装 / 更新到最新版', '', 'URL 带版本号，pnpm 不会缓存旧包：', '', '```sh');
+          lines.push(`dsh plugin --profile web add "https://github.com/${REPO}/releases/download/v${VERSION}/dsh-pocket-nas-${VERSION}.tgz" -w`, '```');
+          lines.push('', '> 已装过旧名插件 `dsh-pocket`：先 `dsh plugin --profile web remove dsh-pocket -w` 再执行上面命令。');
+          lines.push('', '> 以后更新：把上面 URL 里的版本号换成新版本（以 Releases 页为准）再执行即可。', '');
+          lines.push('', '> 装完重启 dsh web 生效。', '');
           fs.writeFileSync('/tmp/notes.md', lines.join('\n'));
           console.log(`notes 生成完成：${commits.length} 条提交，上一 tag：${prev || '(首个发布，无对比)'}`);
           EOF
@@ -127,16 +127,18 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: 创建 GitHub Release 并上传 tgz（固定资产名 → latest 固定 URL）
+      - name: 创建 GitHub Release 并上传 tgz（版本化文件名 + 固定资产名）
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          # 先重命名为固定资产名 dsh-pocket.tgz（gh 的 file#newname 语法不可靠）：
-          # releases/latest/download/dsh-pocket.tgz 永远指向最新版，
-          # 安装 URL 永久固定，以后更新无需换地址。
-          mv "dsh-pocket-nas-${VERSION}.tgz" dsh-pocket.tgz
+          # 上传两个资产：
+          #   dsh-pocket-nas-<版本>.tgz —— 版本化文件名，安装/更新用它（URL 带版本号、每次
+          #    不同，pnpm 会真正重新下载，不会按 URL 命中旧包缓存）
+          #   dsh-pocket.tgz —— 固定资产名，兼容旧的 releases/latest 固定 URL 安装方式
+          cp "dsh-pocket-nas-${VERSION}.tgz" dsh-pocket.tgz
           gh release create "$GITHUB_REF_NAME" \
+            "dsh-pocket-nas-${VERSION}.tgz" \
             "dsh-pocket.tgz" \
             --repo "$GITHUB_REPOSITORY" \
             --title "DSH Pocket v${VERSION}" \

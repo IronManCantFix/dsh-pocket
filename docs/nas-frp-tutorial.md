@@ -44,7 +44,7 @@ node client/build.mjs
 # 4) 可选：跑全部测试（81 个，应全绿）
 npm test
 
-# 5) 打 npm 包（生成 dsh-pocket-nas-1.15.1.tgz，版本号以实际输出为准）
+# 5) 打 npm 包（生成 dsh-pocket-nas-1.15.2.tgz，版本号以实际输出为准）
 npm pack
 ```
 
@@ -52,12 +52,12 @@ npm pack
 
 ```bash
 # 安装本地构建包（-w = --workspace-root，pnpm 9 必需）
-dsh plugin --profile web add "$PWD/dsh-pocket-nas-1.15.1.tgz" -w
+dsh plugin --profile web add "$PWD/dsh-pocket-nas-1.15.2.tgz" -w
 ```
 
 > 如果 CLI 不识别本地 tgz，两种备选：
-> 1. 用绝对路径再试：`dsh plugin --profile web add /Users/你/.../dsh-pocket-nas-1.15.1.tgz -w`
-> 2. 把 `dsh-pocket-nas-1.15.1.tgz` 临时发布到 npm（或私有 registry），再按包名安装：
+> 1. 用绝对路径再试：`dsh plugin --profile web add /Users/你/.../dsh-pocket-nas-1.15.2.tgz -w`
+> 2. 把 `dsh-pocket-nas-1.15.2.tgz` 临时发布到 npm（或私有 registry），再按包名安装：
 >    `dsh plugin --profile web add dsh-pocket-nas -w`
 
 ### 1.4 重启并验证
@@ -76,7 +76,7 @@ cd dsh-pocket
 node client/build.mjs
 npm pack
 dsh plugin --profile web remove dsh-pocket-nas -w
-dsh plugin --profile web add "$PWD/dsh-pocket-nas-1.15.1.tgz" -w
+dsh plugin --profile web add "$PWD/dsh-pocket-nas-1.15.2.tgz" -w
 npx @deepseek-ai/dsh web
 ```
 
@@ -179,7 +179,7 @@ npm test                 # 跑测试（81 个）
 npm pack                 # 产出 dsh-pocket-nas-<版本>.tgz，供安装/分发
 ```
 
-打包产物 = `dsh-pocket-nas-1.15.1.tgz`（一个文件，含 `bin/`、`lib/`、`client/`、
+打包产物 = `dsh-pocket-nas-1.15.2.tgz`（一个文件，含 `bin/`、`lib/`、`client/`、
 `deploy/` 不需要随包分发，但 `package.json` 的 `files` 白名单决定了打包内容）。
 
 ---

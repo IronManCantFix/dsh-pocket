@@ -86,8 +86,8 @@ npm install -g @deepseek-ai/dsh     # 全局安装；验证：dsh --version
 ```
 
 ```sh
-# 1. 装插件（一个包全都有）
-dsh plugin --profile web add dsh-pocket-nas -w
+# 1. 装插件（一个包全都有；URL 带版本号，pnpm 不会缓存旧包；最新版本号见 Releases 页）
+dsh plugin --profile web add "https://github.com/IronManCantFix/dsh-pocket/releases/download/v1.15.2/dsh-pocket-nas-1.15.2.tgz" -w
 
 # 2. 重启 dsh web
 npx @deepseek-ai/dsh web
@@ -107,7 +107,7 @@ npx @deepseek-ai/dsh web
 
 同一页点「**开启公网访问**」→ **每次都会先弹出安全免责声明**，勾选「我已知情」后才能开启（公司/涉密网络请先确认合规）→ 等隧道建立（首次会下载 cloudflared，macOS/Linux 走清华镜像秒下）→ 手机扫「🌐 公网」二维码 → 打开链接**输入 8 位访问密码**（密码显示在配置页公网区块，默认**每次开启公网变新**，也可点「自定义」设成固定密码——自定义后不再换新）→ 人在外面（4G/公司网）也能访问。
 
-> 更新到新版本：`dsh plugin --profile web update dsh-pocket-nas --latest -w`（跨大版本时 `--latest` 是必须的，`^0.x` 范围不会自动升到 1.x）。
+> 更新到新版本：把安装 URL 里的版本号换成最新版（见 [Releases 页](https://github.com/IronManCantFix/dsh-pocket/releases)），重新执行上面的 `add` 命令即可——URL 带版本号、每次不同，pnpm 会真正重新下载（`releases/latest` 固定 URL 会被 pnpm 缓存成旧包，装完还是旧版）。从旧名插件 `dsh-pocket` 升级，先 `dsh plugin --profile web remove dsh-pocket -w` 再 add。
 
 ## ⚠️ 安全（必读）
 
@@ -133,7 +133,7 @@ npx @deepseek-ai/dsh web
 | `ERR_PNPM_ADDING_TO_ROOT` | pnpm 9 对 workspace 根的限制：安装/更新命令**末尾加 `-w`**（`--workspace-root`） |
 | 装完/更新了但界面没变化 | **必须重启 `dsh web`** 才生效；运行中的进程仍加载旧代码 |
 | `listen EADDRINUSE ... :3081` | 旧 dsh-pocket-nas 进程还占着端口：macOS/Linux `lsof -ti :3081 \| xargs kill -9`；Windows `netstat -ano \| findstr :3081`（找 LISTENING 的 PID）→ `taskkill /PID <PID> /F`，后重试 |
-| 版本停在 0.x 升不上去 | `^0.x` 范围不允许升到 1.x：更新用 `--latest`（`dsh plugin --profile web update dsh-pocket-nas --latest -w`） |
+| 版本停在 0.x 升不上去 | 用「安装/更新到最新版」的带版本号 add 命令（见上文「更新到新版本」），`releases/latest` 固定 URL 会被 pnpm 缓存旧包 |
 | 公网 `error 1033` | 见下方「公网隧道常见问题」——多半是本机代理/VPN（Clash 等 TUN 模式）掐断了隧道 |
 | 点「重启 dsh web」后页面提示进程在后台运行 | 自重启的新进程是 detached 后台进程（不挂终端），是页内更新的标准做法；停止它：macOS/Linux `lsof -ti :3080 \| xargs kill -9`；Windows `netstat -ano \| findstr :3080` → `taskkill /PID <PID> /F`（日志在 `$DSH_HOME` 下 `dsh-pocket-restart-*.log`） |
 

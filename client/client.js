@@ -1431,7 +1431,8 @@ var zh2 = {
   "versionGithubOpen": "\u6253\u5F00 GitHub",
   "versionNewer": "\uFF08\u6709\u65B0\u7248\u672C\uFF09",
   "versionRefresh": "\u91CD\u65B0\u67E5\u8BE2",
-  "updateCmd": "\u66F4\u65B0\u63D2\u4EF6\u547D\u4EE4",
+  "updateCmd": "\u5B89\u88C5 / \u66F4\u65B0\u5230\u6700\u65B0\u7248",
+  "updateHint": "\u5DF2\u88C5\u8FC7\u65E7\u540D\u63D2\u4EF6 dsh-pocket\uFF1A\u5148\u6267\u884C dsh plugin --profile web remove dsh-pocket -w\uFF0C\u518D\u8FD0\u884C\u4E0A\u9762\u547D\u4EE4",
   "copy": "\u590D\u5236",
   "copied": "\u5DF2\u590D\u5236",
   "versionRestartHint": "\u78C1\u76D8\u4E0A\u5DF2\u66F4\u65B0\u5230 v{ver}\uFF0C\u91CD\u542F dsh web \u751F\u6548",
@@ -1524,7 +1525,8 @@ var en2 = {
   "versionGithubOpen": "Open GitHub",
   "versionNewer": "(newer available)",
   "versionRefresh": "Re-check",
-  "updateCmd": "Update command",
+  "updateCmd": "Install / update to the latest version",
+  "updateHint": "If the old dsh-pocket plugin is installed, run dsh plugin --profile web remove dsh-pocket -w first, then the command above",
   "copy": "Copy",
   "copied": "Copied",
   "versionRestartHint": "v{ver} is on disk \u2014 restart dsh web to apply",
@@ -1652,7 +1654,8 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [error, setError] = (0, import_react2.useState)(null);
   const [tunnelState, setTunnelState] = (0, import_react2.useState)(null);
   const [restartNotice, setRestartNotice] = (0, import_react2.useState)(false);
-  const [versionInfo, setVersionInfo] = (0, import_react2.useState)({ current: null, loaded: null, githubLatest: null, githubUrl: null, loading: true, failed: false });
+  const [versionInfo, setVersionInfo] = (0, import_react2.useState)({ current: null, loaded: null, githubLatest: null, githubUrl: null, githubDownloadUrl: null, loading: true, failed: false });
+  const installCmd = versionInfo.githubDownloadUrl ? `dsh plugin --profile web add "${versionInfo.githubDownloadUrl}" -w` : UPDATE_CMD;
   const [restartState, setRestartState] = (0, import_react2.useState)(null);
   const [isDesktop, setIsDesktop] = (0, import_react2.useState)(false);
   const [now, setNow] = (0, import_react2.useState)(Date.now());
@@ -1767,6 +1770,7 @@ function PocketSettingsTab({ rpcCall, t }) {
         loaded: v?.loaded ?? null,
         githubLatest: gh?.version ?? null,
         githubUrl: gh?.url ?? "https://github.com/IronManCantFix/dsh-pocket/releases/latest",
+        githubDownloadUrl: gh?.downloadUrl ?? null,
         loading: false,
         failed: false
       });
@@ -1980,12 +1984,12 @@ function PocketSettingsTab({ rpcCall, t }) {
       (0, import_react2.createElement)(
         "div",
         { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 4 } },
-        (0, import_react2.createElement)("code", { style: { ...styles.code, margin: 0, flex: 1, background: "var(--dsw-alias-bg-layer-2,#f3f4f6)", padding: "6px 8px", borderRadius: 6 } }, UPDATE_CMD),
+        (0, import_react2.createElement)("code", { style: { ...styles.code, margin: 0, flex: 1, background: "var(--dsw-alias-bg-layer-2,#f3f4f6)", padding: "6px 8px", borderRadius: 6 } }, installCmd),
         (0, import_react2.createElement)("button", {
           style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, flex: "none" },
           onClick: async () => {
             try {
-              await navigator.clipboard.writeText(UPDATE_CMD);
+              await navigator.clipboard.writeText(installCmd);
             } catch {
             }
             setCmdCopied(true);
@@ -1993,6 +1997,7 @@ function PocketSettingsTab({ rpcCall, t }) {
           }
         }, cmdCopied ? t("copied") : t("copy"))
       ),
+      (0, import_react2.createElement)("div", { style: styles.muted, marginTop: 6, fontSize: 12 }, t("updateHint")),
       // 磁盘已更新未重启（仅非桌面端提示重启生效）
       !isDesktop && versionInfo.current && versionInfo.loaded && compareVersions(versionInfo.current, versionInfo.loaded) > 0 ? (0, import_react2.createElement)(
         "div",
