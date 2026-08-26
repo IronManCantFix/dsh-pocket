@@ -7,8 +7,8 @@
 <p align="center"><a href="README.en.md">English</a> | <a href="README.md">中文</a></p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/dsh-pocket"><img alt="npm" src="https://img.shields.io/npm/v/dsh-pocket?color=4d6bfe&label=npm"></a>
-  <a href="https://www.npmjs.com/package/dsh-pocket"><img alt="downloads" src="https://img.shields.io/npm/dm/dsh-pocket?color=4d6bfe"></a>
+  <a href="https://www.npmjs.com/package/dsh-pocket-nas"><img alt="npm" src="https://img.shields.io/npm/v/dsh-pocket-nas?color=4d6bfe&label=npm"></a>
+  <a href="https://www.npmjs.com/package/dsh-pocket-nas"><img alt="downloads" src="https://img.shields.io/npm/dm/dsh-pocket-nas?color=4d6bfe"></a>
   <a href="https://github.com/IronManCantFix/dsh-pocket/actions"><img alt="CI" src="https://github.com/IronManCantFix/dsh-pocket/actions/workflows/npm-publish.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-GPL--2.0-red.svg"></a>
   <a href="https://github.com/IronManCantFix/dsh-pocket/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/IronManCantFix/dsh-pocket"></a>
@@ -87,7 +87,7 @@ npm install -g @deepseek-ai/dsh     # global install; verify: dsh --version
 
 ```sh
 # 1. Install the plugin (everything in one package)
-dsh plugin --profile web add dsh-pocket -w
+dsh plugin --profile web add dsh-pocket-nas -w
 
 # 2. Restart dsh web
 npx @deepseek-ai/dsh web
@@ -107,7 +107,7 @@ Settings → **Phone access** → scan the "📶 LAN" QR code → enter the **LA
 
 On the same page click "**Enable anywhere**" → **a security disclaimer pops up every time — check "I understand and agree" to proceed** (on a corporate/classified network, confirm compliance first) → wait for the tunnel (first run downloads cloudflared; macOS/Linux use the Tsinghua mirror, seconds) → scan the "🌐 Public" QR code → the phone opens the link and **enters the 8-digit PIN** (shown in the settings page's public section; **rotated on every tunnel start by default**, or **Customize** it to a fixed PIN that is never rotated) → works from outside (4G / office network).
 
-> Upgrading: `dsh plugin --profile web update dsh-pocket --latest -w` (`--latest` is required across major versions — a `^0.x` range won't auto-jump to 1.x).
+> Upgrading: `dsh plugin --profile web update dsh-pocket-nas --latest -w` (`--latest` is required across major versions — a `^0.x` range won't auto-jump to 1.x).
 
 ## ⚠️ Security (read first)
 
@@ -132,8 +132,8 @@ On the same page click "**Enable anywhere**" → **a security disclaimer pops up
 | `dsh: command not found` / "DSH is not defined" | dsh CLI missing: `npm install -g @deepseek-ai/dsh`, or prefix commands with `npx @deepseek-ai/dsh` |
 | `ERR_PNPM_ADDING_TO_ROOT` | pnpm 9 workspace-root restriction: append `-w` (`--workspace-root`) to install/update commands |
 | Nothing changed after install/update | **You must restart `dsh web`**; the running process still loads the old code |
-| `listen EADDRINUSE ... :3081` | A stale dsh-pocket process holds the port: macOS/Linux `lsof -ti :3081 \| xargs kill -9`; Windows `netstat -ano \| findstr :3081` (find the LISTENING PID) → `taskkill /PID <PID> /F`, then retry |
-| Version stuck below 1.x | `^0.x` ranges never jump to 1.x: update with `--latest` (`dsh plugin --profile web update dsh-pocket --latest -w`) |
+| `listen EADDRINUSE ... :3081` | A stale dsh-pocket-nas process holds the port: macOS/Linux `lsof -ti :3081 \| xargs kill -9`; Windows `netstat -ano \| findstr :3081` (find the LISTENING PID) → `taskkill /PID <PID> /F`, then retry |
+| Version stuck below 1.x | `^0.x` ranges never jump to 1.x: update with `--latest` (`dsh plugin --profile web update dsh-pocket-nas --latest -w`) |
 | Public `error 1033` | See "Public tunnel troubleshooting" below — usually a local proxy/VPN (Clash etc. TUN mode) killing the tunnel |
 | After "Restart dsh web", the page says the process is running in the background | The new process from in-page self-restart is a detached background process (not attached to your terminal) — that's the standard way to apply updates in-page; stop it: macOS/Linux `lsof -ti :3080 \| xargs kill -9`; Windows `netstat -ano \| findstr :3080` → `taskkill /PID <PID> /F` (logs under `$DSH_HOME` as `dsh-pocket-restart-*.log`) |
 
@@ -186,7 +186,7 @@ Such tools take over all traffic and often cut cloudflared's tunnel-edge connect
 | `lib/frp-tunnel.mjs` | frp reverse tunnel: auto-download/host frpc (multi-mirror), render frpc.toml, connection state machine — publishes the proxy to your own NAS (fixed URL, fastest direct route in CN); NAS deployment in `deploy/nas/` |
 | `lib/web-rpc.js` | Loopback RPC: `status` / `tunnel.start` / `tunnel.stop` / `frp.*` / `version` / `update` / `restart` |
 | `client/` | Sidebar "Phone access" entry + config page (incl. NAS reverse-tunnel config) + mobile adaptation (dsh-web-mobile port) |
-| `bin/dsh-pocket.mjs` | CLI: LAN/public modes, prints URL + QR |
+| `bin/dsh-pocket-nas.mjs` | CLI: LAN/public modes, prints URL + QR |
 | `deploy/nas/` | One-shot NAS deployment: frps container only + docs (HTTPS entry via your existing reverse proxy, e.g. lucky / NAS built-in) |
 
 ## 🛠 Development

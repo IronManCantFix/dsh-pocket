@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-  id: "dsh-pocket",
+  id: "dsh-pocket-nas",
   factory: (require) => {
     var module = { exports: {} };
     var exports = module.exports;
@@ -1422,21 +1422,22 @@ var zh2 = {
   "restarted": "\u{1F504} \u5DF2\u91CD\u542F",
   "ok": "\u77E5\u9053\u4E86",
   "bgHint": "\u8FDB\u7A0B\u5728\u540E\u53F0\u8FD0\u884C\uFF08\u4E0D\u6302\u7EC8\u7AEF\uFF09\u3002\u5982\u9700\u505C\u6B62\uFF1A{cmd}",
-  "updatedRestart": "\u2705 \u5DF2\u66F4\u65B0 v{ver}\uFF0C\u91CD\u542F\u751F\u6548",
-  "updateAutoRestarting": "\u2705 \u5DF2\u66F4\u65B0 v{ver}\uFF0C\u6B63\u5728\u81EA\u52A8\u91CD\u542F\u2026",
-  "updatedOk": "\u2705 \u5DF2\u66F4\u65B0 v{ver}",
-  "updateAvailable": "\u{1F4E6} \u65B0\u7248\u672C v{ver}",
-  "updating": "\u66F4\u65B0\u4E2D\u2026",
-  "updateTo": "\u66F4\u65B0\u5230 v{ver}",
-  "restartingNow": "\u6B63\u5728\u91CD\u542F\u751F\u6548\u2026",
+  // 版本信息（不自动检测更新）：当前版本 + GitHub 最新版本 + 更新命令
+  "versionTitle": "\u7248\u672C\u4FE1\u606F",
+  "versionCurrentLabel": "\u5F53\u524D\u7248\u672C",
+  "versionGithubLabel": "GitHub \u6700\u65B0",
+  "versionGithubLoading": "\u67E5\u8BE2\u4E2D\u2026",
+  "versionGithubFail": "\u83B7\u53D6\u5931\u8D25",
+  "versionGithubOpen": "\u6253\u5F00 GitHub",
+  "versionNewer": "\uFF08\u6709\u65B0\u7248\u672C\uFF09",
+  "versionRefresh": "\u91CD\u65B0\u67E5\u8BE2",
+  "updateCmd": "\u66F4\u65B0\u63D2\u4EF6\u547D\u4EE4",
+  "copy": "\u590D\u5236",
+  "copied": "\u5DF2\u590D\u5236",
+  "versionRestartHint": "\u78C1\u76D8\u4E0A\u5DF2\u66F4\u65B0\u5230 v{ver}\uFF0C\u91CD\u542F dsh web \u751F\u6548",
   "restarting": "\u91CD\u542F\u4E2D\u2026",
   "restartNow": "\u{1F504} \u91CD\u542F dsh web \u751F\u6548",
-  "updatingDetail": "\u23F3 \u66F4\u65B0\u4E2D\uFF08\u901A\u5E38 1-2 \u5206\u949F\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
   "restartingDetail": "\u23F3 \u6B63\u5728\u91CD\u542F\u751F\u6548\uFF08\u901A\u5E38 10-30 \u79D2\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
-  "updatedAutoDetail": "\u2705 \u5DF2\u66F4\u65B0\uFF0C\u6B63\u5728\u81EA\u52A8\u91CD\u542F\u751F\u6548\uFF0C\u8BF7\u7A0D\u5019\u5237\u65B0",
-  "updatedRestartDetail": "\u2705 \u5DF2\u66F4\u65B0\uFF0C\u91CD\u542F dsh web \u751F\u6548",
-  "updateFailed": "\u274C \u5931\u8D25\uFF1A{err}\uFF08\u624B\u52A8\u66F4\u65B0\uFF1Adsh plugin --profile web update dsh-pocket --latest -w\uFF09",
-  "versionRange": "\u5F53\u524D v{cur} \u2192 \u6700\u65B0 v{latest}",
   "lanTitle": "\u{1F4F6} \u5C40\u57DF\u7F51\uFF08\u540C\u4E00 WiFi\uFF09",
   "lanHint": "\u624B\u673A\u8FDE\u63A5\u540C\u4E00 WiFi \u540E\u626B\u7801\u5373\u53EF\u6253\u5F00",
   "lanAddress": "\u5C40\u57DF\u7F51\u5730\u5740",
@@ -1480,6 +1481,8 @@ var zh2 = {
   "frpServerPort": "\u670D\u52A1\u7AEF\u53E3",
   "frpRemotePort": "\u8F6C\u53D1\u7AEF\u53E3",
   "frpToken": "\u8FDE\u63A5\u4EE4\u724C",
+  "frpTokenShow": "\u663E\u793A\u660E\u6587",
+  "frpTokenHide": "\u9690\u85CF\u660E\u6587",
   "frpTokenPlaceholder": "\u4E0E frps.toml \u7684 token \u4E00\u81F4\uFF08\u81F3\u5C11 8 \u4F4D\uFF09",
   "frpTls": "\u4F20\u8F93\u52A0\u5BC6\uFF08TLS\uFF09",
   "frpTlsHint": "\u9700 frps \u7AEF\u540C\u6B65\u5F00\u542F transport.tls.force\uFF0C\u5426\u5219\u8FDE\u4E0D\u4E0A",
@@ -1512,21 +1515,22 @@ var en2 = {
   "restarted": "\u{1F504} Restarted",
   "ok": "Got it",
   "bgHint": "Running in the background (not attached to a terminal). To stop: {cmd}",
-  "updatedRestart": "\u2705 Updated to v{ver} \u2014 restart to apply",
-  "updateAutoRestarting": "\u2705 Updated to v{ver} \u2014 auto-restarting\u2026",
-  "updatedOk": "\u2705 Updated to v{ver}",
-  "updateAvailable": "\u{1F4E6} Update available: v{ver}",
-  "updating": "Updating\u2026",
-  "updateTo": "Update to v{ver}",
-  "restartingNow": "Restarting to apply\u2026",
+  // Version info (no auto update check): current version + latest GitHub release + update command
+  "versionTitle": "Version info",
+  "versionCurrentLabel": "Current",
+  "versionGithubLabel": "GitHub latest",
+  "versionGithubLoading": "Checking\u2026",
+  "versionGithubFail": "Failed to fetch",
+  "versionGithubOpen": "Open GitHub",
+  "versionNewer": "(newer available)",
+  "versionRefresh": "Re-check",
+  "updateCmd": "Update command",
+  "copy": "Copy",
+  "copied": "Copied",
+  "versionRestartHint": "v{ver} is on disk \u2014 restart dsh web to apply",
   "restarting": "Restarting\u2026",
   "restartNow": "\u{1F504} Restart dsh web now",
-  "updatingDetail": "\u23F3 Updating (usually 1-2 min) \xB7 {s}s elapsed",
   "restartingDetail": "\u23F3 Restarting to apply (usually 10-30s) \xB7 {s}s elapsed",
-  "updatedAutoDetail": "\u2705 Updated \u2014 auto-restarting in progress, refresh shortly",
-  "updatedRestartDetail": "\u2705 Updated \u2014 restart dsh web to apply",
-  "updateFailed": "\u274C Failed: {err} (manual update: dsh plugin --profile web update dsh-pocket --latest -w)",
-  "versionRange": "Current v{cur} \u2192 latest v{latest}",
   "lanTitle": "\u{1F4F6} LAN (same Wi-Fi)",
   "lanHint": "Scan to open once your phone is on the same Wi-Fi",
   "lanAddress": "LAN address",
@@ -1570,6 +1574,8 @@ var en2 = {
   "frpServerPort": "Server port",
   "frpRemotePort": "Forward port",
   "frpToken": "Connection token",
+  "frpTokenShow": "Show token",
+  "frpTokenHide": "Hide token",
   "frpTokenPlaceholder": "same as frps.toml token (min 8 chars)",
   "frpTls": "TLS transport",
   "frpTlsHint": "requires transport.tls.force on the frps side, or the connection fails",
@@ -1592,9 +1598,10 @@ var en2 = {
 };
 
 // client/index.jsx
-var name = "dsh-pocket";
+var name = "dsh-pocket-nas";
 var inject = ["slots", "connection", "layout", "locale", "sessionLogDownload"];
-var FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS \u7AEF\u90E8\u7F72\uFF08\u4EC5 frps\uFF09
+var UPDATE_CMD = "dsh plugin --profile web update dsh-pocket-nas --latest -w";
+var FRP_COMPOSE_TEMPLATE = `# dsh-pocket-nas NAS \u7AEF\u90E8\u7F72\uFF08\u4EC5 frps\uFF09
 # \u7528\u6CD5\uFF1A\u653E\u5230 NAS \u7684 docker \u76EE\u5F55 \u2192 docker compose up -d
 # \u6B65\u9AA4\uFF1A
 #   1. frps.toml \u7684 token \u6539\u4E3A openssl rand -hex 16 \u751F\u6210\u7684\u503C\uFF08\u4E0E\u8BBE\u7F6E\u9875\u4E00\u81F4\uFF09
@@ -1645,7 +1652,8 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [error, setError] = (0, import_react2.useState)(null);
   const [tunnelState, setTunnelState] = (0, import_react2.useState)(null);
   const [restartNotice, setRestartNotice] = (0, import_react2.useState)(false);
-  const [updateInfo, setUpdateInfo] = (0, import_react2.useState)(null);
+  const [versionInfo, setVersionInfo] = (0, import_react2.useState)({ current: null, loaded: null, githubLatest: null, githubUrl: null, loading: true, failed: false });
+  const [restartState, setRestartState] = (0, import_react2.useState)(null);
   const [isDesktop, setIsDesktop] = (0, import_react2.useState)(false);
   const [now, setNow] = (0, import_react2.useState)(Date.now());
   const [frpForm, setFrpForm] = (0, import_react2.useState)(null);
@@ -1653,6 +1661,8 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [frpCopied, setFrpCopied] = (0, import_react2.useState)(false);
   const [frpBusy, setFrpBusy] = (0, import_react2.useState)(false);
   const [frpError, setFrpError] = (0, import_react2.useState)(null);
+  const [frpShowToken, setFrpShowToken] = (0, import_react2.useState)(false);
+  const [cmdCopied, setCmdCopied] = (0, import_react2.useState)(false);
   (0, import_react2.useEffect)(() => {
     const t2 = setInterval(() => setNow(Date.now()), 1e3);
     return () => clearInterval(t2);
@@ -1671,7 +1681,6 @@ function PocketSettingsTab({ rpcCall, t }) {
       if (s.desktop) setIsDesktop(true);
       if (s.restartNotice) {
         setRestartNotice(true);
-        setUpdateInfo(null);
         if (!sessionStorage.getItem("dshp-auto-reloaded")) {
           sessionStorage.setItem("dshp-auto-reloaded", "1");
           setTimeout(() => {
@@ -1692,20 +1701,23 @@ function PocketSettingsTab({ rpcCall, t }) {
   }, []);
   (0, import_react2.useEffect)(() => {
     if (frpForm === null && status?.frpConfig) {
-      setFrpForm({ ...status.frpConfig, token: "" });
+      setFrpForm({ ...status.frpConfig, token: status.frpToken ?? "" });
     }
   }, [status, frpForm]);
   const saveFrp = async () => {
     setFrpBusy(true);
     setFrpError(null);
     try {
-      await call(POCKET_ENDPOINTS.frpConfigSet, {
+      const r = await call(POCKET_ENDPOINTS.frpConfigSet, {
         serverAddr: frpForm.serverAddr,
         serverPort: Number(frpForm.serverPort),
         remotePort: Number(frpForm.remotePort),
         tls: frpForm.tls === true,
         token: String(frpForm.token ?? "").trim() || void 0
       });
+      if (typeof r?.token === "string" && r.token) {
+        setFrpForm((f) => ({ ...f, token: r.token }));
+      }
       setFrpSaved(true);
       setTimeout(() => setFrpSaved(false), 2500);
       await load();
@@ -1746,60 +1758,40 @@ function PocketSettingsTab({ rpcCall, t }) {
     } catch {
     }
   }, []);
+  const loadVersion = async () => {
+    try {
+      const v = await call(POCKET_ENDPOINTS.version, {});
+      const gh = v?.githubLatest ?? null;
+      setVersionInfo({
+        current: v?.current ?? null,
+        loaded: v?.loaded ?? null,
+        githubLatest: gh?.version ?? null,
+        githubUrl: gh?.url ?? "https://github.com/shaobeichen/dsh-pocket/releases/latest",
+        loading: false,
+        failed: false
+      });
+    } catch {
+      setVersionInfo((prev) => ({ ...prev, loading: false, failed: true }));
+    }
+  };
   (0, import_react2.useEffect)(() => {
-    if (isDesktop) return;
-    let alive = true;
-    const check = async () => {
-      try {
-        const v = await call(POCKET_ENDPOINTS.version, {});
-        const meta = await (await fetch("https://registry.npmjs.org/dsh-pocket/latest", { cache: "no-store" })).json();
-        if (!alive) return;
-        const latest = typeof meta?.version === "string" ? meta.version : null;
-        if (latest && v.current && compareVersions(latest, v.current) > 0) {
-          setUpdateInfo({ current: v.current, latest, updating: false, result: null });
-        } else if (v.current && v.loaded && compareVersions(v.current, v.loaded) > 0) {
-          setUpdateInfo({ current: v.current, latest: v.current, updating: false, result: "ok", updated: true });
-        }
-      } catch {
-      }
-    };
-    check();
-    const t2 = setInterval(check, 5 * 60 * 1e3);
-    return () => {
-      alive = false;
-      clearInterval(t2);
-    };
-  }, [isDesktop]);
+    loadVersion();
+  }, []);
   const restartPocket = async () => {
-    setUpdateInfo((u) => ({ ...u, restarting: true, startedAt: Date.now() }));
+    setRestartState({ restarting: true, startedAt: Date.now() });
     try {
       await Promise.race([
         call(POCKET_ENDPOINTS.restart, {}),
         new Promise((_, rej) => setTimeout(() => rej(new Error("restart requested (no reply within 3s)")), 3e3))
       ]);
-      setUpdateInfo((u) => ({ ...u, restarting: true, result: "ok" }));
+      setRestartState((s) => ({ ...s, restarting: true }));
     } catch (err) {
       const msg = String(err?.message ?? "");
       if (/connection|socket|fetch|network|abort|cancelled|ECONN|disconnect|closed|timeout/i.test(msg)) {
-        setUpdateInfo((u) => ({ ...u, restarting: true, result: "ok" }));
+        setRestartState((s) => ({ ...s, restarting: true }));
         return;
       }
-      setUpdateInfo((u) => ({ ...u, restarting: false, result: "fail", output: err.message }));
-    }
-  };
-  const runUpdate = async () => {
-    setUpdateInfo((u) => ({ ...u, updating: true, result: null, startedAt: Date.now() }));
-    try {
-      const r = await call(POCKET_ENDPOINTS.update, {});
-      setUpdateInfo((u) => ({
-        ...u,
-        updating: false,
-        result: r.ok ? "ok" : "fail",
-        autoRestart: r.autoRestart === true,
-        output: r.output ?? r.error
-      }));
-    } catch (err) {
-      setUpdateInfo((u) => ({ ...u, updating: false, result: "fail", output: err.message }));
+      setRestartState({ restarting: false, startedAt: null });
     }
   };
   const [disclaimerOpen, setDisclaimerOpen] = (0, import_react2.useState)(false);
@@ -1930,7 +1922,6 @@ function PocketSettingsTab({ rpcCall, t }) {
         )
       )
     ),
-    // 桌面端不显示更新/重启横幅（更新由 DSH Desktop 管理），也不需要额外提示
     // 重启后提示（进程在后台运行，停止方法）——左侧蓝色色条（桌面端不会触发本插件的自重启）
     !isDesktop && restartNotice ? (0, import_react2.createElement)(
       "div",
@@ -1943,27 +1934,77 @@ function PocketSettingsTab({ rpcCall, t }) {
       ),
       (0, import_react2.createElement)("div", { style: styles.muted, marginTop: 4, wordBreak: "break-all" }, fmt(t, "bgHint", { cmd: status?.killHint ?? `lsof -ti :${status?.dshPort ?? 3080} | xargs kill -9` }))
     ) : null,
-    // 更新提示——左侧黄色色条（提示有新版本）；单状态：有更新/更新中/已更新自动重启，不并存
-    // 桌面端不渲染（更新由 DSH Desktop 管理）
-    !isDesktop && updateInfo ? (0, import_react2.createElement)(
+    // 版本信息（桌面端/手机端都显示）：当前版本 + GitHub 最新版本 + 更新命令
+    // 不自动检测更新、不弹更新横幅；GitHub 版本由服务端查询（失败静默降级，显示「获取失败」）。
+    // 磁盘已更新未重启时（仅非桌面端）提示重启生效——桌面端更新/重启由 DSH Desktop 管理。
+    (0, import_react2.createElement)(
       "div",
-      { style: { ...styles.block, borderLeft: "4px solid var(--dsw-alias-state-warn-primary,#b45309)", borderRadius: 8, background: "var(--dsw-alias-bg-layer-2,#f3f4f6)", padding: "10px 12px" } },
+      { style: styles.block },
+      (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 13 } }, t("versionTitle")),
       (0, import_react2.createElement)(
         "div",
-        { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 } },
-        (0, import_react2.createElement)(
-          "div",
-          { style: { fontWeight: 600, fontSize: 13 } },
-          updateInfo.updated ? fmt(t, "updatedRestart", { ver: updateInfo.current }) : updateInfo.result === "ok" ? updateInfo.autoRestart ? fmt(t, "updateAutoRestarting", { ver: updateInfo.latest }) : fmt(t, "updatedOk", { ver: updateInfo.latest }) : fmt(t, "updateAvailable", { ver: updateInfo.latest })
+        { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 8, fontSize: 12, lineHeight: 1.6 } },
+        (0, import_react2.createElement)("span", { style: { color: "var(--dsw-alias-label-secondary,#6b7280)" } }, t("versionCurrentLabel")),
+        (0, import_react2.createElement)("span", { style: { fontFamily: "monospace" } }, versionInfo.current ? `v${versionInfo.current}` : "\u2014"),
+        (0, import_react2.createElement)("span", { style: { color: "var(--dsw-alias-label-secondary,#6b7280)", marginLeft: 12 } }, t("versionGithubLabel")),
+        versionInfo.loading ? (0, import_react2.createElement)("span", { style: styles.muted }, t("versionGithubLoading")) : !versionInfo.githubLatest || versionInfo.failed ? (0, import_react2.createElement)(
+          "span",
+          { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)" } },
+          t("versionGithubFail"),
+          (0, import_react2.createElement)("a", { href: versionInfo.githubUrl ?? "https://github.com/shaobeichen/dsh-pocket/releases/latest", target: "_blank", rel: "noreferrer", style: { color: "var(--dsw-alias-brand-primary,#4f6ef7)", marginLeft: 6 } }, t("versionGithubOpen"))
+        ) : (0, import_react2.createElement)(
+          "span",
+          null,
+          (0, import_react2.createElement)("a", {
+            href: versionInfo.githubUrl,
+            target: "_blank",
+            rel: "noreferrer",
+            style: {
+              fontFamily: "monospace",
+              color: compareVersions(versionInfo.githubLatest, versionInfo.current) > 0 ? "var(--dsw-alias-state-warn-primary,#b45309)" : "var(--dsw-alias-brand-primary,#4f6ef7)"
+            }
+          }, `v${versionInfo.githubLatest}`),
+          compareVersions(versionInfo.githubLatest, versionInfo.current) > 0 ? (0, import_react2.createElement)("span", { style: { color: "var(--dsw-alias-state-warn-primary,#b45309)", marginLeft: 6 } }, t("versionNewer")) : null
         ),
-        updateInfo.result !== "ok" ? (0, import_react2.createElement)("button", { style: styles.primary, onClick: runUpdate, disabled: updateInfo.updating }, updateInfo.updating ? t("updating") : fmt(t, "updateTo", { ver: updateInfo.latest })) : updateInfo.autoRestart ? (0, import_react2.createElement)("button", { style: styles.btn, disabled: true }, t("restartingNow")) : (0, import_react2.createElement)("button", { style: styles.primary, onClick: restartPocket, disabled: updateInfo.restarting }, updateInfo.restarting ? t("restarting") : t("restartNow"))
+        (0, import_react2.createElement)("button", {
+          style: { ...styles.btn, height: 26, padding: "0 8px", fontSize: 12, marginLeft: "auto" },
+          onClick: () => {
+            setVersionInfo((v) => ({ ...v, loading: true, failed: false }));
+            loadVersion();
+          },
+          disabled: versionInfo.loading,
+          title: t("versionRefresh")
+        }, "\u21BB")
       ),
+      (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-label-secondary,#6b7280)", marginTop: 10, fontSize: 12 } }, t("updateCmd")),
       (0, import_react2.createElement)(
         "div",
-        { style: styles.muted, marginTop: 4 },
-        updateInfo.updating ? fmt(t, "updatingDetail", { s: elapsed(updateInfo.startedAt) }) : updateInfo.restarting ? fmt(t, "restartingDetail", { s: elapsed(updateInfo.startedAt) }) : updateInfo.result === "ok" ? updateInfo.autoRestart ? t("updatedAutoDetail") : t("updatedRestartDetail") : updateInfo.result === "fail" ? fmt(t, "updateFailed", { err: updateInfo.output || t("unknownError") }) : fmt(t, "versionRange", { cur: updateInfo.current, latest: updateInfo.latest })
-      )
-    ) : null,
+        { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 4 } },
+        (0, import_react2.createElement)("code", { style: { ...styles.code, margin: 0, flex: 1, background: "var(--dsw-alias-bg-layer-2,#f3f4f6)", padding: "6px 8px", borderRadius: 6 } }, UPDATE_CMD),
+        (0, import_react2.createElement)("button", {
+          style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, flex: "none" },
+          onClick: async () => {
+            try {
+              await navigator.clipboard.writeText(UPDATE_CMD);
+            } catch {
+            }
+            setCmdCopied(true);
+            setTimeout(() => setCmdCopied(false), 2500);
+          }
+        }, cmdCopied ? t("copied") : t("copy"))
+      ),
+      // 磁盘已更新未重启（仅非桌面端提示重启生效）
+      !isDesktop && versionInfo.current && versionInfo.loaded && compareVersions(versionInfo.current, versionInfo.loaded) > 0 ? (0, import_react2.createElement)(
+        "div",
+        { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 10 } },
+        (0, import_react2.createElement)("div", { style: { ...styles.warn, margin: 0, flex: 1 } }, fmt(t, "versionRestartHint", { ver: versionInfo.current })),
+        (0, import_react2.createElement)("button", {
+          style: { ...styles.primary, height: 30, padding: "0 14px", fontSize: 12, flex: "none" },
+          onClick: restartPocket,
+          disabled: restartState?.restarting
+        }, restartState?.restarting ? fmt(t, "restartingDetail", { s: elapsed(restartState.startedAt) }) : t("restartNow"))
+      ) : null
+    ),
     // 局域网
     (0, import_react2.createElement)(
       "div",
@@ -2107,13 +2148,24 @@ function PocketSettingsTab({ rpcCall, t }) {
           "label",
           { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
           t("frpToken"),
-          (0, import_react2.createElement)("input", {
-            style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
-            type: "password",
-            placeholder: status?.frpHasToken ? `\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022 (${t("frpSaved")})` : t("frpTokenPlaceholder"),
-            value: frpForm.token,
-            onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value }))
-          })
+          (0, import_react2.createElement)(
+            "div",
+            { style: { position: "relative" } },
+            (0, import_react2.createElement)("input", {
+              style: { font: "inherit", height: 30, width: "100%", boxSizing: "border-box", padding: "0 34px 0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+              type: frpShowToken ? "text" : "password",
+              placeholder: status?.frpHasToken && !frpForm.token ? `\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022 (${t("frpSaved")})` : t("frpTokenPlaceholder"),
+              value: frpForm.token,
+              onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value }))
+            }),
+            (0, import_react2.createElement)("button", {
+              type: "button",
+              title: frpShowToken ? t("frpTokenHide") : t("frpTokenShow"),
+              "aria-label": frpShowToken ? t("frpTokenHide") : t("frpTokenShow"),
+              onClick: () => setFrpShowToken((v) => !v),
+              style: { position: "absolute", right: 4, top: "50%", transform: "translateY(-50%)", width: 26, height: 26, padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 14, lineHeight: 1 }
+            }, frpShowToken ? "\u{1F648}" : "\u{1F441}\uFE0F")
+          )
         ),
         (0, import_react2.createElement)(
           "label",

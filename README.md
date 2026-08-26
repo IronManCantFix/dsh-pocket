@@ -7,8 +7,8 @@
 <p align="center"><a href="README.en.md">English</a> | <a href="README.md">中文</a></p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/dsh-pocket"><img alt="npm" src="https://img.shields.io/npm/v/dsh-pocket?color=4d6bfe&label=npm"></a>
-  <a href="https://www.npmjs.com/package/dsh-pocket"><img alt="downloads" src="https://img.shields.io/npm/dm/dsh-pocket?color=4d6bfe"></a>
+  <a href="https://www.npmjs.com/package/dsh-pocket-nas"><img alt="npm" src="https://img.shields.io/npm/v/dsh-pocket-nas?color=4d6bfe&label=npm"></a>
+  <a href="https://www.npmjs.com/package/dsh-pocket-nas"><img alt="downloads" src="https://img.shields.io/npm/dm/dsh-pocket-nas?color=4d6bfe"></a>
   <a href="https://github.com/IronManCantFix/dsh-pocket/actions"><img alt="CI" src="https://github.com/IronManCantFix/dsh-pocket/actions/workflows/npm-publish.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-GPL--2.0-red.svg"></a>
   <a href="https://github.com/IronManCantFix/dsh-pocket/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/IronManCantFix/dsh-pocket"></a>
@@ -87,7 +87,7 @@ npm install -g @deepseek-ai/dsh     # 全局安装；验证：dsh --version
 
 ```sh
 # 1. 装插件（一个包全都有）
-dsh plugin --profile web add dsh-pocket -w
+dsh plugin --profile web add dsh-pocket-nas -w
 
 # 2. 重启 dsh web
 npx @deepseek-ai/dsh web
@@ -107,7 +107,7 @@ npx @deepseek-ai/dsh web
 
 同一页点「**开启公网访问**」→ **每次都会先弹出安全免责声明**，勾选「我已知情」后才能开启（公司/涉密网络请先确认合规）→ 等隧道建立（首次会下载 cloudflared，macOS/Linux 走清华镜像秒下）→ 手机扫「🌐 公网」二维码 → 打开链接**输入 8 位访问密码**（密码显示在配置页公网区块，默认**每次开启公网变新**，也可点「自定义」设成固定密码——自定义后不再换新）→ 人在外面（4G/公司网）也能访问。
 
-> 更新到新版本：`dsh plugin --profile web update dsh-pocket --latest -w`（跨大版本时 `--latest` 是必须的，`^0.x` 范围不会自动升到 1.x）。
+> 更新到新版本：`dsh plugin --profile web update dsh-pocket-nas --latest -w`（跨大版本时 `--latest` 是必须的，`^0.x` 范围不会自动升到 1.x）。
 
 ## ⚠️ 安全（必读）
 
@@ -122,7 +122,7 @@ npx @deepseek-ai/dsh web
 
 ## 💻 DSH Desktop（桌面版）
 
-- 桌面版里 dsh-pocket 的**扫码同屏**正常可用；**更新/重启由桌面版管理**（插件内这两项自动停用）
+- 桌面版里 dsh-pocket-nas 的**扫码同屏**正常可用；**更新/重启由桌面版管理**（插件内这两项自动停用）
 - ⚠️ 桌面端 **advanced 模式**暂不支持手机访问（该模式禁用网页布局、手机拿不到 layout 服务，会白屏）——请切回 **compatibility** 模式后重启；advanced 模式下手机打开会看到明确的提示层
 
 ## 🩹 常见问题（别踩的坑）
@@ -132,8 +132,8 @@ npx @deepseek-ai/dsh web
 | `dsh: command not found` / 提示 DSH 未定义 | dsh CLI 没装：`npm install -g @deepseek-ai/dsh`，或命令前加 `npx @deepseek-ai/dsh` |
 | `ERR_PNPM_ADDING_TO_ROOT` | pnpm 9 对 workspace 根的限制：安装/更新命令**末尾加 `-w`**（`--workspace-root`） |
 | 装完/更新了但界面没变化 | **必须重启 `dsh web`** 才生效；运行中的进程仍加载旧代码 |
-| `listen EADDRINUSE ... :3081` | 旧 dsh-pocket 进程还占着端口：macOS/Linux `lsof -ti :3081 \| xargs kill -9`；Windows `netstat -ano \| findstr :3081`（找 LISTENING 的 PID）→ `taskkill /PID <PID> /F`，后重试 |
-| 版本停在 0.x 升不上去 | `^0.x` 范围不允许升到 1.x：更新用 `--latest`（`dsh plugin --profile web update dsh-pocket --latest -w`） |
+| `listen EADDRINUSE ... :3081` | 旧 dsh-pocket-nas 进程还占着端口：macOS/Linux `lsof -ti :3081 \| xargs kill -9`；Windows `netstat -ano \| findstr :3081`（找 LISTENING 的 PID）→ `taskkill /PID <PID> /F`，后重试 |
+| 版本停在 0.x 升不上去 | `^0.x` 范围不允许升到 1.x：更新用 `--latest`（`dsh plugin --profile web update dsh-pocket-nas --latest -w`） |
 | 公网 `error 1033` | 见下方「公网隧道常见问题」——多半是本机代理/VPN（Clash 等 TUN 模式）掐断了隧道 |
 | 点「重启 dsh web」后页面提示进程在后台运行 | 自重启的新进程是 detached 后台进程（不挂终端），是页内更新的标准做法；停止它：macOS/Linux `lsof -ti :3080 \| xargs kill -9`；Windows `netstat -ano \| findstr :3080` → `taskkill /PID <PID> /F`（日志在 `$DSH_HOME` 下 `dsh-pocket-restart-*.log`） |
 
@@ -168,7 +168,7 @@ npx @deepseek-ai/dsh web
 - **macOS/Linux**：优先走**清华镜像**（实测 ~3MB/s，几秒下完）；失败自动回退官方 GitHub + 加速源。
 - **Windows**：无清华镜像（Homebrew 不支持 Windows），走官方直连下载（约 50MB，**单线程会慢，属正常**，耐心等几分钟；也可挂代理加速）。
 - 全部失败时配置页会给出提示。备选方案（任选其一）：
-1. 手动装好命令行 cloudflared 后重试（装好后 dsh-pocket 直接用 PATH 里的，不再下载）：
+1. 手动装好命令行 cloudflared 后重试（装好后 dsh-pocket-nas 直接用 PATH 里的，不再下载）：
    - macOS：`brew install cloudflared`；Linux：`sudo apt install cloudflared` 或官网下载
    - Windows：`winget install cloudflared` 或官网下载
    - 任何平台：`npm i -g cloudflared`
@@ -187,7 +187,7 @@ npx @deepseek-ai/dsh web
 | `lib/frp-tunnel.mjs` | frp 反向隧道：自动下载/托管 frpc（多镜像）、渲染 frpc.toml、连接状态机——把代理反向发布到自家 NAS（固定域名、国内直连最快），NAS 端部署见 `deploy/nas/` |
 | `lib/web-rpc.js` | loopback RPC：`status` / `tunnel.start` / `tunnel.stop` / `frp.*` / `version` / `update` / `restart` |
 | `client/` | 侧边栏「手机访问」入口 + 配置页（含 NAS 反向隧道配置）+ 移动端适配（dsh-web-mobile 移植） |
-| `bin/dsh-pocket.mjs` | CLI：局域网/公网模式，打印 URL + 二维码 |
+| `bin/dsh-pocket-nas.mjs` | CLI：局域网/公网模式，打印 URL + 二维码 |
 | `deploy/nas/` | NAS 端一键部署：仅 frps 容器 + 说明文档（HTTPS 入口用 NAS 现有反代工具，如 lucky/系统自带反代；完整使用教程见 [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md)） |
 
 ## 🛠 开发

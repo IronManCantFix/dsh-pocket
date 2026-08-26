@@ -396,13 +396,15 @@ test('RPC：restartNotice 读取抛错时 status 优雅降级为 null', async ()
   await service.dispose();
 });
 
-test('RPC：version 返回磁盘版本 current 与启动版本 loaded', async () => {
+test('RPC：version 返回磁盘版本 current、启动版本 loaded 与 GitHub 最新版本', async () => {
   const internals = stubInternals();
   const service = createPocketService({ dshPort: 3080, port: 3081, internals });
   const conn = fakeCtxConnection();
+  const githubLatest = { version: '9.9.9', url: 'https://github.com/shaobeichen/dsh-pocket/releases/latest' };
   installPocketRpc({ connection: conn }, {
     service,
     runUpdate: { currentVersion: () => '1.0.15', loadedVersion: () => '1.0.14', perform: async () => ({ ok: true }) },
+    getGithubLatest: async () => githubLatest,
     log: { error() {}, warn() {} },
   });
 
@@ -410,6 +412,51 @@ test('RPC：version 返回磁盘版本 current 与启动版本 loaded', async ()
   assert.equal(v.ok, true);
   assert.equal(v.value.current, '1.0.15', 'current 是磁盘实时版本');
   assert.equal(v.value.loaded, '1.0.14', 'loaded 是进程启动版本');
+  assert.deepEqual(v.value.githubLatest, githubLatest, 'githubLatest 来自注入的缓存获取器');
+
+  // 未注入获取器（例如桌面端未接线）→ 保持 null，且不发网络请求
+  const conn2 = fakeCtxConnection();
+  installPocketRpc({ connection: conn2 }, {
+    service,
+    runUpdate: { currentVersion: () => '1.0.15', loadedVersion: () => '1.0.15', perform: async () => ({ ok: true }) },
+    log: { error() {}, warn() {} },
+  });
+  const v2 = await conn2.handler(POCKET_ENDPOINTS.version, {});
+  assert.equal(v2.value.githubLatest, null, '未注入时 githubLatest 为 null');
+
+  await service.dispose();
+});
+
+test('RPC：status 与 frpConfigGet 回显 frp 连接令牌（仅 loopback 通道）', async () => {
+  const internals = stubInternals();
+  const service = createPocketService({ dshPort: 3080, port: 3081, internals });
+  const conn = fakeCtxConnection();
+  let frpToken = 'my-secret-token';
+  installPocketRpc({ connection: conn }, {
+    service,
+    getFrpConfig: () => ({ enabled: true, serverAddr: 'nas.example.com', serverPort: 7000, remotePort: 4000, tls: true, token: frpToken }),
+    setFrpConfig: (patch) => ({ ...patch, tls: patch.tls === true }),
+    setFrpToken: (v) => { frpToken = v; },
+    getToken: () => '99999999',
+    log: { error() {}, warn() {} },
+  });
+  await service.startProxy();
+
+  const s = await conn.handler(POCKET_ENDPOINTS.status, {});
+  assert.equal(s.ok, true);
+  assert.equal(s.value.frpToken, 'my-secret-token', 'status 携带 frpToken 供设置页回显');
+
+  const g = await conn.handler(POCKET_ENDPOINTS.frpConfigGet, {});
+  assert.equal(g.ok, true);
+  assert.equal(g.value.config.token, 'my-secret-token', 'frpConfigGet 回显当前 token');
+  assert.equal(g.value.hasToken, true, '配置了 token 时 hasToken 为 true');
+
+  // frpConfigSet 写新 token 后，回显与 status 都跟着变
+  const r = await conn.handler(POCKET_ENDPOINTS.frpConfigSet, { serverAddr: 'nas.example.com', serverPort: 7000, remotePort: 4000, tls: true, token: 'brand-new-token' });
+  assert.equal(r.ok, true);
+  assert.equal(r.value.token, 'brand-new-token', 'frpConfigSet 返回生效后的 token');
+  const s2 = await conn.handler(POCKET_ENDPOINTS.status, {});
+  assert.equal(s2.value.frpToken, 'brand-new-token', 'status 的 frpToken 随设置更新');
 
   await service.dispose();
 });

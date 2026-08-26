@@ -1,6 +1,6 @@
-# dsh-pocket NAS 端部署（仅 frps）
+# dsh-pocket-nas NAS 端部署（仅 frps）
 
-把电脑上 dsh-pocket 代理（默认 3081）通过 **frp 反向隧道**发布到你家 NAS，
+把电脑上 dsh-pocket-nas 代理（默认 3081）通过 **frp 反向隧道**发布到你家 NAS，
 手机访问 `https://dsh.你的域名.com` 即达电脑上的 dsh——**URL 固定、国内直连最快、
 不依赖任何第三方**（cloudflared 隧道连的是 Cloudflare 边缘，URL 每次重启变化；
 frp 连的是你自己的 NAS，域名就是你的）。
@@ -12,9 +12,9 @@ frp 连的是你自己的 NAS，域名就是你的）。
                                       │
                           NAS 127.0.0.1:7001（frps 转发端口，只听本机）
                                       ▲
-                      frp 隧道（电脑上 dsh-pocket 自动下载并托管 frpc）
+                      frp 隧道（电脑上 dsh-pocket-nas 自动下载并托管 frpc）
                                       ▼
-                  电脑 127.0.0.1:3081（dsh-pocket 代理，8 位密码）──▶ dsh web
+                  电脑 127.0.0.1:3081（dsh-pocket-nas 代理，8 位密码）──▶ dsh web
 ```
 
 **NAS 上只需要跑 frps 一个容器。** HTTPS 域名入口（反向代理）由你 NAS 上现有的
@@ -57,7 +57,7 @@ docker compose up -d
 
 ⚠️ **务必开启该规则的 WebSocket 支持**（lucky 反代配置里有 WebSocket 开关）——
 dsh 的流式输出走 WebSocket，不开则手机界面不实时、会话打不开。
-Host 头无需特殊处理（dsh-pocket 按「非 trycloudflare → 局域网密码」验证）。
+Host 头无需特殊处理（dsh-pocket-nas 按「非 trycloudflare → 局域网密码」验证）。
 
 ### 5. 防火墙放行
 
@@ -86,7 +86,7 @@ dsh 设置 → 「手机访问」→「NAS 反向隧道」→ 填 **NAS 地址**
 |---|---|
 | 反代工具 | HTTPS（Let's Encrypt 自动证书），可选再加 `basic_auth` |
 | frps | token 认证 + `proxyBindAddr=127.0.0.1`（转发端口不暴露公网）+ `allowPorts` 限范围 |
-| dsh-pocket | 8 位访问密码 + loopback 信任栅栏（不改 dsh 任何配置） |
+| dsh-pocket-nas | 8 位访问密码 + loopback 信任栅栏（不改 dsh 任何配置） |
 
 连接令牌存电脑本地 `$DSH_HOME/dsh-pocket/frp-token`（0600），设置页 RPC 不回传明文。
 

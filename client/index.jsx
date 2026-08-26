@@ -1,5 +1,5 @@
 // dsh-pocket 网页客户端：
-//   1. 设置页签「手机访问」（局域网/公网二维码 + 更新/重启提示）
+//   1. 设置页签「手机访问」（局域网/公网二维码 + 版本信息/更新命令）
 //   2. 移动端适配（移植自 MIT 项目 dsh-web-mobile，见 client/mobile/LICENSE.dsh-web-mobile）
 //
 // 手机扫码打开的就是电脑上的 dsh web，实时同步；窄屏自动变成抽屉布局。
@@ -13,11 +13,14 @@ import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS, redactStatus, compareVersions } f
 import { mobileApply } from './mobile/mobile-apply.tsx';
 import { NS as POCKET_NS, zh as POCKET_ZH, en as POCKET_EN } from './pocket-locales.js';
 
-const name = 'dsh-pocket';
+const name = 'dsh-pocket-nas';
 const inject = ['slots', 'connection', 'layout', 'locale', 'sessionLogDownload'];
 
+// 更新命令（设置页一键复制；本插件经 GitHub Releases 发布，见 release.yml）
+const UPDATE_CMD = 'dsh plugin --profile web update dsh-pocket-nas --latest -w';
+
 // NAS 端 frp 部署模板（设置页一键复制；与 deploy/nas/ 同步维护）
-const FRP_COMPOSE_TEMPLATE = `# dsh-pocket NAS 端部署（仅 frps）
+const FRP_COMPOSE_TEMPLATE = `# dsh-pocket-nas NAS 端部署（仅 frps）
 # 用法：放到 NAS 的 docker 目录 → docker compose up -d
 # 步骤：
 #   1. frps.toml 的 token 改为 openssl rand -hex 16 生成的值（与设置页一致）
@@ -76,7 +79,10 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [error, setError] = useState(null);
   const [tunnelState, setTunnelState] = useState(null); // 隧道进度 {phase, detail, startedAt}
   const [restartNotice, setRestartNotice] = useState(false); // 重启后提示
-  const [updateInfo, setUpdateInfo] = useState(null); // { current, latest, updating, result, startedAt } | null
+  // 版本信息（仅展示，不自动检测更新）：{ current, loaded, githubLatest, githubUrl, loading, failed }
+  const [versionInfo, setVersionInfo] = useState({ current: null, loaded: null, githubLatest: null, githubUrl: null, loading: true, failed: false });
+  // 磁盘已更新未重启时的重启状态：{ restarting, startedAt } | null
+  const [restartState, setRestartState] = useState(null);
   const [isDesktop, setIsDesktop] = useState(false); // DSH Desktop（Electron）环境：更新/重启由桌面版管理
   const [now, setNow] = useState(Date.now()); // 每秒 tick，驱动倒计时
   // NAS 反向隧道（frp）
@@ -85,6 +91,8 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [frpCopied, setFrpCopied] = useState(false);
   const [frpBusy, setFrpBusy] = useState(false);
   const [frpError, setFrpError] = useState(null);
+  const [frpShowToken, setFrpShowToken] = useState(false); // frp 连接令牌明文显示开关
+  const [cmdCopied, setCmdCopied] = useState(false); // 更新命令复制成功提示
 
   // 进行中操作的「已等待 X 秒」倒计时
   useEffect(() => {
@@ -106,10 +114,8 @@ function PocketSettingsTab({ rpcCall, t }) {
       setTunnelState(s.tunnelState ?? null);
       if (s.desktop) setIsDesktop(true);
       if (s.restartNotice) {
-        // 新进程确认起来了：显示一次「已重启」，清掉旧的更新横幅（单状态，不并存），
-        // 然后自动刷新页面加载新代码——不用用户手动刷新
+        // 新进程确认起来了：显示一次「已重启」，然后自动刷新页面加载新代码——不用用户手动刷新
         setRestartNotice(true);
-        setUpdateInfo(null);
         if (!sessionStorage.getItem('dshp-auto-reloaded')) {
           sessionStorage.setItem('dshp-auto-reloaded', '1');
           setTimeout(() => { try { location.reload(); } catch { /* 忽略 */ } }, 2000);
@@ -124,10 +130,11 @@ function PocketSettingsTab({ rpcCall, t }) {
     return () => clearInterval(t);
   }, []);
 
-  // frp 表单初始化：status 首次带回 frpConfig 时填一次（token 不回传，留空）
+  // frp 表单初始化：status 首次带回 frpConfig 时填一次；
+  // token 从 status.frpToken 回显（仅 loopback RPC 可见），输入框默认打星，小眼睛可切明文
   useEffect(() => {
     if (frpForm === null && status?.frpConfig) {
-      setFrpForm({ ...status.frpConfig, token: '' });
+      setFrpForm({ ...status.frpConfig, token: status.frpToken ?? '' });
     }
   }, [status, frpForm]);
 
@@ -136,16 +143,20 @@ function PocketSettingsTab({ rpcCall, t }) {
     setFrpBusy(true);
     setFrpError(null);
     try {
-      await call(POCKET_ENDPOINTS.frpConfigSet, {
+      const r = await call(POCKET_ENDPOINTS.frpConfigSet, {
         serverAddr: frpForm.serverAddr,
         serverPort: Number(frpForm.serverPort),
         remotePort: Number(frpForm.remotePort),
         tls: frpForm.tls === true,
         token: String(frpForm.token ?? '').trim() || undefined,
       });
+      // 保存后回显实际生效的 token（仅 loopback RPC 返回），输入框默认打星可切换明文
+      if (typeof r?.token === 'string' && r.token) {
+        setFrpForm((f) => ({ ...f, token: r.token }));
+      }
       setFrpSaved(true);
       setTimeout(() => setFrpSaved(false), 2500);
-      await load(); // 刷新 status（frpConfig / frpHasToken）
+      await load(); // 刷新 status（frpConfig / frpHasToken / frpToken）
     } catch (err) {
       setFrpError(err.message);
     } finally {
@@ -183,69 +194,52 @@ function PocketSettingsTab({ rpcCall, t }) {
     try { sessionStorage.removeItem('dshp-auto-reloaded'); } catch { /* 忽略 */ }
   }, []);
 
-  // 版本检测：host 当前版本 vs npm registry latest（registry 带 CORS *）
-  // 两种情况显示横幅：① 有新版可更新；② 磁盘已更新但进程还是旧代码（重启生效）
-  // cache: 'no-store' —— registry 响应带缓存头，浏览器会缓存旧版本号导致「小版本不提示」
-  // 周期重查（每 5 分钟）：npm registry 的 /latest 走 CDN 边缘缓存，刚发布后打开页面
-  // 可能拿到旧版本号——周期性重查让更新提示在缓存刷新后自动出现，不用重开页面。
-  // 桌面端（isDesktop）：更新/重启由 DSH Desktop 管理，这里不做版本检测、不显示更新横幅
+  // 版本信息（host 当前版本 + 磁盘已更新版本 + GitHub 最新版本）
+  // 不做自动更新检测、不轮询——本插件（shaobeichen/dsh-pocket）通过 GitHub Releases 发布，
+  // 与 npm registry 的 dsh-pocket 无关。GitHub 查询由服务端代理（避免浏览器 CORS/限流/网络封锁），
+  // 失败时静默降级：githubLatest 为 null，UI 显示「获取失败」+ 「打开 GitHub」链接。
+  // 桌面端（isDesktop）：更新/重启由 DSH Desktop 管理，只显示版本信息，不提示重启。
+  const loadVersion = async () => {
+    try {
+      const v = await call(POCKET_ENDPOINTS.version, {});
+      const gh = v?.githubLatest ?? null;
+      setVersionInfo({
+        current: v?.current ?? null,
+        loaded: v?.loaded ?? null,
+        githubLatest: gh?.version ?? null,
+        githubUrl: gh?.url ?? 'https://github.com/shaobeichen/dsh-pocket/releases/latest',
+        loading: false,
+        failed: false,
+      });
+    } catch {
+      setVersionInfo((prev) => ({ ...prev, loading: false, failed: true }));
+    }
+  };
+  // 挂载时查一次即可（无轮询）
   useEffect(() => {
-    if (isDesktop) return;
-    let alive = true;
-    const check = async () => {
-      try {
-        const v = await call(POCKET_ENDPOINTS.version, {});
-        const meta = await (await fetch('https://registry.npmjs.org/dsh-pocket/latest', { cache: 'no-store' })).json();
-        if (!alive) return;
-        const latest = typeof meta?.version === 'string' ? meta.version : null;
-        if (latest && v.current && compareVersions(latest, v.current) > 0) {
-          setUpdateInfo({ current: v.current, latest, updating: false, result: null });
-        } else if (v.current && v.loaded && compareVersions(v.current, v.loaded) > 0) {
-          // 已更新未重启：显示「已更新，重启生效」+ 重启按钮
-          setUpdateInfo({ current: v.current, latest: v.current, updating: false, result: 'ok', updated: true });
-        }
-      } catch { /* 网络失败静默 */ }
-    };
-    check();
-    const t = setInterval(check, 5 * 60 * 1000);
-    return () => { alive = false; clearInterval(t); };
-  }, [isDesktop]);
+    loadVersion();
+  }, []);
 
   // 重启宿主（更新生效必需：刷新页面不会重载服务端代码）
   const restartPocket = async () => {
-    setUpdateInfo((u) => ({ ...u, restarting: true, startedAt: Date.now() }));
+    setRestartState({ restarting: true, startedAt: Date.now() });
     try {
       // 宿主 500ms 后自杀，RPC 响应可能来不及送达 → 3 秒超时兜底，别让按钮永远卡「重启中…」
       await Promise.race([
         call(POCKET_ENDPOINTS.restart, {}),
         new Promise((_, rej) => setTimeout(() => rej(new Error('restart requested (no reply within 3s)')), 3000)),
       ]);
-      setUpdateInfo((u) => ({ ...u, restarting: true, result: 'ok' }));
+      // 成功收到响应：宿主即将重启，保持「重启中…」等待 restartNotice 触发的页面刷新
+      setRestartState((s) => ({ ...s, restarting: true }));
     } catch (err) {
       // 网络断连/超时同样视为「已请求重启」——旧进程即将退出，等新进程起来后刷新即可
       const msg = String(err?.message ?? '');
       if (/connection|socket|fetch|network|abort|cancelled|ECONN|disconnect|closed|timeout/i.test(msg)) {
-        setUpdateInfo((u) => ({ ...u, restarting: true, result: 'ok' }));
+        setRestartState((s) => ({ ...s, restarting: true }));
         return;
       }
-      setUpdateInfo((u) => ({ ...u, restarting: false, result: 'fail', output: err.message }));
-    }
-  };
-
-  // 一键更新：调宿主 dsh plugin update（成功后宿主自动重启生效，用户只点一次）
-  const runUpdate = async () => {
-    setUpdateInfo((u) => ({ ...u, updating: true, result: null, startedAt: Date.now() }));
-    try {
-      const r = await call(POCKET_ENDPOINTS.update, {});
-      setUpdateInfo((u) => ({
-        ...u,
-        updating: false,
-        result: r.ok ? 'ok' : 'fail',
-        autoRestart: r.autoRestart === true,
-        output: r.output ?? r.error,
-      }));
-    } catch (err) {
-      setUpdateInfo((u) => ({ ...u, updating: false, result: 'fail', output: err.message }));
+      // 其他真实错误才恢复按钮
+      setRestartState({ restarting: false, startedAt: null });
     }
   };
 
@@ -377,8 +371,6 @@ function PocketSettingsTab({ rpcCall, t }) {
       ),
     ),
 
-    // 桌面端不显示更新/重启横幅（更新由 DSH Desktop 管理），也不需要额外提示
-
     // 重启后提示（进程在后台运行，停止方法）——左侧蓝色色条（桌面端不会触发本插件的自重启）
     !isDesktop && restartNotice ? h('div', { style: { ...styles.block, borderLeft: '4px solid var(--dsw-alias-brand-primary,#4f6ef7)', borderRadius: 8, background: 'var(--dsw-alias-bg-layer-2,#f3f4f6)', padding: '10px 12px' } },
       h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } },
@@ -388,33 +380,69 @@ function PocketSettingsTab({ rpcCall, t }) {
       h('div', { style: styles.muted, marginTop: 4, wordBreak: 'break-all' }, fmt(t, 'bgHint', { cmd: status?.killHint ?? `lsof -ti :${status?.dshPort ?? 3080} | xargs kill -9` })),
     ) : null,
 
-    // 更新提示——左侧黄色色条（提示有新版本）；单状态：有更新/更新中/已更新自动重启，不并存
-    // 桌面端不渲染（更新由 DSH Desktop 管理）
-    !isDesktop && updateInfo ? h('div', { style: { ...styles.block, borderLeft: '4px solid var(--dsw-alias-state-warn-primary,#b45309)', borderRadius: 8, background: 'var(--dsw-alias-bg-layer-2,#f3f4f6)', padding: '10px 12px' } },
-      h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } },
-        h('div', { style: { fontWeight: 600, fontSize: 13 } },
-          updateInfo.updated
-            ? fmt(t, 'updatedRestart', { ver: updateInfo.current })
-            : updateInfo.result === 'ok'
-              ? (updateInfo.autoRestart ? fmt(t, 'updateAutoRestarting', { ver: updateInfo.latest }) : fmt(t, 'updatedOk', { ver: updateInfo.latest }))
-              : fmt(t, 'updateAvailable', { ver: updateInfo.latest })),
-        updateInfo.result !== 'ok'
-          ? h('button', { style: styles.primary, onClick: runUpdate, disabled: updateInfo.updating }, updateInfo.updating ? t('updating') : fmt(t, 'updateTo', { ver: updateInfo.latest }))
-          : updateInfo.autoRestart
-            ? h('button', { style: styles.btn, disabled: true }, t('restartingNow'))
-            : h('button', { style: styles.primary, onClick: restartPocket, disabled: updateInfo.restarting }, updateInfo.restarting ? t('restarting') : t('restartNow')),
+    // 版本信息（桌面端/手机端都显示）：当前版本 + GitHub 最新版本 + 更新命令
+    // 不自动检测更新、不弹更新横幅；GitHub 版本由服务端查询（失败静默降级，显示「获取失败」）。
+    // 磁盘已更新未重启时（仅非桌面端）提示重启生效——桌面端更新/重启由 DSH Desktop 管理。
+    h('div', { style: styles.block },
+      h('div', { style: { fontWeight: 600, fontSize: 13 } }, t('versionTitle')),
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 8, fontSize: 12, lineHeight: 1.6 } },
+        h('span', { style: { color: 'var(--dsw-alias-label-secondary,#6b7280)' } }, t('versionCurrentLabel')),
+        h('span', { style: { fontFamily: 'monospace' } }, versionInfo.current ? `v${versionInfo.current}` : '—'),
+        h('span', { style: { color: 'var(--dsw-alias-label-secondary,#6b7280)', marginLeft: 12 } }, t('versionGithubLabel')),
+        versionInfo.loading
+          ? h('span', { style: styles.muted }, t('versionGithubLoading'))
+        : (!versionInfo.githubLatest || versionInfo.failed)
+          ? h('span', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)' } },
+              t('versionGithubFail'),
+              h('a', { href: versionInfo.githubUrl ?? 'https://github.com/shaobeichen/dsh-pocket/releases/latest', target: '_blank', rel: 'noreferrer', style: { color: 'var(--dsw-alias-brand-primary,#4f6ef7)', marginLeft: 6 } }, t('versionGithubOpen')),
+            )
+          : h('span', null,
+              h('a', {
+                href: versionInfo.githubUrl,
+                target: '_blank',
+                rel: 'noreferrer',
+                style: {
+                  fontFamily: 'monospace',
+                  color: compareVersions(versionInfo.githubLatest, versionInfo.current) > 0
+                    ? 'var(--dsw-alias-state-warn-primary,#b45309)'
+                    : 'var(--dsw-alias-brand-primary,#4f6ef7)',
+                },
+              }, `v${versionInfo.githubLatest}`),
+              compareVersions(versionInfo.githubLatest, versionInfo.current) > 0
+                ? h('span', { style: { color: 'var(--dsw-alias-state-warn-primary,#b45309)', marginLeft: 6 } }, t('versionNewer'))
+                : null,
+            ),
+        h('button', {
+          style: { ...styles.btn, height: 26, padding: '0 8px', fontSize: 12, marginLeft: 'auto' },
+          onClick: () => { setVersionInfo((v) => ({ ...v, loading: true, failed: false })); loadVersion(); },
+          disabled: versionInfo.loading,
+          title: t('versionRefresh'),
+        }, '↻'),
       ),
-      h('div', { style: styles.muted, marginTop: 4 },
-        updateInfo.updating
-          ? fmt(t, 'updatingDetail', { s: elapsed(updateInfo.startedAt) })
-        : updateInfo.restarting
-          ? fmt(t, 'restartingDetail', { s: elapsed(updateInfo.startedAt) })
-        : updateInfo.result === 'ok'
-          ? (updateInfo.autoRestart ? t('updatedAutoDetail')
-            : t('updatedRestartDetail'))
-        : updateInfo.result === 'fail' ? fmt(t, 'updateFailed', { err: updateInfo.output || t('unknownError') })
-        : fmt(t, 'versionRange', { cur: updateInfo.current, latest: updateInfo.latest })),
-    ) : null,
+      h('div', { style: { color: 'var(--dsw-alias-label-secondary,#6b7280)', marginTop: 10, fontSize: 12 } }, t('updateCmd')),
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 } },
+        h('code', { style: { ...styles.code, margin: 0, flex: 1, background: 'var(--dsw-alias-bg-layer-2,#f3f4f6)', padding: '6px 8px', borderRadius: 6 } }, UPDATE_CMD),
+        h('button', {
+          style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, flex: 'none' },
+          onClick: async () => {
+            try { await navigator.clipboard.writeText(UPDATE_CMD); } catch { /* 剪贴板不可用则静默 */ }
+            setCmdCopied(true);
+            setTimeout(() => setCmdCopied(false), 2500);
+          },
+        }, cmdCopied ? t('copied') : t('copy')),
+      ),
+      // 磁盘已更新未重启（仅非桌面端提示重启生效）
+      !isDesktop && versionInfo.current && versionInfo.loaded && compareVersions(versionInfo.current, versionInfo.loaded) > 0
+        ? h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 10 } },
+            h('div', { style: { ...styles.warn, margin: 0, flex: 1 } }, fmt(t, 'versionRestartHint', { ver: versionInfo.current })),
+            h('button', {
+              style: { ...styles.primary, height: 30, padding: '0 14px', fontSize: 12, flex: 'none' },
+              onClick: restartPocket,
+              disabled: restartState?.restarting,
+            }, restartState?.restarting ? fmt(t, 'restartingDetail', { s: elapsed(restartState.startedAt) }) : t('restartNow')),
+          )
+        : null,
+    ),
 
     // 局域网
     h('div', { style: styles.block },
@@ -532,13 +560,22 @@ function PocketSettingsTab({ rpcCall, t }) {
         ),
         h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
           t('frpToken'),
-          h('input', {
-            style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
-            type: 'password',
-            placeholder: status?.frpHasToken ? `•••••••• (${t('frpSaved')})` : t('frpTokenPlaceholder'),
-            value: frpForm.token,
-            onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value })),
-          }),
+          h('div', { style: { position: 'relative' } },
+            h('input', {
+              style: { font: 'inherit', height: 30, width: '100%', boxSizing: 'border-box', padding: '0 34px 0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+              type: frpShowToken ? 'text' : 'password',
+              placeholder: status?.frpHasToken && !frpForm.token ? `•••••••• (${t('frpSaved')})` : t('frpTokenPlaceholder'),
+              value: frpForm.token,
+              onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value })),
+            }),
+            h('button', {
+              type: 'button',
+              title: frpShowToken ? t('frpTokenHide') : t('frpTokenShow'),
+              'aria-label': frpShowToken ? t('frpTokenHide') : t('frpTokenShow'),
+              onClick: () => setFrpShowToken((v) => !v),
+              style: { position: 'absolute', right: 4, top: '50%', transform: 'translateY(-50%)', width: 26, height: 26, padding: 0, border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 14, lineHeight: 1 },
+            }, frpShowToken ? '🙈' : '👁️'),
+          ),
         ),
         h('label', { style: { display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
           h('input', { type: 'checkbox', checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),

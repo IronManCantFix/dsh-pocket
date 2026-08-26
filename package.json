@@ -1,10 +1,10 @@
 {
-  "name": "dsh-pocket",
+  "name": "dsh-pocket-nas",
   "description": "把 DeepSeek Harness 装进你的口袋：一个包、一个设置页，手机扫码即同步访问电脑上的 DSH（局域网 + 公网，实时同屏）。",
   "type": "module",
   "main": "lib/index.js",
   "bin": {
-    "dsh-pocket": "bin/dsh-pocket.mjs"
+    "dsh-pocket-nas": "bin/dsh-pocket-nas.mjs"
   },
   "exports": {
     ".": {
@@ -76,5 +76,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "version": "1.14.1"
+  "version": "1.15.0"
 }

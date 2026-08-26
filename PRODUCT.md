@@ -10,7 +10,7 @@ DSH（DeepSeek Harness）用户在电脑前运行 agent 任务，通过手机在
 
 ## Product Purpose
 
-dsh-pocket 让手机扫码即可访问电脑上的 DSH 界面（局域网直连 / cloudflared 公网隧道 / frp NAS 反向隧道）。移动端适配（移植自 dsh-web-mobile）把 DSH 的桌面 UI 在手机上变得可用：侧栏变抽屉、会话全宽、触控优化、安全区适配。成功标准：手机上的 DSH 与电脑完全同步、可双向操作、单手可完成主要任务。
+dsh-pocket-nas 让手机扫码即可访问电脑上的 DSH 界面（局域网直连 / cloudflared 公网隧道 / frp NAS 反向隧道）。移动端适配（移植自 dsh-web-mobile）把 DSH 的桌面 UI 在手机上变得可用：侧栏变抽屉、会话全宽、触控优化、安全区适配。成功标准：手机上的 DSH 与电脑完全同步、可双向操作、单手可完成主要任务。
 
 ## Brand Personality
 

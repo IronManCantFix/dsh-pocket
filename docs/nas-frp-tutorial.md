@@ -1,6 +1,6 @@
-# dsh-pocket NAS 反向隧道（frp）使用教程
+# dsh-pocket-nas NAS 反向隧道（frp）使用教程
 
-> 目标：把电脑上 dsh-pocket 代理（3081）通过 frp 反向发布到自家 NAS，
+> 目标：把电脑上 dsh-pocket-nas 代理（3081）通过 frp 反向发布到自家 NAS，
 > 手机访问 `https://dsh.你的域名.com` 即达电脑上的 dsh——**URL 固定、国内直连最快、
 > 不依赖第三方**（对比：cloudflared 公网隧道 URL 每次重启变化，且依赖 Cloudflare 边缘）。
 
@@ -9,9 +9,9 @@
                                       │
                           NAS 127.0.0.1:7001（frps 转发端口，只听本机）
                                       ▲
-                      frp 隧道（电脑上 dsh-pocket 自动下载并托管 frpc）
+                      frp 隧道（电脑上 dsh-pocket-nas 自动下载并托管 frpc）
                                       ▼
-                  电脑 127.0.0.1:3081（dsh-pocket 代理，8 位密码）──▶ dsh web
+                  电脑 127.0.0.1:3081（dsh-pocket-nas 代理，8 位密码）──▶ dsh web
 ```
 
 ---
@@ -44,7 +44,7 @@ node client/build.mjs
 # 4) 可选：跑全部测试（81 个，应全绿）
 npm test
 
-# 5) 打 npm 包（生成 dsh-pocket-1.13.4.tgz，版本号以实际输出为准）
+# 5) 打 npm 包（生成 dsh-pocket-nas-1.15.0.tgz，版本号以实际输出为准）
 npm pack
 ```
 
@@ -52,13 +52,13 @@ npm pack
 
 ```bash
 # 安装本地构建包（-w = --workspace-root，pnpm 9 必需）
-dsh plugin --profile web add "$PWD/dsh-pocket-1.13.4.tgz" -w
+dsh plugin --profile web add "$PWD/dsh-pocket-nas-1.15.0.tgz" -w
 ```
 
 > 如果 CLI 不识别本地 tgz，两种备选：
-> 1. 用绝对路径再试：`dsh plugin --profile web add /Users/你/.../dsh-pocket-1.13.4.tgz -w`
-> 2. 把 `dsh-pocket-1.13.4.tgz` 临时发布到 npm（或私有 registry），再按包名安装：
->    `dsh plugin --profile web add dsh-pocket -w`
+> 1. 用绝对路径再试：`dsh plugin --profile web add /Users/你/.../dsh-pocket-nas-1.15.0.tgz -w`
+> 2. 把 `dsh-pocket-nas-1.15.0.tgz` 临时发布到 npm（或私有 registry），再按包名安装：
+>    `dsh plugin --profile web add dsh-pocket-nas -w`
 
 ### 1.4 重启并验证
 
@@ -75,8 +75,8 @@ npx @deepseek-ai/dsh web   # 必须重启：运行中的进程仍加载旧代码
 cd dsh-pocket
 node client/build.mjs
 npm pack
-dsh plugin --profile web remove dsh-pocket -w
-dsh plugin --profile web add "$PWD/dsh-pocket-1.13.4.tgz" -w
+dsh plugin --profile web remove dsh-pocket-nas -w
+dsh plugin --profile web add "$PWD/dsh-pocket-nas-1.15.0.tgz" -w
 npx @deepseek-ai/dsh web
 ```
 
@@ -127,7 +127,7 @@ openssl rand -hex 16
 
 ⚠️ **务必开启该规则的 WebSocket 支持**（lucky 反代配置里有 WebSocket 开关）——
 dsh 的流式输出走 WebSocket，不开则手机界面不实时、会话打不开。
-Host 头无需特殊处理（dsh-pocket 按「非 trycloudflare → 局域网密码」验证）。
+Host 头无需特殊处理（dsh-pocket-nas 按「非 trycloudflare → 局域网密码」验证）。
 
 ### 2.5 防火墙放行
 
@@ -164,7 +164,7 @@ Host 头无需特殊处理（dsh-pocket 按「非 trycloudflare → 局域网密
 2. 输入电脑设置页「**局域网访问密码**」（8 位数字，局域网区块显示的那个）
 3. 看到的界面与电脑完全一致，实时同步（可双向操作）
 
-> 密码说明：手机访问的 Host 是 NAS 域名（非 trycloudflare），dsh-pocket 会按
+> 密码说明：手机访问的 Host 是 NAS 域名（非 trycloudflare），dsh-pocket-nas 会按
 > **局域网密码**验证——所以输的是局域网区块的密码，不是公网密码。
 > **局域网密码请保持开启**，它是这条链路的最后一道闸。
 
@@ -176,10 +176,10 @@ Host 头无需特殊处理（dsh-pocket 按「非 trycloudflare → 局域网密
 npm install              # 首次
 node client/build.mjs    # 改 client/ 后重打包前端（必须，否则设置页不更新）
 npm test                 # 跑测试（81 个）
-npm pack                 # 产出 dsh-pocket-<版本>.tgz，供安装/分发
+npm pack                 # 产出 dsh-pocket-nas-<版本>.tgz，供安装/分发
 ```
 
-打包产物 = `dsh-pocket-1.13.4.tgz`（一个文件，含 `bin/`、`lib/`、`client/`、
+打包产物 = `dsh-pocket-nas-1.15.0.tgz`（一个文件，含 `bin/`、`lib/`、`client/`、
 `deploy/` 不需要随包分发，但 `package.json` 的 `files` 白名单决定了打包内容）。
 
 ---
