@@ -38,6 +38,7 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 var import_react2 = require("react");
+var import_dsh_client_ui_primitives4 = require("@deepseek-ai/dsh-client-ui-primitives");
 
 // client/api.js
 var POCKET_RPC_CHANNEL = "/dsh-pocket";
@@ -348,7 +349,7 @@ var MOBILE_CSS = `
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 14px;
   border: 1px solid var(--dsw-alias-border-l1, rgba(0, 0, 0, .12));
   border-radius: 12px;
@@ -392,6 +393,15 @@ var MOBILE_CSS = `
   cursor: pointer;
   box-shadow: 0 2px 12px rgba(0, 0, 0, .18);
   -webkit-tap-highlight-color: transparent;
+}
+/* Grow the touch target to ~54px without changing the visual size (same
+   transparent ::before trick as the header toggles): the thumb can miss a
+   bare 38px circle. */
+[data-mobile-nav="fab"]::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
 }
 [data-mobile-nav="fab"]:hover {
   background: var(--dsw-alias-button-floating-hover, rgba(0, 0, 0, .08));
@@ -1178,6 +1188,21 @@ var MOBILE_CSS = `
       grid-template-columns: repeat(2, 1fr) !important;
     }
   }
+
+  /* prefers-reduced-motion: keep every navigation surface's transitions off
+     \u2014 the drawer slide, backdrop fade and both bottom sheets' rise. (The
+     WAAPI replay for the sheets is guarded in mobile-apply.tsx; CSS rules
+     cannot reach those programmatic animations.) */
+  @media (prefers-reduced-motion: reduce) {
+    [data-mobile-nav="frame"] > :first-child {
+      transition: none !important;
+    }
+    [data-mobile-nav="backdrop"],
+    [data-aionui-explorer-col],
+    [data-aionui-preview-col] {
+      animation: none !important;
+    }
+  }
 }
 
 /* ---------- desktop: the mobile controls must never appear ---------- */
@@ -1213,6 +1238,17 @@ var en = {
 };
 
 // client/mobile/mobile-apply.tsx
+function rafBatch(run) {
+  let scheduled = false;
+  return () => {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      run();
+    });
+  };
+}
 function mobileApply(ctx) {
   ctx.effect(() => ctx.locale.register(NS, { zh, en }), "dsh-mobile-nav: dictionaries");
   ctx.effect(() => {
@@ -1233,7 +1269,7 @@ function mobileApply(ctx) {
     themeMeta.name = "theme-color";
     const bodyBg = () => getComputedStyle(document.body).backgroundColor;
     const sync = () => {
-      if (viewport !== null) viewport.content = "width=device-width, initial-scale=1, viewport-fit=cover";
+      if (viewport !== null) viewport.content = "width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content";
       themeMeta.content = bodyBg();
       if (themeMeta.parentElement === null) document.head.appendChild(themeMeta);
     };
@@ -1280,7 +1316,7 @@ function mobileApply(ctx) {
     };
     check();
     const timer = window.setTimeout(check, 1500);
-    const observer = new MutationObserver(check);
+    const observer = new MutationObserver(rafBatch(check));
     observer.observe(document.body, { childList: true, subtree: true });
     return () => {
       window.clearTimeout(timer);
@@ -1328,31 +1364,43 @@ function mobileApply(ctx) {
         return;
       }
     };
-    const mark = () => {
+    let marked = null;
+    let lastScan = 0;
+    const scan = () => {
+      const now = Date.now();
+      if (marked !== null && marked.isConnected && now - lastScan < 500) return;
+      lastScan = now;
+      if (marked === null || !marked.isConnected) marked = null;
       for (const root of document.querySelectorAll('[data-phase] [class$="_root"]')) {
         if (root.closest('[class$="_composerStack"]') === null) continue;
+        if (root.querySelector("button") !== null) continue;
         const text = root.textContent ?? "";
         if (!/(turns|steps|\bLLM\b|轮|步)/.test(text)) continue;
         if (root.querySelector("textarea") !== null) continue;
         root.setAttribute("data-mobile-nav", "stats");
         moveTps(root);
+        marked = root;
         return;
       }
     };
+    const mark = rafBatch(scan);
     const observer = new MutationObserver(mark);
     observer.observe(document.body, { childList: true, subtree: true });
-    mark();
+    scan();
     return () => {
       observer.disconnect();
+      marked = null;
     };
   }, "dsh-mobile-nav: stats line marker");
   ctx.effect(() => {
     const narrow = window.matchMedia("(max-width: 1023px)");
     if (!narrow.matches) return () => {
     };
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const cols = ["[data-aionui-explorer-col]", "[data-aionui-preview-col]"];
     const seen = /* @__PURE__ */ new Map();
     const play = (el) => {
+      if (reducedMotion.matches) return;
       el.animate(
         [
           { opacity: 0, transform: "translateY(28px)" },
@@ -1371,7 +1419,7 @@ function mobileApply(ctx) {
         seen.set(sel, visible);
       }
     };
-    const observer = new MutationObserver(check);
+    const observer = new MutationObserver(rafBatch(check));
     observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ["style", "class", "data-aionui-explorer-open"] });
     check();
     return () => {
@@ -1414,7 +1462,6 @@ var zh2 = {
   "section": "\u624B\u673A\u8BBF\u95EE",
   "entryLabel": "\u624B\u673A\u8BBF\u95EE",
   "closeDialog": "\u5173\u95ED",
-  "title": "\u{1F4F1} \u624B\u673A\u8BBF\u95EE",
   "subtitle": "\u624B\u673A\u626B\u7801\u6253\u5F00\u7684\u5C31\u662F\u7535\u8111\u4E0A\u7684\u8FD9\u4E2A\u754C\u9762\uFF0C\u5B9E\u65F6\u540C\u6B65",
   "developer": "\u5F00\u53D1\u8005\uFF1A\u7A0B\u5E8F\u5458\u5C11\u5317\u6668",
   "starAsk": "\u2B50 \u987A\u624B\u7559\u9897 Star\uFF0C\u4F5C\u8005\u80FD\u9AD8\u5174\u4E00\u6574\u5929",
@@ -1455,6 +1502,12 @@ var zh2 = {
   "save": "\u4FDD\u5B58",
   "cancel": "\u53D6\u6D88",
   "pinInvalid": "\u5BC6\u7801\u5FC5\u987B\u662F 8 \u4F4D\u6570\u5B57",
+  // 明文切换 / 复制失败反馈
+  "show": "\u663E\u793A",
+  "hide": "\u9690\u85CF",
+  "copyFail": "\u590D\u5236\u5931\u8D25",
+  // 公网免责声明：确认按钮（与勾选框文案区分，动词 + 宾语）
+  "confirmEnable": "\u786E\u8BA4\u5E76\u5F00\u542F\u516C\u7F51",
   "pinCustomHint": "\u81EA\u5B9A\u4E49\u540E\u5F00\u542F\u516C\u7F51\u4E0D\u518D\u81EA\u52A8\u6362\u65B0",
   "lanPinOff": "\u{1F513} \u5BC6\u7801\u5DF2\u5173\u95ED\uFF1A\u626B\u7801\u76F4\u8FDE\uFF0C\u65E0\u9700\u5BC6\u7801\uFF08\u4EC5\u540C\u4E00\u5C40\u57DF\u7F51\u8BBE\u5907\u53EF\u8BBF\u95EE\uFF1B\u516C\u7F51\u4ECD\u8981\u5BC6\u7801\uFF09",
   "lanStarting": "\u4EE3\u7406\u672A\u5C31\u7EEA\u2026",
@@ -1496,7 +1549,7 @@ var zh2 = {
   "frpStateIdle": "\u672A\u5F00\u542F",
   "frpStateDownloading": "\u23F3 \u4E0B\u8F7D frpc\uFF08\u9996\u6B21\u7EA6 10MB\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
   "frpStateConnecting": "\u23F3 \u8FDE\u63A5 NAS frps\uFF08\u901A\u5E38\u6570\u79D2\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
-  "frpStateReady": "\u2705 \u96A7\u9053\u5C31\u7EEA \xB7 \u624B\u673A\u8BBF\u95EE https://\u4F60\u7684NAS\u57DF\u540D\uFF08\u8F93\u5165\u4E0A\u9762\u7684\u5C40\u57DF\u7F51\u5BC6\u7801\uFF09",
+  "frpStateReady": "\u2705 \u96A7\u9053\u5C31\u7EEA \xB7 \u624B\u673A\u8BBF\u95EE https://\u4F60\u7684NAS\u57DF\u540D\uFF08\u8BBF\u95EE\u5BC6\u7801\u5373\u300C\u5C40\u57DF\u7F51\u300D\u7684\u5BC6\u7801\uFF09",
   "frpStateError": "\u274C {detail}",
   "frpCopyCompose": "\u{1F4CB} \u590D\u5236 NAS \u90E8\u7F72\u6A21\u677F\uFF08docker-compose\uFF09",
   "frpCopied": "\u2705 \u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\uFF08frps + caddy\uFF1B\u653E\u884C 443/80/7000 \u7AEF\u53E3\uFF0C\u89E3\u6790\u57DF\u540D\u5230 NAS\uFF09",
@@ -1508,7 +1561,6 @@ var en2 = {
   "section": "Phone access",
   "entryLabel": "Phone access",
   "closeDialog": "Close",
-  "title": "\u{1F4F1} Phone access",
   "subtitle": "The phone shows this exact screen, live",
   "developer": "Developer: \u5C11\u5317\u6668 (shaobeichen)",
   "starAsk": "\u2B50 Drop a Star if it helped \u2014 it makes the author\u2019s day",
@@ -1549,6 +1601,12 @@ var en2 = {
   "save": "Save",
   "cancel": "Cancel",
   "pinInvalid": "PIN must be exactly 8 digits",
+  // Reveal toggle / copy failure feedback
+  "show": "Show",
+  "hide": "Hide",
+  "copyFail": "Copy failed",
+  // Public-tunnel disclaimer: confirm button label (verb + object)
+  "confirmEnable": "Confirm & enable",
   "pinCustomHint": "custom PINs are not rotated on tunnel start",
   "lanPinOff": "\u{1F513} PIN off \u2014 scan & go, no PIN (LAN devices only; public still requires PIN)",
   "lanStarting": "Proxy starting\u2026",
@@ -1590,7 +1648,7 @@ var en2 = {
   "frpStateIdle": "Not started",
   "frpStateDownloading": "\u23F3 Downloading frpc (first run ~10MB) \xB7 {s}s elapsed",
   "frpStateConnecting": "\u23F3 Connecting to NAS frps (usually seconds) \xB7 {s}s elapsed",
-  "frpStateReady": "\u2705 Tunnel ready \xB7 open https://your-NAS-domain on the phone (enter the LAN PIN above)",
+  "frpStateReady": "\u2705 Tunnel ready \xB7 open https://your-NAS-domain on the phone (the PIN is the LAN access PIN)",
   "frpStateError": "\u274C {detail}",
   "frpCopyCompose": "\u{1F4CB} Copy NAS deploy template (docker-compose)",
   "frpCopied": "\u2705 Copied to clipboard (frps + caddy; open ports 443/80/7000 and point your domain at the NAS)",
@@ -1648,6 +1706,80 @@ var styles = {
   qr: { width: 220, height: 220, borderRadius: 10, border: "1px solid var(--dsw-alias-border-l2,#e5e7eb)", margin: "8px 0" },
   warn: { color: "var(--dsw-alias-state-warn-primary,#b45309)", fontSize: 12, lineHeight: 1.5 }
 };
+var POCKET_UI_CSS = `
+/* \u4FA7\u8FB9\u680F\u5165\u53E3\uFF08\u5BBD\u884C + \u6536\u8D77\u540E\u7684\u5706\u5F62 rail \u90FD\u7528\u540C\u4E00\u94A9\u5B50\uFF09 */
+[data-dsh-pocket-entry] {
+  transition: background var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease);
+}
+[data-dsh-pocket-entry]:hover {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(0,0,0,.06)) !important;
+}
+[data-dsh-pocket-entry]:focus-visible {
+  outline: 2px solid var(--dsw-alias-state-business-primary, #4f6ef7);
+  outline-offset: -2px;
+}
+/* \u8BBE\u7F6E\u9875\u63A7\u4EF6\u72B6\u6001 */
+button[data-dshp] {
+  transition:
+    background var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease),
+    color var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease),
+    opacity var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease);
+}
+button[data-dshp="primary"]:hover:not(:disabled) {
+  background: var(--dsw-alias-button-primary-hover, var(--dsw-alias-button-primary-fill, #4f6ef7)) !important;
+}
+button[data-dshp="primary"]:disabled { opacity: .5 !important; cursor: default; }
+button[data-dshp="ghost"]:hover:not(:disabled) {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(0,0,0,.06)) !important;
+}
+button[data-dshp="ghost"]:disabled {
+  color: var(--dsw-alias-label-dimmed, #9aa1ac) !important;
+  cursor: default;
+}
+input[data-dshp-field], select[data-dshp-field] {
+  transition: border-color var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease);
+}
+input[data-dshp-field]:focus, select[data-dshp-field]:focus {
+  outline: none;
+  border-color: var(--dsw-alias-state-business-primary, #4f6ef7) !important;
+}
+button[data-dshp]:focus-visible, button[data-dshp-toggle]:focus-visible, [data-dshp-link]:focus-visible {
+  outline: 2px solid var(--dsw-alias-state-business-primary, #4f6ef7);
+  outline-offset: 1px;
+}
+/* \u5BF9\u8BDD\u6846\u5165\u573A\uFF1A\u906E\u7F69\u6DE1\u5165 + \u9762\u677F\u8F7B\u5FAE\u4E0A\u6D6E\uFF0Creduced-motion \u76F4\u63A5\u5173\u95ED */
+@keyframes dsh-pocket-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dsh-pocket-pop {
+  from { opacity: 0; transform: translateY(10px) scale(.985); }
+  to { opacity: 1; transform: none; }
+}
+[data-dsh-pocket-overlay] { animation: dsh-pocket-fade .15s linear both; }
+[data-dsh-pocket-panel] { animation: dsh-pocket-pop .18s cubic-bezier(.22,1,.36,1) both; }
+@media (prefers-reduced-motion: reduce) {
+  [data-dsh-pocket-overlay], [data-dsh-pocket-panel] { animation: none; }
+}
+`;
+var copyText = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+  }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand("copy");
+    ta.remove();
+    return ok;
+  } catch {
+    return false;
+  }
+};
 function PocketSettingsTab({ rpcCall, t }) {
   const [status, setStatus] = (0, import_react2.useState)(null);
   const [busy, setBusy] = (0, import_react2.useState)(false);
@@ -1661,11 +1793,18 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [now, setNow] = (0, import_react2.useState)(Date.now());
   const [frpForm, setFrpForm] = (0, import_react2.useState)(null);
   const [frpSaved, setFrpSaved] = (0, import_react2.useState)(false);
-  const [frpCopied, setFrpCopied] = (0, import_react2.useState)(false);
   const [frpBusy, setFrpBusy] = (0, import_react2.useState)(false);
   const [frpError, setFrpError] = (0, import_react2.useState)(null);
   const [frpShowToken, setFrpShowToken] = (0, import_react2.useState)(false);
-  const [cmdCopied, setCmdCopied] = (0, import_react2.useState)(false);
+  const [copied, setCopied] = (0, import_react2.useState)(null);
+  const copiedTimerRef = (0, import_react2.useRef)(null);
+  (0, import_react2.useEffect)(() => () => clearTimeout(copiedTimerRef.current), []);
+  const copyWithFeedback = async (key, text) => {
+    clearTimeout(copiedTimerRef.current);
+    const ok = await copyText(text);
+    setCopied(ok ? key : `!${key}`);
+    copiedTimerRef.current = setTimeout(() => setCopied(null), ok ? 2500 : 3e3);
+  };
   (0, import_react2.useEffect)(() => {
     const t2 = setInterval(() => setNow(Date.now()), 1e3);
     return () => clearInterval(t2);
@@ -1748,12 +1887,7 @@ function PocketSettingsTab({ rpcCall, t }) {
     }
   };
   const copyFrpCompose = async () => {
-    try {
-      await navigator.clipboard.writeText(FRP_COMPOSE_TEMPLATE);
-      setFrpCopied(true);
-      setTimeout(() => setFrpCopied(false), 3e3);
-    } catch {
-    }
+    await copyWithFeedback("frp", FRP_COMPOSE_TEMPLATE);
   };
   (0, import_react2.useEffect)(() => {
     try {
@@ -1869,6 +2003,7 @@ function PocketSettingsTab({ rpcCall, t }) {
     { style: { marginTop: 6, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", lineHeight: 1.5 } },
     t("customizing"),
     (0, import_react2.createElement)("input", {
+      "data-dshp-field": "",
       style: { width: 110, margin: "0 6px", padding: "4px 8px", fontSize: 14, letterSpacing: 2, textAlign: "center", border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", borderRadius: 6, outline: "none" },
       type: "password",
       inputMode: "numeric",
@@ -1881,11 +2016,11 @@ function PocketSettingsTab({ rpcCall, t }) {
         if (e.key === "Escape") setCustomPin(null);
       }
     }),
-    (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, marginLeft: 2 }, onClick: () => saveCustomPin(which) }, t("save")),
-    (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12 }, onClick: () => setCustomPin(null) }, t("cancel")),
+    (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, marginLeft: 2 }, "data-dshp": "ghost", onClick: () => saveCustomPin(which) }, t("save")),
+    (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12 }, "data-dshp": "ghost", onClick: () => setCustomPin(null) }, t("cancel")),
     customPin?.err ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", marginTop: 4 } }, customPin.err) : null
   );
-  const customBtn = (which) => (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, marginLeft: 8 }, onClick: () => setCustomPin({ which, value: "", err: null }) }, t("customize"));
+  const customBtn = (which) => (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, marginLeft: 8 }, "data-dshp": "ghost", onClick: () => setCustomPin({ which, value: "", err: null }) }, t("customize"));
   const lanUrl = status?.lanUrl;
   const tunnelUrl = status?.tunnelUrl;
   const tunnelPhase = tunnelState?.phase ?? "idle";
@@ -1905,15 +2040,11 @@ function PocketSettingsTab({ rpcCall, t }) {
   return (0, import_react2.createElement)(
     "div",
     { style: styles.card },
+    // 对话框头部已写明「手机访问」，卡片内不再重复标题，只留一句副标题
     (0, import_react2.createElement)(
       "div",
       { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 } },
-      (0, import_react2.createElement)(
-        "div",
-        null,
-        (0, import_react2.createElement)("strong", null, t("title")),
-        (0, import_react2.createElement)("div", { style: styles.muted }, t("subtitle"))
-      ),
+      (0, import_react2.createElement)("div", { style: styles.muted }, t("subtitle")),
       (0, import_react2.createElement)(
         "div",
         { style: { fontSize: 12, color: "var(--dsw-alias-label-tertiary,#8b93a1)", textAlign: "right" } },
@@ -1926,15 +2057,15 @@ function PocketSettingsTab({ rpcCall, t }) {
         )
       )
     ),
-    // 重启后提示（进程在后台运行，停止方法）——左侧蓝色色条（桌面端不会触发本插件的自重启）
+    // 重启后提示（进程在后台运行，停止方法）——整框浅底色，不用侧边色条
     !isDesktop && restartNotice ? (0, import_react2.createElement)(
       "div",
-      { style: { ...styles.block, borderLeft: "4px solid var(--dsw-alias-brand-primary,#4f6ef7)", borderRadius: 8, background: "var(--dsw-alias-bg-layer-2,#f3f4f6)", padding: "10px 12px" } },
+      { style: { ...styles.block, border: "1px solid var(--dsw-alias-border-l2,#e5e7eb)", borderRadius: 8, background: "var(--dsw-alias-bg-layer-2,#f3f4f6)", padding: "10px 12px" } },
       (0, import_react2.createElement)(
         "div",
         { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 } },
         (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 13 } }, t("restarted")),
-        (0, import_react2.createElement)("button", { style: styles.btn, onClick: () => setRestartNotice(false) }, t("ok"))
+        (0, import_react2.createElement)("button", { style: styles.btn, "data-dshp": "ghost", onClick: () => setRestartNotice(false) }, t("ok"))
       ),
       (0, import_react2.createElement)("div", { style: styles.muted, marginTop: 4, wordBreak: "break-all" }, fmt(t, "bgHint", { cmd: status?.killHint ?? `lsof -ti :${status?.dshPort ?? 3080} | xargs kill -9` }))
     ) : null,
@@ -1972,30 +2103,30 @@ function PocketSettingsTab({ rpcCall, t }) {
         ),
         (0, import_react2.createElement)("button", {
           style: { ...styles.btn, height: 26, padding: "0 8px", fontSize: 12, marginLeft: "auto" },
+          "data-dshp": "ghost",
           onClick: () => {
             setVersionInfo((v) => ({ ...v, loading: true, failed: false }));
             loadVersion();
           },
           disabled: versionInfo.loading,
-          title: t("versionRefresh")
-        }, "\u21BB")
+          title: t("versionRefresh"),
+          "aria-label": t("versionRefresh")
+        }, typeof import_dsh_client_ui_primitives4.IconRefreshOutline16 === "function" ? (0, import_react2.createElement)(import_dsh_client_ui_primitives4.IconRefreshOutline16, { size: 14 }) : "\u21BB")
       ),
       (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-label-secondary,#6b7280)", marginTop: 10, fontSize: 12 } }, t("updateCmd")),
       (0, import_react2.createElement)(
         "div",
         { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 4 } },
         (0, import_react2.createElement)("code", { style: { ...styles.code, margin: 0, flex: 1, background: "var(--dsw-alias-bg-layer-2,#f3f4f6)", padding: "6px 8px", borderRadius: 6 } }, installCmd),
-        (0, import_react2.createElement)("button", {
-          style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, flex: "none" },
-          onClick: async () => {
-            try {
-              await navigator.clipboard.writeText(installCmd);
-            } catch {
-            }
-            setCmdCopied(true);
-            setTimeout(() => setCmdCopied(false), 2500);
-          }
-        }, cmdCopied ? t("copied") : t("copy"))
+        (0, import_react2.createElement)(
+          "button",
+          {
+            style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, flex: "none" },
+            "data-dshp": "ghost",
+            onClick: () => copyWithFeedback("cmd", installCmd)
+          },
+          copied === "cmd" ? t("copied") : copied === "!cmd" ? t("copyFail") : t("copy")
+        )
       ),
       (0, import_react2.createElement)("div", { style: styles.muted, marginTop: 6, fontSize: 12 }, t("updateHint")),
       // 磁盘已更新未重启（仅非桌面端提示重启生效）
@@ -2005,10 +2136,124 @@ function PocketSettingsTab({ rpcCall, t }) {
         (0, import_react2.createElement)("div", { style: { ...styles.warn, margin: 0, flex: 1 } }, fmt(t, "versionRestartHint", { ver: versionInfo.current })),
         (0, import_react2.createElement)("button", {
           style: { ...styles.primary, height: 30, padding: "0 14px", fontSize: 12, flex: "none" },
+          "data-dshp": "primary",
           onClick: restartPocket,
           disabled: restartState?.restarting
         }, restartState?.restarting ? fmt(t, "restartingDetail", { s: elapsed(restartState.startedAt) }) : t("restartNow"))
       ) : null
+    ),
+    // NAS 反向隧道（frp）：自建入口——本插件主打 NAS 场景，排在局域网/公网之前；
+    // 手机访问 NAS 域名即达电脑，国内直连最快
+    (0, import_react2.createElement)(
+      "div",
+      { style: styles.block },
+      (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 13 } }, t("frpTitle")),
+      (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 4 } }, t("frpHint")),
+      frpForm ? (0, import_react2.createElement)(
+        "div",
+        { style: { marginTop: 10, display: "grid", gap: 8 } },
+        (0, import_react2.createElement)(
+          "label",
+          { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+          t("frpServerAddr"),
+          (0, import_react2.createElement)("input", {
+            "data-dshp-field": "",
+            style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+            type: "text",
+            placeholder: t("frpServerAddrPlaceholder"),
+            value: frpForm.serverAddr,
+            onChange: (e) => setFrpForm((f) => ({ ...f, serverAddr: e.target.value }))
+          })
+        ),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { display: "flex", gap: 8 } },
+          (0, import_react2.createElement)(
+            "label",
+            { style: { flex: 1, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+            t("frpServerPort"),
+            (0, import_react2.createElement)("input", {
+              "data-dshp-field": "",
+              style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+              type: "number",
+              min: 1,
+              max: 65535,
+              value: frpForm.serverPort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, serverPort: e.target.value }))
+            })
+          ),
+          (0, import_react2.createElement)(
+            "label",
+            { style: { flex: 1, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+            t("frpRemotePort"),
+            (0, import_react2.createElement)("input", {
+              "data-dshp-field": "",
+              style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+              type: "number",
+              min: 1,
+              max: 65535,
+              value: frpForm.remotePort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, remotePort: e.target.value }))
+            })
+          )
+        ),
+        (0, import_react2.createElement)(
+          "label",
+          { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
+          t("frpToken"),
+          (0, import_react2.createElement)(
+            "div",
+            { style: { position: "relative" } },
+            (0, import_react2.createElement)("input", {
+              "data-dshp-field": "",
+              style: { font: "inherit", height: 30, width: "100%", boxSizing: "border-box", padding: "0 52px 0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
+              type: frpShowToken ? "text" : "password",
+              placeholder: status?.frpHasToken && !frpForm.token ? `\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022 (${t("frpSaved")})` : t("frpTokenPlaceholder"),
+              value: frpForm.token,
+              onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value }))
+            }),
+            // 明文切换：文字按钮（无障碍名称完整），不用表情符号当图标
+            (0, import_react2.createElement)("button", {
+              type: "button",
+              "data-dshp": "ghost",
+              title: frpShowToken ? t("frpTokenHide") : t("frpTokenShow"),
+              "aria-label": frpShowToken ? t("frpTokenHide") : t("frpTokenShow"),
+              onClick: () => setFrpShowToken((v) => !v),
+              style: { position: "absolute", right: 6, top: "50%", transform: "translateY(-50%)", height: 20, padding: "0 6px", border: "none", background: "transparent", cursor: "pointer", fontSize: 12, lineHeight: 1, color: "var(--dsw-alias-label-secondary,#8b93a1)", borderRadius: 6 }
+            }, frpShowToken ? t("hide") : t("show"))
+          )
+        ),
+        (0, import_react2.createElement)(
+          "label",
+          { style: { display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)" } },
+          (0, import_react2.createElement)("input", { type: "checkbox", checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),
+          t("frpTls")
+        ),
+        (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: -2 } }, t("frpTlsHint")),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { display: "flex", gap: 8, alignItems: "center", marginTop: 2 } },
+          (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, "data-dshp": "ghost", onClick: saveFrp, disabled: frpBusy }, frpSaved ? t("frpSaved") : t("frpSave")),
+          status?.frpRunning ? (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, "data-dshp": "ghost", onClick: stopFrp }, t("frpStop")) : (0, import_react2.createElement)("button", {
+            style: { ...styles.primary, height: 30, padding: "0 12px", fontSize: 12 },
+            "data-dshp": "primary",
+            onClick: startFrp,
+            disabled: frpBusy || !status?.frpConfig?.serverAddr || !status?.frpHasToken
+          }, frpBusy ? t("frpStarting") : t("frpStart"))
+        ),
+        !status?.frpConfig?.serverAddr || !status?.frpHasToken ? (0, import_react2.createElement)("div", { style: { ...styles.warn, marginTop: 4 } }, t("frpConfigureFirst")) : null
+      ) : (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 8 } }, t("frpConfigureFirst")),
+      (0, import_react2.createElement)("div", { style: { marginTop: 8, fontSize: 12, lineHeight: 1.6 } }, frpStatusText()),
+      frpError ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 4 } }, `\u274C ${frpError}`) : null,
+      (0, import_react2.createElement)(
+        "div",
+        { style: { marginTop: 10 } },
+        (0, import_react2.createElement)(
+          "button",
+          { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, "data-dshp": "ghost", onClick: copyFrpCompose },
+          copied === "frp" ? t("frpCopied") : copied === "!frp" ? t("copyFail") : t("frpCopyCompose")
+        )
+      )
     ),
     // 局域网
     (0, import_react2.createElement)(
@@ -2028,6 +2273,7 @@ function PocketSettingsTab({ rpcCall, t }) {
           (0, import_react2.createElement)(
             "select",
             {
+              "data-dshp-field": "",
               value: status?.lanIpOverride || "",
               onChange: (e) => setLanAddress(e.target.value),
               style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" }
@@ -2043,10 +2289,12 @@ function PocketSettingsTab({ rpcCall, t }) {
           { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 8 } },
           (0, import_react2.createElement)("span", { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)" } }, t("lanPin")),
           (0, import_react2.createElement)("button", {
+            "data-dshp-toggle": "",
             style: { ...styles.btn, height: 28, padding: "0 12px", fontSize: 12, fontWeight: status?.lanAuthEnabled !== false ? 600 : 400, background: status?.lanAuthEnabled !== false ? "var(--dsw-alias-button-primary-fill, var(--dsw-alias-brand-primary,#4f6ef7))" : "var(--dsw-alias-bg-layer-1,#fff)", color: status?.lanAuthEnabled !== false ? "var(--dsw-alias-label-primary-foreground, #fff)" : "var(--dsw-alias-label-primary,inherit)" },
             onClick: () => setLanAuth(true)
           }, t("on")),
           (0, import_react2.createElement)("button", {
+            "data-dshp-toggle": "",
             style: { ...styles.btn, height: 28, padding: "0 12px", fontSize: 12, fontWeight: status?.lanAuthEnabled === false ? 600 : 400, background: status?.lanAuthEnabled === false ? "var(--dsw-alias-state-error-primary,#dc2626)" : "var(--dsw-alias-bg-layer-1,#fff)", color: status?.lanAuthEnabled === false ? "#fff" : "var(--dsw-alias-label-primary,inherit)" },
             onClick: () => setLanAuth(false)
           }, t("off"))
@@ -2055,7 +2303,7 @@ function PocketSettingsTab({ rpcCall, t }) {
           "div",
           { style: { marginTop: 6, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", lineHeight: 1.5 } },
           fmt(t, status?.lanPinCustom ? "lanPinCustomValue" : "lanPinValue", { pin: status.lanToken }),
-          (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, marginLeft: 8 }, onClick: refreshLanPin }, t("refresh")),
+          (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, marginLeft: 8 }, "data-dshp": "ghost", onClick: refreshLanPin }, t("refresh")),
           customBtn("lan")
         ) : (0, import_react2.createElement)(
           "div",
@@ -2082,11 +2330,11 @@ function PocketSettingsTab({ rpcCall, t }) {
           customBtn("public"),
           status?.publicPinCustom ? (0, import_react2.createElement)("div", { style: { marginTop: 2, fontSize: 11, color: "var(--dsw-alias-state-warn-primary,#b45309)" } }, t("pinCustomHint")) : null
         ) : null,
-        (0, import_react2.createElement)("button", { style: styles.btn, onClick: stopTunnel }, t("stopTunnel"))
+        (0, import_react2.createElement)("button", { style: styles.btn, "data-dshp": "ghost", onClick: stopTunnel }, t("stopTunnel"))
       ) : (0, import_react2.createElement)(
         "div",
         null,
-        (0, import_react2.createElement)("button", { style: { ...styles.primary, margin: "8px 0" }, onClick: startTunnel, disabled: busy || tunnelStarting }, busy ? t("opening") : t("enable")),
+        (0, import_react2.createElement)("button", { style: { ...styles.primary, margin: "8px 0" }, "data-dshp": "primary", onClick: startTunnel, disabled: busy || tunnelStarting }, busy ? t("opening") : t("enable")),
         tunnelStarting ? (0, import_react2.createElement)(
           "div",
           { style: { marginTop: 4, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)" } },
@@ -2098,112 +2346,11 @@ function PocketSettingsTab({ rpcCall, t }) {
         ) : null
       )
     ),
-    // NAS 反向隧道（frp）：自建入口，国内直连最快；手机访问 NAS 域名即达电脑
-    (0, import_react2.createElement)(
-      "div",
-      { style: styles.block },
-      (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 13 } }, t("frpTitle")),
-      (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 4 } }, t("frpHint")),
-      frpForm ? (0, import_react2.createElement)(
-        "div",
-        { style: { marginTop: 10, display: "grid", gap: 8 } },
-        (0, import_react2.createElement)(
-          "label",
-          { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
-          t("frpServerAddr"),
-          (0, import_react2.createElement)("input", {
-            style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
-            type: "text",
-            placeholder: t("frpServerAddrPlaceholder"),
-            value: frpForm.serverAddr,
-            onChange: (e) => setFrpForm((f) => ({ ...f, serverAddr: e.target.value }))
-          })
-        ),
-        (0, import_react2.createElement)(
-          "div",
-          { style: { display: "flex", gap: 8 } },
-          (0, import_react2.createElement)(
-            "label",
-            { style: { flex: 1, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
-            t("frpServerPort"),
-            (0, import_react2.createElement)("input", {
-              style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
-              type: "number",
-              min: 1,
-              max: 65535,
-              value: frpForm.serverPort,
-              onChange: (e) => setFrpForm((f) => ({ ...f, serverPort: e.target.value }))
-            })
-          ),
-          (0, import_react2.createElement)(
-            "label",
-            { style: { flex: 1, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
-            t("frpRemotePort"),
-            (0, import_react2.createElement)("input", {
-              style: { font: "inherit", height: 30, padding: "0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
-              type: "number",
-              min: 1,
-              max: 65535,
-              value: frpForm.remotePort,
-              onChange: (e) => setFrpForm((f) => ({ ...f, remotePort: e.target.value }))
-            })
-          )
-        ),
-        (0, import_react2.createElement)(
-          "label",
-          { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", display: "grid", gap: 4 } },
-          t("frpToken"),
-          (0, import_react2.createElement)(
-            "div",
-            { style: { position: "relative" } },
-            (0, import_react2.createElement)("input", {
-              style: { font: "inherit", height: 30, width: "100%", boxSizing: "border-box", padding: "0 34px 0 8px", borderRadius: 8, border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", background: "var(--dsw-alias-bg-layer-1,#fff)", color: "var(--dsw-alias-label-primary,inherit)" },
-              type: frpShowToken ? "text" : "password",
-              placeholder: status?.frpHasToken && !frpForm.token ? `\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022 (${t("frpSaved")})` : t("frpTokenPlaceholder"),
-              value: frpForm.token,
-              onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value }))
-            }),
-            (0, import_react2.createElement)("button", {
-              type: "button",
-              title: frpShowToken ? t("frpTokenHide") : t("frpTokenShow"),
-              "aria-label": frpShowToken ? t("frpTokenHide") : t("frpTokenShow"),
-              onClick: () => setFrpShowToken((v) => !v),
-              style: { position: "absolute", right: 4, top: "50%", transform: "translateY(-50%)", width: 26, height: 26, padding: 0, border: "none", background: "transparent", cursor: "pointer", fontSize: 14, lineHeight: 1 }
-            }, frpShowToken ? "\u{1F648}" : "\u{1F441}\uFE0F")
-          )
-        ),
-        (0, import_react2.createElement)(
-          "label",
-          { style: { display: "flex", alignItems: "center", gap: 6, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)" } },
-          (0, import_react2.createElement)("input", { type: "checkbox", checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),
-          t("frpTls")
-        ),
-        (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: -2 } }, t("frpTlsHint")),
-        (0, import_react2.createElement)(
-          "div",
-          { style: { display: "flex", gap: 8, alignItems: "center", marginTop: 2 } },
-          (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: saveFrp, disabled: frpBusy }, frpSaved ? t("frpSaved") : t("frpSave")),
-          status?.frpRunning ? (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: stopFrp }, t("frpStop")) : (0, import_react2.createElement)("button", {
-            style: { ...styles.primary, height: 30, padding: "0 12px", fontSize: 12 },
-            onClick: startFrp,
-            disabled: frpBusy || !status?.frpConfig?.serverAddr || !status?.frpHasToken
-          }, frpBusy ? t("frpStarting") : t("frpStart"))
-        ),
-        !status?.frpConfig?.serverAddr || !status?.frpHasToken ? (0, import_react2.createElement)("div", { style: { ...styles.warn, marginTop: 4 } }, t("frpConfigureFirst")) : null
-      ) : (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 8 } }, t("frpConfigureFirst")),
-      (0, import_react2.createElement)("div", { style: { marginTop: 8, fontSize: 12, lineHeight: 1.6 } }, frpStatusText()),
-      frpError ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 4 } }, `\u274C ${frpError}`) : null,
-      (0, import_react2.createElement)(
-        "div",
-        { style: { marginTop: 10 } },
-        (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 30, padding: "0 12px", fontSize: 12 }, onClick: copyFrpCompose }, frpCopied ? t("frpCopied") : t("frpCopyCompose"))
-      )
-    ),
     error ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 8 } }, `\u274C ${error}`) : null,
     // 安全免责声明弹框（issue #31）：每次开启公网访问前确认
     disclaimerOpen ? (0, import_react2.createElement)(
       "div",
-      { style: { position: "fixed", inset: 0, zIndex: 1e4, background: "rgba(0,0,0,.5)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 } },
+      { role: "dialog", "aria-modal": true, "aria-label": t("disclaimerTitle"), style: { position: "fixed", inset: 0, zIndex: 1e4, background: "var(--dsw-alias-bg-mask-1, rgba(15,17,21,.55))", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 } },
       (0, import_react2.createElement)(
         "div",
         { style: { background: "var(--dsw-alias-bg-layer-1,#fff)", borderRadius: 12, maxWidth: 420, width: "100%", padding: "20px 22px", boxShadow: "0 8px 32px rgba(0,0,0,.18)" } },
@@ -2212,18 +2359,19 @@ function PocketSettingsTab({ rpcCall, t }) {
         (0, import_react2.createElement)(
           "label",
           { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 14, fontSize: 13, cursor: "pointer" } },
-          (0, import_react2.createElement)("input", { type: "checkbox", checked: disclaimerChecked, onChange: (e) => setDisclaimerChecked(e.target.checked), style: { width: 16, height: 16 } }),
+          (0, import_react2.createElement)("input", { type: "checkbox", checked: disclaimerChecked, onChange: (e) => setDisclaimerChecked(e.target.checked), autoFocus: true, style: { width: 16, height: 16 } }),
           t("disclaimerAgree")
         ),
         (0, import_react2.createElement)(
           "div",
           { style: { display: "flex", gap: 8, marginTop: 16 } },
-          (0, import_react2.createElement)("button", { style: { ...styles.btn, flex: 1 }, onClick: () => setDisclaimerOpen(false) }, t("cancel")),
+          (0, import_react2.createElement)("button", { style: { ...styles.btn, flex: 1 }, "data-dshp": "ghost", onClick: () => setDisclaimerOpen(false) }, t("cancel")),
           (0, import_react2.createElement)("button", {
-            style: { ...styles.primary, flex: 1, opacity: disclaimerChecked ? 1 : 0.5 },
+            style: { ...styles.primary, flex: 1 },
+            "data-dshp": "primary",
             disabled: !disclaimerChecked,
             onClick: confirmDisclaimer
-          }, t("disclaimerAgree"))
+          }, t("confirmEnable"))
         ),
         !disclaimerChecked ? (0, import_react2.createElement)("div", { style: { marginTop: 8, fontSize: 12, color: "var(--dsw-alias-state-error-primary,#dc2626)" } }, t("disclaimerHint")) : null
       )
@@ -2240,7 +2388,7 @@ function PocketSettingsTab({ rpcCall, t }) {
     )
   );
 }
-function PocketEntryButton({ rpcCall, t }) {
+function PocketEntryButton({ rpcCall, t, wide = true }) {
   const [open, setOpen] = (0, import_react2.useState)(false);
   const [narrow, setNarrow] = (0, import_react2.useState)(() => window.matchMedia("(max-width: 1023px)").matches);
   (0, import_react2.useEffect)(() => {
@@ -2257,11 +2405,45 @@ function PocketEntryButton({ rpcCall, t }) {
     document.addEventListener("keydown", onKey, true);
     return () => document.removeEventListener("keydown", onKey, true);
   }, [open]);
+  (0, import_react2.useEffect)(() => {
+    if (!open) return;
+    const prev = document.activeElement;
+    return () => {
+      try {
+        prev?.focus?.();
+      } catch {
+      }
+    };
+  }, [open]);
   if (narrow) return null;
+  const label = t("entryLabel");
+  const railButton = (0, import_react2.createElement)("button", {
+    type: "button",
+    "data-dsh-pocket-entry": "",
+    "aria-label": label,
+    title: import_dsh_client_ui_primitives4.Tooltip == null ? label : void 0,
+    // 官方 Tooltip 缺席时用原生 title 兜底
+    onClick: () => setOpen(true),
+    style: {
+      width: 36,
+      height: 36,
+      margin: "4px 0",
+      padding: 0,
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      border: "none",
+      borderRadius: "50%",
+      background: "transparent",
+      color: "var(--dsw-alias-label-primary, inherit)",
+      cursor: "pointer",
+      font: "inherit"
+    }
+  }, (0, import_react2.createElement)("span", { "aria-hidden": true, style: { fontSize: 16, lineHeight: 1, flex: "none" } }, "\u{1F4F1}"));
   return (0, import_react2.createElement)(
     import_react2.Fragment,
     null,
-    (0, import_react2.createElement)(
+    wide ? (0, import_react2.createElement)(
       "button",
       {
         type: "button",
@@ -2273,10 +2455,11 @@ function PocketEntryButton({ rpcCall, t }) {
           gap: 8,
           width: "100%",
           boxSizing: "border-box",
-          padding: "8px 12px",
-          margin: "2px 0",
+          height: 42,
+          padding: "0 10px 0 8px",
+          margin: "4px -2px",
           border: "none",
-          borderRadius: 10,
+          borderRadius: 12,
           background: "transparent",
           color: "var(--dsw-alias-label-primary, inherit)",
           font: "inherit",
@@ -2287,19 +2470,21 @@ function PocketEntryButton({ rpcCall, t }) {
         }
       },
       (0, import_react2.createElement)("span", { style: { fontSize: 16, flex: "none", lineHeight: 1 } }, "\u{1F4F1}"),
-      (0, import_react2.createElement)("span", { style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, t("entryLabel"))
-    ),
+      (0, import_react2.createElement)("span", { style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, label)
+    ) : import_dsh_client_ui_primitives4.Tooltip != null ? (0, import_react2.createElement)(import_dsh_client_ui_primitives4.Tooltip, { label, delayMs: 500 }, railButton) : railButton,
     open ? (0, import_react2.createElement)(
       "div",
       {
         role: "dialog",
         "aria-modal": "true",
+        "aria-label": t("section"),
         "data-dsh-pocket-dialog": "",
+        "data-dsh-pocket-overlay": "",
         style: {
           position: "fixed",
           inset: 0,
           zIndex: 1e4,
-          background: "rgba(15,17,21,.55)",
+          background: "var(--dsw-alias-bg-mask-1, rgba(15,17,21,.55))",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -2311,7 +2496,7 @@ function PocketEntryButton({ rpcCall, t }) {
       },
       (0, import_react2.createElement)(
         "div",
-        { style: {
+        { "data-dsh-pocket-panel": "", style: {
           background: "var(--dsw-alias-bg-base, #fff)",
           borderRadius: 14,
           boxShadow: "0 18px 50px rgba(0,0,0,.25)",
@@ -2336,6 +2521,8 @@ function PocketEntryButton({ rpcCall, t }) {
           (0, import_react2.createElement)("button", {
             type: "button",
             "aria-label": t("closeDialog"),
+            autoFocus: true,
+            // 打开对话框即落在关闭钮上，Esc/Tab 从这里开始
             onClick: () => setOpen(false),
             style: {
               width: 30,
@@ -2364,6 +2551,14 @@ function apply(ctx) {
   const rpcCall = (endpoint, payload, signal) => ctx.connection.rpc.call(POCKET_RPC_CHANNEL, endpoint, payload, signal);
   const translate = ctx.locale.bind(NS2);
   ctx.effect(() => ctx.locale.register(NS2, { zh: zh2, en: en2 }), "dsh-pocket: pocket locale dictionaries");
+  ctx.effect(() => {
+    const tag = document.createElement("style");
+    tag.dataset.plugin = name;
+    tag.dataset.pluginCss = `${name}/ui.css`;
+    tag.textContent = POCKET_UI_CSS;
+    document.head.appendChild(tag);
+    return () => tag.remove();
+  }, "dsh-pocket: client ui state styles");
   ctx.slots.inject(
     "sidebar.footer.action",
     () => ctx.slots.register(

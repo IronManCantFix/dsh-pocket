@@ -17,6 +17,24 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
 /** Required services (cordis fiber inject — the loader passes all module exports as an object plugin). */
 
 /**
+ * Coalesce a hot-path callback (a body-wide MutationObserver firing in storms
+ * while the user types / the composer autosizes / focus opens the keyboard)
+ * into at most one run per animation frame, so observer work can never starve
+ * the main thread mid-gesture.
+ */
+function rafBatch(run: () => void): () => void {
+  let scheduled = false
+  return () => {
+    if (scheduled) return
+    scheduled = true
+    requestAnimationFrame(() => {
+      scheduled = false
+      run()
+    })
+  }
+}
+
+/**
  * Mobile-adaptive shell, browser half: injects the mobile stylesheet, then
  * contributes the directory toggle to the session header and the backdrop +
  * floating button to the shell overlay.
@@ -60,7 +78,10 @@ export function mobileApply(ctx): void {
     const bodyBg = (): string => getComputedStyle(document.body).backgroundColor
 
     const sync = (): void => {
-      if (viewport !== null) viewport.content = 'width=device-width, initial-scale=1, viewport-fit=cover'
+      // interactive-widget=resizes-content（Chrome/Android 108+）：键盘弹出时布局
+      // 视口确定性地收窄（composer 随之上移），避免部分 OEM 浏览器在默认
+      // resizes-visual 下先平移再二次重排造成的迟滞。其他内核忽略未知键。
+      if (viewport !== null) viewport.content = 'width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content'
       themeMeta.content = bodyBg()
       if (themeMeta.parentElement === null) document.head.appendChild(themeMeta)
     }
@@ -124,7 +145,7 @@ export function mobileApply(ctx): void {
     }
     check()
     const timer = window.setTimeout(check, 1500) // 宿主懒渲染：稍后再查一次
-    const observer = new MutationObserver(check)
+    const observer = new MutationObserver(rafBatch(check))
     observer.observe(document.body, { childList: true, subtree: true })
     return () => {
       window.clearTimeout(timer)
@@ -172,13 +193,21 @@ export function mobileApply(ctx): void {
   // _root and can mention turns in its model line). The CSS then lays the
   // marked row out as ONE horizontally scrolling line with every metric
   // reachable.
+  //
+  // Mis-mark guard (input docks): the todo / plan / goal / queue strips render
+  // in the SAME composer stack ABOVE the input bar (conversation.input.dock),
+  // their hashed section classes also end in `_root`, and an EXPANDED task
+  // list routinely contains 步/轮/"steps"… — the old text-only heuristic then
+  // matched the dock FIRST (tree order) and crushed it into the 28px strip,
+  // which looked like "collapse broke the panel". Distinguisher: the real
+  // StatsLine renders plain spans only; every dock has a header <button>.
   ctx.effect(() => {
     const narrow = window.matchMedia('(max-width: 1023px)')
     if (!narrow.matches) return () => {}
     // The composer root renders the TPS readout ("TPS 89.4 tok/s") as its
     // own row BELOW the status strip; fold it into the strip so every
-    // metric scrolls together. The suite re-renders its own tree, so this
-    // must be idempotent and re-run on every mutation.
+    // metric scrolls together. Idempotent: cheap early-exit while TPS is
+    // already present, full-stack walk only when it is missing.
     const moveTps = (stats: Element): void => {
       if ([...stats.children].some((c) => /^TPS\s+\d/.test((c.textContent ?? '').trim()))) return
       const stack = stats.closest('[class$="_composerStack"]')
@@ -191,24 +220,39 @@ export function mobileApply(ctx): void {
         return
       }
     }
-    const mark = (): void => {
+    let marked: Element | null = null
+    let lastScan = 0
+    const scan = (): void => {
+      // Fast path: while the marked element stays connected only re-check at
+      // most twice a second (late TPS pickup). Typing fires mutation storms;
+      // per-batch full scans used to burn main-thread frames exactly when the
+      // keyboard opens.
+      const now = Date.now()
+      if (marked !== null && marked.isConnected && now - lastScan < 500) return
+      lastScan = now
+      if (marked === null || !marked.isConnected) marked = null
       for (const root of document.querySelectorAll('[data-phase] [class$="_root"]')) {
         // The status row lives inside the composer stack; message-area
         // blocks can also mention turns/steps and must be skipped.
         if (root.closest('[class$="_composerStack"]') === null) continue
+        // Input docks have interactive headers; the stats line does not.
+        if (root.querySelector('button') !== null) continue
         const text = root.textContent ?? ''
         if (!/(turns|steps|\bLLM\b|轮|步)/.test(text)) continue
         if (root.querySelector('textarea') !== null) continue
         root.setAttribute('data-mobile-nav', 'stats')
         moveTps(root)
+        marked = root
         return
       }
     }
+    const mark = rafBatch(scan)
     const observer = new MutationObserver(mark)
     observer.observe(document.body, { childList: true, subtree: true })
-    mark()
+    scan()
     return () => {
       observer.disconnect()
+      marked = null
     }
   }, 'dsh-mobile-nav: stats line marker')
 
@@ -216,13 +260,17 @@ export function mobileApply(ctx): void {
   // (their inline style), which never restarts a CSS animation — so the
   // sheets would only animate on first mount. Replay the rise animation
   // with the Web Animations API each time a column turns visible, then
-  // leave the resting state to the stylesheet.
+  // leave the resting state to the stylesheet. Users asking for reduced
+  // motion get none (the CSS keyframes have their own media-query guard;
+  // WAAPI ignores those rules, hence this JS check).
   ctx.effect(() => {
     const narrow = window.matchMedia('(max-width: 1023px)')
     if (!narrow.matches) return () => {}
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     const cols = ['[data-aionui-explorer-col]', '[data-aionui-preview-col]']
     const seen = new Map<string, boolean>()
     const play = (el: Element): void => {
+      if (reducedMotion.matches) return
       el.animate(
         [
           { opacity: 0, transform: 'translateY(28px)' },
@@ -241,7 +289,7 @@ export function mobileApply(ctx): void {
         seen.set(sel, visible)
       }
     }
-    const observer = new MutationObserver(check)
+    const observer = new MutationObserver(rafBatch(check))
     // Visibility flips come through inline style mutations (suite) or the
     // explorer-open marker on the frame; class changes are watched too.
     observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['style', 'class', 'data-aionui-explorer-open'] })

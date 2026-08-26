@@ -75,7 +75,7 @@ export const MOBILE_CSS = `
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 14px;
   border: 1px solid var(--dsw-alias-border-l1, rgba(0, 0, 0, .12));
   border-radius: 12px;
@@ -119,6 +119,15 @@ export const MOBILE_CSS = `
   cursor: pointer;
   box-shadow: 0 2px 12px rgba(0, 0, 0, .18);
   -webkit-tap-highlight-color: transparent;
+}
+/* Grow the touch target to ~54px without changing the visual size (same
+   transparent ::before trick as the header toggles): the thumb can miss a
+   bare 38px circle. */
+[data-mobile-nav="fab"]::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
 }
 [data-mobile-nav="fab"]:hover {
   background: var(--dsw-alias-button-floating-hover, rgba(0, 0, 0, .08));
@@ -903,6 +912,21 @@ export const MOBILE_CSS = `
   @media (max-width: 359px) {
     [aria-modal="true"]:has(> :first-child > :last-child > button):not(:has([role="navigation"])) > :first-child > :last-child {
       grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
+  /* prefers-reduced-motion: keep every navigation surface's transitions off
+     — the drawer slide, backdrop fade and both bottom sheets' rise. (The
+     WAAPI replay for the sheets is guarded in mobile-apply.tsx; CSS rules
+     cannot reach those programmatic animations.) */
+  @media (prefers-reduced-motion: reduce) {
+    [data-mobile-nav="frame"] > :first-child {
+      transition: none !important;
+    }
+    [data-mobile-nav="backdrop"],
+    [data-aionui-explorer-col],
+    [data-aionui-preview-col] {
+      animation: none !important;
     }
   }
 }

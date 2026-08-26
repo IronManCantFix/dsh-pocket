@@ -7,8 +7,9 @@
 // 注：Web Push 已移除——浏览器推送依赖 Google FCM（Chrome）等境外服务，
 // 国内直连被墙，普通用户用不了。专注扫码同屏这一件事。
 
-import { createElement as h, Fragment, useEffect, useState } from 'react';
+import { createElement as h, Fragment, useEffect, useRef, useState } from 'react';
 
+import { Tooltip, IconRefreshOutline16 } from '@deepseek-ai/dsh-client-ui-primitives';
 import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS, redactStatus, compareVersions } from './api.js';
 import { mobileApply } from './mobile/mobile-apply.tsx';
 import { NS as POCKET_NS, zh as POCKET_ZH, en as POCKET_EN } from './pocket-locales.js';
@@ -73,6 +74,87 @@ const styles = {
   warn: { color: 'var(--dsw-alias-state-warn-primary,#b45309)', fontSize: 12, lineHeight: 1.5 },
 };
 
+// 状态层样式（hover/focus/disabled/入场动画）：inline style 表达不了伪类，
+// 这里集中注入一次，作用域钉在自有 data-* 钩子上，颜色全部走官方 alias
+// token（深浅色随主题），不依赖宿主哈希类名。
+const POCKET_UI_CSS = `
+/* 侧边栏入口（宽行 + 收起后的圆形 rail 都用同一钩子） */
+[data-dsh-pocket-entry] {
+  transition: background var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease);
+}
+[data-dsh-pocket-entry]:hover {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(0,0,0,.06)) !important;
+}
+[data-dsh-pocket-entry]:focus-visible {
+  outline: 2px solid var(--dsw-alias-state-business-primary, #4f6ef7);
+  outline-offset: -2px;
+}
+/* 设置页控件状态 */
+button[data-dshp] {
+  transition:
+    background var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease),
+    color var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease),
+    opacity var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease);
+}
+button[data-dshp="primary"]:hover:not(:disabled) {
+  background: var(--dsw-alias-button-primary-hover, var(--dsw-alias-button-primary-fill, #4f6ef7)) !important;
+}
+button[data-dshp="primary"]:disabled { opacity: .5 !important; cursor: default; }
+button[data-dshp="ghost"]:hover:not(:disabled) {
+  background: var(--dsw-alias-interactive-bg-hover, rgba(0,0,0,.06)) !important;
+}
+button[data-dshp="ghost"]:disabled {
+  color: var(--dsw-alias-label-dimmed, #9aa1ac) !important;
+  cursor: default;
+}
+input[data-dshp-field], select[data-dshp-field] {
+  transition: border-color var(--ds-transition-duration-fast, .12s) var(--ds-ease-in-out, ease);
+}
+input[data-dshp-field]:focus, select[data-dshp-field]:focus {
+  outline: none;
+  border-color: var(--dsw-alias-state-business-primary, #4f6ef7) !important;
+}
+button[data-dshp]:focus-visible, button[data-dshp-toggle]:focus-visible, [data-dshp-link]:focus-visible {
+  outline: 2px solid var(--dsw-alias-state-business-primary, #4f6ef7);
+  outline-offset: 1px;
+}
+/* 对话框入场：遮罩淡入 + 面板轻微上浮，reduced-motion 直接关闭 */
+@keyframes dsh-pocket-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dsh-pocket-pop {
+  from { opacity: 0; transform: translateY(10px) scale(.985); }
+  to { opacity: 1; transform: none; }
+}
+[data-dsh-pocket-overlay] { animation: dsh-pocket-fade .15s linear both; }
+[data-dsh-pocket-panel] { animation: dsh-pocket-pop .18s cubic-bezier(.22,1,.36,1) both; }
+@media (prefers-reduced-motion: reduce) {
+  [data-dsh-pocket-overlay], [data-dsh-pocket-panel] { animation: none; }
+}
+`;
+
+// 复制到剪贴板：优先 async clipboard（安全上下文），失败回退 textarea +
+// execCommand（老浏览器 / HTTP 环境），返回是否成功——按钮据此如实反馈，
+// 不再「剪贴板不可用却显示已复制」。
+const copyText = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch { /* 继续走回退路径 */ }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    ta.remove();
+    return ok;
+  } catch {
+    return false;
+  }
+};
+
 function PocketSettingsTab({ rpcCall, t }) {
   const [status, setStatus] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -95,11 +177,21 @@ function PocketSettingsTab({ rpcCall, t }) {
   // NAS 反向隧道（frp）
   const [frpForm, setFrpForm] = useState(null); // { serverAddr, serverPort, remotePort, tls, token }
   const [frpSaved, setFrpSaved] = useState(false);
-  const [frpCopied, setFrpCopied] = useState(false);
   const [frpBusy, setFrpBusy] = useState(false);
   const [frpError, setFrpError] = useState(null);
   const [frpShowToken, setFrpShowToken] = useState(false); // frp 连接令牌明文显示开关
-  const [cmdCopied, setCmdCopied] = useState(false); // 更新命令复制成功提示
+
+  // 复制反馈（统一一处）：成功显示对应「已复制」文案；失败如实显示「复制失败」，
+  // 不再出现剪贴板不可用却提示已复制的假反馈。'cmd' | 'frp'，加 ! 前缀表示失败。
+  const [copied, setCopied] = useState(null);
+  const copiedTimerRef = useRef(null);
+  useEffect(() => () => clearTimeout(copiedTimerRef.current), []);
+  const copyWithFeedback = async (key, text) => {
+    clearTimeout(copiedTimerRef.current);
+    const ok = await copyText(text);
+    setCopied(ok ? key : `!${key}`);
+    copiedTimerRef.current = setTimeout(() => setCopied(null), ok ? 2500 : 3000);
+  };
 
   // 进行中操作的「已等待 X 秒」倒计时
   useEffect(() => {
@@ -187,13 +279,9 @@ function PocketSettingsTab({ rpcCall, t }) {
     try { setStatus(await call(POCKET_ENDPOINTS.frpStop, {})); } catch { /* 忽略 */ }
   };
 
-  // frp：复制 NAS 部署模板
+  // frp：复制 NAS 部署模板（复制失败时按钮如实显示「复制失败」）
   const copyFrpCompose = async () => {
-    try {
-      await navigator.clipboard.writeText(FRP_COMPOSE_TEMPLATE);
-      setFrpCopied(true);
-      setTimeout(() => setFrpCopied(false), 3000);
-    } catch { /* 剪贴板不可用则静默 */ }
+    await copyWithFeedback('frp', FRP_COMPOSE_TEMPLATE);
   };
 
   // 每次页面加载清掉自动刷新标记——这样下次重启（更新后）才能再次触发自动刷新
@@ -330,6 +418,7 @@ function PocketSettingsTab({ rpcCall, t }) {
   const customPinRow = (which) => h('div', { style: { marginTop: 6, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', lineHeight: 1.5 } },
     t('customizing'),
     h('input', {
+      'data-dshp-field': '',
       style: { width: 110, margin: '0 6px', padding: '4px 8px', fontSize: 14, letterSpacing: 2, textAlign: 'center', border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', borderRadius: 6, outline: 'none' },
       type: 'password',
       inputMode: 'numeric',
@@ -339,12 +428,12 @@ function PocketSettingsTab({ rpcCall, t }) {
       onChange: (e) => setCustomPin((c) => ({ ...c, value: e.target.value.replace(/\D/g, ''), err: null })),
       onKeyDown: (e) => { if (e.key === 'Enter') saveCustomPin(which); if (e.key === 'Escape') setCustomPin(null); },
     }),
-    h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, marginLeft: 2 }, onClick: () => saveCustomPin(which) }, t('save')),
-    h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12 }, onClick: () => setCustomPin(null) }, t('cancel')),
+    h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, marginLeft: 2 }, 'data-dshp': 'ghost', onClick: () => saveCustomPin(which) }, t('save')),
+    h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12 }, 'data-dshp': 'ghost', onClick: () => setCustomPin(null) }, t('cancel')),
     customPin?.err ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', marginTop: 4 } }, customPin.err) : null,
   );
   // 「自定义」按钮（非输入态显示在密码行末尾）
-  const customBtn = (which) => h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, marginLeft: 8 }, onClick: () => setCustomPin({ which, value: '', err: null }) }, t('customize'));
+  const customBtn = (which) => h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, marginLeft: 8 }, 'data-dshp': 'ghost', onClick: () => setCustomPin({ which, value: '', err: null }) }, t('customize'));
 
   const lanUrl = status?.lanUrl;
   const tunnelUrl = status?.tunnelUrl;
@@ -366,11 +455,9 @@ function PocketSettingsTab({ rpcCall, t }) {
   };
 
   return h('div', { style: styles.card },
+    // 对话框头部已写明「手机访问」，卡片内不再重复标题，只留一句副标题
     h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } },
-      h('div', null,
-        h('strong', null, t('title')),
-        h('div', { style: styles.muted }, t('subtitle')),
-      ),
+      h('div', { style: styles.muted }, t('subtitle')),
       h('div', { style: { fontSize: 12, color: 'var(--dsw-alias-label-tertiary,#8b93a1)', textAlign: 'right' } },
         h('div', { style: { whiteSpace: 'nowrap' } }, t('developer')),
         h('div', { style: { whiteSpace: 'nowrap' } }, t('starAsk')),
@@ -379,11 +466,11 @@ function PocketSettingsTab({ rpcCall, t }) {
       ),
     ),
 
-    // 重启后提示（进程在后台运行，停止方法）——左侧蓝色色条（桌面端不会触发本插件的自重启）
-    !isDesktop && restartNotice ? h('div', { style: { ...styles.block, borderLeft: '4px solid var(--dsw-alias-brand-primary,#4f6ef7)', borderRadius: 8, background: 'var(--dsw-alias-bg-layer-2,#f3f4f6)', padding: '10px 12px' } },
+    // 重启后提示（进程在后台运行，停止方法）——整框浅底色，不用侧边色条
+    !isDesktop && restartNotice ? h('div', { style: { ...styles.block, border: '1px solid var(--dsw-alias-border-l2,#e5e7eb)', borderRadius: 8, background: 'var(--dsw-alias-bg-layer-2,#f3f4f6)', padding: '10px 12px' } },
       h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } },
         h('div', { style: { fontWeight: 600, fontSize: 13 } }, t('restarted')),
-        h('button', { style: styles.btn, onClick: () => setRestartNotice(false) }, t('ok')),
+        h('button', { style: styles.btn, 'data-dshp': 'ghost', onClick: () => setRestartNotice(false) }, t('ok')),
       ),
       h('div', { style: styles.muted, marginTop: 4, wordBreak: 'break-all' }, fmt(t, 'bgHint', { cmd: status?.killHint ?? `lsof -ti :${status?.dshPort ?? 3080} | xargs kill -9` })),
     ) : null,
@@ -422,22 +509,23 @@ function PocketSettingsTab({ rpcCall, t }) {
             ),
         h('button', {
           style: { ...styles.btn, height: 26, padding: '0 8px', fontSize: 12, marginLeft: 'auto' },
+          'data-dshp': 'ghost',
           onClick: () => { setVersionInfo((v) => ({ ...v, loading: true, failed: false })); loadVersion(); },
           disabled: versionInfo.loading,
           title: t('versionRefresh'),
-        }, '↻'),
+          'aria-label': t('versionRefresh'),
+        }, typeof IconRefreshOutline16 === 'function' ? h(IconRefreshOutline16, { size: 14 }) : '↻'),
       ),
       h('div', { style: { color: 'var(--dsw-alias-label-secondary,#6b7280)', marginTop: 10, fontSize: 12 } }, t('updateCmd')),
       h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 } },
         h('code', { style: { ...styles.code, margin: 0, flex: 1, background: 'var(--dsw-alias-bg-layer-2,#f3f4f6)', padding: '6px 8px', borderRadius: 6 } }, installCmd),
         h('button', {
           style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, flex: 'none' },
-          onClick: async () => {
-            try { await navigator.clipboard.writeText(installCmd); } catch { /* 剪贴板不可用则静默 */ }
-            setCmdCopied(true);
-            setTimeout(() => setCmdCopied(false), 2500);
-          },
-        }, cmdCopied ? t('copied') : t('copy')),
+          'data-dshp': 'ghost',
+          onClick: () => copyWithFeedback('cmd', installCmd),
+        },
+          copied === 'cmd' ? t('copied')
+            : copied === '!cmd' ? t('copyFail') : t('copy')),
       ),
       h('div', { style: styles.muted, marginTop: 6, fontSize: 12 }, t('updateHint')),
       // 磁盘已更新未重启（仅非桌面端提示重启生效）
@@ -446,11 +534,102 @@ function PocketSettingsTab({ rpcCall, t }) {
             h('div', { style: { ...styles.warn, margin: 0, flex: 1 } }, fmt(t, 'versionRestartHint', { ver: versionInfo.current })),
             h('button', {
               style: { ...styles.primary, height: 30, padding: '0 14px', fontSize: 12, flex: 'none' },
+              'data-dshp': 'primary',
               onClick: restartPocket,
               disabled: restartState?.restarting,
             }, restartState?.restarting ? fmt(t, 'restartingDetail', { s: elapsed(restartState.startedAt) }) : t('restartNow')),
           )
         : null,
+    ),
+
+    // NAS 反向隧道（frp）：自建入口——本插件主打 NAS 场景，排在局域网/公网之前；
+    // 手机访问 NAS 域名即达电脑，国内直连最快
+    h('div', { style: styles.block },
+      h('div', { style: { fontWeight: 600, fontSize: 13 } }, t('frpTitle')),
+      h('div', { style: { ...styles.muted, marginTop: 4 } }, t('frpHint')),
+      frpForm ? h('div', { style: { marginTop: 10, display: 'grid', gap: 8 } },
+        h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+          t('frpServerAddr'),
+          h('input', {
+            'data-dshp-field': '',
+            style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+            type: 'text',
+            placeholder: t('frpServerAddrPlaceholder'),
+            value: frpForm.serverAddr,
+            onChange: (e) => setFrpForm((f) => ({ ...f, serverAddr: e.target.value })),
+          }),
+        ),
+        h('div', { style: { display: 'flex', gap: 8 } },
+          h('label', { style: { flex: 1, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+            t('frpServerPort'),
+            h('input', {
+              'data-dshp-field': '',
+              style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+              type: 'number', min: 1, max: 65535,
+              value: frpForm.serverPort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, serverPort: e.target.value })),
+            }),
+          ),
+          h('label', { style: { flex: 1, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+            t('frpRemotePort'),
+            h('input', {
+              'data-dshp-field': '',
+              style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+              type: 'number', min: 1, max: 65535,
+              value: frpForm.remotePort,
+              onChange: (e) => setFrpForm((f) => ({ ...f, remotePort: e.target.value })),
+            }),
+          ),
+        ),
+        h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
+          t('frpToken'),
+          h('div', { style: { position: 'relative' } },
+            h('input', {
+              'data-dshp-field': '',
+              style: { font: 'inherit', height: 30, width: '100%', boxSizing: 'border-box', padding: '0 52px 0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
+              type: frpShowToken ? 'text' : 'password',
+              placeholder: status?.frpHasToken && !frpForm.token ? `•••••••• (${t('frpSaved')})` : t('frpTokenPlaceholder'),
+              value: frpForm.token,
+              onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value })),
+            }),
+            // 明文切换：文字按钮（无障碍名称完整），不用表情符号当图标
+            h('button', {
+              type: 'button',
+              'data-dshp': 'ghost',
+              title: frpShowToken ? t('frpTokenHide') : t('frpTokenShow'),
+              'aria-label': frpShowToken ? t('frpTokenHide') : t('frpTokenShow'),
+              onClick: () => setFrpShowToken((v) => !v),
+              style: { position: 'absolute', right: 6, top: '50%', transform: 'translateY(-50%)', height: 20, padding: '0 6px', border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 12, lineHeight: 1, color: 'var(--dsw-alias-label-secondary,#8b93a1)', borderRadius: 6 },
+            }, frpShowToken ? t('hide') : t('show')),
+          ),
+        ),
+        h('label', { style: { display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
+          h('input', { type: 'checkbox', checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),
+          t('frpTls'),
+        ),
+        h('div', { style: { ...styles.muted, marginTop: -2 } }, t('frpTlsHint')),
+        h('div', { style: { display: 'flex', gap: 8, alignItems: 'center', marginTop: 2 } },
+          h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, 'data-dshp': 'ghost', onClick: saveFrp, disabled: frpBusy }, frpSaved ? t('frpSaved') : t('frpSave')),
+          status?.frpRunning
+            ? h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, 'data-dshp': 'ghost', onClick: stopFrp }, t('frpStop'))
+            : h('button', {
+              style: { ...styles.primary, height: 30, padding: '0 12px', fontSize: 12 },
+              'data-dshp': 'primary',
+              onClick: startFrp,
+              disabled: frpBusy || !status?.frpConfig?.serverAddr || !status?.frpHasToken,
+            }, frpBusy ? t('frpStarting') : t('frpStart')),
+        ),
+        (!status?.frpConfig?.serverAddr || !status?.frpHasToken)
+          ? h('div', { style: { ...styles.warn, marginTop: 4 } }, t('frpConfigureFirst'))
+          : null,
+      ) : h('div', { style: { ...styles.muted, marginTop: 8 } }, t('frpConfigureFirst')),
+      h('div', { style: { marginTop: 8, fontSize: 12, lineHeight: 1.6 } }, frpStatusText()),
+      frpError ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 4 } }, `❌ ${frpError}`) : null,
+      h('div', { style: { marginTop: 10 } },
+        h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, 'data-dshp': 'ghost', onClick: copyFrpCompose },
+          copied === 'frp' ? t('frpCopied')
+            : copied === '!frp' ? t('copyFail') : t('frpCopyCompose')),
+      ),
     ),
 
     // 局域网
@@ -464,6 +643,7 @@ function PocketSettingsTab({ rpcCall, t }) {
           h('label', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 10, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
             t('lanAddress'),
             h('select', {
+              'data-dshp-field': '',
               value: status?.lanIpOverride || '',
               onChange: (e) => setLanAddress(e.target.value),
               style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
@@ -477,10 +657,12 @@ function PocketSettingsTab({ rpcCall, t }) {
           h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 } },
             h('span', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } }, t('lanPin')),
             h('button', {
+              'data-dshp-toggle': '',
               style: { ...styles.btn, height: 28, padding: '0 12px', fontSize: 12, fontWeight: status?.lanAuthEnabled !== false ? 600 : 400, background: status?.lanAuthEnabled !== false ? 'var(--dsw-alias-button-primary-fill, var(--dsw-alias-brand-primary,#4f6ef7))' : 'var(--dsw-alias-bg-layer-1,#fff)', color: status?.lanAuthEnabled !== false ? 'var(--dsw-alias-label-primary-foreground, #fff)' : 'var(--dsw-alias-label-primary,inherit)' },
               onClick: () => setLanAuth(true),
             }, t('on')),
             h('button', {
+              'data-dshp-toggle': '',
               style: { ...styles.btn, height: 28, padding: '0 12px', fontSize: 12, fontWeight: status?.lanAuthEnabled === false ? 600 : 400, background: status?.lanAuthEnabled === false ? 'var(--dsw-alias-state-error-primary,#dc2626)' : 'var(--dsw-alias-bg-layer-1,#fff)', color: status?.lanAuthEnabled === false ? '#fff' : 'var(--dsw-alias-label-primary,inherit)' },
               onClick: () => setLanAuth(false),
             }, t('off')),
@@ -490,7 +672,7 @@ function PocketSettingsTab({ rpcCall, t }) {
                 ? customPinRow('lan')
                 : h('div', { style: { marginTop: 6, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', lineHeight: 1.5 } },
                   fmt(t, status?.lanPinCustom ? 'lanPinCustomValue' : 'lanPinValue', { pin: status.lanToken }),
-                  h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, marginLeft: 8 }, onClick: refreshLanPin }, t('refresh')),
+                  h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, marginLeft: 8 }, 'data-dshp': 'ghost', onClick: refreshLanPin }, t('refresh')),
                   customBtn('lan'),
                 ))
             : h('div', { style: { marginTop: 6, fontSize: 12, color: 'var(--dsw-alias-state-warn-primary,#b45309)', lineHeight: 1.5 } },
@@ -516,10 +698,10 @@ function PocketSettingsTab({ rpcCall, t }) {
                   status?.publicPinCustom ? h('div', { style: { marginTop: 2, fontSize: 11, color: 'var(--dsw-alias-state-warn-primary,#b45309)' } }, t('pinCustomHint')) : null,
                 ))
             : null,
-          h('button', { style: styles.btn, onClick: stopTunnel }, t('stopTunnel')),
+          h('button', { style: styles.btn, 'data-dshp': 'ghost', onClick: stopTunnel }, t('stopTunnel')),
         )
         : h('div', null,
-          h('button', { style: { ...styles.primary, margin: '8px 0' }, onClick: startTunnel, disabled: busy || tunnelStarting }, busy ? t('opening') : t('enable')),
+          h('button', { style: { ...styles.primary, margin: '8px 0' }, 'data-dshp': 'primary', onClick: startTunnel, disabled: busy || tunnelStarting }, busy ? t('opening') : t('enable')),
           tunnelStarting
             ? h('div', { style: { marginTop: 4, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
               tunnelPhase === 'downloading'
@@ -532,104 +714,25 @@ function PocketSettingsTab({ rpcCall, t }) {
         ),
     ),
 
-    // NAS 反向隧道（frp）：自建入口，国内直连最快；手机访问 NAS 域名即达电脑
-    h('div', { style: styles.block },
-      h('div', { style: { fontWeight: 600, fontSize: 13 } }, t('frpTitle')),
-      h('div', { style: { ...styles.muted, marginTop: 4 } }, t('frpHint')),
-      frpForm ? h('div', { style: { marginTop: 10, display: 'grid', gap: 8 } },
-        h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
-          t('frpServerAddr'),
-          h('input', {
-            style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
-            type: 'text',
-            placeholder: t('frpServerAddrPlaceholder'),
-            value: frpForm.serverAddr,
-            onChange: (e) => setFrpForm((f) => ({ ...f, serverAddr: e.target.value })),
-          }),
-        ),
-        h('div', { style: { display: 'flex', gap: 8 } },
-          h('label', { style: { flex: 1, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
-            t('frpServerPort'),
-            h('input', {
-              style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
-              type: 'number', min: 1, max: 65535,
-              value: frpForm.serverPort,
-              onChange: (e) => setFrpForm((f) => ({ ...f, serverPort: e.target.value })),
-            }),
-          ),
-          h('label', { style: { flex: 1, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
-            t('frpRemotePort'),
-            h('input', {
-              style: { font: 'inherit', height: 30, padding: '0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
-              type: 'number', min: 1, max: 65535,
-              value: frpForm.remotePort,
-              onChange: (e) => setFrpForm((f) => ({ ...f, remotePort: e.target.value })),
-            }),
-          ),
-        ),
-        h('label', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', display: 'grid', gap: 4 } },
-          t('frpToken'),
-          h('div', { style: { position: 'relative' } },
-            h('input', {
-              style: { font: 'inherit', height: 30, width: '100%', boxSizing: 'border-box', padding: '0 34px 0 8px', borderRadius: 8, border: '1px solid var(--dsw-alias-border-l2,#d1d5db)', background: 'var(--dsw-alias-bg-layer-1,#fff)', color: 'var(--dsw-alias-label-primary,inherit)' },
-              type: frpShowToken ? 'text' : 'password',
-              placeholder: status?.frpHasToken && !frpForm.token ? `•••••••• (${t('frpSaved')})` : t('frpTokenPlaceholder'),
-              value: frpForm.token,
-              onChange: (e) => setFrpForm((f) => ({ ...f, token: e.target.value })),
-            }),
-            h('button', {
-              type: 'button',
-              title: frpShowToken ? t('frpTokenHide') : t('frpTokenShow'),
-              'aria-label': frpShowToken ? t('frpTokenHide') : t('frpTokenShow'),
-              onClick: () => setFrpShowToken((v) => !v),
-              style: { position: 'absolute', right: 4, top: '50%', transform: 'translateY(-50%)', width: 26, height: 26, padding: 0, border: 'none', background: 'transparent', cursor: 'pointer', fontSize: 14, lineHeight: 1 },
-            }, frpShowToken ? '🙈' : '👁️'),
-          ),
-        ),
-        h('label', { style: { display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
-          h('input', { type: 'checkbox', checked: frpForm.tls === true, onChange: (e) => setFrpForm((f) => ({ ...f, tls: e.target.checked })) }),
-          t('frpTls'),
-        ),
-        h('div', { style: { ...styles.muted, marginTop: -2 } }, t('frpTlsHint')),
-        h('div', { style: { display: 'flex', gap: 8, alignItems: 'center', marginTop: 2 } },
-          h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: saveFrp, disabled: frpBusy }, frpSaved ? t('frpSaved') : t('frpSave')),
-          status?.frpRunning
-            ? h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: stopFrp }, t('frpStop'))
-            : h('button', {
-              style: { ...styles.primary, height: 30, padding: '0 12px', fontSize: 12 },
-              onClick: startFrp,
-              disabled: frpBusy || !status?.frpConfig?.serverAddr || !status?.frpHasToken,
-            }, frpBusy ? t('frpStarting') : t('frpStart')),
-        ),
-        (!status?.frpConfig?.serverAddr || !status?.frpHasToken)
-          ? h('div', { style: { ...styles.warn, marginTop: 4 } }, t('frpConfigureFirst'))
-          : null,
-      ) : h('div', { style: { ...styles.muted, marginTop: 8 } }, t('frpConfigureFirst')),
-      h('div', { style: { marginTop: 8, fontSize: 12, lineHeight: 1.6 } }, frpStatusText()),
-      frpError ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 4 } }, `❌ ${frpError}`) : null,
-      h('div', { style: { marginTop: 10 } },
-        h('button', { style: { ...styles.btn, height: 30, padding: '0 12px', fontSize: 12 }, onClick: copyFrpCompose }, frpCopied ? t('frpCopied') : t('frpCopyCompose')),
-      ),
-    ),
-
     error ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 8 } }, `❌ ${error}`) : null,
 
     // 安全免责声明弹框（issue #31）：每次开启公网访问前确认
-    disclaimerOpen ? h('div', { style: { position: 'fixed', inset: 0, zIndex: 10000, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 } },
+    disclaimerOpen ? h('div', { role: 'dialog', 'aria-modal': true, 'aria-label': t('disclaimerTitle'), style: { position: 'fixed', inset: 0, zIndex: 10000, background: 'var(--dsw-alias-bg-mask-1, rgba(15,17,21,.55))', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 } },
       h('div', { style: { background: 'var(--dsw-alias-bg-layer-1,#fff)', borderRadius: 12, maxWidth: 420, width: '100%', padding: '20px 22px', boxShadow: '0 8px 32px rgba(0,0,0,.18)' } },
         h('div', { style: { fontWeight: 600, fontSize: 15, color: 'var(--dsw-alias-state-warn-primary,#b45309)', marginBottom: 10 } }, t('disclaimerTitle')),
         h('div', { style: { fontSize: 13, lineHeight: 1.7, color: 'var(--dsw-alias-label-primary,inherit)' } }, t('disclaimerBody')),
         h('label', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 14, fontSize: 13, cursor: 'pointer' } },
-          h('input', { type: 'checkbox', checked: disclaimerChecked, onChange: (e) => setDisclaimerChecked(e.target.checked), style: { width: 16, height: 16 } }),
+          h('input', { type: 'checkbox', checked: disclaimerChecked, onChange: (e) => setDisclaimerChecked(e.target.checked), autoFocus: true, style: { width: 16, height: 16 } }),
           t('disclaimerAgree'),
         ),
         h('div', { style: { display: 'flex', gap: 8, marginTop: 16 } },
-          h('button', { style: { ...styles.btn, flex: 1 }, onClick: () => setDisclaimerOpen(false) }, t('cancel')),
+          h('button', { style: { ...styles.btn, flex: 1 }, 'data-dshp': 'ghost', onClick: () => setDisclaimerOpen(false) }, t('cancel')),
           h('button', {
-            style: { ...styles.primary, flex: 1, opacity: disclaimerChecked ? 1 : .5 },
+            style: { ...styles.primary, flex: 1 },
+            'data-dshp': 'primary',
             disabled: !disclaimerChecked,
             onClick: confirmDisclaimer,
-          }, t('disclaimerAgree')),
+          }, t('confirmEnable')),
         ),
         !disclaimerChecked ? h('div', { style: { marginTop: 8, fontSize: 12, color: 'var(--dsw-alias-state-error-primary,#dc2626)' } }, t('disclaimerHint')) : null,
       ),
@@ -648,7 +751,12 @@ function PocketSettingsTab({ rpcCall, t }) {
 // 所以入口天然位于设置按钮上方。点击直接渲染完整配置页（自包含对话框，
 // 不依赖 dsh 设置面板的内部状态：官方无 API 可从外部打开设置面板并定位
 // 到指定 section，因此这里自渲染，同时从设置面板移除原 settings.section 入口）。
-function PocketEntryButton({ rpcCall, t }) {
+//
+// 侧边栏收起时：宿主 SidebarRoot 给本槽位的每个条目传 `wide`（收起动画结束后
+// 变为 false），官方条目此时都变成 36×36 圆形纯图标按钮（见 ui-settings-general
+// 的 trigger.rail），这里跟随同一形态；Tooltip 也用官方原语（500ms 延迟，
+// 与 New Session 一致），宿主缺该导出时回退为原生 title。
+function PocketEntryButton({ rpcCall, t, wide = true }) {
   const [open, setOpen] = useState(false);
   const [narrow, setNarrow] = useState(() => window.matchMedia('(max-width: 1023px)').matches);
   useEffect(() => {
@@ -664,39 +772,66 @@ function PocketEntryButton({ rpcCall, t }) {
     document.addEventListener('keydown', onKey, true);
     return () => document.removeEventListener('keydown', onKey, true);
   }, [open]);
+  // 对话框关闭后把焦点还给触发按钮
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.activeElement;
+    return () => { try { prev?.focus?.(); } catch { /* 元素可能已移除 */ } };
+  }, [open]);
   if (narrow) return null; // 仅桌面端显示入口
 
+  const label = t('entryLabel');
+  // 官方 rail 形态：36×36 圆形、图标居中、hover/focus 走注入的状态样式
+  const railButton = h('button', {
+    type: 'button',
+    'data-dsh-pocket-entry': '',
+    'aria-label': label,
+    title: Tooltip == null ? label : undefined, // 官方 Tooltip 缺席时用原生 title 兜底
+    onClick: () => setOpen(true),
+    style: {
+      width: 36, height: 36, margin: '4px 0', padding: 0,
+      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+      border: 'none', borderRadius: '50%', background: 'transparent',
+      color: 'var(--dsw-alias-label-primary, inherit)', cursor: 'pointer',
+      font: 'inherit',
+    },
+  }, h('span', { 'aria-hidden': true, style: { fontSize: 16, lineHeight: 1, flex: 'none' } }, '📱'));
+
   return h(Fragment, null,
-    h('button', {
+    wide ? h('button', {
       type: 'button',
       'data-dsh-pocket-entry': '',
       onClick: () => setOpen(true),
       style: {
         display: 'flex', alignItems: 'center', gap: 8,
-        width: '100%', boxSizing: 'border-box',
-        padding: '8px 12px', margin: '2px 0',
-        border: 'none', borderRadius: 10, background: 'transparent',
+        width: '100%', boxSizing: 'border-box', height: 42,
+        padding: '0 10px 0 8px', margin: '4px -2px',
+        border: 'none', borderRadius: 12, background: 'transparent',
         color: 'var(--dsw-alias-label-primary, inherit)',
         font: 'inherit', fontSize: 14, lineHeight: '22px',
         cursor: 'pointer', textAlign: 'left',
       },
     },
       h('span', { style: { fontSize: 16, flex: 'none', lineHeight: 1 } }, '📱'),
-      h('span', { style: { whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, t('entryLabel')),
-    ),
+      h('span', { style: { whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } }, label),
+    ) : (Tooltip != null
+      ? h(Tooltip, { label, delayMs: 500 }, railButton)
+      : railButton),
     open ? h('div', {
       role: 'dialog',
       'aria-modal': 'true',
+      'aria-label': t('section'),
       'data-dsh-pocket-dialog': '',
+      'data-dsh-pocket-overlay': '',
       style: {
         position: 'fixed', inset: 0, zIndex: 10000,
-        background: 'rgba(15,17,21,.55)',
+        background: 'var(--dsw-alias-bg-mask-1, rgba(15,17,21,.55))',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: 20,
       },
       onClick: (e) => { if (e.target === e.currentTarget) setOpen(false); },
     },
-      h('div', { style: {
+      h('div', { 'data-dsh-pocket-panel': '', style: {
         background: 'var(--dsw-alias-bg-base, #fff)',
         borderRadius: 14, boxShadow: '0 18px 50px rgba(0,0,0,.25)',
         width: '100%', maxWidth: 560, maxHeight: 'min(88vh, 820px)',
@@ -712,6 +847,7 @@ function PocketEntryButton({ rpcCall, t }) {
           h('button', {
             type: 'button',
             'aria-label': t('closeDialog'),
+            autoFocus: true, // 打开对话框即落在关闭钮上，Esc/Tab 从这里开始
             onClick: () => setOpen(false),
             style: {
               width: 30, height: 30, borderRadius: '50%', border: 'none',
@@ -739,6 +875,17 @@ export function apply(ctx) {
   // 设置页签接入 DSH 本地化：注册 pocket 词典（zh/en），并绑定一个随当前 locale 切换的 t()。
   const translate = ctx.locale.bind(POCKET_NS);
   ctx.effect(() => ctx.locale.register(POCKET_NS, { zh: POCKET_ZH, en: POCKET_EN }), 'dsh-pocket: pocket locale dictionaries');
+
+  // 桌面配置页的状态层样式（hover/focus/disabled/入场动画）：一次注入，
+  // 卸载时移除；作用域全部钉在自有 data-* 钩子上。
+  ctx.effect(() => {
+    const tag = document.createElement('style');
+    tag.dataset.plugin = name;
+    tag.dataset.pluginCss = `${name}/ui.css`;
+    tag.textContent = POCKET_UI_CSS;
+    document.head.appendChild(tag);
+    return () => tag.remove();
+  }, 'dsh-pocket: client ui state styles');
 
   // 侧边栏「手机访问」入口（仅桌面端，位于设置按钮上方）；配置页自渲染对话框。
   // 注意：不再注册 settings.section——设置面板里不再出现「手机访问」tab。
