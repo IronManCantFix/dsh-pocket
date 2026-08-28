@@ -86,8 +86,8 @@ npm install -g @deepseek-ai/dsh     # global install; verify: dsh --version
 ```
 
 ```sh
-# 1. Install the plugin (everything in one package; versioned URL prevents pnpm cache; see Releases for the latest version)
-dsh plugin --profile web add "https://github.com/IronManCantFix/dsh-pocket/releases/download/v1.15.2/dsh-pocket-nas-1.15.2.tgz" -w
+# 1. Install the plugin (everything in one package; git install by tag — no stale pnpm cache; see Releases for the latest version)
+dsh plugin --profile web add github:IronManCantFix/dsh-pocket#v1.15.3 -w
 
 # 2. Restart dsh web
 npx @deepseek-ai/dsh web
@@ -107,7 +107,7 @@ Settings → **Phone access** → scan the "📶 LAN" QR code → enter the **LA
 
 On the same page click "**Enable anywhere**" → **a security disclaimer pops up every time — check "I understand and agree" to proceed** (on a corporate/classified network, confirm compliance first) → wait for the tunnel (first run downloads cloudflared; macOS/Linux use the Tsinghua mirror, seconds) → scan the "🌐 Public" QR code → the phone opens the link and **enters the 8-digit PIN** (shown in the settings page's public section; **rotated on every tunnel start by default**, or **Customize** it to a fixed PIN that is never rotated) → works from outside (4G / office network).
 
-> Upgrading: replace the version in the install URL with the latest (see [Releases](https://github.com/IronManCantFix/dsh-pocket/releases)) and re-run the `add` command — the versioned URL changes every release so pnpm actually re-downloads (the fixed `releases/latest` URL gets cached as the old package). Upgrading from the old-named `dsh-pocket` plugin? Run `dsh plugin --profile web remove dsh-pocket -w` first, then `add`.
+> Upgrading: replace the version in `#v1.15.3` with the latest (see [Releases](https://github.com/IronManCantFix/dsh-pocket/releases)) and re-run the `add` command — the git install pulls by tag, so pnpm never caches an old package by URL (a tgz download link / the fixed `releases/latest` URL gets cached as the old package — that's why the settings page now shows the git command). Upgrading from the old-named `dsh-pocket` plugin? Run `dsh plugin --profile web remove dsh-pocket -w` first, then `add`.
 
 ## ⚠️ Security (read first)
 
@@ -133,7 +133,7 @@ On the same page click "**Enable anywhere**" → **a security disclaimer pops up
 | `ERR_PNPM_ADDING_TO_ROOT` | pnpm 9 workspace-root restriction: append `-w` (`--workspace-root`) to install/update commands |
 | Nothing changed after install/update | **You must restart `dsh web`**; the running process still loads the old code |
 | `listen EADDRINUSE ... :3081` | A stale dsh-pocket-nas process holds the port: macOS/Linux `lsof -ti :3081 \| xargs kill -9`; Windows `netstat -ano \| findstr :3081` (find the LISTENING PID) → `taskkill /PID <PID> /F`, then retry |
-| Version stuck below 1.x | Use the versioned `add` URL from "Upgrading" above — the fixed `releases/latest` URL gets cached as the old package by pnpm |
+| Version stuck below 1.x | Use the git `add` command from "Upgrading" above — the fixed `releases/latest` URL / tgz link gets cached as the old package by pnpm |
 | Public `error 1033` | See "Public tunnel troubleshooting" below — usually a local proxy/VPN (Clash etc. TUN mode) killing the tunnel |
 | After "Restart dsh web", the page says the process is running in the background | The new process from in-page self-restart is a detached background process (not attached to your terminal) — that's the standard way to apply updates in-page; stop it: macOS/Linux `lsof -ti :3080 \| xargs kill -9`; Windows `netstat -ano \| findstr :3080` → `taskkill /PID <PID> /F` (logs under `$DSH_HOME` as `dsh-pocket-restart-*.log`) |
 

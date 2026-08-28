@@ -162,13 +162,17 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [tunnelState, setTunnelState] = useState(null); // 隧道进度 {phase, detail, startedAt}
   const [restartNotice, setRestartNotice] = useState(false); // 重启后提示
   // 版本信息（仅展示，不自动检测更新）：{ current, loaded, githubLatest, githubUrl, loading, failed }
-  const [versionInfo, setVersionInfo] = useState({ current: null, loaded: null, githubLatest: null, githubUrl: null, githubDownloadUrl: null, loading: true, failed: false });
+  const [versionInfo, setVersionInfo] = useState({ current: null, loaded: null, githubLatest: null, githubUrl: null, loading: true, failed: false });
 
-  // 安装/更新到最新版：优先「add + GitHub 最新版对应的版本化下载 URL」——
-  // 版本化 URL 每次不同，pnpm 会真正重新下载（releases/latest 固定 URL 会被 pnpm
-  // 按 URL 缓存旧包，装完还是旧版）；查不到 GitHub 最新版时回退到 update 命令。
-  const installCmd = versionInfo.githubDownloadUrl
-    ? `dsh plugin --profile web add "${versionInfo.githubDownloadUrl}" -w`
+  // 安装/更新到最新版：优先「add + GitHub 仓库的版本 tag（git 方式安装）」——
+  // github:owner/repo#vX.Y.Z 让 pnpm 按 git tag 拉取安装，不经过 Releases 的 tgz
+  // URL（tgz/固定 URL 会被 pnpm 按 URL 缓存旧包，装完还是旧版、影响更新）。
+  // tag 版本号一律来自真实数据、绝不写死：GitHub 最新 Release 版本优先（对应
+  // 「更新到最新版」）；GitHub 查询失败（被墙/限流）时用本机实际安装版本兜底；
+  // 两者都拿不到才回退到 update 命令。
+  const tagVersion = versionInfo.githubLatest ?? versionInfo.current;
+  const installCmd = tagVersion
+    ? `dsh plugin --profile web add github:IronManCantFix/dsh-pocket#v${tagVersion} -w`
     : UPDATE_CMD;
   // 磁盘已更新未重启时的重启状态：{ restarting, startedAt } | null
   const [restartState, setRestartState] = useState(null);
@@ -303,7 +307,6 @@ function PocketSettingsTab({ rpcCall, t }) {
         loaded: v?.loaded ?? null,
         githubLatest: gh?.version ?? null,
         githubUrl: gh?.url ?? 'https://github.com/IronManCantFix/dsh-pocket/releases/latest',
-        githubDownloadUrl: gh?.downloadUrl ?? null,
         loading: false,
         failed: false,
       });

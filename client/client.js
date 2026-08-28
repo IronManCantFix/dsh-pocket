@@ -1786,8 +1786,9 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [error, setError] = (0, import_react2.useState)(null);
   const [tunnelState, setTunnelState] = (0, import_react2.useState)(null);
   const [restartNotice, setRestartNotice] = (0, import_react2.useState)(false);
-  const [versionInfo, setVersionInfo] = (0, import_react2.useState)({ current: null, loaded: null, githubLatest: null, githubUrl: null, githubDownloadUrl: null, loading: true, failed: false });
-  const installCmd = versionInfo.githubDownloadUrl ? `dsh plugin --profile web add "${versionInfo.githubDownloadUrl}" -w` : UPDATE_CMD;
+  const [versionInfo, setVersionInfo] = (0, import_react2.useState)({ current: null, loaded: null, githubLatest: null, githubUrl: null, loading: true, failed: false });
+  const tagVersion = versionInfo.githubLatest ?? versionInfo.current;
+  const installCmd = tagVersion ? `dsh plugin --profile web add github:IronManCantFix/dsh-pocket#v${tagVersion} -w` : UPDATE_CMD;
   const [restartState, setRestartState] = (0, import_react2.useState)(null);
   const [isDesktop, setIsDesktop] = (0, import_react2.useState)(false);
   const [now, setNow] = (0, import_react2.useState)(Date.now());
@@ -1904,7 +1905,6 @@ function PocketSettingsTab({ rpcCall, t }) {
         loaded: v?.loaded ?? null,
         githubLatest: gh?.version ?? null,
         githubUrl: gh?.url ?? "https://github.com/IronManCantFix/dsh-pocket/releases/latest",
-        githubDownloadUrl: gh?.downloadUrl ?? null,
         loading: false,
         failed: false
       });
