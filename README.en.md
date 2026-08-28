@@ -15,11 +15,14 @@
   <a href="https://awesome-dsh-plugin.com"><img alt="Awesome DSH Plugin" src="https://awesome-dsh-plugin.com/badge.svg"></a>
 </p>
 
-> **Fork notice**: this repository is forked from [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket) (v1.13.4).
-> On top of all upstream features it adds a **NAS reverse tunnel (frp)**, a **sidebar entry refactor**,
-> **mobile layout polish**, and **one-shot NAS deployment** — see [🔄 What this fork adds](#-what-this-fork-adds-vs-upstream-v1134).
+> **⚠️ This is a fork, not an independent project**: forked from [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket) (upstream v1.13.4).
+> All upstream features are kept, and the fork iterates around one core goal — **how the NAS reaches the DSH on your computer**:
+> the DeepSeek Harness on your computer is published to your own NAS over a **frp reverse tunnel**, and your phone opens the NAS's
+> fixed domain (e.g. `https://dsh.your-domain.com`) to reach the computer — **fixed URL, fastest direct route in CN, fully
+> self-hosted, no Cloudflare or other third-party dependency**. The other additions (sidebar entry refactor, mobile layout polish,
+> one-shot NAS deploy) are listed in [🔄 What this fork adds](#-what-this-fork-adds-vs-upstream-v1134).
 
-> Put **DeepSeek Harness in your pocket**: one package, one config page — scan a QR code and your phone shows exactly what's on your computer screen, live, from anywhere.
+> In one sentence: **put the DeepSeek Harness on your computer in your pocket, via your own NAS** — one package, one config page — scan a QR code and your phone shows exactly what's on your computer screen, live, from anywhere.
 
 <p align="center">
   ⭐ A Star would make the author's day &nbsp;·&nbsp; <a href="https://github.com/IronManCantFix/dsh-pocket">Here, take one</a>
@@ -27,13 +30,31 @@
 
 ## What is this
 
-**You want to use DeepSeek Harness on your computer, even when you're not at the computer.**
+**This is a fork project; its core scenario is "NAS accessing the DSH on your computer".**
 
-- On your way home, the agent is running a task on your computer — pull out your phone and see where it is, what it produced.
-- Out and about, you want the agent on your computer to look something up or write a snippet — no remote desktop, no SSH.
+DeepSeek Harness (DSH) runs on your computer, and you want to use it when you're away from the keyboard. The usual options each have drawbacks:
+
+- No public IP, and you don't want to fiddle with router port forwarding
+- Third-party tunnels like Cloudflare: the URL changes on every restart, slow from CN, dependent on external edge nodes
+- Remote desktop / SSH: poor on a phone, and it opens risky ports
+
+**Your NAS is the one device that's online 24/7 at home or in the office** — this fork's idea: make it the fixed entry point for DSH.
+
+```
+Phone ──https://dsh.your-domain.com──▶ NAS reverse proxy (lucky / NAS built-in etc., auto HTTPS)
+                                            │
+                                NAS 127.0.0.1:7001 (frps forward port, loopback only)
+                                            ▲
+                          frp tunnel (dsh-pocket-nas on the computer auto-downloads and hosts frpc)
+                                            ▼
+                      Computer 127.0.0.1:3081 (dsh-pocket-nas proxy, 8-digit PIN) ──▶ DSH
+```
+
+- On your way home, the agent is running a task on your computer — open the NAS domain on your phone and see where it is, what it produced.
+- Out and about, you want the agent on your computer to look something up or write a snippet — no public IP, no Cloudflare.
 - The computer is at home or in the office, you're elsewhere, and you want to **drive your DeepSeek Harness from your phone** — send tasks, watch the output, tap approvals.
 
-That's what DSH Pocket does: **install it, scan a QR code, and your phone shows and controls the DeepSeek Harness UI in real time — from anywhere.**
+Install it, open the NAS's fixed domain on your phone (or scan the LAN QR on the same Wi-Fi), and you see and control the DeepSeek Harness UI in real time — from anywhere.
 
 What it looks like — the phone shows the exact same UI as your computer, live:
 
@@ -43,11 +64,12 @@ What it looks like — the phone shows the exact same UI as your computer, live:
 
 ## 🔄 What this fork adds (vs upstream v1.13.4)
 
-On top of all upstream features, this repository adds:
+On top of all upstream features, this fork iterates around the core goal of "NAS accessing the DSH on your computer"
+(**the NAS reverse tunnel is the fork's core addition**):
 
 | Addition | Description |
 |---|---|
-| 🏠 **NAS reverse tunnel (frp)** | New frp backend (`lib/frp-tunnel.mjs`): the plugin **auto-downloads and hosts frpc** and publishes dsh to **your own NAS** — fixed URL, fastest direct route in CN, no Cloudflare-edge dependency. The NAS only needs an frps container; the HTTPS entry is your existing reverse proxy (lucky / NAS built-in / etc.). Deploy with `deploy/nas/`; full tutorial in [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md) |
+| 🏠 **NAS reverse tunnel (frp)** (core) | New frp backend (`lib/frp-tunnel.mjs`): the plugin **auto-downloads and hosts frpc** and publishes dsh to **your own NAS** — fixed URL, fastest direct route in CN, no Cloudflare-edge dependency. The NAS only needs an frps container; the HTTPS entry is your existing reverse proxy (lucky / NAS built-in / etc.). Deploy with `deploy/nas/`; full tutorial in [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md) |
 | 🧭 **Sidebar entry refactor** | The "Phone access" entry moved out of the settings panel (was the 2nd tab) to the **desktop sidebar, right above the Settings button**; clicking opens the full config page in a self-contained dialog (does not depend on dsh's settings-panel internal state) |
 | 📱 **Mobile layout polish** | FAB moved to the bottom-right thumb zone, touch targets expanded to 44px, bottom home-indicator safe area, horizontal scrolling for code blocks, landscape/320px adaptations (`client/mobile/mobile.css.ts`) |
 | 📦 **One-shot NAS deploy** | `deploy/nas/`: frps-only docker-compose + frps.toml (security: forward port bound to loopback only via `proxyBindAddr=127.0.0.1`) + reverse-proxy notes (WebSocket must be on) |
@@ -61,9 +83,9 @@ On top of all upstream features, this repository adds:
 
 | Feature | Description |
 |---|---|
+| 🏠 **NAS reverse tunnel (frp)** | This fork's core feature: publish dsh to your own NAS via frp, the phone opens the NAS domain to reach the machine — **fixed URL**, fastest direct route in CN, no third-party dependency (run frps + a reverse proxy on the NAS; the plugin auto-downloads and hosts frpc) |
 | 📶 LAN QR access | Works out of the box: the sidebar **"Phone access"** entry — scan the LAN QR on the same Wi-Fi (auto-detects the LAN IP; **under WSL it picks the Windows host's physical NIC IP**) |
-| 🌐 Public QR (from anywhere) | Click "Enable anywhere" → cloudflared tunnel → scan the public QR over 4G / any network |
-| 🏠 NAS reverse tunnel (frp) | Self-hosted entry: publish dsh to your own NAS via frp, the phone opens the NAS domain to reach the machine — **fixed URL**, fastest direct route in CN, no third-party dependency (run frps + a reverse proxy on the NAS; the plugin auto-downloads and hosts frpc) |
+| 🌐 Public QR (from anywhere) | Click "Enable anywhere" → cloudflared tunnel → scan the public QR over 4G / any network (fallback option — the NAS tunnel is recommended) |
 | 🔐 Access PIN | Public links require an **8-digit PIN** (rotated on every tunnel start by default; **customizable to a fixed PIN** — custom PINs are not rotated); LAN has its own separate **8-digit PIN** (on by default; switchable off in Settings — then LAN scans connect directly) |
 | 🔑 Custom PINs | Both the public and LAN PINs can be **set to your own fixed 8-digit number** in Settings (custom PINs are never auto-rotated) |
 | 🧘 Session persistence | Enter the PIN once and you're set for a long time (login is tied to the computer's dsh web process: as long as it stays up, the phone won't ask again; **after a dsh web restart/update, enter it once more**) |
@@ -87,11 +109,21 @@ npm install -g @deepseek-ai/dsh     # global install; verify: dsh --version
 
 ```sh
 # 1. Install the plugin (everything in one package; git install by tag — no stale pnpm cache; see Releases for the latest version)
-dsh plugin --profile web add github:IronManCantFix/dsh-pocket#v1.15.3 -w
+dsh plugin --profile web add github:IronManCantFix/dsh-pocket#v1.15.4 -w
 
 # 2. Restart dsh web
 npx @deepseek-ai/dsh web
 ```
+
+### 🏠 NAS reverse tunnel (this fork's core scenario)
+
+Three steps to publish the DSH on your computer to your own NAS, so your phone reaches it via the NAS's fixed domain:
+
+1. **On the NAS** (one-time): put `deploy/nas/`'s `docker-compose.yml` + `frps.toml` on the NAS (frps container only), generate a connection token with `openssl rand -hex 16` into `frps.toml`, start with `docker compose up -d`; then add one reverse-proxy rule with your existing tool (lucky / NAS built-in etc.): **`https://dsh.your-domain.com` → `http://127.0.0.1:7001`** (⚠️ make sure WebSocket support is enabled)
+2. **On the computer**: config page "🏠 NAS reverse tunnel (frp)" → enter **NAS address** (domain or IP), **server port 7000**, **forward port 7001**, **connection token** (must match frps.toml) → save → enable the tunnel (frpc downloads on first run) → status "✅ connected"
+3. **On the phone**: open `https://dsh.your-domain.com` → enter the 8-digit access PIN → you see the exact same DSH as on the computer, in real time
+
+> Full tutorial (install / build / NAS deploy / troubleshooting) in [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md); one-shot NAS deployment in [deploy/nas/](deploy/nas/).
 
 ### LAN (same Wi-Fi)
 
@@ -107,7 +139,7 @@ Settings → **Phone access** → scan the "📶 LAN" QR code → enter the **LA
 
 On the same page click "**Enable anywhere**" → **a security disclaimer pops up every time — check "I understand and agree" to proceed** (on a corporate/classified network, confirm compliance first) → wait for the tunnel (first run downloads cloudflared; macOS/Linux use the Tsinghua mirror, seconds) → scan the "🌐 Public" QR code → the phone opens the link and **enters the 8-digit PIN** (shown in the settings page's public section; **rotated on every tunnel start by default**, or **Customize** it to a fixed PIN that is never rotated) → works from outside (4G / office network).
 
-> Upgrading: replace the version in `#v1.15.3` with the latest (see [Releases](https://github.com/IronManCantFix/dsh-pocket/releases)) and re-run the `add` command — the git install pulls by tag, so pnpm never caches an old package by URL (a tgz download link / the fixed `releases/latest` URL gets cached as the old package — that's why the settings page now shows the git command). Upgrading from the old-named `dsh-pocket` plugin? Run `dsh plugin --profile web remove dsh-pocket -w` first, then `add`.
+> Upgrading: replace the version in `#v1.15.4` with the latest (see [Releases](https://github.com/IronManCantFix/dsh-pocket/releases)) and re-run the `add` command — the git install pulls by tag, so pnpm never caches an old package by URL (a tgz download link / the fixed `releases/latest` URL gets cached as the old package — that's why the settings page now shows the git command). Upgrading from the old-named `dsh-pocket` plugin? Run `dsh plugin --profile web remove dsh-pocket -w` first, then `add`.
 
 ## ⚠️ Security (read first)
 

@@ -15,11 +15,13 @@
   <a href="https://awesome-dsh-plugin.com/zh/"><img alt="Awesome DSH Plugin" src="https://awesome-dsh-plugin.com/badge.svg"></a>
 </p>
 
-> **Fork 说明**：本仓库 fork 自 [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket)（v1.13.4），
-> 在保留全部原有功能的基础上迭代了 **NAS 反向隧道（frp）**、**侧边栏入口重构**、**移动端布局优化**、
-> **NAS 一键部署** 等内容，详见下方 [🔄 本 Fork 的迭代](#-本-fork-的迭代相对上游-v1134)。
+> **⚠️ 这是一个 fork 项目，不是独立项目**：本仓库 fork 自 [shaobeichen/dsh-pocket](https://github.com/shaobeichen/dsh-pocket)（上游 v1.13.4），
+> 保留了上游全部功能，并围绕一个核心目标迭代——**解决「NAS 访问电脑上 DSH」的方式**：
+> 把电脑上的 DeepSeek Harness 通过 **frp 反向隧道**发布到自家 NAS，手机访问 NAS 的固定域名
+> （如 `https://dsh.你的域名.com`）即达电脑——**URL 固定、国内直连最快、全程自建、不依赖 Cloudflare 等第三方**。
+> 其余迭代（侧边栏入口重构、移动端布局优化、NAS 一键部署等）见下方 [🔄 本 Fork 的迭代](#-本-fork-的迭代相对上游-v1134)。
 
-> 把 **DeepSeek Harness 装进你的口袋**：一个包、一个配置页，手机扫二维码就实时看到电脑上的同一个界面——人在外面也能用。
+> 一句话：**通过你家 NAS，把电脑上的 DeepSeek Harness 装进口袋**——一个包、一个配置页，手机扫二维码就实时看到电脑上的同一个界面，人在外面也能用。
 
 <p align="center">
   ⭐ 顺手留颗 Star，作者能高兴一整天 &nbsp;·&nbsp; <a href="https://github.com/IronManCantFix/dsh-pocket">行，给你一颗 Star</a>
@@ -27,13 +29,31 @@
 
 ## 这是什么
 
-**你不在电脑前，也想用电脑上的 DeepSeek Harness。**
+**本仓库是一个 fork 项目，核心场景是「NAS 访问电脑上的 DSH」。**
 
-- 下班路上，agent 在电脑上跑任务，你想掏出手机看看它干到哪了、结果如何
-- 出门在外，突然想让电脑上的 agent 查点资料、写段代码，但没有远程桌面、没有 SSH
-- 电脑在宿舍/办公室，你人在外面，想随时"操控你的 DeepSeek Harness"——发任务、看输出、点审批
+电脑上跑着 DeepSeek Harness（DSH），你不在电脑前也想用它。常见方案各有各的坑：
 
-DSH Pocket 就是干这个的：**装上它，手机扫个码，就能实时看到并操控电脑上的 DeepSeek Harness 界面**——人在外面也能用。
+- 没有公网 IP、不想折腾路由器端口转发
+- 用 Cloudflare 等第三方隧道：URL 每次重启都变、国内访问慢、依赖外部边缘节点
+- 远程桌面 / SSH：手机操作体验差，还得开放危险端口
+
+**NAS 是你家里/办公室 24 小时在线的设备**——本 fork 的思路：让它成为 DSH 的固定入口。
+
+```
+手机 ──https://dsh.你的域名.com──▶ NAS 反代（lucky/群晖自带等，自动 HTTPS）
+                                      │
+                          NAS 127.0.0.1:7001（frps 转发端口，只听本机）
+                                      ▲
+                      frp 隧道（电脑上 dsh-pocket-nas 自动下载并托管 frpc）
+                                      ▼
+                  电脑 127.0.0.1:3081（dsh-pocket-nas 代理，8 位密码）──▶ DSH
+```
+
+- 下班路上，agent 在电脑上跑任务，掏出手机打开 NAS 域名就能看它干到哪了、结果如何
+- 出门在外，想让电脑上的 agent 查点资料、写段代码——不依赖公网 IP，也不用 Cloudflare
+- 电脑在宿舍/办公室，人在外面，随时"操控你的 DeepSeek Harness"——发任务、看输出、点审批
+
+装上它，手机访问 NAS 的固定域名（或同一 WiFi 扫二维码），就能实时看到并操控电脑上的 DeepSeek Harness 界面——人在外面也能用。
 
 实际效果——手机上的界面就是电脑上的界面，实时同步：
 
@@ -43,11 +63,12 @@ DSH Pocket 就是干这个的：**装上它，手机扫个码，就能实时看�
 
 ## 🔄 本 Fork 的迭代（相对上游 v1.13.4）
 
-在保留上游全部功能的基础上，本仓库迭代了以下内容：
+在保留上游全部功能的基础上，本 fork 围绕「NAS 访问电脑 DSH」这一核心目标迭代了以下内容
+（**NAS 反向隧道是本 fork 的核心迭代**）：
 
 | 迭代 | 说明 |
 |---|---|
-| 🏠 **NAS 反向隧道（frp）** | 新增 frp 隧道后端（`lib/frp-tunnel.mjs`）：插件**自动下载/托管 frpc**，把 dsh 反向发布到**自家 NAS**——固定域名、国内直连最快、不依赖 Cloudflare 边缘。NAS 端只需跑 frps 一个容器，HTTPS 入口用你现有的反代工具（lucky / 群晖自带反代等）。部署见 `deploy/nas/`，完整教程见 [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md) |
+| 🏠 **NAS 反向隧道（frp）**（核心） | 新增 frp 隧道后端（`lib/frp-tunnel.mjs`）：插件**自动下载/托管 frpc**，把 dsh 反向发布到**自家 NAS**——固定域名、国内直连最快、不依赖 Cloudflare 边缘。NAS 端只需跑 frps 一个容器，HTTPS 入口用你现有的反代工具（lucky / 群晖自带反代等）。部署见 `deploy/nas/`，完整教程见 [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md) |
 | 🧭 **侧边栏入口重构** | 「手机访问」入口从设置面板（原第二个 tab）移到**桌面端侧边栏、设置按钮正上方**；点击直接弹出完整配置页（自包含对话框，不依赖 dsh 设置面板内部状态） |
 | 📱 **移动端布局优化** | FAB 移到右下拇指区、触控目标扩至 44px、底部 home indicator 安全区、代码块横向滚动、横屏/320px 小屏适配（`client/mobile/mobile.css.ts`） |
 | 📦 **NAS 一键部署** | `deploy/nas/`：仅 frps 容器的 docker-compose + frps.toml（安全项：转发端口只听本机 `proxyBindAddr=127.0.0.1`）+ 反代配置说明（WebSocket 必开） |
@@ -61,9 +82,9 @@ DSH Pocket 就是干这个的：**装上它，手机扫个码，就能实时看�
 
 | 特性 | 说明 |
 |---|---|
+| 🏠 **NAS 反向隧道（frp）** | 本 fork 的核心特性：把 dsh 反向发布到自家 NAS（frp），手机访问 NAS 域名即达电脑——**URL 固定**、国内直连最快、不依赖第三方（NAS 端跑 frps + 反代容器，插件自动下载并托管 frpc） |
 | 📶 局域网扫码 | 装好即用：侧边栏「手机访问」入口，打开就有局域网二维码，手机连同一 WiFi 扫码即开（自动识别本机局域网 IP，**WSL 环境自动取 Windows 物理网卡 IP**） |
-| 🌐 公网扫码（人在外面） | 点「开启公网访问」→ cloudflared 隧道 → 出公网二维码，4G/任何网络都能访问 |
-| 🏠 NAS 反向隧道（frp） | 自建入口：把 dsh 反向发布到自家 NAS（frp），手机访问 NAS 域名即达电脑——**URL 固定**、国内直连最快、不依赖第三方（NAS 端跑 frps + 反代容器，插件自动下载并托管 frpc） |
+| 🌐 公网扫码（人在外面） | 点「开启公网访问」→ cloudflared 隧道 → 出公网二维码，4G/任何网络都能访问（备选方案，NAS 隧道更推荐） |
 | 🔐 访问密码 | 公网链接需输入 **8 位数字密码**（默认每次开启公网自动换新；**可自定义固定密码**——自定义后不再换新）；局域网有独立 **8 位数字密码**（默认开启，配置页可**一键关闭**——关闭后局域网扫码直连） |
 | 🔑 自定义密码 | 公网/局域网密码都可在配置页**设成自己固定的 8 位数字**（自定义后公网不再自动换新） |
 | 🧘 会话保持 | 手机输一次密码后**长期免输**（登录状态绑定电脑上的 dsh web 进程：只要它不重启，手机不用再输；**dsh web 重启/更新后需重新输入一次**） |
@@ -87,11 +108,21 @@ npm install -g @deepseek-ai/dsh     # 全局安装；验证：dsh --version
 
 ```sh
 # 1. 装插件（一个包全都有；git 方式按 tag 拉取安装，pnpm 不会缓存旧包；最新版本号见 Releases 页）
-dsh plugin --profile web add github:IronManCantFix/dsh-pocket#v1.15.3 -w
+dsh plugin --profile web add github:IronManCantFix/dsh-pocket#v1.15.4 -w
 
 # 2. 重启 dsh web
 npx @deepseek-ai/dsh web
 ```
+
+### 🏠 NAS 反向隧道（本 fork 的核心场景）
+
+三步走，把电脑上的 DSH 发布到自家 NAS，手机访问 NAS 的固定域名即达电脑：
+
+1. **NAS 端**（一次性）：把 `deploy/nas/` 里的 `docker-compose.yml` + `frps.toml` 放到 NAS（只需 frps 一个容器），生成连接令牌 `openssl rand -hex 16` 填入 `frps.toml`，`docker compose up -d` 启动；再用 NAS 现有的反代工具（lucky / 群晖自带等）加一条规则：**`https://dsh.你的域名.com` → `http://127.0.0.1:7001`**（⚠️ 务必开启 WebSocket 支持）
+2. **电脑端**：配置页「🏠 NAS 反向隧道（frp）」→ 填 **NAS 地址**（域名或 IP）、**服务端口 7000**、**转发端口 7001**、**连接令牌**（与 frps.toml 一致）→ 保存 → 开启隧道（首次自动下载 frpc）→ 状态「✅ 已连接」
+3. **手机访问**：打开 `https://dsh.你的域名.com` → 输入 8 位访问密码 → 看到的就是电脑上的 DSH，实时同步
+
+> 完整教程（安装/打包/NAS 部署/排障）见 [docs/nas-frp-tutorial.md](docs/nas-frp-tutorial.md)；NAS 端一键部署见 [deploy/nas/](deploy/nas/)。
 
 ### 局域网（同一 WiFi）
 
@@ -107,7 +138,7 @@ npx @deepseek-ai/dsh web
 
 同一页点「**开启公网访问**」→ **每次都会先弹出安全免责声明**，勾选「我已知情」后才能开启（公司/涉密网络请先确认合规）→ 等隧道建立（首次会下载 cloudflared，macOS/Linux 走清华镜像秒下）→ 手机扫「🌐 公网」二维码 → 打开链接**输入 8 位访问密码**（密码显示在配置页公网区块，默认**每次开启公网变新**，也可点「自定义」设成固定密码——自定义后不再换新）→ 人在外面（4G/公司网）也能访问。
 
-> 更新到新版本：把命令里 `#v1.15.3` 的版本号换成最新版（见 [Releases 页](https://github.com/IronManCantFix/dsh-pocket/releases)），重新执行上面的 `add` 命令即可——git 方式按 tag 拉取，pnpm 不会按 URL 缓存旧包；而 tgz 下载链接 / `releases/latest` 固定 URL 会被 pnpm 缓存成旧包，装完还是旧版（这就是配置页命令改用 git 安装的原因）。从旧名插件 `dsh-pocket` 升级，先 `dsh plugin --profile web remove dsh-pocket -w` 再 add。
+> 更新到新版本：把命令里 `#v1.15.4` 的版本号换成最新版（见 [Releases 页](https://github.com/IronManCantFix/dsh-pocket/releases)），重新执行上面的 `add` 命令即可——git 方式按 tag 拉取，pnpm 不会按 URL 缓存旧包；而 tgz 下载链接 / `releases/latest` 固定 URL 会被 pnpm 缓存成旧包，装完还是旧版（这就是配置页命令改用 git 安装的原因）。从旧名插件 `dsh-pocket` 升级，先 `dsh plugin --profile web remove dsh-pocket -w` 再 add。
 
 ## ⚠️ 安全（必读）
 
