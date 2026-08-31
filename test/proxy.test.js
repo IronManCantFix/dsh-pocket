@@ -706,6 +706,11 @@ test('classifyHost（issue #66）：loopback/私网归类，陌生域名一律 p
   assert.equal(classifyHost('10.0.0.2'), 'lan');
   assert.equal(classifyHost('172.16.3.4'), 'lan');
   assert.equal(classifyHost('172.32.1.1'), 'public', '172.32 不在 RFC1918 范围');
+  // lan：CGNAT 100.64/10（RFC 6598，Tailscale/ZeroTier 默认网段，issue #79）
+  assert.equal(classifyHost('100.64.0.1'), 'lan');
+  assert.equal(classifyHost('100.127.255.254:3081'), 'lan');
+  assert.equal(classifyHost('100.63.0.1'), 'public', '100.63 不在 100.64/10 范围');
+  assert.equal(classifyHost('100.128.0.1'), 'public', '100.128 不在 100.64/10 范围');
   assert.equal(classifyHost('fd00::5'), 'lan');
   assert.equal(classifyHost('fe80::1%en0'), 'lan');
   assert.equal(classifyHost('mypc.local'), 'lan');
