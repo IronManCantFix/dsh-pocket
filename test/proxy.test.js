@@ -688,3 +688,97 @@ test('advancedNoticeScript：注入 advanced 模式提示覆盖层（issue #19�
   assert.ok(s.includes('compatibility'), '提示切回 compatibility');
   assert.ok(s.includes('position:fixed'), '固定覆盖层（白屏也能看到）');
 });
+
+// ---------- Host 信任边界（issue #66：fail closed） ----------
+
+test('classifyHost（issue #66）：loopback/私网归类，陌生域名一律 public（fail closed）', async () => {
+  const { classifyHost } = await import('../lib/proxy.mjs');
+  // loopback：本机与 cloudflared 回连
+  assert.equal(classifyHost('localhost'), 'loopback');
+  assert.equal(classifyHost('localhost:3081'), 'loopback');
+  assert.equal(classifyHost('127.0.0.1'), 'loopback');
+  assert.equal(classifyHost('127.0.0.1:3081'), 'loopback');
+  assert.equal(classifyHost('[::1]:3081'), 'loopback');
+  assert.equal(classifyHost('0.0.0.0'), 'loopback');
+  assert.equal(classifyHost(''), 'loopback');
+  // lan：RFC1918 私网 / IPv6 ULA / mDNS / NetBIOS 单标签名
+  assert.equal(classifyHost('192.168.1.5:3081'), 'lan');
+  assert.equal(classifyHost('10.0.0.2'), 'lan');
+  assert.equal(classifyHost('172.16.3.4'), 'lan');
+  assert.equal(classifyHost('172.32.1.1'), 'public', '172.32 不在 RFC1918 范围');
+  assert.equal(classifyHost('fd00::5'), 'lan');
+  assert.equal(classifyHost('fe80::1%en0'), 'lan');
+  assert.equal(classifyHost('mypc.local'), 'lan');
+  assert.equal(classifyHost('DESKTOP-ABC123'), 'lan');
+  // public：trycloudflare 及一切陌生域名（自建命名隧道固定域名）→ 强制公网密码
+  assert.equal(classifyHost('abc-def-hij.trycloudflare.com'), 'public');
+  assert.equal(classifyHost('pocket.example.com'), 'public');
+  assert.equal(classifyHost('random.host.org'), 'public');
+});
+
+// ---------- dsh web 浏览器会话 token（issue #77） ----------
+
+test('upstreamPathWithLaunchToken（issue #77）：首屏根路径补 token，已有 cookie / 非根路径不补（防 303 循环）', async () => {
+  const { upstreamPathWithLaunchToken } = await import('../lib/proxy.mjs');
+  const TOK = 'abcDEF123-_launch-token';
+  // 首屏：GET / 且没有 dsh-auth cookie → 补 token
+  assert.equal(upstreamPathWithLaunchToken('/', 'GET', undefined, TOK), `/?token=${TOK}`, '根路径补 token');
+  assert.equal(upstreamPathWithLaunchToken('/', 'GET', 'other=1', TOK), `/?token=${TOK}`, '无会话 cookie 也补');
+  assert.equal(upstreamPathWithLaunchToken('/?x=1', 'GET', undefined, TOK), `/?x=1&token=${TOK}`, '保留原有 query');
+  // 已有会话 cookie → 不补（否则上游 303 会死循环）
+  assert.equal(upstreamPathWithLaunchToken('/', 'GET', 'dsh-auth-abc=xyz', TOK), '/', '有会话 cookie 不补');
+  // 非根路径 / 非 GET → 不补
+  assert.equal(upstreamPathWithLaunchToken('/api/events.mux', 'GET', undefined, TOK), '/api/events.mux', 'API 路径不补');
+  assert.equal(upstreamPathWithLaunchToken('/', 'POST', undefined, TOK), '/', '非 GET 不补');
+  // 老版本 dsh（无 token）→ 原样转发
+  assert.equal(upstreamPathWithLaunchToken('/', 'GET', undefined, ''), '/', '无 token 时原样');
+  // 登录成功后的强制握手标记：即使带着旧 cookie 也重做一次（cookie 可能已过期/被撤销）
+  assert.equal(upstreamPathWithLaunchToken('/?dsh-pocket-auth=1', 'GET', 'dsh-auth-abc=1', TOK),
+    `/?dsh-pocket-auth=1&token=${TOK}`, '带强制标记时无视旧 cookie');
+});
+
+test('端到端（issue #77）：代理自动补 token 完成会话握手——首屏 303 拿 cookie，之后正常返回首页', async () => {
+  const http = await import('node:http');
+  const TOK = 'launch-token-abc123';
+  const seen = [];
+  // 模拟新版 dsh web 的浏览器会话认证：/?token= → 303 + Set-Cookie；有 cookie → 首页；否则 401
+  const upstream = http.createServer((req, res) => {
+    seen.push(req.url);
+    const u = new URL(req.url ?? '/', 'http://x');
+    if (u.pathname === '/' && u.searchParams.get('token') === TOK) {
+      res.writeHead(303, { location: '/', 'set-cookie': 'dsh-auth-abc=1; Path=/; HttpOnly; SameSite=Strict' });
+      res.end();
+      return;
+    }
+    if (String(req.headers.cookie ?? '').includes('dsh-auth-')) {
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
+      res.end('<html><body>index</body></html>');
+      return;
+    }
+    res.writeHead(401, { 'content-type': 'text/plain' });
+    res.end('dsh web authentication required; reopen the URL printed by dsh web');
+  });
+  await new Promise((r) => upstream.listen(0, '127.0.0.1', r));
+  const proxy = await createPocketProxy({
+    port: 0, host: '127.0.0.1', upstream: { host: '127.0.0.1', port: upstream.address().port },
+    injectHtml: '', launchToken: () => TOK,
+  });
+  const base = `http://127.0.0.1:${proxy.port}`;
+  try {
+    // 第一次访问（手机扫码进来的 URL 没有 token）：代理补 token → 上游 303 + 下发 cookie
+    const first = await fetch(`${base}/`, { redirect: 'manual', headers: { host: 'abc.trycloudflare.com' } });
+    assert.equal(first.status, 303, '首屏触发 token 交换（303）');
+    const setCookie = first.headers.get('set-cookie') ?? '';
+    assert.ok(setCookie.includes('dsh-auth-'), '下发会话 cookie');
+    assert.ok(seen.some((u) => u.includes(`token=${TOK}`)), '上游确实收到了启动 token');
+
+    // 浏览器带着 cookie 再访问：不再补 token → 直接拿到首页（不会 303 循环）
+    const second = await fetch(`${base}/`, { redirect: 'manual', headers: { host: 'abc.trycloudflare.com', cookie: 'dsh-auth-abc=1' } });
+    assert.equal(second.status, 200, '带 cookie 直接返回首页');
+    assert.match(await second.text(), /index/, '首页内容正确');
+    assert.ok(!seen[seen.length - 1].includes('token='), '带 cookie 的请求不再补 token（防 303 循环）');
+  } finally {
+    await proxy.close();
+    await new Promise((r) => upstream.close(r));
+  }
+});
