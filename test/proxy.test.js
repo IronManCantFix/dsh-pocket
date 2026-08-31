@@ -782,3 +782,68 @@ test('端到端（issue #77）：代理自动补 token 完成会话握手——�
     await new Promise((r) => upstream.close(r));
   }
 });
+
+test('?token=<原始 PIN> 直达种 HttpOnly cookie，issue #35', async () => {
+  // 背景：从公网 URL 首次进入带 ?token=<密码> 时，浏览器需要把 cookie 种下，
+  // 否则后续子资源（assets/*.js 等）不带 token 也不带 cookie → 401 → 白屏。
+  const http = await import('node:http');
+  const TOKEN = 'pin12345';
+  const SK = 'sess-key';
+  const up = createServer((req, res) => {
+    res.writeHead(200, { 'content-type': 'text/html' });
+    res.end(`<html><head><script src="/assets/x.js"></script></head><body>hi</body></html>`);
+  });
+  await new Promise((r) => up.listen(0, '127.0.0.1', r));
+  const proxy = await createPocketProxy({
+    port: 0, host: '127.0.0.1',
+    upstream: { host: '127.0.0.1', port: up.address().port },
+    auth: { getToken: () => TOKEN, isProtected: () => true, sessionKey: SK },
+  });
+  const crypto = await import('node:crypto');
+  const hashed = crypto.createHash('sha256').update(`${TOKEN}:${SK}`).digest('hex');
+  try {
+    // 1) 首次带 ?token=<原始 PIN>：200 + set-cookie（哈希值）
+    const r1 = await new Promise((resolve, reject) => {
+      const req = http.request({ host: '127.0.0.1', port: proxy.port, path: `/?token=${TOKEN}`, headers: { Host: 'x:3081', Accept: 'text/html' } }, (res) => {
+        res.resume(); res.on('end', () => resolve({ status: res.statusCode, setCookie: res.headers['set-cookie'] }));
+      });
+      req.on('error', reject); req.end();
+    });
+    assert.equal(r1.status, 200, '主页 200');
+    const sc = Array.isArray(r1.setCookie) ? r1.setCookie.join(';') : String(r1.setCookie ?? '');
+    assert.ok(sc.includes(`dsh_pocket_token=${hashed}`), `种 cookie 含哈希值（实得：${sc.slice(0, 200)}）`);
+    assert.ok(sc.includes('HttpOnly'), 'HttpOnly 标记');
+    assert.ok(sc.includes('Max-Age=2592000'), '30 天持久');
+
+    // 2) 用刚种的 cookie 访问子资源：200（不再依赖 ?token=）
+    const r2 = await new Promise((resolve, reject) => {
+      const req = http.request({ host: '127.0.0.1', port: proxy.port, path: '/assets/x.js', headers: { Host: 'x:3081', Cookie: `dsh_pocket_token=${hashed}` } }, (res) => {
+        res.resume(); res.on('end', () => resolve(res.statusCode));
+      });
+      req.on('error', reject); req.end();
+    });
+    assert.equal(r2, 200, '子资源 200');
+
+    // 3) 没 cookie 也没 ?token=：401
+    const r3 = await new Promise((resolve, reject) => {
+      const req = http.request({ host: '127.0.0.1', port: proxy.port, path: '/assets/x.js', headers: { Host: 'x:3081' } }, (res) => {
+        res.resume(); res.on('end', () => resolve(res.statusCode));
+      });
+      req.on('error', reject); req.end();
+    });
+    assert.equal(r3, 401, '无认证 → 401');
+
+    // 4) 错误 PIN：401 + 不种 cookie
+    const r4 = await new Promise((resolve, reject) => {
+      const req = http.request({ host: '127.0.0.1', port: proxy.port, path: '/?token=wrongpin', headers: { Host: 'x:3081', Accept: 'text/html' } }, (res) => {
+        res.resume(); res.on('end', () => resolve({ status: res.statusCode, setCookie: res.headers['set-cookie'] }));
+      });
+      req.on('error', reject); req.end();
+    });
+    assert.equal(r4.status, 200, '错误密码走登录页（200）');
+    assert.ok(!String(r4.setCookie ?? '').includes('dsh_pocket_token'), '错误密码不种 cookie');
+  } finally {
+    await proxy.close();
+    await new Promise((r) => up.close(r));
+  }
+});
