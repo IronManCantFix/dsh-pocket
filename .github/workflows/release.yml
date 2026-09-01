@@ -108,7 +108,7 @@ jobs:
           if (!hasAny) lines.push('（无按类型拆分的提交，详见提交历史）', '');
           lines.push('---', '', '## 安装 / 更新到最新版', '', 'git 方式按 tag 拉取安装，pnpm 不会缓存旧包：', '', '```sh');
           lines.push(`dsh plugin --profile web add github:${REPO}#${process.env.GITHUB_REF_NAME} -w`, '```');
-          lines.push('', '> 已装过旧名插件 `dsh-pocket`：先 `dsh plugin --profile web remove dsh-pocket -w` 再执行上面命令。');
+          lines.push('', '> 已装过旧名插件 `dsh-pocket`：先 `dsh plugin --profile web remove dsh-pocket -w` 再执行上面命令；已装过本 fork 旧版 `dsh-pocket-nas`：先 `dsh plugin --profile web remove dsh-pocket-nas -w` 再执行上面命令。');
           lines.push('', '> 以后更新：把上面命令里的版本号（#vX.Y.Z）换成新版本（以 Releases 页为准）再执行即可。', '');
           lines.push('', '> 装完重启 dsh web 生效。', '');
           fs.writeFileSync('/tmp/notes.md', lines.join('\n'));

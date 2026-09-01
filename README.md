@@ -138,7 +138,7 @@ npx @deepseek-ai/dsh web
 
 同一页点「**开启公网访问**」→ **每次都会先弹出安全免责声明**，勾选「我已知情」后才能开启（公司/涉密网络请先确认合规）→ 等隧道建立（首次会下载 cloudflared，macOS/Linux 走清华镜像秒下）→ 手机扫「🌐 公网」二维码 → 打开链接**输入 8 位访问密码**（密码显示在配置页公网区块，默认**每次开启公网变新**，也可点「自定义」设成固定密码——自定义后不再换新）→ 人在外面（4G/公司网）也能访问。
 
-> 更新到新版本：把命令里 `#v1.15.4` 的版本号换成最新版（见 [Releases 页](https://github.com/IronManCantFix/dsh-pocket/releases)），重新执行上面的 `add` 命令即可——git 方式按 tag 拉取，pnpm 不会按 URL 缓存旧包；而 tgz 下载链接 / `releases/latest` 固定 URL 会被 pnpm 缓存成旧包，装完还是旧版（这就是配置页命令改用 git 安装的原因）。从旧名插件 `dsh-pocket` 升级，先 `dsh plugin --profile web remove dsh-pocket -w` 再 add。
+> 更新到新版本：把命令里 `#v1.15.4` 的版本号换成最新版（见 [Releases 页](https://github.com/IronManCantFix/dsh-pocket/releases)），重新执行上面的 `add` 命令即可——git 方式按 tag 拉取，pnpm 不会按 URL 缓存旧包；而 tgz 下载链接 / `releases/latest` 固定 URL 会被 pnpm 缓存成旧包，装完还是旧版（这就是配置页命令改用 git 安装的原因）。从旧名插件 `dsh-pocket` 升级，先 `dsh plugin --profile web remove dsh-pocket -w` 再 add；已装过本 fork 旧版 `dsh-pocket-nas`：先 `dsh plugin --profile web remove dsh-pocket-nas -w` 再 add。
 
 ## ⚠️ 安全（必读）
 
