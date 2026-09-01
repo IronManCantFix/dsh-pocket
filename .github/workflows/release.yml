@@ -124,7 +124,12 @@ jobs:
             echo "版本无变更"
           else
             git commit -m "chore: sync version to ${GITHUB_REF_NAME#v} (release ${GITHUB_REF_NAME})"
-            git push origin HEAD:main
+            # tag 检出是 detached HEAD：切到 main 后 cherry-pick 再 push，失败不影响发布
+            git fetch origin main
+            git branch -f main origin/main
+            git checkout main
+            git cherry-pick HEAD@{1} 2>/dev/null || git cherry-pick --skip
+            git push origin main || echo "版本同步 push 失败，不影响发布"
           fi
 
       - name: 创建 GitHub Release 并上传 tgz（版本化文件名 + 固定资产名）
