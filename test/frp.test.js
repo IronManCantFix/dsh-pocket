@@ -238,6 +238,53 @@ test('service：frp 配置不完整时 startFrpTunnel 抛错 / 自动恢复跳�
   }
 });
 
+test('service：frp 自动恢复不依赖 internals.home — home 未传但 DSH_HOME 已设时，标记写/读都在配置所在目录（真实部署 issue）', async () => {
+  const { createPocketService } = await import('../lib/service.mjs');
+  // 真实部署：DSH 加载插件时 internals.home 未必传入 → home 为 undefined。
+  // 配置（settings.json/frp-token）由 settings.mjs 用 $DSH_HOME 定位，所以自动恢复
+  // 标记也必须落在 $DSH_HOME 下，否则「开启写标记」与「重启读标记」就断了。
+  const base = mkdtempSync(join(tmpdir(), 'dshp-frp-nohome-'));
+  const prevDshHome = process.env.DSH_HOME;
+  process.env.DSH_HOME = base;
+  try {
+    let started = 0;
+    let stopped = 0;
+    const cfg = { serverAddr: 'nas.example.com', serverPort: 7000, remotePort: 7001, tls: false, token: 'secret-token-123' };
+    const internals = {
+      createProxy: async () => ({ port: 3081, close: async () => {} }),
+      startFrpTunnel: async () => {
+        started++;
+        return { kill: () => { stopped++; }, onExit: () => () => {} };
+      },
+    };
+    // 不传 home —— 模拟 internals.home 未提供
+    const service = createPocketService({ dshPort: 3080, port: 0, getFrpConfig: () => cfg, internals });
+    await service.startProxy();
+
+    await service.startFrpTunnel();
+    // persistAutoFrp 是异步 fire-and-forget，轮询等标记落盘
+    const marker = join(base, 'dsh-pocket', 'tunnel-auto-frp.json');
+    for (let i = 0; i < 20 && !existsSync(marker); i++) await new Promise((r) => setTimeout(r, 10));
+    assert.ok(existsSync(marker), 'frp 开启后，自动恢复标记写在 $DSH_HOME 之下（与配置同目录）');
+    await service.stopFrpTunnel();
+    assert.equal(stopped, 1, '手动关闭 kill frpc');
+
+    // 模拟真实重启：标记仍在（restart 时没有机会被 stop 清掉），DSH_HOME 不变、home 仍未传
+    mkdirSync(join(base, 'dsh-pocket'), { recursive: true });
+    writeFileSync(marker, JSON.stringify({ at: Date.now() }), 'utf8');
+    const service2 = createPocketService({ dshPort: 3080, port: 0, getFrpConfig: () => cfg, internals });
+    await service2.startProxy();
+    await service2.restoreFrpIfNeeded();
+    assert.equal(started, 2, '重启后 restoreFrpIfNeeded 自动拉起 frp');
+
+    await service2.dispose();
+  } finally {
+    if (prevDshHome === undefined) delete process.env.DSH_HOME;
+    else process.env.DSH_HOME = prevDshHome;
+    rmSync(base, { recursive: true, force: true });
+  }
+});
+
 test('FRP_VERSION 与部署模板一致（deploy/nas/docker-compose.yml 的镜像 tag）', () => {
   const compose = readFileSync(new URL('../deploy/nas/docker-compose.yml', import.meta.url), 'utf8');
   assert.ok(compose.includes(`snowdreamtech/frps:${FRP_VERSION}-alpine`), 'NAS 镜像 tag 与插件内置 frpc 版本一致');
