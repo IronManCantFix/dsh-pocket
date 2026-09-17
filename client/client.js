@@ -58,7 +58,7 @@ var POCKET_ENDPOINTS = Object.freeze({
   frpStart: "frp.start",
   frpStop: "frp.stop",
   // ---------- 以下端点与上游同名（接口冻结：并行开发时 host/client 两侧按此对齐） ----------
-  /** 局域网访问总开关（上游 PR #61）。payload { enabled } → ok({ lanEnabled }) */
+  /** 局域网访问总开关（上游 PR #61）。payload { on: boolean } → ok({ lanEnabled }) */
   lanSetEnabled: "lan.setEnabled",
   /** 恢复出厂设置（上游 #69 后续）。payload { confirm: true } → ok(status) */
   pocketReset: "pocket.reset",
@@ -1932,6 +1932,13 @@ var zh2 = {
   "frpCopied": "\u2705 \u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\uFF08frps + caddy\uFF1B\u653E\u884C 443/80/7000 \u7AEF\u53E3\uFF0C\u89E3\u6790\u57DF\u540D\u5230 NAS\uFF09",
   "frpLog": "\u67E5\u770B\u65E5\u5FD7",
   "frpNoToken": "\u672A\u8BBE\u7F6E\u4EE4\u724C",
+  "lanAccess": "\u5C40\u57DF\u7F51\u8BBF\u95EE",
+  "lanDisabledHint": "\u{1F512} \u5C40\u57DF\u7F51\u8BBF\u95EE\u5DF2\u5173\u95ED\uFF1A\u624B\u673A\u626B\u7801/\u94FE\u63A5\u5747\u4E0D\u53EF\u7528\uFF08\u516C\u7F51\u4E0D\u53D7\u5F71\u54CD\uFF09\u3002\u70B9\u300C\u5F00\u300D\u6062\u590D\u3002",
+  "lanToggleTitleOff": "\u5173\u95ED\u5C40\u57DF\u7F51\u8BBF\u95EE",
+  "lanToggleBodyOff": "\u5173\u95ED\u540E\uFF0C\u540C\u4E00 WiFi \u4E0B\u7684\u624B\u673A\u5C06\u65E0\u6CD5\u626B\u7801\u8BBF\u95EE\uFF08\u5C40\u57DF\u7F51\u4E8C\u7EF4\u7801/\u94FE\u63A5\u7ACB\u5373\u5931\u6548\uFF09\u3002\u516C\u7F51\u8BBF\u95EE\u4E0D\u53D7\u5F71\u54CD\u3002\u786E\u5B9A\u5173\u95ED\uFF1F",
+  "lanToggleTitleOn": "\u5F00\u542F\u5C40\u57DF\u7F51\u8BBF\u95EE",
+  "lanToggleBodyOn": "\u5F00\u542F\u540E\uFF0C\u540C\u4E00 WiFi \u7684\u624B\u673A\u626B\u7801\u5373\u53EF\u8BBF\u95EE\uFF08\u9ED8\u8BA4\u9700\u8F93\u5165\u5C40\u57DF\u7F51\u5BC6\u7801\uFF09\u3002\u786E\u5B9A\u5F00\u542F\uFF1F",
+  "confirm": "\u786E\u5B9A",
   "resetFactory": "\u{1F9F9} \u6062\u590D\u51FA\u5382\u8BBE\u7F6E",
   "resetGo": "\u6062\u590D",
   "resetIntro": "\u8BBE\u7F6E\u641E\u51FA\u95EE\u9898\u65F6\u7684\u4E34\u65F6\u515C\u5E95\uFF1A\u6E05\u7A7A\u672C\u673A\u914D\u7F6E\u5E76\u91CD\u8BBE\u968F\u673A\u5BC6\u7801\uFF08DSH \u7684\u4F1A\u8BDD\u3001\u6A21\u578B\u3001\u63D2\u4EF6\u914D\u7F6E\u4E0D\u53D7\u5F71\u54CD\uFF09",
@@ -2039,6 +2046,13 @@ var en2 = {
   "frpCopied": "\u2705 Copied to clipboard (frps + caddy; open ports 443/80/7000 and point your domain at the NAS)",
   "frpLog": "View log",
   "frpNoToken": "No token set",
+  "lanAccess": "LAN access",
+  "lanDisabledHint": '\u{1F512} LAN access is off \u2014 the QR code and link are unavailable (public access is unaffected). Tap "On" to restore.',
+  "lanToggleTitleOff": "Turn off LAN access",
+  "lanToggleBodyOff": "Once off, phones on the same Wi-Fi can no longer scan to connect (the LAN QR code and link stop working immediately). Public access is unaffected. Turn it off?",
+  "lanToggleTitleOn": "Turn on LAN access",
+  "lanToggleBodyOn": "Once on, phones on the same Wi-Fi can scan to connect (a LAN PIN is required by default). Turn it on?",
+  "confirm": "Confirm",
   "resetFactory": "\u{1F9F9} Factory reset",
   "resetGo": "Reset",
   "resetIntro": "Temporary fallback when settings break: clear local config and re-roll random PINs (DSH sessions, models and plugin config are untouched)",
@@ -2190,6 +2204,19 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [frpBusy, setFrpBusy] = (0, import_react2.useState)(false);
   const [frpError, setFrpError] = (0, import_react2.useState)(null);
   const [frpShowToken, setFrpShowToken] = (0, import_react2.useState)(false);
+  const [lanToggleOpen, setLanToggleOpen] = (0, import_react2.useState)(null);
+  const requestLanToggle = (on) => setLanToggleOpen(on);
+  const confirmLanToggle = async () => {
+    const on = lanToggleOpen;
+    setLanToggleOpen(null);
+    if (on === null) return;
+    try {
+      const r = await call(POCKET_ENDPOINTS.lanSetEnabled, { on });
+      setStatus((st) => ({ ...st, lanEnabled: r.lanEnabled }));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
   const [resetOpen, setResetOpen] = (0, import_react2.useState)(false);
   const [toast, setToast] = (0, import_react2.useState)(null);
   const toastTimerRef = (0, import_react2.useRef)(null);
@@ -2685,7 +2712,23 @@ function PocketSettingsTab({ rpcCall, t }) {
       "div",
       { style: styles.block },
       (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 13 } }, t("lanTitle")),
-      lanUrl ? (0, import_react2.createElement)(
+      // 局域网访问总开关：关闭后二维码/链接直接失效（公网不受影响）
+      (0, import_react2.createElement)(
+        "div",
+        { style: { display: "flex", alignItems: "center", gap: 8, marginTop: 8 } },
+        (0, import_react2.createElement)("span", { style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)" } }, t("lanAccess")),
+        (0, import_react2.createElement)("button", {
+          "data-dshp-toggle": "",
+          style: { ...styles.btn, height: 28, padding: "0 12px", fontSize: 12, fontWeight: status?.lanEnabled !== false ? 600 : 400, background: status?.lanEnabled !== false ? "var(--dsw-alias-button-primary-fill, var(--dsw-alias-brand-primary,#4f6ef7))" : "var(--dsw-alias-bg-layer-1,#fff)", color: status?.lanEnabled !== false ? "var(--dsw-alias-label-primary-foreground, #fff)" : "var(--dsw-alias-label-primary,inherit)" },
+          onClick: () => requestLanToggle(true)
+        }, t("on")),
+        (0, import_react2.createElement)("button", {
+          "data-dshp-toggle": "",
+          style: { ...styles.btn, height: 28, padding: "0 12px", fontSize: 12, fontWeight: status?.lanEnabled === false ? 600 : 400, background: status?.lanEnabled === false ? "var(--dsw-alias-state-error-primary,#dc2626)" : "var(--dsw-alias-bg-layer-1,#fff)", color: status?.lanEnabled === false ? "#fff" : "var(--dsw-alias-label-primary,inherit)" },
+          onClick: () => requestLanToggle(false)
+        }, t("off"))
+      ),
+      status?.lanEnabled === false ? (0, import_react2.createElement)("div", { style: { marginTop: 8, fontSize: 12, color: "var(--dsw-alias-state-warn-primary,#b45309)", lineHeight: 1.5 } }, t("lanDisabledHint")) : lanUrl ? (0, import_react2.createElement)(
         "div",
         null,
         (0, import_react2.createElement)("img", { src: status.lanQr, alt: "LAN QR", style: styles.qr }),
@@ -2817,6 +2860,23 @@ function PocketSettingsTab({ rpcCall, t }) {
       ),
       (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 6 } }, t("resetIntro"))
     ),
+    // 局域网访问开关确认弹框（切换时提醒影响范围）
+    lanToggleOpen !== null ? (0, import_react2.createElement)(
+      "div",
+      { style: { position: "fixed", inset: 0, zIndex: 1e4, background: "rgba(0,0,0,.5)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 } },
+      (0, import_react2.createElement)(
+        "div",
+        { style: { background: "var(--dsw-alias-bg-layer-1,#fff)", borderRadius: 12, maxWidth: 400, width: "100%", padding: "20px 22px", boxShadow: "0 8px 32px rgba(0,0,0,.18)" } },
+        (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 15, marginBottom: 10 } }, t(lanToggleOpen ? "lanToggleTitleOn" : "lanToggleTitleOff")),
+        (0, import_react2.createElement)("div", { style: { fontSize: 13, lineHeight: 1.7, color: "var(--dsw-alias-label-primary,inherit)" } }, t(lanToggleOpen ? "lanToggleBodyOn" : "lanToggleBodyOff")),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { display: "flex", gap: 8, marginTop: 16 } },
+          (0, import_react2.createElement)("button", { style: { ...styles.btn, flex: 1 }, onClick: () => setLanToggleOpen(null) }, t("cancel")),
+          (0, import_react2.createElement)("button", { style: { ...styles.primary, flex: 1 }, onClick: confirmLanToggle }, t("confirm"))
+        )
+      )
+    ) : null,
     // 恢复出厂设置确认弹框（必须二次确认；宿主侧也会再校验 payload.confirm）
     resetOpen ? (0, import_react2.createElement)(
       "div",
