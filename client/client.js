@@ -2547,6 +2547,16 @@ function PocketEntryButton({ rpcCall, t, wide = true }) {
   );
 }
 function apply(ctx) {
+  if (ctx?.connection) {
+    try {
+      Object.defineProperty(ctx.connection, "isLoopback", { value: true, writable: true, configurable: true });
+    } catch {
+      try {
+        ctx.connection.isLoopback = true;
+      } catch {
+      }
+    }
+  }
   mobileApply(ctx);
   const rpcCall = (endpoint, payload, signal) => ctx.connection.rpc.call(POCKET_RPC_CHANNEL, endpoint, payload, signal);
   const translate = ctx.locale.bind(NS2);

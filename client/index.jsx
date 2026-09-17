@@ -869,6 +869,20 @@ function PocketEntryButton({ rpcCall, t, wide = true }) {
 }
 
 export function apply(ctx) {
+  // 兜底：确保 connection.isLoopback 为 true（issue #58）。
+  // 经代理（局域网 IP / 隧道域名）打开时，客户端认为自己是「非本机」，设置/模型平面
+  // 会显示「此浏览器不可用」。宿主侧的特权栅栏由 lib/proxy.mjs 的 loopbackAuthority
+  // 改写 Host/Origin/Referer/Sec-Fetch-Site 解决，这里只补客户端这一层的判定。
+  // 注：上游用「代理注入 __ModuleLoader__ 补丁」实现同一目的的路子已在 #105 撤销
+  // （与新版 DSH Desktop 客户端运行时不兼容，会导致 BootHandoff 阶段白屏），故不采用。
+  if (ctx?.connection) {
+    try {
+      Object.defineProperty(ctx.connection, 'isLoopback', { value: true, writable: true, configurable: true });
+    } catch {
+      try { ctx.connection.isLoopback = true; } catch { /* 忽略 */ }
+    }
+  }
+
   // 移动端适配（dsh-web-mobile 移植）：抽屉布局/触控/安全区，仅窄屏生效
   mobileApply(ctx);
 
