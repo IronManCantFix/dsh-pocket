@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "build:client": "node client/build.mjs",
+    "release": "node bin/release.mjs",
     "test": "node --test --test-timeout=30000 \"test/*.test.js\""
   },
   "dependencies": {
