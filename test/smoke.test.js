@@ -137,3 +137,15 @@ test('文件浏览（issue #48）：宿主无 aionui explorer 时隐藏入口；
   // 点 Files 关闭抽屉（抽屉 z600 会盖住 explorer sheet，且 sheet 外点击会被吃掉）
   assert.ok(src.includes('[data-mobile-nav="files"]'), 'Files 纳入抽屉内导航关闭');
 });
+
+test('Windows 更新 spawn（PR #54）：performUpdate 的 spawn 必须带 shell: win32', async () => {
+  // 回归背景：Windows 上裸 spawn('dsh') 解析到无扩展名 POSIX shim → ENOENT；
+  // Node 22+ 直接 spawn .cmd 又会 EINVAL（CVE-2024-27980），必须走 shell。
+  // 与上游同款做法：这是启动参数契约，用源码断言守住（无法在 macOS 上复现 win32 分支）。
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../lib/index.js', import.meta.url), 'utf8');
+  assert.ok(
+    src.includes("shell: process.platform === 'win32'"),
+    'performUpdate 的 spawn 必须带 shell: process.platform === \'win32\'',
+  );
+});

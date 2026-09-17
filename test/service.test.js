@@ -787,6 +787,17 @@ Ethernet adapter WLAN:
     else process.env.WSL_DISTRO_NAME = prev;
   }
   assert.equal(detectWsl(), false, '非 WSL 环境返回 false（macOS 无 /proc/version microsoft 标记）');
+
+  // WSLENV 由 Windows Terminal 在**原生 Windows** 上也会设置（WT_SESSION 等），
+  // 不能作为 WSL 判据——回归：仅设 WSLENV 不得误判为 WSL（PR #62 / issue #39 误报）。
+  const prevWslEnv = process.env.WSLENV;
+  process.env.WSLENV = 'WT_SESSION:WT_PROFILE_ID:';
+  try {
+    assert.equal(detectWsl(), false, '仅 WSLENV 不判定为 WSL（Windows Terminal 误报）');
+  } finally {
+    if (prevWslEnv === undefined) delete process.env.WSLENV;
+    else process.env.WSLENV = prevWslEnv;
+  }
 });
 
 test('startTunnel 同步抛错后不残留 rejected 的 in-flight（TDZ 回归）：修好配置后可再次启动', async () => {
@@ -812,5 +823,172 @@ test('startTunnel 同步抛错后不残留 rejected 的 in-flight（TDZ 回归�
   const url = await service.startTunnel();
   assert.equal(url, 'https://abc-123.trycloudflare.com', '修好后能正常启动，没有残留失败态');
   assert.equal((await service.status()).tunnelRunning, true, '隧道确实起来了');
+  await service.dispose();
+});
+
+// ---------- 隧道自动恢复标记的生命周期（issue #11 / #106） ----------
+// 回归背景：dispose() 每次都无条件删掉「隧道开启中」标记，而 dispose 在 DSH 每次正常
+// 重启（插件卸载）时都会执行 —— 于是「重启后自动恢复」只在进程被强杀、dispose 没跑完时
+// 侥幸可用。标记的语义应该是「用户是否开着隧道」，而不是「进程是否还活着」。
+
+/** 轮询等待文件出现，返回内容；超时返回 null。 */
+async function waitForFile(file, { tries = 50, step = 20 } = {}) {
+  const fsp = await import('node:fs/promises');
+  for (let i = 0; i < tries; i++) {
+    const raw = await fsp.readFile(file, 'utf8').catch(() => null);
+    if (raw !== null) return raw;
+    await new Promise((r) => setTimeout(r, step));
+  }
+  return null;
+}
+
+/** 轮询等待文件消失；超时返回 false。 */
+async function waitForGone(file, { tries = 50, step = 20 } = {}) {
+  const fsp = await import('node:fs/promises');
+  for (let i = 0; i < tries; i++) {
+    const raw = await fsp.readFile(file, 'utf8').catch(() => null);
+    if (raw === null) return true;
+    await new Promise((r) => setTimeout(r, step));
+  }
+  return false;
+}
+
+test('stopTunnel({ keepAutoMarker: true }) 保留标记——自重启（pocketRestart）路径依赖该契约', async () => {
+  const fsp = await import('node:fs/promises');
+  const os = await import('node:os');
+  const path = await import('node:path');
+  const home = await fsp.mkdtemp(path.join(os.tmpdir(), 'dshp-restartmarker-'));
+  const statePath = path.join(home, 'dsh-pocket', 'tunnel-auto.json');
+
+  const service = createPocketService({ dshPort: 3080, port: 3081, home, internals: stubInternals() });
+  await service.startProxy();
+  await service.startTunnel();
+  await waitForFile(statePath);
+
+  // 页内「重启」：旧进程主动退出并把公网 URL 作废（杀 cloudflared），但用户仍然开着公网访问，
+  // 新进程必须能自动把隧道拉回来 → 不能删标记。
+  service.stopTunnel({ keepAutoMarker: true });
+  await new Promise((r) => setTimeout(r, 60));
+  assert.ok(
+    (await fsp.readFile(statePath, 'utf8').catch(() => null))?.includes('"at"'),
+    '自重启路径必须保留标记（lib/index.js pocketRestart 传 keepAutoMarker: true）',
+  );
+
+  // 新进程（同一 home）启动后应当自动恢复
+  const restored = createPocketService({ dshPort: 3080, port: 3081, home, internals: stubInternals() });
+  await restored.startProxy();
+  await restored.restoreTunnelIfNeeded();
+  assert.equal((await restored.status()).tunnelRunning, true, '重启后自动恢复公网隧道');
+  await restored.dispose();
+});
+
+test('自动恢复日志走注入的 log（DSH ctx.logger），不再只写 console', async () => {
+  // 回归背景：console 输出在 DSH Desktop 里不进日志文件，自动恢复成败无从排查。
+  const fsp = await import('node:fs/promises');
+  const os = await import('node:os');
+  const path = await import('node:path');
+  const home = await fsp.mkdtemp(path.join(os.tmpdir(), 'dshp-log-'));
+  const dir = path.join(home, 'dsh-pocket');
+  await fsp.mkdir(dir, { recursive: true });
+  await fsp.writeFile(path.join(dir, 'tunnel-auto.json'), JSON.stringify({ at: Date.now() }), 'utf8');
+
+  const lines = [];
+  const log = { info: (...a) => lines.push(['info', a.join(' ')]), warn: (...a) => lines.push(['warn', a.join(' ')]), error: () => {} };
+  const service = createPocketService({ dshPort: 3080, port: 3081, home, internals: stubInternals(), log });
+  await service.startProxy();
+  await service.restoreTunnelIfNeeded();
+
+  assert.ok(
+    lines.some(([lvl, msg]) => lvl === 'info' && msg.includes('auto-restored')),
+    '自动恢复成功要写进注入的 logger（实际日志：' + JSON.stringify(lines) + '）',
+  );
+  await service.dispose();
+});
+
+test('公网隧道自动恢复标记：dispose（进程退出/重启）保留；手动 stopTunnel 删除（issue #106）', async () => {
+  const fsp = await import('node:fs/promises');
+  const os = await import('node:os');
+  const path = await import('node:path');
+  const home = await fsp.mkdtemp(path.join(os.tmpdir(), 'dshp-marker-'));
+  const statePath = path.join(home, 'dsh-pocket', 'tunnel-auto.json');
+
+  // 1) 开着隧道 → 标记落盘
+  const s1 = createPocketService({ dshPort: 3080, port: 3081, home, internals: stubInternals() });
+  await s1.startProxy();
+  await s1.startTunnel();
+  assert.ok((await waitForFile(statePath))?.includes('"at"'), '开启隧道后写入自动恢复标记');
+
+  // 2) DSH 正常重启：dispose 卸载插件，隧道随进程被动消失 → 标记必须留下，下次启动才能恢复
+  await s1.dispose();
+  await new Promise((r) => setTimeout(r, 60));
+  assert.ok(
+    (await fsp.readFile(statePath, 'utf8').catch(() => null))?.includes('"at"'),
+    'dispose（进程退出）必须保留标记——否则每次正常重启公网隧道都不会自动恢复',
+  );
+
+  // 3) 用户手动关闭 → 标记删除（原语义不变：别把用户主动关掉的隧道在下次启动又拉起来）
+  const s2 = createPocketService({ dshPort: 3080, port: 3081, home, internals: stubInternals() });
+  await s2.startProxy();
+  await s2.startTunnel();
+  await waitForFile(statePath);
+  s2.stopTunnel();
+  assert.ok(await waitForGone(statePath), '手动关闭隧道必须删掉标记');
+  await s2.dispose();
+});
+
+test('NAS 反向隧道（frp）自动恢复标记：dispose 保留；手动 stopFrpTunnel 删除（issue #106 同类问题）', async () => {
+  const fsp = await import('node:fs/promises');
+  const os = await import('node:os');
+  const path = await import('node:path');
+  const home = await fsp.mkdtemp(path.join(os.tmpdir(), 'dshp-frpmarker-'));
+  const statePath = path.join(home, 'dsh-pocket', 'tunnel-auto-frp.json');
+  const withFrp = () => ({
+    ...stubInternals(),
+    startFrpTunnel: async () => ({ url: 'nas.example.com:7000', kill: () => {}, onExit: () => {} }),
+  });
+  const getFrpConfig = () => ({ serverAddr: 'nas.example.com', serverPort: 7000, remotePort: 7001, token: 'tok' });
+
+  const s1 = createPocketService({ dshPort: 3080, port: 3081, home, internals: withFrp(), getFrpConfig });
+  await s1.startProxy();
+  await s1.startFrpTunnel();
+  assert.ok((await waitForFile(statePath))?.includes('"at"'), '开启 frp 隧道后写入标记');
+
+  await s1.dispose();
+  await new Promise((r) => setTimeout(r, 60));
+  assert.ok(
+    (await fsp.readFile(statePath, 'utf8').catch(() => null))?.includes('"at"'),
+    'dispose 必须保留 frp 标记——NAS 反向隧道是主打功能，不能被正常重启打断',
+  );
+
+  const s2 = createPocketService({ dshPort: 3080, port: 3081, home, internals: withFrp(), getFrpConfig });
+  await s2.startProxy();
+  await s2.startFrpTunnel();
+  await waitForFile(statePath);
+  s2.stopFrpTunnel();
+  assert.ok(await waitForGone(statePath), '手动关闭 frp 隧道必须删掉标记');
+  await s2.dispose();
+});
+
+test('startFrpTunnel 同步抛错后不残留 rejected 的 in-flight（TDZ 回归）：修好配置后可再次启动', async () => {
+  // 与 startTunnel 同款回归：frp 路径的 `const p = frpPromise` 也声明在 async IIFE 之后，
+  // 同步抛错时 finally 引用未初始化的 p → ReferenceError，且 frpPromise 永久停在 rejected。
+  const internals = stubInternals();
+  let broken = true;
+  internals.startFrpTunnel = () => {
+    if (broken) throw new Error('frp config boom');
+    return { url: 'nas.example.com:7000', kill: () => {}, onExit: () => {} };
+  };
+  const service = createPocketService({
+    dshPort: 3080,
+    port: 3081,
+    internals,
+    getFrpConfig: () => ({ serverAddr: 'nas.example.com', serverPort: 7000, remotePort: 7001, token: 'tok' }),
+  });
+  await service.startProxy();
+  await assert.rejects(() => service.startFrpTunnel(), /frp config boom/, '第一次因配置读取失败而拒绝');
+
+  broken = false;
+  await service.startFrpTunnel();
+  assert.equal((await service.status()).frpState?.phase ?? '', 'ready', '修好后 frp 隧道能正常启动，没有残留失败态');
   await service.dispose();
 });
