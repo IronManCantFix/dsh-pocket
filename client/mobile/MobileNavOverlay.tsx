@@ -2,6 +2,12 @@ import { useEffect, useLayoutEffect, useState } from 'react'
 import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import { IconPanelLeftOutline16 } from '@deepseek-ai/dsh-client-ui-primitives'
 import { NS } from './locales.ts'
+import {
+  DRAWER_SELECTOR,
+  TOGGLE_SELECTOR,
+  isOverlayTap,
+  navTargetFor,
+} from './nav-targets.mjs'
 
 /** Full props for the shell overlay entry. */
 export interface MobileNavOverlayProps extends PropsRuntime<'shell.overlay'>, PropsLocale<typeof NS> {
@@ -112,26 +118,64 @@ export function MobileNavOverlay({ toggleSidebar, t }: MobileNavOverlayProps) {
       if (document.querySelector('[aria-modal="true"]') !== null) return
       const target = event.target as HTMLElement | null
       if (target === null) return
-      const drawer = document.querySelector<HTMLElement>('[data-mobile-nav="frame"] > :first-child')
+      const drawer = document.querySelector<HTMLElement>(DRAWER_SELECTOR)
       if (drawer === null || !drawer.contains(target)) return
       // A session row's own action buttons — the "Session actions" kebab
       // (delete / rename), revealed on hover / long-press — open an edit
       // menu. Tapping one must NOT count as tapping the row, or the drawer
-      // would close and take the just-opened menu with it.
-      if (target.closest('[class*="sessionRow"] button') !== null) return
-      // The drawer footer "Files" action opens the dsh-web-ui explorer sheet,
-      // which sits at a LOWER z-index (55) than the open drawer (600) and
-      // outside the drawer DOM — leaving the drawer open would let it cover
-      // the sheet, and tapping a sheet row would be eaten by the tap-outside
-      // close handler. Close the drawer on Files, like navigation.
-      const navigates = target.closest(
-        'button[data-dsh-taskboard-entry], button[data-dsh-ssh-entry], [class*="newSession"], [class*="sessionRow"], [class*="searchResultRow"], [class*="searchResultWorkspace"], [data-mobile-nav="files"]',
-      )
-      if (navigates !== null) toggleSidebar()
+      // would close and take the just-opened menu with it. 命中选择器集中在
+      // nav-targets.mjs（issue #72），组件里不再内联一份。
+      if (navTargetFor(target) !== null) toggleSidebar()
     }
     document.addEventListener('click', onDrawerClick, true)
     return () => document.removeEventListener('click', onDrawerClick, true)
   }, [mobile, open, toggleSidebar])
+
+  // iOS Safari touch self-heal (issue #72).
+  //
+  // A tap on a drawer row is delivered to the page as touchstart/touchend
+  // plus a browser-synthesized click. On iOS that click is routinely
+  // suppressed: a few px of finger drift is classified as a pan, and any DOM
+  // shift under the finger before dispatch cancels it outright. When it does
+  // not arrive, neither the row's own onClick nor the capture handler above
+  // runs — the row looks completely dead ("抽屉点了没反应").
+  //
+  // So: on touch/pen pointerup inside the drawer that hits a navigation row,
+  // arm a one-macrotask timer. When it fires:
+  // - the drawer is already closed → the real click did arrive and handled
+  //   everything → do nothing (zero interference with the normal path);
+  // - otherwise the click never came → re-dispatch a bubbling click on the
+  //   row ourselves. React's delegated listener runs the row's onClick (the
+  //   session opens / the workspace switches) and the same click bubbles
+  //   through the capture handler above, which closes the drawer.
+  //
+  // Mouse/pen-on-desktop keeps the plain click path: pointerType is 'mouse'.
+  useEffect(() => {
+    if (!mobile || !open) return
+    let timer: number | null = null
+    const onDrawerPointerUp = (event: PointerEvent): void => {
+      if (event.pointerType !== 'touch' && event.pointerType !== 'pen') return
+      const target = event.target
+      if (!(target instanceof Element)) return
+      const drawer = document.querySelector<HTMLElement>(DRAWER_SELECTOR)
+      if (drawer === null || !drawer.contains(target)) return
+      if (navTargetFor(target) === null) return
+      if (timer !== null) return
+      timer = window.setTimeout(() => {
+        timer = null
+        const frame = document.querySelector('[data-mobile-nav="frame"]')
+        // Real click already closed it — nothing to heal.
+        if (frame === null || frame.hasAttribute('data-sidebar-collapsed')) return
+        const row = navTargetFor(target)
+        row?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }))
+      }, 0)
+    }
+    document.addEventListener('pointerup', onDrawerPointerUp, true)
+    return () => {
+      if (timer !== null) window.clearTimeout(timer)
+      document.removeEventListener('pointerup', onDrawerPointerUp, true)
+    }
+  }, [mobile, open])
 
   // Tap-outside closes the drawer (issue #38). The backdrop is now
   // pointer-events: none (pure dimming layer that never steals clicks), so
@@ -146,8 +190,15 @@ export function MobileNavOverlay({ toggleSidebar, t }: MobileNavOverlayProps) {
       if (document.querySelector('[aria-modal="true"]') !== null) return
       const target = event.target as HTMLElement | null
       if (target === null) return
-      if (target.closest('[data-mobile-nav="toggle"]') !== null) return
-      const drawer = document.querySelector<HTMLElement>('[data-mobile-nav="frame"] > :first-child')
+      if (target.closest(TOGGLE_SELECTOR) !== null) return
+      // Portaled overlays (issue #72): the workspace section's "视图选项" /
+      // "添加工作区" and the session row kebab all open menus that live on
+      // document.body — outside the drawer DOM. Without this exemption the
+      // first tap on a menu item is eaten: the drawer slides away, the menu
+      // unmounts with the sidebar, and the item's onClick never runs, so
+      // every workspace control reads as "点了没反应" on a phone.
+      if (isOverlayTap(target)) return
+      const drawer = document.querySelector<HTMLElement>(DRAWER_SELECTOR)
       if (drawer !== null && drawer.contains(target)) return
       toggleSidebar()
     }
