@@ -70,10 +70,15 @@ test('PIN 自定义标记（issue #33）：默认 false，设置/清除持久化
 test('setCustomPin / rotateAccessToken（issue #33）：8 位数字自定义 + 自定义后公网不轮换；非法输入抛错', () => withHome(async () => {
   const { setCustomPin, rotateAccessToken, getAccessToken } = await import('../lib/index.js');
   const { pinCustom } = await import('../lib/settings.mjs');
-  // 非法输入
-  assert.throws(() => setCustomPin('public', '123'), /8 位数字/, '太短拒绝');
-  assert.throws(() => setCustomPin('public', 'abcdefgh'), /8 位数字/, '非数字拒绝');
+  // 非法输入（527abba + 230039f：自定义放宽到 8–64 位英文字母大小写或数字）
+  assert.throws(() => setCustomPin('public', '123'), /8–64 位/, '太短拒绝');
+  assert.throws(() => setCustomPin('public', 'a1'.repeat(33)), /8–64 位/, '超过 64 位拒绝（65 位）');
+  assert.throws(() => setCustomPin('public', 'abcdefg!'), /8–64 位/, '含字母数字以外的字符拒绝');
   assert.throws(() => setCustomPin('other', '12345678'), /未知/, '未知类型拒绝');
+  // 新的合法形态：字母、字母+数字、正好 8 位与正好 64 位
+  assert.equal(setCustomPin('lan', 'abcd1234'), 'abcd1234', '纯字母+数字的 8 位可自定义');
+  assert.equal(setCustomPin('lan', 'x'.repeat(64)), 'x'.repeat(64), '64 位边界值可用');
+  assert.equal(setCustomPin('lan', '77775555'), '77775555', '恢复 8 位数字形态');
   // 合法自定义：公网
   assert.equal(setCustomPin('public', '88886666'), '88886666', '公网自定义成功');
   assert.equal(pinCustom('public'), true, '公网标记自定义');

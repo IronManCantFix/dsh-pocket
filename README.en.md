@@ -86,8 +86,8 @@ On top of all upstream features, this fork iterates around the core goal of "NAS
 | 🏠 **NAS reverse tunnel (frp)** | This fork's core feature: publish dsh to your own NAS via frp, the phone opens the NAS domain to reach the machine — **fixed URL**, fastest direct route in CN, no third-party dependency (run frps + a reverse proxy on the NAS; the plugin auto-downloads and hosts frpc) |
 | 📶 LAN QR access | Works out of the box: the sidebar **"Phone access"** entry — scan the LAN QR on the same Wi-Fi (auto-detects the LAN IP; **under WSL it picks the Windows host's physical NIC IP**) |
 | 🌐 Public QR (from anywhere) | Click "Enable anywhere" → cloudflared tunnel → scan the public QR over 4G / any network (fallback option — the NAS tunnel is recommended) |
-| 🔐 Access PIN | Public links require an **8-digit PIN** (rotated on every tunnel start by default; **customizable to a fixed PIN** — custom PINs are not rotated); LAN has its own separate **8-digit PIN** (on by default; switchable off in Settings — then LAN scans connect directly) |
-| 🔑 Custom PINs | Both the public and LAN PINs can be **set to your own fixed 8-digit number** in Settings (custom PINs are never auto-rotated) |
+| 🔐 Access PIN | Public links use an **8-digit random PIN** by default (rotated on every tunnel start; **customizable to a fixed PIN** — custom PINs are not rotated); LAN has its own separate **8-digit random PIN** (on by default; switchable off in Settings — then LAN scans connect directly) |
+| 🔑 Custom PINs | Both the public and LAN PINs can be **set to a fixed 8–64-character PIN using letters and digits in Settings** (custom PINs are never auto-rotated) |
 | 🧘 Session persistence | Enter the PIN once and you're set for a long time (login is tied to the computer's dsh web process: as long as it stays up, the phone won't ask again; **after a dsh web restart/update, enter it once more**) |
 | ⚡ Real-time sync | Streaming output passes through WebSocket untouched — what the computer renders, the phone renders live; fully interactive both ways; built-in WS heartbeat keep-alive (defeats silent NAT/battery link drops with auto-reconnect) |
 | 📱 Mobile-adaptive layout | Narrow screens get a drawer layout automatically (ported from dsh-web-mobile, MIT): sidebar drawer, full-width conversation, safe-area insets, touch optimizations |
@@ -127,7 +127,7 @@ Three steps to publish the DSH on your computer to your own NAS, so your phone r
 
 ### LAN (same Wi-Fi)
 
-Settings → **Phone access** → scan the "📶 LAN" QR code → enter the **LAN PIN** (shown in the LAN block; hit **Refresh** to roll a new one, or **Customize** to set your own fixed 8 digits) → the phone opens the exact same DSH, in real time.
+Settings → **Phone access** → scan the "📶 LAN" QR code → enter the **LAN PIN** (shown in the LAN block; hit **Refresh** to roll a new one, or **Customize** to set an 8–64-character alphanumeric PIN) → the phone opens the exact same DSH, in real time.
 
 > The LAN PIN is **on by default** (security-first). If you're the only user and find typing it every time annoying, flip "LAN access PIN" to **Off** in the LAN block — LAN scans then connect directly with no PIN (LAN-only devices; the **public tunnel always requires a PIN**, unaffected).
 >
@@ -137,7 +137,7 @@ Settings → **Phone access** → scan the "📶 LAN" QR code → enter the **LA
 
 ### Public (from anywhere)
 
-On the same page click "**Enable anywhere**" → **a security disclaimer pops up every time — check "I understand and agree" to proceed** (on a corporate/classified network, confirm compliance first) → wait for the tunnel (first run downloads cloudflared; macOS/Linux use the Tsinghua mirror, seconds) → scan the "🌐 Public" QR code → the phone opens the link and **enters the 8-digit PIN** (shown in the settings page's public section; **rotated on every tunnel start by default**, or **Customize** it to a fixed PIN that is never rotated) → works from outside (4G / office network).
+On the same page click "**Enable anywhere**" → **a security disclaimer pops up every time — check "I understand and agree" to proceed** (on a corporate/classified network, confirm compliance first) → wait for the tunnel (first run downloads cloudflared; macOS/Linux use the Tsinghua mirror, seconds) → scan the "🌐 Public" QR code → the phone opens the link and **enters the access PIN** (shown in the settings page's public section; the default is an **8-digit random PIN rotated on every tunnel start**, or use **Customize** for a fixed 8–64-character alphanumeric PIN that is never rotated) → works from outside (4G / office network).
 
 > Upgrading: replace the version in `#v1.15.4` with the latest (see [Releases](https://github.com/IronManCantFix/dsh-pocket/releases)) and re-run the `add` command — the git install pulls by tag, so pnpm never caches an old package by URL (a tgz download link / the fixed `releases/latest` URL gets cached as the old package — that's why the settings page now shows the git command). Upgrading from the old-named `dsh-pocket` plugin? Run `dsh plugin --profile web remove dsh-pocket -w` first, then `add`. Already have an older `dsh-pocket-nas` from this fork? Run `dsh plugin --profile web remove dsh-pocket-nas -w` first, then `add`.
 

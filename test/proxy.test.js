@@ -441,6 +441,7 @@ test('访问令牌认证（issue #13）：公网需登录、cookie 放行、局�
   const r1 = await raw(publicH);
   assert.equal(r1.status, 200);
   assert.ok(r1.body.includes('访问密码'), '返回登录页');
+  assert.match(r1.body, /minlength="8" maxlength="64"/, '登录页允许输入 8–64 位自定义 PIN');
 
   // 2) 公网 API 无 cookie → 401（非 HTML 路径）
   const r2 = await raw({ ...publicH, Accept: 'application/json' }, 'GET', undefined, '/api/hello');
@@ -1092,6 +1093,57 @@ test('?token=<原始 PIN> 直达种 HttpOnly cookie，issue #35', async () => {
     });
     assert.equal(r4.status, 200, '错误密码走登录页（200）');
     assert.ok(!String(r4.setCookie ?? '').includes('dsh_pocket_token'), '错误密码不种 cookie');
+  } finally {
+    await proxy.close();
+    await new Promise((r) => up.close(r));
+  }
+});
+
+test('并发登录请求在读取 body 后重新检查限速，不能批量穿透失败阈值', async () => {
+  const up = createServer((_req, res) => res.end('ok'));
+  await new Promise((r) => up.listen(0, '127.0.0.1', r));
+  const proxy = await createPocketProxy({
+    port: 0,
+    host: '127.0.0.1',
+    upstream: { host: '127.0.0.1', port: up.address().port },
+    auth: { getToken: () => '87654321', isProtected: () => true, sessionKey: 'test-session-key' },
+    rateLimit: { windowMs: 60_000, maxFailures: 3, lockMs: 60_000, globalMaxFailures: 3, globalLockMs: 60_000 },
+  });
+  try {
+    // 攻击手法：先把大量 POST 挂起（此时限速未触发，全部通过入口检查），
+    // 再同时提交请求体，让所有请求在「已读 body」这一刻并行进入密码比较。
+    const pending = Array.from({ length: 20 }, (_, index) => {
+      let submit;
+      const response = new Promise((resolve, reject) => {
+        const body = `token=${String(index).padStart(8, '0')}`;
+        const req = httpRequest({
+          host: '127.0.0.1',
+          port: proxy.port,
+          path: '/pocket-login',
+          method: 'POST',
+          headers: {
+            host: 'abc.trycloudflare.com',
+            'content-type': 'application/x-www-form-urlencoded',
+            'content-length': Buffer.byteLength(body),
+            'cf-connecting-ip': '10.2.0.1',
+          },
+        }, (res) => {
+          res.resume();
+          res.on('end', () => resolve(res.statusCode));
+        });
+        req.on('error', reject);
+        req.flushHeaders();
+        submit = () => req.end(body);
+      });
+      return { response, submit: () => submit() };
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    for (const request of pending) request.submit();
+    const statuses = await Promise.all(pending.map((request) => request.response));
+
+    assert.equal(statuses.filter((status) => status === 200).length, 3, '只有阈值内的请求执行密码比较');
+    assert.equal(statuses.filter((status) => status === 429).length, 17, '其余并发请求在比较前被锁定');
   } finally {
     await proxy.close();
     await new Promise((r) => up.close(r));

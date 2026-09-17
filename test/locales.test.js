@@ -51,3 +51,15 @@ test('后端错误消息按界面语言只显示对应一半（bd79283）', () =
     );
   }
 });
+
+test('自定义密码输入放宽到 8–64 位字母数字（527abba + 230039f）', () => {
+  const src = readFileSync(new URL('../client/index.jsx', import.meta.url), 'utf8');
+  assert.ok(src.includes('minLength: 8'), '输入框下限 8 位');
+  assert.ok(src.includes('maxLength: 64'), '输入框上限 64 位');
+  assert.ok(
+    src.includes("e.target.value.replace(/[^a-zA-Z0-9]/g, '')"),
+    '只过滤字母数字以外的字符（此前是 replace(/\\D/g) 只允许数字）',
+  );
+  assert.ok(zh.pinInvalid.includes('8–64'), '中文错误文案要说明新范围');
+  assert.ok(en.pinInvalid.includes('8–64'), '英文错误文案要说明新范围');
+});
