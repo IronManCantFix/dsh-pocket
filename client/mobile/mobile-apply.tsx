@@ -5,6 +5,8 @@ import { MobileNavOverlay } from './MobileNavOverlay.tsx'
 import { MobileDrawerFooter } from './MobileDrawerFooter.tsx'
 import { MOBILE_CSS } from './mobile.css.ts'
 import { resolveLayout, persistLayoutFromUrl } from './layout-mode.mjs'
+import { startFileGuard } from './fileGuard.ts'
+import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS } from '../api.js'
 import { NS, en, zh } from './locales.ts'
 import type { MobileNavKey } from './locales.ts'
 
@@ -70,6 +72,45 @@ export function mobileApply(ctx): void {
       tag.remove()
     }
   }, 'dsh-mobile-nav: styles')
+
+  // 移动端文件守卫（issue #17，移植上游 06f69fd）：手机上点 dsh-web 渲染的文件链接
+  // 会触发桌面端 workspaces.openPath(open ...) —— 既打不开（路径在电脑上），又会抛
+  // "path open failed"。这里在捕获阶段拦截这类点击 / 键盘激活，改为弹一个提示，
+  // 并隐藏「添加工作区」入口（手机上配工作区无意义）；同时在文件链接旁注入
+  // 「复制」按钮，点它经主机 RPC 读取文件正文再写入剪贴板。只挂窄屏。
+  ctx.effect(() => {
+    if (!narrow.matches) return () => {}
+    // 尽量拿到当前工作区 cwd（文件链接文案是相对它的），传给主机 RPC 做精确解析；
+    // 拿不到就回退到主机 process.cwd()。dsh-web 的 workspaces 服务暴露当前工作区。
+    const getWorkspaceCwd = (): string => {
+      try {
+        const ws = (ctx as unknown as { get?: (k: string) => unknown }).get?.('workspaces')
+          ?? (ctx as unknown as { workspaces?: unknown }).workspaces
+        const list = (ws as { list?: unknown })?.list
+        const arr: unknown[] | null = Array.isArray(list)
+          ? list
+          : (list && typeof list === 'object' && 'value' in (list as object)
+            ? (list as { value: unknown[] }).value
+            : null)
+        if (Array.isArray(arr)) {
+          for (const w of arr) {
+            const c = (w as { cwd?: string; root?: string })?.cwd
+              ?? (w as { cwd?: string; root?: string })?.root
+            if (typeof c === 'string' && c) return c
+          }
+        }
+      } catch { /* 忽略，回退 process.cwd() */ }
+      return ''
+    }
+    // 手机侧读文件回调：走 dsh-pocket 的 RPC 通道，由主机侧 fileRead 端点处理。
+    const readFile = (filePath: string) =>
+      ctx.connection.rpc.call(
+        POCKET_RPC_CHANNEL,
+        POCKET_ENDPOINTS.fileRead,
+        { path: filePath, cwd: getWorkspaceCwd() },
+      ) as Promise<{ ok: boolean; value?: { content: string; path: string; size: number }; error?: { message: string } }>
+    return startFileGuard(readFile)
+  }, 'dsh-mobile-nav: file open guard + copy button + hide add-workspace (issue #17)')
 
   // Phone chrome: KEEP the system status bar (no fullscreen) and make it
   // blend into the page. On narrow screens:
