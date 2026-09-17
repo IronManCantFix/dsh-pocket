@@ -154,3 +154,12 @@ test('Windows 更新 spawn（PR #54）：performUpdate 的 spawn 必须带 shell
     'performUpdate 的 spawn 必须带 shell: process.platform === \'win32\'',
   );
 });
+
+test('代理端口（issue #70）：插件入口按 settings.proxyPort 解析端口', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../lib/index.js', import.meta.url), 'utf8');
+  assert.ok(
+    src.includes('internals.port ?? config.port ?? (proxyPort() || 3081)'),
+    '端口优先级应为：测试注入 > cordis patch config > settings.proxyPort > 3081',
+  );
+});

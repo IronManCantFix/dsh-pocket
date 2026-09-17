@@ -136,3 +136,20 @@ test('局域网访问总开关：默认开、持久化、可关闭', () => withH
   assert.equal(setLanEnabled(true), true, '可再打开');
   assert.equal(lanEnabled(), true, '恢复为开');
 }));
+
+test('代理端口（issue #70）：默认 0（用 3081）；持久化、非法值清除', () => withHome(async () => {
+  const { proxyPort, setProxyPort, settingsPath } = await import('../lib/settings.mjs');
+  assert.equal(proxyPort(), 0, '无配置 = 0（让 lib/index.js 用默认 3081）');
+  assert.equal(setProxyPort(3082), 3082, '设置后立即返回新值');
+  assert.equal(proxyPort(), 3082, '重新读取仍生效');
+  const raw = JSON.parse(readFileSync(settingsPath(), 'utf8'));
+  assert.equal(raw.proxyPort, 3082, 'settings.json 字段正确');
+  // 清除与非法值容忍
+  assert.equal(setProxyPort(0), 0, '传 0 清除');
+  assert.equal(setProxyPort('garbage'), 0, '字符串非法值清除');
+  assert.equal(setProxyPort(70000), 0, '超出 65535 清除');
+  assert.equal(setProxyPort(-1), 0, '负数清除');
+  assert.equal(setProxyPort(1.5), 0, '小数清除');
+  assert.equal(setProxyPort(80), 80, '合法端口生效');
+  assert.equal(setProxyPort(3082), 3082, '恢复常用端口');
+}));
