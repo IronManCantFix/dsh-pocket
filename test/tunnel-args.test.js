@@ -81,3 +81,10 @@ test('firstMeaningfulErrorLine: 运行期错误（403）仍取尾部', () => {
   const r = firstMeaningfulErrorLine(buf);
   assert.ok(r.includes('403'), '应保留尾部含 403 的报错信息');
 });
+
+test('firstMeaningfulErrorLine: 版本横幅在前时仍能取到参数错误行', () => {
+  // cloudflared 会先打印版本横幅（2026.x 常见），此时「参数错误」未必是首行——
+  // 只取首行会把版本横幅当成报错内容返回（移植上游 6a3a62e，issue #78 后续）。
+  const buf = 'cloudflared version 2026.4.0\nIncorrect Usage: flag provided but not defined: -no-autoupdate\n\nNAME:\n  cloudflared tunnel run ...';
+  assert.equal(firstMeaningfulErrorLine(buf), 'Incorrect Usage: flag provided but not defined: -no-autoupdate');
+});
