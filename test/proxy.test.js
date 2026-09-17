@@ -2,7 +2,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createServer } from 'node:http';
+import { createServer, request as httpRequest } from 'node:http';
 import { connect } from 'node:net';
 import { WebSocket, WebSocketServer } from 'ws';
 
@@ -678,6 +678,179 @@ test('登录速率限制（issue #40 改进版 A）：单 IP 失败达阈值锁�
     await proxy2.close();
     await new Promise((r) => up.close(r));
   }
+});
+
+test('issue #90：?token= 与 WS 的密码尝试同样计入限速（堵掉可绕开登录限速的无限穷举通道）', async () => {
+  const TOKEN = '12345678';
+  const up = createServer((req, res) => {
+    res.writeHead(200, { 'content-type': 'text/html' });
+    res.end('<html><body>dsh</body></html>');
+  });
+  await new Promise((r) => up.listen(0, '127.0.0.1', r));
+  const proxy = await createPocketProxy({
+    port: 0, host: '127.0.0.1',
+    upstream: { host: '127.0.0.1', port: up.address().port },
+    auth: { getToken: () => TOKEN, isProtected: () => true, sessionKey: 'k' },
+    rateLimit: { windowMs: 60_000, maxFailures: 3, lockMs: 5_000, globalMaxFailures: 100, globalLockMs: 3_000 },
+  });
+
+  /** 以 ?token= 猜一次密码（模拟扫码/分享链接直达的那条通道）。 */
+  const guess = (ip, pin, path = null) => new Promise((resolve, reject) => {
+    const req = httpRequest({
+      host: '127.0.0.1', port: proxy.port, method: 'GET',
+      path: path ?? `/?token=${pin}`,
+      headers: { Host: 'abc.trycloudflare.com', 'cf-connecting-ip': ip },
+    }, (res) => {
+      const chunks = [];
+      res.on('data', (c) => chunks.push(c));
+      res.on('end', () => resolve({ status: res.statusCode, headers: res.headers, body: Buffer.concat(chunks).toString('utf8') }));
+    });
+    req.on('error', reject);
+    req.end();
+  });
+
+  /** 发起一次 WS upgrade，返回状态行。 */
+  const wsGuess = (ip, pin) => new Promise((resolve, reject) => {
+    const sock = connect(proxy.port, '127.0.0.1', () => {
+      sock.write(
+        `GET /api/events.mux?token=${pin} HTTP/1.1\r\nHost: abc.trycloudflare.com\r\n`
+        + `cf-connecting-ip: ${ip}\r\nUpgrade: websocket\r\nConnection: Upgrade\r\n`
+        + 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==\r\nSec-WebSocket-Version: 13\r\n\r\n',
+      );
+    });
+    let buf = '';
+    sock.on('data', (c) => { buf += c.toString('utf8'); });
+    sock.on('close', () => resolve(buf.split('\r\n')[0] ?? ''));
+    sock.on('error', reject);
+    setTimeout(() => sock.destroy(), 500);
+  });
+
+  try {
+    // 1) 无凭据的普通访问不算密码尝试——否则正常用户第一次打开就会把自己锁死
+    for (let i = 0; i < 6; i++) {
+      const r = await guess('10.9.0.1', '', '/');
+      assert.equal(r.status, 200, '未带凭据只是看到登录页');
+      assert.ok(!r.body.includes('尝试次数过多'), `第 ${i + 1} 次无凭据访问不应计入失败`);
+    }
+
+    // 2) ?token= 猜错要计数：3 次后锁定（此前这条通道完全不计数，可全速穷举）
+    for (let i = 0; i < 3; i++) {
+      const r = await guess('10.9.0.2', '00000000');
+      assert.equal(r.status, 200, `第 ${i + 1} 次猜错返回登录页`);
+    }
+    const locked = await guess('10.9.0.2', '00000000');
+    assert.ok(locked.body.includes('尝试次数过多'), '?token= 猜错达阈值后被锁');
+
+    // 3) 锁定期内即使给对了密码也不放行——否则锁定窗口本身就是免费穷举窗口
+    const lockedButRight = await guess('10.9.0.2', TOKEN);
+    assert.ok(lockedButRight.body.includes('尝试次数过多'), '锁定期内不再比对密码');
+    assert.ok(
+      !(lockedButRight.headers['set-cookie'] ?? []).toString().includes('dsh_pocket_token'),
+      '锁定期内不得种认证 cookie',
+    );
+
+    // 4) 非 HTML 请求（API 子资源）在锁定期给 429 + retry-after，便于客户端退避
+    const apiLocked = await guess('10.9.0.2', '00000000', `/api/x?token=00000000`);
+    assert.equal(apiLocked.status, 429, '锁定期 API 请求 429');
+    assert.ok(String(apiLocked.headers['retry-after'] ?? '').length > 0, '带 retry-after');
+
+    // 5) 正确的 ?token= 直达要清空计数（分享链接的正常用法不应逐步累积到锁定）
+    await guess('10.9.0.3', '00000000');
+    await guess('10.9.0.3', '00000000');
+    const ok = await guess('10.9.0.3', TOKEN);
+    assert.ok(
+      (ok.headers['set-cookie'] ?? []).toString().includes('dsh_pocket_token'),
+      '正确 ?token= 放行并种 cookie',
+    );
+    // 清空的证据：又要重新累计 3 次才锁（前 2 次仍是普通错误提示）
+    for (let i = 0; i < 2; i++) {
+      const r = await guess('10.9.0.3', '00000000');
+      assert.ok(!r.body.includes('尝试次数过多'), `成功后计数已清空，第 ${i + 1} 次失败不锁`);
+    }
+    const relocked = await guess('10.9.0.3', '00000000');
+    assert.ok(relocked.body.includes('尝试次数过多'), '重新累计到阈值才锁');
+
+    // 6) WS 通道的 token 猜测同样计数（否则换到 WS 上继续无限穷举）
+    for (let i = 0; i < 3; i++) {
+      const line = await wsGuess('10.9.0.4', '00000000');
+      assert.ok(line.includes('401'), `WS 第 ${i + 1} 次猜错 401`);
+    }
+    const wsLocked = await wsGuess('10.9.0.4', '00000000');
+    assert.ok(wsLocked.includes('429'), 'WS 猜错达阈值后被锁 429');
+  } finally {
+    await proxy.close();
+    await new Promise((r) => up.close(r));
+  }
+});
+
+test('issue #90：Host 头不可再伪造成本机——用 TCP 源地址给声明设下限（只收紧不放松）', async () => {
+  const { policyHost, classifySource } = await import('../lib/proxy.mjs');
+  const reqFrom = (addr) => ({ socket: { remoteAddress: addr } });
+
+  // --- 源地址分类：认不出的形态一律按公网兜底（fail closed） ---
+  assert.equal(classifySource('127.0.0.1'), 'loopback');
+  assert.equal(classifySource('::1'), 'loopback');
+  assert.equal(classifySource('::ffff:127.0.0.1'), 'loopback', 'IPv4-mapped IPv6 要先归一化');
+  assert.equal(classifySource('192.168.1.9'), 'lan');
+  assert.equal(classifySource('::ffff:192.168.1.9'), 'lan');
+  assert.equal(classifySource('100.101.1.2'), 'lan', 'CGNAT/Tailscale 段算局域网');
+  assert.equal(classifySource('169.254.1.2'), 'lan', 'IPv4 link-local');
+  assert.equal(classifySource('fe80::1'), 'lan');
+  assert.equal(classifySource('203.0.113.9'), 'public');
+  assert.equal(classifySource('2001:db8::1'), 'public', '全局 IPv6 源不能被当成本机');
+  assert.equal(classifySource(''), null, '拿不到源地址 → 不做收紧');
+  assert.equal(classifySource(undefined), null);
+
+  // --- 攻击面：伪造 Host 冒充本机，被源地址拆穿 ---
+  assert.equal(
+    policyHost(reqFrom('192.168.1.9'), '127.0.0.1:3081'), '192.168.1.9',
+    '局域网直连伪造 Host: 127.0.0.1 → 按局域网判定（此前会被当成本机免密）',
+  );
+  assert.equal(
+    policyHost(reqFrom('192.168.1.9'), 'localhost:3081'), '192.168.1.9',
+    'Host: localhost 同样不可信',
+  );
+  assert.equal(
+    policyHost(reqFrom('203.0.113.9'), '127.0.0.1:3081'), '203.0.113.9',
+    '公网直连伪造本机 Host → 按公网判定（强制公网密码）',
+  );
+  assert.equal(
+    policyHost(reqFrom('203.0.113.9'), '192.168.1.5:3081'), '203.0.113.9',
+    '公网直连伪造私网 Host → 收紧到公网',
+  );
+
+  // --- 只收紧不放松：cloudflared 从 127.0.0.1 回连，不能把公网降级成本机免密 ---
+  assert.equal(
+    policyHost(reqFrom('127.0.0.1'), 'abc.trycloudflare.com'), 'abc.trycloudflare.com',
+    '经隧道进来的公网请求源地址就是 127.0.0.1，绝不能因此降级',
+  );
+  assert.equal(
+    policyHost(reqFrom('127.0.0.1'), 'pocket.example.com'), 'pocket.example.com',
+    '自建命名隧道同理',
+  );
+  assert.equal(
+    policyHost(reqFrom('192.168.1.9'), 'pocket.example.com'), 'pocket.example.com',
+    '局域网源 + 公网 Host（前置反代场景）保持公网判定，不放松',
+  );
+
+  // --- 声明与来源一致时原样透传（含用户手动设置的「局域网地址」覆盖不受影响） ---
+  assert.equal(policyHost(reqFrom('127.0.0.1'), '127.0.0.1:3081'), '127.0.0.1:3081');
+  assert.equal(policyHost(reqFrom('192.168.1.9'), '192.168.1.5:3081'), '192.168.1.5:3081');
+  assert.equal(
+    policyHost(reqFrom(''), '127.0.0.1:3081'), '127.0.0.1:3081',
+    '拿不到源地址时保持原有行为，不误伤',
+  );
+});
+
+test('issue #90：HTTP 与 WS 两条入口都必须走 policyHost，不能只改一边', async () => {
+  const { readFileSync } = await import('node:fs');
+  const src = readFileSync(new URL('../lib/proxy.mjs', import.meta.url), 'utf8');
+  const wired = src.match(/policyHost\(req, String\(req\.headers\.host \?\? ''\)\)/g) ?? [];
+  assert.equal(wired.length, 2, 'createServer 与 server.on("upgrade") 各一处');
+  assert.ok(
+    !/const host = String\(req\.headers\.host \?\? ''\);/.test(src),
+    '不得再有直接把原始 Host 头当策略依据的入口',
+  );
 });
 
 test('advancedNoticeScript：注入 advanced 模式提示覆盖层（issue #19）', async () => {
