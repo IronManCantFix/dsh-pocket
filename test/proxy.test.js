@@ -1149,3 +1149,53 @@ test('并发登录请求在读取 body 后重新检查限速，不能批量穿�
     await new Promise((r) => up.close(r));
   }
 });
+
+test('局域网访问总开关关闭时：局域网 Host 一律 403 lan-disabled，公网不受影响（2373f4b / PR #61）', async () => {
+  const up = createServer((_req, res) => res.end('ok'));
+  await new Promise((r) => up.listen(0, '127.0.0.1', r));
+  let lanOn = false; // 每次请求实时读，模拟设置页刚关掉
+  const proxy = await createPocketProxy({
+    port: 0,
+    host: '127.0.0.1',
+    upstream: { host: '127.0.0.1', port: up.address().port },
+    lanAccessEnabled: () => lanOn,
+  });
+  try {
+    const call = (headers) => new Promise((resolve, reject) => {
+      const req = httpRequest({ host: '127.0.0.1', port: proxy.port, path: '/', method: 'GET', headers }, (res) => {
+        let body = '';
+        res.on('data', (c) => { body += c; });
+        res.on('end', () => resolve({ status: res.statusCode, body }));
+      });
+      req.on('error', reject);
+      req.end();
+    });
+
+    // 浏览器导航：给一页可读的提示（不是裸 403 文本）
+    const blockedPage = await call({ host: '192.168.1.50:3081' });
+    assert.equal(blockedPage.status, 403, '关闭后局域网 Host 直接拒绝');
+    assert.ok(blockedPage.body.includes('局域网访问已关闭'), '返回可操作的提示页');
+    // 非导航请求（API/子资源）：JSON 错误体，方便调用方识别
+    // 根路径一律按「浏览器导航」给提示页（isHtmlRequest 看 pathname），
+    // 所以要验 JSON 分支得走一个非根路径。
+    const blockedApi = await new Promise((resolve, reject) => {
+      const req = httpRequest({ host: '127.0.0.1', port: proxy.port, path: '/api/anything', method: 'GET', headers: { host: '192.168.1.50:3081', accept: 'application/json' } }, (res) => {
+        let body = '';
+        res.on('data', (c) => { body += c; });
+        res.on('end', () => resolve({ status: res.statusCode, body }));
+      });
+      req.on('error', reject);
+      req.end();
+    });
+    assert.equal(blockedApi.status, 403, 'JSON 请求同样拒绝');
+    assert.ok(blockedApi.body.includes('lan-disabled'), 'JSON 错误体说明局域网访问已关闭');
+
+    lanOn = true;
+    const allowed = await call({ host: '192.168.1.50:3081' });
+    assert.equal(allowed.status, 200, '重新打开后立即放行（实时读开关，无需重启代理）');
+    assert.equal(allowed.body, 'ok', '请求正常转发到上游');
+  } finally {
+    await proxy.close();
+    await new Promise((r) => up.close(r));
+  }
+});

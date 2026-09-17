@@ -185,6 +185,22 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [frpError, setFrpError] = useState(null);
   const [frpShowToken, setFrpShowToken] = useState(false); // frp 连接令牌明文显示开关
 
+  // 局域网访问总开关（2373f4b / PR #61）：与「局域网密码开关」是两个独立开关。
+  // 关闭后代理立即拒绝局域网 Host（扫码/链接失效），公网不受影响；切换时弹窗提醒。
+  const [lanToggleOpen, setLanToggleOpen] = useState(null);
+  const requestLanToggle = (on) => setLanToggleOpen(on);
+  const confirmLanToggle = async () => {
+    const on = lanToggleOpen;
+    setLanToggleOpen(null);
+    if (on === null) return;
+    try {
+      const r = await call(POCKET_ENDPOINTS.lanSetEnabled, { on });
+      setStatus((st) => ({ ...st, lanEnabled: r.lanEnabled }));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   // 恢复出厂设置（672b31b）：二次确认弹框 + 居中 toast 反馈（074744d / 2bcaff0）。
   // 清空设置文件与随机密码都在宿主侧完成（RPC 端强制校验 confirm），这里只负责
   // 交互与状态替换——返回的是完整 status，直接替换即可，不用再拉一次。
@@ -678,7 +694,23 @@ function PocketSettingsTab({ rpcCall, t }) {
     // 局域网
     h('div', { style: styles.block },
       h('div', { style: { fontWeight: 600, fontSize: 13 } }, t('lanTitle')),
-      lanUrl
+      // 局域网访问总开关：关闭后二维码/链接直接失效（公网不受影响）
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 8 } },
+        h('span', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } }, t('lanAccess')),
+        h('button', {
+          'data-dshp-toggle': '',
+          style: { ...styles.btn, height: 28, padding: '0 12px', fontSize: 12, fontWeight: status?.lanEnabled !== false ? 600 : 400, background: status?.lanEnabled !== false ? 'var(--dsw-alias-button-primary-fill, var(--dsw-alias-brand-primary,#4f6ef7))' : 'var(--dsw-alias-bg-layer-1,#fff)', color: status?.lanEnabled !== false ? 'var(--dsw-alias-label-primary-foreground, #fff)' : 'var(--dsw-alias-label-primary,inherit)' },
+          onClick: () => requestLanToggle(true),
+        }, t('on')),
+        h('button', {
+          'data-dshp-toggle': '',
+          style: { ...styles.btn, height: 28, padding: '0 12px', fontSize: 12, fontWeight: status?.lanEnabled === false ? 600 : 400, background: status?.lanEnabled === false ? 'var(--dsw-alias-state-error-primary,#dc2626)' : 'var(--dsw-alias-bg-layer-1,#fff)', color: status?.lanEnabled === false ? '#fff' : 'var(--dsw-alias-label-primary,inherit)' },
+          onClick: () => requestLanToggle(false),
+        }, t('off')),
+      ),
+      status?.lanEnabled === false
+        ? h('div', { style: { marginTop: 8, fontSize: 12, color: 'var(--dsw-alias-state-warn-primary,#b45309)', lineHeight: 1.5 } }, t('lanDisabledHint'))
+        : lanUrl
         ? h('div', null,
           h('img', { src: status.lanQr, alt: 'LAN QR', style: styles.qr }),
           h('div', { style: styles.code }, lanUrl),
@@ -793,6 +825,18 @@ function PocketSettingsTab({ rpcCall, t }) {
       ),
       h('div', { style: { ...styles.muted, marginTop: 6 } }, t('resetIntro')),
     ),
+
+    // 局域网访问开关确认弹框（切换时提醒影响范围）
+    lanToggleOpen !== null ? h('div', { style: { position: 'fixed', inset: 0, zIndex: 10000, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 } },
+      h('div', { style: { background: 'var(--dsw-alias-bg-layer-1,#fff)', borderRadius: 12, maxWidth: 400, width: '100%', padding: '20px 22px', boxShadow: '0 8px 32px rgba(0,0,0,.18)' } },
+        h('div', { style: { fontWeight: 600, fontSize: 15, marginBottom: 10 } }, t(lanToggleOpen ? 'lanToggleTitleOn' : 'lanToggleTitleOff')),
+        h('div', { style: { fontSize: 13, lineHeight: 1.7, color: 'var(--dsw-alias-label-primary,inherit)' } }, t(lanToggleOpen ? 'lanToggleBodyOn' : 'lanToggleBodyOff')),
+        h('div', { style: { display: 'flex', gap: 8, marginTop: 16 } },
+          h('button', { style: { ...styles.btn, flex: 1 }, onClick: () => setLanToggleOpen(null) }, t('cancel')),
+          h('button', { style: { ...styles.primary, flex: 1 }, onClick: confirmLanToggle }, t('confirm')),
+        ),
+      ),
+    ) : null,
 
     // 恢复出厂设置确认弹框（必须二次确认；宿主侧也会再校验 payload.confirm）
     resetOpen ? h('div', { style: { position: 'fixed', inset: 0, zIndex: 10000, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 } },

@@ -1046,3 +1046,33 @@ test('RPC：pocketReset 必须显式确认；确认后停隧道（含 NAS/frp）
 
   await service.dispose();
 });
+
+test('RPC：status 带 lanEnabled，lan.setEnabled 切换并实时生效（2373f4b / PR #61）', async () => {
+  const internals = stubInternals();
+  const service = createPocketService({ dshPort: 3080, port: 3081, internals });
+  const conn = fakeCtxConnection();
+  let on = true;
+  installPocketRpc({ connection: conn }, {
+    service,
+    log: { error() {}, warn() {} },
+    getLanEnabled: () => on,
+    setLanEnabled: (v) => { on = v === true; return on; },
+  });
+  await service.startProxy();
+
+  const s1 = await conn.handler(POCKET_ENDPOINTS.status, {});
+  assert.equal(s1.value.lanEnabled, true, '默认开');
+
+  const off = await conn.handler(POCKET_ENDPOINTS.lanSetEnabled, { on: false });
+  assert.equal(off.ok, true);
+  assert.equal(off.value.lanEnabled, false, '返回新状态');
+  assert.equal(on, false, '已写回设置层');
+
+  const s2 = await conn.handler(POCKET_ENDPOINTS.status, {});
+  assert.equal(s2.value.lanEnabled, false, 'status 反映最新开关');
+
+  const back = await conn.handler(POCKET_ENDPOINTS.lanSetEnabled, { on: true });
+  assert.equal(back.value.lanEnabled, true, '可再打开');
+
+  await service.dispose();
+});

@@ -17,7 +17,7 @@ export const POCKET_ENDPOINTS = Object.freeze({
   frpStart: 'frp.start',
   frpStop: 'frp.stop',
   // ---------- 以下端点与上游同名（接口冻结：并行开发时 host/client 两侧按此对齐） ----------
-  /** 局域网访问总开关（上游 PR #61）。payload { enabled } → ok({ lanEnabled }) */
+  /** 局域网访问总开关（上游 PR #61）。payload { on: boolean } → ok({ lanEnabled }) */
   lanSetEnabled: 'lan.setEnabled',
   /** 恢复出厂设置（上游 #69 后续）。payload { confirm: true } → ok(status) */
   pocketReset: 'pocket.reset',

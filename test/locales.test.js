@@ -80,3 +80,17 @@ test('恢复出厂设置（672b31b + 074744d + 2bcaff0）：入口 + 二次确�
   assert.ok(zh.resetBody.includes('NAS'), '中文确认文案要写明 NAS 隧道配置也会清空');
   assert.ok(en.resetBody.includes('NAS'), '英文确认文案同样要写明');
 });
+
+test('局域网访问总开关（2373f4b / PR #61）：与密码开关并列且切换要二次确认', () => {
+  const src = readFileSync(new URL('../client/index.jsx', import.meta.url), 'utf8');
+  assert.ok(src.includes('POCKET_ENDPOINTS.lanSetEnabled'), '开关必须走 lan.setEnabled 端点');
+  assert.ok(src.includes('{ on }'), 'payload 用 { on }（与局域网密码开关一致）');
+  assert.ok(src.includes('lanToggleOpen'), '切换需要确认弹框状态（提醒影响范围）');
+  assert.ok(src.includes("requestLanToggle(false)"), '关闭按钮要先弹确认，不能直接关');
+  assert.ok(src.includes("t('lanAccess')") && src.includes("t('lanPin')"), '总开关与密码开关是两个独立控件');
+  assert.ok(src.includes("status?.lanEnabled === false"), '关闭态要单独渲染提示（二维码/链接不再显示）');
+  for (const key of ['lanAccess', 'lanDisabledHint', 'lanToggleTitleOff', 'lanToggleBodyOff', 'lanToggleTitleOn', 'lanToggleBodyOn', 'confirm']) {
+    assert.ok(key in zh, `中文词典缺少 ${key}`);
+    assert.ok(key in en, `英文词典缺少 ${key}`);
+  }
+});

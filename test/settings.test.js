@@ -123,3 +123,16 @@ test('恢复出厂设置：清空全部设置（含 NAS/frp 令牌与配置）+ 
   assert.equal(settings.frpToken(), null, 'NAS 连接令牌一并清空');
   assert.deepEqual(settings.frpConfig(), { serverAddr: '', serverPort: 7000, remotePort: 7001, tls: false }, 'NAS 配置恢复默认');
 }));
+
+// ---------- 局域网访问总开关（2373f4b / PR #61） ----------
+
+test('局域网访问总开关：默认开、持久化、可关闭', () => withHome(async () => {
+  const { lanEnabled, setLanEnabled, settingsPath } = await import('../lib/settings.mjs');
+  assert.equal(lanEnabled(), true, '默认开启（文件缺失也算开）');
+  assert.equal(setLanEnabled(false), false, '返回新状态');
+  assert.equal(lanEnabled(), false, '重新读取仍为关');
+  const raw = JSON.parse(readFileSync(settingsPath(), 'utf8'));
+  assert.equal(raw.lanEnabled, false, 'settings.json 字段正确');
+  assert.equal(setLanEnabled(true), true, '可再打开');
+  assert.equal(lanEnabled(), true, '恢复为开');
+}));
