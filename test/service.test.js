@@ -788,3 +788,29 @@ Ethernet adapter WLAN:
   }
   assert.equal(detectWsl(), false, '非 WSL 环境返回 false（macOS 无 /proc/version microsoft 标记）');
 });
+
+test('startTunnel 同步抛错后不残留 rejected 的 in-flight（TDZ 回归）：修好配置后可再次启动', async () => {
+  // 回归背景：启动流程里 `const p = tunnelPromise` 声明在 async IIFE 之后，
+  // 而 IIFE 体内第一个 await 之前就可能同步抛错（隧道配置读取/参数校验），
+  // 此时 finally 会引用尚未初始化的 `p` 触发 TDZ 报错，tunnelPromise 永远停在
+  // rejected，后续 startTunnel 一直复用这个失败态，隧道再也起不来。
+  //
+  // 本 fork 的隧道实现由 internals.startTunnel 注入，所以用「同步抛错的注入实现」
+  // 来复现同一个现场（上游用 getTunnelConfig 同步抛错，本 fork 没有这个注入点）。
+  const internals = stubInternals();
+  let broken = true;
+  const realStartTunnel = internals.startTunnel;
+  internals.startTunnel = (opts) => {
+    if (broken) throw new Error('config boom');
+    return realStartTunnel(opts);
+  };
+  const service = createPocketService({ dshPort: 3080, port: 3081, internals });
+  await service.startProxy();
+  await assert.rejects(() => service.startTunnel(), /config boom/, '第一次因配置读取失败而拒绝');
+
+  broken = false;
+  const url = await service.startTunnel();
+  assert.equal(url, 'https://abc-123.trycloudflare.com', '修好后能正常启动，没有残留失败态');
+  assert.equal((await service.status()).tunnelRunning, true, '隧道确实起来了');
+  await service.dispose();
+});
