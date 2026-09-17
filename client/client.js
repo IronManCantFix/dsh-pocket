@@ -56,7 +56,14 @@ var POCKET_ENDPOINTS = Object.freeze({
   frpConfigGet: "frp.configGet",
   frpConfigSet: "frp.configSet",
   frpStart: "frp.start",
-  frpStop: "frp.stop"
+  frpStop: "frp.stop",
+  // ---------- 以下端点与上游同名（接口冻结：并行开发时 host/client 两侧按此对齐） ----------
+  /** 局域网访问总开关（上游 PR #61）。payload { enabled } → ok({ lanEnabled }) */
+  lanSetEnabled: "lan.setEnabled",
+  /** 恢复出厂设置（上游 #69 后续）。payload { confirm: true } → ok(status) */
+  pocketReset: "pocket.reset",
+  /** 移动端「复制文件内容」（上游 issue #17 内容复制）。payload { path, cwd? } → ok({ content, path, size }) */
+  fileRead: "pocket.fileRead"
 });
 function compareVersions(a, b) {
   const pa = String(a).replace(/^[vV]/, "").split(".");
@@ -146,6 +153,41 @@ function MobileNavToggle({ toggleSidebar, t }) {
 // client/mobile/MobileNavOverlay.tsx
 var import_react = require("react");
 var import_dsh_client_ui_primitives2 = require("@deepseek-ai/dsh-client-ui-primitives");
+
+// client/mobile/nav-targets.mjs
+var DRAWER_SELECTOR = '[data-mobile-nav="frame"] > :first-child';
+var TOGGLE_SELECTOR = '[data-mobile-nav="toggle"]';
+var NAV_TARGETS = [
+  "button[data-dsh-taskboard-entry]",
+  "button[data-dsh-ssh-entry]",
+  // 抽屉底部的 "文件" 入口打开的是 dsh-web-ui 的 explorer 面板，它的 z-index
+  // (55) 低于展开的抽屉 (600)，且在抽屉 DOM 之外：抽屉不关就会盖住面板，点
+  // 面板里的行又会被"点抽屉外就关"吃掉。所以按导航处理，一起关掉。
+  '[data-mobile-nav="files"]',
+  '[class*="sessionRow"]',
+  '[class*="newSession"]',
+  '[class*="searchResultWorkspace"]',
+  '[class*="searchResultRow"]'
+].join(", ");
+var NAV_EXCLUDE = '[class*="sessionRow"] button';
+var OVERLAY_SELECTOR = [
+  '[role="menu"]',
+  '[role="listbox"]',
+  '[role="dialog"]',
+  '[role="tooltip"]',
+  "[data-radix-popper-content-wrapper]"
+].join(", ");
+function navTargetFor(target) {
+  if (target == null || typeof target.closest !== "function") return null;
+  if (target.closest(NAV_EXCLUDE) !== null) return null;
+  return target.closest(NAV_TARGETS);
+}
+function isOverlayTap(target) {
+  if (target == null || typeof target.closest !== "function") return false;
+  return target.closest(OVERLAY_SELECTOR) !== null;
+}
+
+// client/mobile/MobileNavOverlay.tsx
 var MOBILE_QUERY = "(max-width: 1023px)";
 function useMobile() {
   const [mobile, setMobile] = (0, import_react.useState)(() => window.matchMedia(MOBILE_QUERY).matches);
@@ -211,25 +253,47 @@ function MobileNavOverlay({ toggleSidebar, t }) {
       if (document.querySelector('[aria-modal="true"]') !== null) return;
       const target = event.target;
       if (target === null) return;
-      const drawer = document.querySelector('[data-mobile-nav="frame"] > :first-child');
+      const drawer = document.querySelector(DRAWER_SELECTOR);
       if (drawer === null || !drawer.contains(target)) return;
-      if (target.closest('[class*="sessionRow"] button') !== null) return;
-      const navigates = target.closest(
-        'button[data-dsh-taskboard-entry], button[data-dsh-ssh-entry], [class*="newSession"], [class*="sessionRow"], [class*="searchResultRow"], [class*="searchResultWorkspace"], [data-mobile-nav="files"]'
-      );
-      if (navigates !== null) toggleSidebar();
+      if (navTargetFor(target) !== null) toggleSidebar();
     };
     document.addEventListener("click", onDrawerClick, true);
     return () => document.removeEventListener("click", onDrawerClick, true);
   }, [mobile, open, toggleSidebar]);
   (0, import_react.useEffect)(() => {
     if (!mobile || !open) return;
+    let timer = null;
+    const onDrawerPointerUp = (event) => {
+      if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const drawer = document.querySelector(DRAWER_SELECTOR);
+      if (drawer === null || !drawer.contains(target)) return;
+      if (navTargetFor(target) === null) return;
+      if (timer !== null) return;
+      timer = window.setTimeout(() => {
+        timer = null;
+        const frame = document.querySelector('[data-mobile-nav="frame"]');
+        if (frame === null || frame.hasAttribute("data-sidebar-collapsed")) return;
+        const row = navTargetFor(target);
+        row?.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+      }, 0);
+    };
+    document.addEventListener("pointerup", onDrawerPointerUp, true);
+    return () => {
+      if (timer !== null) window.clearTimeout(timer);
+      document.removeEventListener("pointerup", onDrawerPointerUp, true);
+    };
+  }, [mobile, open]);
+  (0, import_react.useEffect)(() => {
+    if (!mobile || !open) return;
     const onOutsideClick = (event) => {
       if (document.querySelector('[aria-modal="true"]') !== null) return;
       const target = event.target;
       if (target === null) return;
-      if (target.closest('[data-mobile-nav="toggle"]') !== null) return;
-      const drawer = document.querySelector('[data-mobile-nav="frame"] > :first-child');
+      if (target.closest(TOGGLE_SELECTOR) !== null) return;
+      if (isOverlayTap(target)) return;
+      const drawer = document.querySelector(DRAWER_SELECTOR);
       if (drawer !== null && drawer.contains(target)) return;
       toggleSidebar();
     };
@@ -509,14 +573,19 @@ var MOBILE_CSS = `
      it to 500), and when the layer outranks the drawer, the backdrop paints
      ABOVE the drawer and swallows every tap \u2014 the drawer opens but no row
      can be pressed (every tap just closes it). The drawer must therefore
-     outrank any such raise: 600 clears the known 500 while staying under the
-     fixed-position banners/toasts (z 9999) that float at the viewport level. */
+     outrank any such raise.
+     1200 (was 600) clears the mobile layers shipped by
+     @linxin666/dsh-web-ui-all \u2014 its sidebar pane is z-index 1100, its
+     details pane 1000 and its full-screen frame ::after mask 1050 (issue
+     #67: that mask sat on top of the 600 drawer and ate every tap). Still
+     far under the fixed-position banners/toasts (z 9999) that float at the
+     viewport level. */
   [data-mobile-nav="frame"] > :first-child {
     position: absolute !important;
     inset: 0 auto 0 0 !important;
     width: max-content !important;
     max-width: 92vw !important;
-    z-index: 600 !important;
+    z-index: 1200 !important;
     transform: translateX(-110%);
     transition: transform .28s var(--ds-ease-in-out, ease-in-out);
     background: var(--dsw-alias-bg-base, #ffffff);
@@ -1218,7 +1287,71 @@ var MOBILE_CSS = `
     display: none !important;
   }
 }
+
+/* ---------- mobile: stop iOS Safari forced zoom on input focus ----------
+ * Inputs are rendered with inline fontSize 13-14px, below the 16px threshold
+ * that makes iOS Safari zoom the whole page on focus (and never recover).
+ * Force the safe 16px minimum on narrow viewports only, so desktop keeps its
+ * tighter metrics. !important is required to beat the inline styles.
+ * \u79FB\u690D\u4E0A\u6E38 8d5b3fa\u3002 */
+@media (max-width: 1024px) {
+  input,
+  textarea,
+  [contenteditable="true"] {
+    font-size: 16px !important;
+  }
+}
+
+/* ---------- kill a competing full-screen mask (88605d9 / issue #67) ----------
+   @linxin666/dsh-web-ui-all ships its own mobile drawer, and part of it is
+
+     [data-dsh-frame]:not([data-sidebar-collapsed])::after {
+       content: ""; position: fixed; inset: 0; z-index: 1050;
+       background: rgb(0 0 0 / 24%);
+     }
+
+   The pseudo-element belongs to the frame we already mark, and the frame
+   carries only "position: relative" with z-index auto \u2014 no stacking context
+   \u2014 so this mask competes with the drawer in the parent stacking context
+   and, at 1050, paints over it. It covers the whole viewport, so every tap
+   on a session row lands on the mask instead: the drawer opens but nothing
+   inside it can be pressed, and the page behind cannot be scrolled.
+   Removing it is safe: the mobile stylesheet already renders its own
+   backdrop, and tapping outside the drawer is handled in JS.
+
+   The attribute selector is repeated on purpose. Their rule has the same
+   specificity (0,2,1) once ours is written the obvious way, and plugin
+   stylesheets are injected in load order, so a tie would be decided by
+   whichever plugin happened to load last. Doubling the attribute makes it
+   (0,3,1) and deterministic. */
+[data-mobile-nav="frame"][data-mobile-nav="frame"]:not([data-sidebar-collapsed])::after {
+  content: none !important;
+}
 `;
+
+// client/mobile/layout-mode.mjs
+function resolveLayout({ urlValue, stored, narrowMatch }) {
+  const url = String(urlValue ?? "").trim();
+  if (url === "desktop") return "desktop";
+  if (url === "mobile") return "mobile";
+  if (stored === "desktop" || stored === "mobile") return stored;
+  return narrowMatch ? "mobile" : "desktop";
+}
+function persistLayoutFromUrl(urlValue) {
+  if (typeof localStorage === "undefined") return "";
+  const v = String(urlValue ?? "").trim();
+  try {
+    if (v === "desktop" || v === "mobile") localStorage.setItem("dsh-pocket.layout", v);
+    else if (v === "auto" || v === "") localStorage.removeItem("dsh-pocket.layout");
+  } catch {
+  }
+  try {
+    const s = localStorage.getItem("dsh-pocket.layout");
+    return s === "desktop" || s === "mobile" ? s : "";
+  } catch {
+    return "";
+  }
+}
 
 // client/mobile/locales.ts
 var NS = "mobileNav";
@@ -1250,6 +1383,18 @@ function rafBatch(run) {
   };
 }
 function mobileApply(ctx) {
+  const urlValue = new URL(window.location.href).searchParams.get("dsh-layout") ?? "";
+  const narrowMQ = window.matchMedia("(max-width: 1023px)");
+  const stored = persistLayoutFromUrl(urlValue);
+  const layout = resolveLayout({ urlValue, stored, narrowMatch: narrowMQ.matches });
+  document.body?.setAttribute("data-dsh-pocket-layout", layout);
+  if (layout === "desktop") return;
+  let narrow = narrowMQ;
+  if (layout === "mobile") {
+    narrow = { matches: true, addEventListener: () => {
+    }, removeEventListener: () => {
+    } };
+  }
   ctx.effect(() => ctx.locale.register(NS, { zh, en }), "dsh-mobile-nav: dictionaries");
   ctx.effect(() => {
     const tag = document.createElement("style");
@@ -1262,7 +1407,6 @@ function mobileApply(ctx) {
     };
   }, "dsh-mobile-nav: styles");
   ctx.effect(() => {
-    const narrow = window.matchMedia("(max-width: 1023px)");
     const viewport = document.querySelector('meta[name="viewport"]');
     const originalViewport = viewport?.content ?? "";
     const themeMeta = document.createElement("meta");
@@ -1294,7 +1438,6 @@ function mobileApply(ctx) {
     };
   }, "dsh-mobile-nav: status bar theme + viewport + zoom guard");
   ctx.effect(() => {
-    const narrow = window.matchMedia("(max-width: 1023px)");
     if (!narrow.matches) return () => {
     };
     const onChevronClick = (event) => {
@@ -1306,7 +1449,6 @@ function mobileApply(ctx) {
     return () => document.removeEventListener("click", onChevronClick, true);
   }, "dsh-mobile-nav: aionui explorer close marker");
   ctx.effect(() => {
-    const narrow = window.matchMedia("(max-width: 1023px)");
     if (!narrow.matches) return () => {
     };
     const frame = () => document.querySelector('[data-mobile-nav="frame"]');
@@ -1324,7 +1466,6 @@ function mobileApply(ctx) {
     };
   }, "dsh-mobile-nav: explorer availability (issue #48)");
   ctx.effect(() => {
-    const narrow = window.matchMedia("(max-width: 1023px)");
     if (!narrow.matches) return () => {
     };
     const frame = () => document.querySelector('[data-mobile-nav="frame"]');
@@ -1349,7 +1490,6 @@ function mobileApply(ctx) {
     };
   }, "dsh-mobile-nav: preview sheet open marker");
   ctx.effect(() => {
-    const narrow = window.matchMedia("(max-width: 1023px)");
     if (!narrow.matches) return () => {
     };
     const moveTps = (stats) => {
@@ -1393,7 +1533,6 @@ function mobileApply(ctx) {
     };
   }, "dsh-mobile-nav: stats line marker");
   ctx.effect(() => {
-    const narrow = window.matchMedia("(max-width: 1023px)");
     if (!narrow.matches) return () => {
     };
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -1998,6 +2137,12 @@ function PocketSettingsTab({ rpcCall, t }) {
       setCustomPin((c) => ({ ...c, err: err.message }));
     }
   };
+  const errText = (msg) => {
+    const s = String(msg ?? "");
+    const i = s.indexOf(" | ");
+    if (i < 0) return s;
+    return (t("ok") === zh2.ok ? s.slice(0, i) : s.slice(i + 3)).trim();
+  };
   const customPinRow = (which) => (0, import_react2.createElement)(
     "div",
     { style: { marginTop: 6, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", lineHeight: 1.5 } },
@@ -2018,7 +2163,7 @@ function PocketSettingsTab({ rpcCall, t }) {
     }),
     (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, marginLeft: 2 }, "data-dshp": "ghost", onClick: () => saveCustomPin(which) }, t("save")),
     (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12 }, "data-dshp": "ghost", onClick: () => setCustomPin(null) }, t("cancel")),
-    customPin?.err ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", marginTop: 4 } }, customPin.err) : null
+    customPin?.err ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", marginTop: 4 } }, errText(customPin.err)) : null
   );
   const customBtn = (which) => (0, import_react2.createElement)("button", { style: { ...styles.btn, height: 26, padding: "0 10px", fontSize: 12, marginLeft: 8 }, "data-dshp": "ghost", onClick: () => setCustomPin({ which, value: "", err: null }) }, t("customize"));
   const lanUrl = status?.lanUrl;
@@ -2342,11 +2487,11 @@ function PocketSettingsTab({ rpcCall, t }) {
         ) : tunnelPhase === "error" ? (0, import_react2.createElement)(
           "div",
           { style: { marginTop: 4, fontSize: 12, color: "var(--dsw-alias-state-error-primary,#dc2626)" } },
-          fmt(t, "error", { detail: tunnelStateDetail || t("unknownError") })
+          fmt(t, "error", { detail: errText(tunnelStateDetail) || t("unknownError") })
         ) : null
       )
     ),
-    error ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 8 } }, `\u274C ${error}`) : null,
+    error ? (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-state-error-primary,#dc2626)", fontSize: 12, marginTop: 8 } }, `\u274C ${errText(error)}`) : null,
     // 安全免责声明弹框（issue #31）：每次开启公网访问前确认
     disclaimerOpen ? (0, import_react2.createElement)(
       "div",
