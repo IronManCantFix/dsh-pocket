@@ -150,6 +150,7 @@ npx @deepseek-ai/dsh web
 - 公网 URL 由 cloudflared 随机分配，**每次重启会变化**（旧链接自动失效，相当于天然轮换）
 - 局域网模式不暴露公网，只有同一网络内的设备能访问
 - 适合个人自用；公网密码存本机 `$DSH_HOME/dsh-pocket/token`（默认每次开启公网自动换新，**自定义后不换**），局域网密码存 `$DSH_HOME/dsh-pocket/token-lan`（配置页手动刷新），开关/自定义标记存 `$DSH_HOME/dsh-pocket/settings.json`
+- **CLI 模式（命令行直跑 `dsh-pocket-nas`）也有密码**（issue #90 修复前这条路是无认证的）：默认随机生成 8 位密码，打印在终端、并已内嵌进二维码（**扫码体验不变**），手动敲地址时需要填写，本机访问免密。`--pin <值>` 或 `DSH_POCKET_PIN=<值>` 自定义（至少 6 位）；`--no-auth` 可关闭，**不推荐**——那等于把能执行代码的 DSH 裸暴露给任何能连上该端口的人
 
 ## 💻 DSH Desktop（桌面版）
 
