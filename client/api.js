@@ -16,6 +16,13 @@ export const POCKET_ENDPOINTS = Object.freeze({
   frpConfigSet: 'frp.configSet',
   frpStart: 'frp.start',
   frpStop: 'frp.stop',
+  // ---------- 以下端点与上游同名（接口冻结：并行开发时 host/client 两侧按此对齐） ----------
+  /** 局域网访问总开关（上游 PR #61）。payload { enabled } → ok({ lanEnabled }) */
+  lanSetEnabled: 'lan.setEnabled',
+  /** 恢复出厂设置（上游 #69 后续）。payload { confirm: true } → ok(status) */
+  pocketReset: 'pocket.reset',
+  /** 移动端「复制文件内容」（上游 issue #17 内容复制）。payload { path, cwd? } → ok({ content, path, size }) */
+  fileRead: 'pocket.fileRead',
 });
 
 /** 语义化版本比较：a > b 返回正数，相等 0，a < b 负数（数字段 + 预发布后缀）。 */
