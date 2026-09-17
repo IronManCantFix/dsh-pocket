@@ -1199,3 +1199,61 @@ test('局域网访问总开关关闭时：局域网 Host 一律 403 lan-disabled
     await new Promise((r) => up.close(r));
   }
 });
+
+/** 假上游：对所有请求返回 403 text/plain，body 可配置（模拟 DSH Desktop 的
+ *  desktop-browser-access 门禁，或任意其他 403）。 */
+async function fakeUpstream403(body = 'forbidden') {
+  const server = createServer((req, res) => {
+    res.writeHead(403, { 'content-type': 'text/plain; charset=utf-8' });
+    res.end(body);
+  });
+  await new Promise((r) => server.listen(0, '127.0.0.1', r));
+  return { port: server.address().port, server };
+}
+
+test('issue #81: 导航请求遇上游 403 forbidden → 改写为可操作提示页（保留 403）', async () => {
+  const up = await fakeUpstream403('forbidden');
+  const proxy = await createPocketProxy({ port: 0, host: '127.0.0.1', upstream: { host: '127.0.0.1', port: up.port } });
+  try {
+    const res = await fetch(`http://127.0.0.1:${proxy.port}/`, { headers: { Accept: 'text/html' } });
+    assert.equal(res.status, 403, '状态码保持 403（未授权访问未授予）');
+    assert.match(res.headers.get('content-type') ?? '', /text\/html/, '提示页是 HTML');
+    assert.equal(res.headers.get('x-dsh-pocket-gate'), 'desktop-browser-access', '标记门禁来源');
+    const html = await res.text();
+    assert.match(html, /浏览器访问/, '提示页说明需开启浏览器访问');
+    assert.match(html, /compatibility/, '提示页给出 compatibility 模式配置');
+  } finally {
+    await proxy.close();
+    await new Promise((r) => up.server.close(r));
+  }
+});
+
+test('issue #81: API 请求遇上游 403 forbidden → 原样透传（不改写为提示页）', async () => {
+  const up = await fakeUpstream403('forbidden');
+  const proxy = await createPocketProxy({ port: 0, host: '127.0.0.1', upstream: { host: '127.0.0.1', port: up.port } });
+  try {
+    const res = await fetch(`http://127.0.0.1:${proxy.port}/api/events`, { headers: { Accept: 'application/json' } });
+    assert.equal(res.status, 403);
+    assert.match(res.headers.get('content-type') ?? '', /text\/plain/, '原样透传 text/plain');
+    assert.equal(await res.text(), 'forbidden', '原样透传 body');
+    assert.equal(res.headers.get('x-dsh-pocket-gate'), null, 'API 不标门禁');
+  } finally {
+    await proxy.close();
+    await new Promise((r) => up.server.close(r));
+  }
+});
+
+test('issue #81: 其他 403 文本（非 forbidden）不误判为桌面门禁', async () => {
+  const up = await fakeUpstream403('denied');
+  const proxy = await createPocketProxy({ port: 0, host: '127.0.0.1', upstream: { host: '127.0.0.1', port: up.port } });
+  try {
+    const res = await fetch(`http://127.0.0.1:${proxy.port}/`, { headers: { Accept: 'text/html' } });
+    assert.equal(res.status, 403);
+    assert.match(res.headers.get('content-type') ?? '', /text\/plain/, '原样透传（非提示页）');
+    assert.equal(await res.text(), 'denied', '原样透传 body');
+    assert.equal(res.headers.get('x-dsh-pocket-gate'), null, '不标门禁');
+  } finally {
+    await proxy.close();
+    await new Promise((r) => up.server.close(r));
+  }
+});
