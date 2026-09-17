@@ -113,10 +113,15 @@ test('移动导航 backdrop（issue #38）：点击穿透不抢抽屉内点击 +
   assert.ok(src.includes('"data-mobile-nav": "backdrop"'), 'backdrop 纯视觉渲染');
   // 关闭逻辑：抽屉内导航关闭 + 抽屉外点击关闭（两套 document capture contains 处理）
   assert.ok((src.match(/contains\(target\)/g) || []).length >= 2, '存在抽屉内外两套点击处理');
-  // 抽屉层级（PR #42）：必须高于第三方插件对 shell overlay 层的抬升（500）
-  // 直接断言 bundle 中抽屉规则的 z-index: 600（若退回 40 则此处失败）
-  assert.ok(src.includes('z-index: 600 !important'), '抽屉 z-index 600（高于 overlay 抬升 500）');
+  // 抽屉层级（PR #42 + 88605d9 / issue #67）：必须高于第三方插件对 shell overlay
+  // 层的抬升（500），也要高于 @linxin666/dsh-web-ui-all 的移动层（1100/1050/1000）。
+  // 直接断言 bundle 中抽屉规则的 z-index: 1200（若退回 40/600 则此处失败）
+  assert.ok(src.includes('z-index: 1200 !important'), '抽屉 z-index 1200（高于 overlay 抬升 500 与 web-ui-all 的 1100）');
   assert.ok(!src.includes('z-index: 40 !important'), '不再用 40（会被第三方抬升的 overlay 盖住）');
+  assert.ok(
+    src.includes('content: none !important'),
+    'issue #67：要关掉 web-ui-all 抢点击的 ::after 全屏遮罩',
+  );
 });
 
 test('公网免责声明（issue #31）：bundle 含弹框与勾选逻辑，RPC 必须带 disclaimer 确认', async () => {

@@ -235,14 +235,19 @@ export const MOBILE_CSS = `
      it to 500), and when the layer outranks the drawer, the backdrop paints
      ABOVE the drawer and swallows every tap — the drawer opens but no row
      can be pressed (every tap just closes it). The drawer must therefore
-     outrank any such raise: 600 clears the known 500 while staying under the
-     fixed-position banners/toasts (z 9999) that float at the viewport level. */
+     outrank any such raise.
+     1200 (was 600) clears the mobile layers shipped by
+     @linxin666/dsh-web-ui-all — its sidebar pane is z-index 1100, its
+     details pane 1000 and its full-screen frame ::after mask 1050 (issue
+     #67: that mask sat on top of the 600 drawer and ate every tap). Still
+     far under the fixed-position banners/toasts (z 9999) that float at the
+     viewport level. */
   [data-mobile-nav="frame"] > :first-child {
     position: absolute !important;
     inset: 0 auto 0 0 !important;
     width: max-content !important;
     max-width: 92vw !important;
-    z-index: 600 !important;
+    z-index: 1200 !important;
     transform: translateX(-110%);
     transition: transform .28s var(--ds-ease-in-out, ease-in-out);
     background: var(--dsw-alias-bg-base, #ffffff);
@@ -943,5 +948,45 @@ export const MOBILE_CSS = `
   [data-mobile-nav="drawer-actions"] {
     display: none !important;
   }
+}
+
+/* ---------- mobile: stop iOS Safari forced zoom on input focus ----------
+ * Inputs are rendered with inline fontSize 13-14px, below the 16px threshold
+ * that makes iOS Safari zoom the whole page on focus (and never recover).
+ * Force the safe 16px minimum on narrow viewports only, so desktop keeps its
+ * tighter metrics. !important is required to beat the inline styles.
+ * 移植上游 8d5b3fa。 */
+@media (max-width: 1024px) {
+  input,
+  textarea,
+  [contenteditable="true"] {
+    font-size: 16px !important;
+  }
+}
+
+/* ---------- kill a competing full-screen mask (88605d9 / issue #67) ----------
+   @linxin666/dsh-web-ui-all ships its own mobile drawer, and part of it is
+
+     [data-dsh-frame]:not([data-sidebar-collapsed])::after {
+       content: ""; position: fixed; inset: 0; z-index: 1050;
+       background: rgb(0 0 0 / 24%);
+     }
+
+   The pseudo-element belongs to the frame we already mark, and the frame
+   carries only "position: relative" with z-index auto — no stacking context
+   — so this mask competes with the drawer in the parent stacking context
+   and, at 1050, paints over it. It covers the whole viewport, so every tap
+   on a session row lands on the mask instead: the drawer opens but nothing
+   inside it can be pressed, and the page behind cannot be scrolled.
+   Removing it is safe: the mobile stylesheet already renders its own
+   backdrop, and tapping outside the drawer is handled in JS.
+
+   The attribute selector is repeated on purpose. Their rule has the same
+   specificity (0,2,1) once ours is written the obvious way, and plugin
+   stylesheets are injected in load order, so a tie would be decided by
+   whichever plugin happened to load last. Doubling the attribute makes it
+   (0,3,1) and deterministic. */
+[data-mobile-nav="frame"][data-mobile-nav="frame"]:not([data-sidebar-collapsed])::after {
+  content: none !important;
 }
 `
