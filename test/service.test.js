@@ -992,3 +992,27 @@ test('startFrpTunnel 同步抛错后不残留 rejected 的 in-flight（TDZ 回�
   assert.equal((await service.status()).frpState?.phase ?? '', 'ready', '修好后 frp 隧道能正常启动，没有残留失败态');
   await service.dispose();
 });
+
+test('隧道进程异常退出：中英两半都带上退出码（bd79283）', async () => {
+  // 英文半边曾丢掉动态参数（code），英文界面用户看不到关键诊断信息。
+  let fire = null;
+  const internals = {
+    ...stubInternals(),
+    startTunnel: async () => ({
+      url: 'https://x.trycloudflare.com',
+      kill: () => {},
+      onExit: (cb) => { fire = cb; },
+    }),
+  };
+  const service = createPocketService({ dshPort: 3080, port: 3081, internals });
+  await service.startProxy();
+  await service.startTunnel();
+  assert.equal(typeof fire, 'function', 'startTunnel 结果应挂 onExit');
+  fire(137);
+  const s = await service.status();
+  assert.equal(s.tunnelState.phase, 'error');
+  const [zhHalf, enHalf] = String(s.tunnelState.detail).split(' | ');
+  assert.ok(zhHalf.includes('code=137'), '中文半边要带退出码');
+  assert.ok(enHalf && enHalf.includes('137'), '英文半边也要带退出码（code=137）');
+  await service.dispose();
+});

@@ -33,3 +33,21 @@ test('pocket 词典：源码 t()/fmt() 引用的 key 都在词典中', () => {
   assert.equal(en.section, 'Phone access', 'tab 标签英文');
   assert.equal(NS, 'pocket', 'namespace 固定');
 });
+
+test('后端错误消息按界面语言只显示对应一半（bd79283）', () => {
+  // 后端错误统一为「中文 | English」混排；设置页用 errText() 按当前语言取一半。
+  const src = readFileSync(new URL('../client/index.jsx', import.meta.url), 'utf8');
+  assert.ok(src.includes('const errText = (msg)'), 'index.jsx 需要 errText helper');
+  assert.ok(src.includes("s.indexOf(' | ')"), '按 " | " 切分中英两半');
+  assert.ok(
+    src.includes("t('ok') === POCKET_ZH.ok"),
+    '用词典里 ok 的中文值判定当前语言（zh → 取前半，en → 取后半）',
+  );
+  assert.ok(src.includes('POCKET_ZH'), '必须 import 中文词典用于语言判定');
+  for (const site of ['customPin.err', 'tunnelStateDetail', 'error']) {
+    assert.ok(
+      new RegExp(`errText\\(\\s*${site.replace('.', '\\.')}`).test(src),
+      `渲染 ${site} 时必须过 errText()，否则英文界面会看到中文半句`,
+    );
+  }
+});

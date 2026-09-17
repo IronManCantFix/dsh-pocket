@@ -417,6 +417,14 @@ function PocketSettingsTab({ rpcCall, t }) {
       setCustomPin((c) => ({ ...c, err: err.message }));
     }
   };
+  // 后端错误消息统一为「中文 | English」混排（移植上游 bd79283）；按当前界面语言
+  // 只显示对应一半——词典里 ok 的中文值是「知道了」，用它判当前语言即可。
+  const errText = (msg) => {
+    const s = String(msg ?? '');
+    const i = s.indexOf(' | ');
+    if (i < 0) return s;
+    return (t('ok') === POCKET_ZH.ok ? s.slice(0, i) : s.slice(i + 3)).trim();
+  };
   // 渲染自定义输入行（共用）：输入框 + 保存/取消
   const customPinRow = (which) => h('div', { style: { marginTop: 6, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', lineHeight: 1.5 } },
     t('customizing'),
@@ -433,7 +441,7 @@ function PocketSettingsTab({ rpcCall, t }) {
     }),
     h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, marginLeft: 2 }, 'data-dshp': 'ghost', onClick: () => saveCustomPin(which) }, t('save')),
     h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12 }, 'data-dshp': 'ghost', onClick: () => setCustomPin(null) }, t('cancel')),
-    customPin?.err ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', marginTop: 4 } }, customPin.err) : null,
+    customPin?.err ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', marginTop: 4 } }, errText(customPin.err)) : null,
   );
   // 「自定义」按钮（非输入态显示在密码行末尾）
   const customBtn = (which) => h('button', { style: { ...styles.btn, height: 26, padding: '0 10px', fontSize: 12, marginLeft: 8 }, 'data-dshp': 'ghost', onClick: () => setCustomPin({ which, value: '', err: null }) }, t('customize'));
@@ -712,12 +720,12 @@ function PocketSettingsTab({ rpcCall, t }) {
                 : fmt(t, 'connecting', { s: elapsed(tunnelStateStarted), suffix: elapsed(tunnelStateStarted) > 30 ? t('slowHint') : '' }))
             : tunnelPhase === 'error'
               ? h('div', { style: { marginTop: 4, fontSize: 12, color: 'var(--dsw-alias-state-error-primary,#dc2626)' } },
-                fmt(t, 'error', { detail: tunnelStateDetail || t('unknownError') }))
+                fmt(t, 'error', { detail: errText(tunnelStateDetail) || t('unknownError') }))
               : null,
         ),
     ),
 
-    error ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 8 } }, `❌ ${error}`) : null,
+    error ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 8 } }, `❌ ${errText(error)}`) : null,
 
     // 安全免责声明弹框（issue #31）：每次开启公网访问前确认
     disclaimerOpen ? h('div', { role: 'dialog', 'aria-modal': true, 'aria-label': t('disclaimerTitle'), style: { position: 'fixed', inset: 0, zIndex: 10000, background: 'var(--dsw-alias-bg-mask-1, rgba(15,17,21,.55))', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 } },
