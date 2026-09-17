@@ -63,3 +63,20 @@ test('自定义密码输入放宽到 8–64 位字母数字（527abba + 230039f�
   assert.ok(zh.pinInvalid.includes('8–64'), '中文错误文案要说明新范围');
   assert.ok(en.pinInvalid.includes('8–64'), '英文错误文案要说明新范围');
 });
+
+test('恢复出厂设置（672b31b + 074744d + 2bcaff0）：入口 + 二次确认 + toast 居中 + 词典齐备', () => {
+  const src = readFileSync(new URL('../client/index.jsx', import.meta.url), 'utf8');
+  assert.ok(src.includes('POCKET_ENDPOINTS.pocketReset'), '按钮必须走 pocketReset 端点');
+  assert.ok(src.includes('{ confirm: true }'), '必须带 confirm: true（宿主端强制校验，防绕过）');
+  assert.ok(src.includes('resetOpen'), '需要二次确认弹框状态（避免误触清空配置）');
+  assert.ok(src.includes('setResetOpen(true)'), '点按钮先开确认弹框，不能直接重置');
+  assert.ok(src.includes('showToast'), '重置成功/失败要有 toast 反馈（074744d）');
+  assert.ok(src.includes("top: '50%'") && src.includes('maxWidth: 280'), 'toast 居中并收窄到 280px（2bcaff0）');
+  for (const key of ['resetFactory', 'resetGo', 'resetIntro', 'resetTitle', 'resetBody', 'resetConfirm', 'resetDone', 'resetFailed']) {
+    assert.ok(key in zh, `中文词典缺少 ${key}`);
+    assert.ok(key in en, `英文词典缺少 ${key}`);
+  }
+  // 本 fork 的 NAS 反向隧道也必须写进确认文案，否则用户不知道配置会被清掉
+  assert.ok(zh.resetBody.includes('NAS'), '中文确认文案要写明 NAS 隧道配置也会清空');
+  assert.ok(en.resetBody.includes('NAS'), '英文确认文案同样要写明');
+});

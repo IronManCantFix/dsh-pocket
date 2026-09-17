@@ -1288,6 +1288,52 @@ var MOBILE_CSS = `
   }
 }
 
+/* ---------- \u79FB\u52A8\u7AEF\u6587\u4EF6\u5B88\u536B\uFF08issue #17\uFF0C\u79FB\u690D\u4E0A\u6E38 06f69fd\uFF09 ---------- */
+
+@media (max-width: 1023px) {
+  /* \u9690\u85CF\u300C\u6DFB\u52A0\u5DE5\u4F5C\u533A\u300D\u5165\u53E3\uFF08\u624B\u673A\u4E0A\u914D\u5DE5\u4F5C\u533A\u65E0\u610F\u4E49\uFF09\u3002
+     \u56FE\u6807\u6309\u94AE\u7684 aria-label \u968F\u8BED\u8A00\u53D8\u5316\uFF08zh\u300C\u6DFB\u52A0\u5DE5\u4F5C\u533A\u300D/ en\u300CAdd workspace\u300D\uFF09\uFF0C
+     \u4E24\u79CD\u90FD\u8986\u76D6\uFF1B\u4E0B\u62C9\u83DC\u5355\u91CC\u7684\u300C\u6DFB\u52A0\u5DE5\u4F5C\u533A\u2026\u300D\u9879\u7531 fileGuard.ts \u7684 MutationObserver
+     \u6309\u6587\u6848\u515C\u5E95\u9690\u85CF\uFF08CSS \u9009\u4E0D\u5230\u7EAF\u6587\u672C\u8282\u70B9\uFF09\u3002\u684C\u9762\u7AEF\u7167\u5E38\u4FDD\u7559\u3002 */
+  button[aria-label="\u6DFB\u52A0\u5DE5\u4F5C\u533A"],
+  button[aria-label="\u6DFB\u52A0\u5DE5\u4F5C\u533A\u2026"],
+  button[aria-label="Add workspace"],
+  button[aria-label="Add workspace\u2026"] {
+    display: none !important;
+  }
+
+  /* \u6587\u4EF6\u94FE\u63A5\u65C1\u7684\u300C\u590D\u5236\u300D\u6309\u94AE\uFF08issue #17\uFF1A\u590D\u5236\u6587\u4EF6\u5185\u5BB9\uFF09
+     \u6302\u5728\u5BF9\u8BDD\u91CC\u7684\u6587\u4EF6\u94FE\u63A5\uFF08<button>/<a>\uFF0C\u6587\u6848\u5373\u8DEF\u5F84\uFF09\u7D27\u90BB\u4F4D\u7F6E\uFF0C\u7531 fileGuard.ts
+     \u6CE8\u5165\u3002\u684C\u9762\u7AEF\u4E0D\u6CE8\u5165\u3001\u4E0D\u663E\u793A\uFF1B\u8FD9\u91CC\u518D\u515C\u5E95\u4E00\u5C42\u3002\u6587\u4EF6\u94FE\u63A5\u591A\u4E3A inline\uFF0C\u6309\u94AE\u7528
+     inline-flex \u7D27\u8DDF\u5176\u540E\u5373\u53EF\u3002 */
+  [data-mobile-nav="copy-file"] {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px !important;
+    vertical-align: baseline !important;
+    height: 22px !important;
+    padding: 0 8px !important;
+    border: 1px solid var(--dsw-alias-border-l1, rgba(0, 0, 0, .14)) !important;
+    border-radius: 6px !important;
+    background: var(--dsw-alias-bg-layer-1, #fff) !important;
+    color: var(--dsw-alias-label-primary, inherit) !important;
+    font-family: inherit !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .12) !important;
+  }
+  [data-mobile-nav="copy-file"]:active {
+    background: var(--dsw-alias-interactive-bg-hover, rgba(0, 0, 0, .06)) !important;
+  }
+  [data-mobile-nav="copy-file"][disabled] {
+    opacity: .55 !important;
+    cursor: default !important;
+  }
+}
+
 /* ---------- mobile: stop iOS Safari forced zoom on input focus ----------
  * Inputs are rendered with inline fontSize 13-14px, below the 16px threshold
  * that makes iOS Safari zoom the whole page on focus (and never recover).
@@ -1353,6 +1399,173 @@ function persistLayoutFromUrl(urlValue) {
   }
 }
 
+// client/mobile/fileGuard.ts
+var GUARD_MSG = "\u624B\u673A\u4E0A\u65E0\u6CD5\u76F4\u63A5\u6253\u5F00\u7535\u8111\u4E0A\u7684\u6587\u4EF6";
+var WS_LABELS = ["\u6DFB\u52A0\u5DE5\u4F5C\u533A", "\u6DFB\u52A0\u5DE5\u4F5C\u533A\u2026", "Add workspace", "Add workspace\u2026"];
+var COPY_LABEL = "\u590D\u5236";
+function looksLikeFilePath(text) {
+  const t = (text ?? "").trim();
+  if (t.length < 3 || t.length > 320) return false;
+  if (/^(\/|~\/|\.\.?\/|[A-Za-z]:\\)/.test(t)) return true;
+  if (/\/[\w.\-]+\.\w{1,12}$/.test(t)) return true;
+  if (/[\w.\-]+\/[\w.\-]+\.\w{1,12}/.test(t)) return true;
+  return false;
+}
+function isInsidePocket(el) {
+  return el !== null && el.closest('[data-mobile-nav="frame"]') !== null;
+}
+async function copyText(text) {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch {
+  }
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.top = "-9999px";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const okCopy = document.execCommand("copy");
+    ta.remove();
+    return okCopy;
+  } catch {
+    return false;
+  }
+}
+function startFileGuard(readFile) {
+  let toastEl = null;
+  let toastTimer = null;
+  const showToast = (text) => {
+    if (toastEl === null) {
+      toastEl = document.createElement("div");
+      toastEl.setAttribute("data-mobile-nav", "file-guard-toast");
+      Object.assign(toastEl.style, {
+        position: "fixed",
+        left: "50%",
+        bottom: "64px",
+        transform: "translateX(-50%)",
+        maxWidth: "84vw",
+        zIndex: "9999",
+        padding: "10px 14px",
+        borderRadius: "10px",
+        background: "rgba(20,22,28,.92)",
+        color: "#fff",
+        fontSize: "13px",
+        lineHeight: "1.4",
+        textAlign: "center",
+        fontFamily: "inherit",
+        boxShadow: "0 4px 16px rgba(0,0,0,.28)",
+        pointerEvents: "none",
+        opacity: "0",
+        transition: "opacity .18s ease"
+      });
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = text;
+    requestAnimationFrame(() => {
+      if (toastEl !== null) toastEl.style.opacity = "1";
+    });
+    if (toastTimer !== null) window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+      if (toastEl !== null) toastEl.style.opacity = "0";
+    }, 2600);
+  };
+  const onClick = (event) => {
+    const target = event.target;
+    if (target === null || isInsidePocket(target)) return;
+    const el = target.closest("button, a");
+    if (el === null) return;
+    if (!looksLikeFilePath(el.textContent)) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    showToast(GUARD_MSG);
+  };
+  document.addEventListener("click", onClick, true);
+  const injectCopyButtons = () => {
+    const links = document.querySelectorAll("button, a");
+    links.forEach((el) => {
+      if (el.getAttribute("data-mobile-nav-copy") === "1") return;
+      const txt = (el.textContent ?? "").trim();
+      if (!looksLikeFilePath(txt)) return;
+      if (isInsidePocket(el)) return;
+      el.setAttribute("data-mobile-nav-copy", "1");
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-mobile-nav", "copy-file");
+      btn.textContent = COPY_LABEL;
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const filePath = (el.textContent ?? "").trim();
+        btn.disabled = true;
+        btn.textContent = "\u2026";
+        try {
+          const res = await readFile(filePath);
+          if (!res?.ok) {
+            showToast(res?.error?.message ?? "\u590D\u5236\u5931\u8D25");
+            return;
+          }
+          const content = res.value?.content ?? "";
+          const copied = await copyText(content);
+          if (copied) {
+            const kb = Math.max(1, Math.round((res.value?.size ?? content.length) / 1024));
+            showToast(`\u5DF2\u590D\u5236\u6587\u4EF6\u5185\u5BB9\uFF08${kb} KB\uFF09`);
+          } else {
+            showToast("\u590D\u5236\u5931\u8D25\uFF0C\u8BF7\u624B\u52A8\u9009\u62E9");
+          }
+        } catch (err) {
+          showToast(err instanceof Error ? err.message : "\u590D\u5236\u5931\u8D25");
+        } finally {
+          btn.disabled = false;
+          btn.textContent = COPY_LABEL;
+        }
+      });
+      el.parentElement?.insertBefore(btn, el.nextSibling);
+    });
+  };
+  injectCopyButtons();
+  const copyObserver = new MutationObserver(() => injectCopyButtons());
+  copyObserver.observe(document.body, { childList: true, subtree: true });
+  const hideWsEntries = () => {
+    const checkOne = (node) => {
+      if (node.nodeType !== 1) return;
+      const el = node;
+      const txt = (el.getAttribute("aria-label") ?? el.textContent ?? "").trim();
+      if (WS_LABELS.includes(txt)) {
+        el.style.display = "none";
+        el.setAttribute("data-mobile-nav-hide", "add-workspace");
+      }
+    };
+    const sel = '[role="menuitem"],[role="option"],li,button,a';
+    document.querySelectorAll(sel).forEach(checkOne);
+    const observer = new MutationObserver((mutations) => {
+      for (const m of mutations) {
+        m.addedNodes.forEach((n) => {
+          if (n.nodeType !== 1) return;
+          checkOne(n);
+          n.querySelectorAll?.(sel).forEach(checkOne);
+        });
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  };
+  const disconnectWs = hideWsEntries();
+  return () => {
+    document.removeEventListener("click", onClick, true);
+    copyObserver.disconnect();
+    disconnectWs();
+    if (toastTimer !== null) window.clearTimeout(toastTimer);
+    toastEl?.remove();
+  };
+}
+
 // client/mobile/locales.ts
 var NS = "mobileNav";
 var zh = {
@@ -1406,6 +1619,31 @@ function mobileApply(ctx) {
       tag.remove();
     };
   }, "dsh-mobile-nav: styles");
+  ctx.effect(() => {
+    if (!narrow.matches) return () => {
+    };
+    const getWorkspaceCwd = () => {
+      try {
+        const ws = ctx.get?.("workspaces") ?? ctx.workspaces;
+        const list = ws?.list;
+        const arr = Array.isArray(list) ? list : list && typeof list === "object" && "value" in list ? list.value : null;
+        if (Array.isArray(arr)) {
+          for (const w of arr) {
+            const c = w?.cwd ?? w?.root;
+            if (typeof c === "string" && c) return c;
+          }
+        }
+      } catch {
+      }
+      return "";
+    };
+    const readFile = (filePath) => ctx.connection.rpc.call(
+      POCKET_RPC_CHANNEL,
+      POCKET_ENDPOINTS.fileRead,
+      { path: filePath, cwd: getWorkspaceCwd() }
+    );
+    return startFileGuard(readFile);
+  }, "dsh-mobile-nav: file open guard + copy button + hide add-workspace (issue #17)");
   ctx.effect(() => {
     const viewport = document.querySelector('meta[name="viewport"]');
     const originalViewport = viewport?.content ?? "";
@@ -1637,10 +1875,10 @@ var zh2 = {
   "lanPinCustomValue": "\u{1F510} \u8BBF\u95EE\u5BC6\u7801\uFF1A{pin}\uFF08\u81EA\u5B9A\u4E49\uFF1B\u624B\u673A\u6253\u5F00\u9700\u8F93\u5165\uFF09",
   "refresh": "\u5237\u65B0",
   "customize": "\u81EA\u5B9A\u4E49",
-  "customizing": "\u65B0\u5BC6\u7801\uFF088 \u4F4D\u6570\u5B57\uFF09\uFF1A",
+  "customizing": "\u65B0\u5BC6\u7801\uFF088\u201364 \u4F4D\uFF0C\u82F1\u6587\u5B57\u6BCD\u6216\u6570\u5B57\uFF09\uFF1A",
   "save": "\u4FDD\u5B58",
   "cancel": "\u53D6\u6D88",
-  "pinInvalid": "\u5BC6\u7801\u5FC5\u987B\u662F 8 \u4F4D\u6570\u5B57",
+  "pinInvalid": "\u5BC6\u7801\u5FC5\u987B\u662F 8\u201364 \u4F4D\u82F1\u6587\u5B57\u6BCD\u6216\u6570\u5B57",
   // 明文切换 / 复制失败反馈
   "show": "\u663E\u793A",
   "hide": "\u9690\u85CF",
@@ -1694,6 +1932,14 @@ var zh2 = {
   "frpCopied": "\u2705 \u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\uFF08frps + caddy\uFF1B\u653E\u884C 443/80/7000 \u7AEF\u53E3\uFF0C\u89E3\u6790\u57DF\u540D\u5230 NAS\uFF09",
   "frpLog": "\u67E5\u770B\u65E5\u5FD7",
   "frpNoToken": "\u672A\u8BBE\u7F6E\u4EE4\u724C",
+  "resetFactory": "\u{1F9F9} \u6062\u590D\u51FA\u5382\u8BBE\u7F6E",
+  "resetGo": "\u6062\u590D",
+  "resetIntro": "\u8BBE\u7F6E\u641E\u51FA\u95EE\u9898\u65F6\u7684\u4E34\u65F6\u515C\u5E95\uFF1A\u6E05\u7A7A\u672C\u673A\u914D\u7F6E\u5E76\u91CD\u8BBE\u968F\u673A\u5BC6\u7801\uFF08DSH \u7684\u4F1A\u8BDD\u3001\u6A21\u578B\u3001\u63D2\u4EF6\u914D\u7F6E\u4E0D\u53D7\u5F71\u54CD\uFF09",
+  "resetTitle": "\u26A0\uFE0F \u786E\u8BA4\u6062\u590D\u51FA\u5382\u8BBE\u7F6E\uFF1F",
+  "resetBody": "\u5C06\u6E05\u7A7A\u5E76\u6062\u590D\u9ED8\u8BA4\uFF1A\n\u2460 \u5F00\u5173\uFF1A\u5C40\u57DF\u7F51\u8BBF\u95EE\u5BC6\u7801=\u5F00\u3001\u5C40\u57DF\u7F51\u5730\u5740=\u81EA\u52A8\n\u2461 \u516C\u7F51\uFF1A\u6A21\u5F0F\u56DE\u5230\u968F\u673A\u57DF\u540D\uFF0C\u6E05\u7A7A Tunnel Token \u4E0E\u56FA\u5B9A\u57DF\u540D\uFF0C\u5E76\u5173\u95ED\u6B63\u5728\u8FD0\u884C\u7684\u516C\u7F51\n\u2462 NAS \u53CD\u5411\u96A7\u9053\uFF1A\u6E05\u7A7A\u670D\u52A1\u5668\u5730\u5740/\u7AEF\u53E3/\u8FDE\u63A5\u4EE4\u724C\uFF0C\u5E76\u5173\u95ED\u6B63\u5728\u8FD0\u884C\u7684 NAS \u96A7\u9053\n\u2463 \u5BC6\u7801\uFF1A\u516C\u7F51\u548C\u5C40\u57DF\u7F51\u90FD\u6362\u6210\u65B0\u7684\u968F\u673A 8 \u4F4D\u5BC6\u7801\uFF08\u65E7\u5BC6\u7801\u7ACB\u5373\u4F5C\u5E9F\uFF0C\u624B\u673A\u9700\u91CD\u65B0\u8F93\u5165\uFF09\n\nDSH \u81EA\u8EAB\u7684\u4F1A\u8BDD\u3001\u6A21\u578B\u3001\u63D2\u4EF6\u914D\u7F6E\u4E0D\u53D7\u5F71\u54CD\uFF1B\u6B64\u64CD\u4F5C\u4E0D\u53EF\u64A4\u9500\u3002",
+  "resetConfirm": "\u786E\u8BA4\u6062\u590D",
+  "resetDone": "\u2705 \u5DF2\u6062\u590D\u51FA\u5382\u8BBE\u7F6E\uFF1A\u8BBE\u7F6E\u5DF2\u6E05\u7A7A\uFF0C\u5BC6\u7801\u5DF2\u6362\u65B0\uFF08\u624B\u673A\u9700\u91CD\u65B0\u8F93\u5165\uFF09",
+  "resetFailed": "\u274C \u6062\u590D\u5931\u8D25\uFF0C\u8BF7\u91CD\u8BD5",
   "feedback": "\u6709\u95EE\u9898\uFF1F\u6B22\u8FCE\u5230 GitHub Issues \u53CD\u9988 \u{1F64F}"
 };
 var en2 = {
@@ -1736,10 +1982,10 @@ var en2 = {
   "lanPinCustomValue": "\u{1F510} PIN: {pin} (custom; required on the phone)",
   "refresh": "Refresh",
   "customize": "Customize",
-  "customizing": "New PIN (8 digits): ",
+  "customizing": "New PIN (8\u201364 chars, letters/digits): ",
   "save": "Save",
   "cancel": "Cancel",
-  "pinInvalid": "PIN must be exactly 8 digits",
+  "pinInvalid": "PIN must be 8\u201364 characters (letters and digits only)",
   // Reveal toggle / copy failure feedback
   "show": "Show",
   "hide": "Hide",
@@ -1793,6 +2039,14 @@ var en2 = {
   "frpCopied": "\u2705 Copied to clipboard (frps + caddy; open ports 443/80/7000 and point your domain at the NAS)",
   "frpLog": "View log",
   "frpNoToken": "No token set",
+  "resetFactory": "\u{1F9F9} Factory reset",
+  "resetGo": "Reset",
+  "resetIntro": "Temporary fallback when settings break: clear local config and re-roll random PINs (DSH sessions, models and plugin config are untouched)",
+  "resetTitle": "\u26A0\uFE0F Confirm factory reset?",
+  "resetBody": "This clears and restores defaults:\n\u2460 Switches: access PIN on, LAN address auto\n\u2461 Public: mode back to random URL, Tunnel Token and fixed domain cleared, and any running tunnel is stopped\n\u2462 NAS reverse tunnel: server address/port/connect token cleared, and any running NAS tunnel is stopped\n\u2463 PINs: both public and LAN become new random 8-digit PINs (old ones stop working; the phone must re-enter)\n\nYour DSH sessions, models and plugin config are untouched. This cannot be undone.",
+  "resetConfirm": "Reset",
+  "resetDone": "\u2705 Factory reset done: settings cleared and PINs re-rolled (re-enter the PIN on your phone)",
+  "resetFailed": "\u274C Reset failed \u2014 please retry",
   "feedback": "\u{1F64F} Questions? Open an issue on GitHub"
 };
 
@@ -1898,7 +2152,7 @@ button[data-dshp]:focus-visible, button[data-dshp-toggle]:focus-visible, [data-d
   [data-dsh-pocket-overlay], [data-dsh-pocket-panel] { animation: none; }
 }
 `;
-var copyText = async (text) => {
+var copyText2 = async (text) => {
   try {
     await navigator.clipboard.writeText(text);
     return true;
@@ -1936,12 +2190,38 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [frpBusy, setFrpBusy] = (0, import_react2.useState)(false);
   const [frpError, setFrpError] = (0, import_react2.useState)(null);
   const [frpShowToken, setFrpShowToken] = (0, import_react2.useState)(false);
+  const [resetOpen, setResetOpen] = (0, import_react2.useState)(false);
+  const [toast, setToast] = (0, import_react2.useState)(null);
+  const toastTimerRef = (0, import_react2.useRef)(null);
+  (0, import_react2.useEffect)(() => () => clearTimeout(toastTimerRef.current), []);
+  const showToast = (text) => {
+    setToast(text);
+    clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => setToast(null), 2600);
+  };
+  const doFactoryReset = async () => {
+    setResetOpen(false);
+    setBusy(true);
+    setError(null);
+    try {
+      setStatus(await call(POCKET_ENDPOINTS.pocketReset, { confirm: true }));
+      setCustomPin(null);
+      setFrpForm(null);
+      setFrpError(null);
+      showToast(t("resetDone"));
+    } catch (err) {
+      setError(err.message);
+      showToast(t("resetFailed"));
+    } finally {
+      setBusy(false);
+    }
+  };
   const [copied, setCopied] = (0, import_react2.useState)(null);
   const copiedTimerRef = (0, import_react2.useRef)(null);
   (0, import_react2.useEffect)(() => () => clearTimeout(copiedTimerRef.current), []);
   const copyWithFeedback = async (key, text) => {
     clearTimeout(copiedTimerRef.current);
-    const ok = await copyText(text);
+    const ok = await copyText2(text);
     setCopied(ok ? key : `!${key}`);
     copiedTimerRef.current = setTimeout(() => setCopied(null), ok ? 2500 : 3e3);
   };
@@ -2149,13 +2429,13 @@ function PocketSettingsTab({ rpcCall, t }) {
     t("customizing"),
     (0, import_react2.createElement)("input", {
       "data-dshp-field": "",
-      style: { width: 110, margin: "0 6px", padding: "4px 8px", fontSize: 14, letterSpacing: 2, textAlign: "center", border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", borderRadius: 6, outline: "none" },
+      style: { width: 130, margin: "0 6px", padding: "4px 8px", fontSize: 14, letterSpacing: 1, textAlign: "center", border: "1px solid var(--dsw-alias-border-l2,#d1d5db)", borderRadius: 6, outline: "none" },
       type: "password",
-      inputMode: "numeric",
-      maxLength: 8,
+      minLength: 8,
+      maxLength: 64,
       value: customPin?.value ?? "",
       autoFocus: true,
-      onChange: (e) => setCustomPin((c) => ({ ...c, value: e.target.value.replace(/\D/g, ""), err: null })),
+      onChange: (e) => setCustomPin((c) => ({ ...c, value: e.target.value.replace(/[^a-zA-Z0-9]/g, ""), err: null })),
       onKeyDown: (e) => {
         if (e.key === "Enter") saveCustomPin(which);
         if (e.key === "Escape") setCustomPin(null);
@@ -2521,6 +2801,39 @@ function PocketSettingsTab({ rpcCall, t }) {
         !disclaimerChecked ? (0, import_react2.createElement)("div", { style: { marginTop: 8, fontSize: 12, color: "var(--dsw-alias-state-error-primary,#dc2626)" } }, t("disclaimerHint")) : null
       )
     ) : null,
+    // 恢复出厂设置（672b31b）：设置出问题时的兜底，放在最底部避免误触
+    (0, import_react2.createElement)(
+      "div",
+      { style: styles.block },
+      (0, import_react2.createElement)(
+        "div",
+        { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 } },
+        (0, import_react2.createElement)("span", { style: { fontWeight: 600, fontSize: 13 } }, t("resetFactory")),
+        (0, import_react2.createElement)("button", {
+          style: { ...styles.btn, height: 28, padding: "0 12px", fontSize: 12, color: "var(--dsw-alias-state-error-primary,#dc2626)" },
+          "data-dshp": "ghost",
+          onClick: () => setResetOpen(true)
+        }, t("resetGo"))
+      ),
+      (0, import_react2.createElement)("div", { style: { ...styles.muted, marginTop: 6 } }, t("resetIntro"))
+    ),
+    // 恢复出厂设置确认弹框（必须二次确认；宿主侧也会再校验 payload.confirm）
+    resetOpen ? (0, import_react2.createElement)(
+      "div",
+      { style: { position: "fixed", inset: 0, zIndex: 1e4, background: "rgba(0,0,0,.5)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20 } },
+      (0, import_react2.createElement)(
+        "div",
+        { style: { background: "var(--dsw-alias-bg-layer-1,#fff)", borderRadius: 12, maxWidth: 440, width: "100%", padding: "20px 22px", boxShadow: "0 8px 32px rgba(0,0,0,.18)" } },
+        (0, import_react2.createElement)("div", { style: { fontWeight: 600, fontSize: 15, color: "var(--dsw-alias-state-warn-primary,#b45309)", marginBottom: 10 } }, t("resetTitle")),
+        (0, import_react2.createElement)("div", { style: { fontSize: 13, lineHeight: 1.7, color: "var(--dsw-alias-label-primary,inherit)", whiteSpace: "pre-line" } }, t("resetBody")),
+        (0, import_react2.createElement)(
+          "div",
+          { style: { display: "flex", gap: 8, marginTop: 16 } },
+          (0, import_react2.createElement)("button", { style: { ...styles.btn, flex: 1 }, onClick: () => setResetOpen(false) }, t("cancel")),
+          (0, import_react2.createElement)("button", { style: { ...styles.primary, flex: 1, background: "var(--dsw-alias-state-error-primary,#dc2626)" }, onClick: doFactoryReset }, t("resetConfirm"))
+        )
+      )
+    ) : null,
     // 页面最底部：反馈入口
     (0, import_react2.createElement)(
       "div",
@@ -2530,7 +2843,12 @@ function PocketSettingsTab({ rpcCall, t }) {
         { href: "https://github.com/IronManCantFix/dsh-pocket/issues", target: "_blank", rel: "noreferrer", style: { fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)", textDecoration: "none" } },
         t("feedback")
       )
-    )
+    ),
+    // Toast：重置等操作的即时反馈（074744d，居中 + 收窄 280px 见 2bcaff0）：
+    // 底部居中的胶囊在设置页滚动时会跑到可视区外，改成屏幕正中央 + 深色底。
+    toast ? (0, import_react2.createElement)("div", {
+      style: { position: "fixed", left: "50%", top: "50%", transform: "translate(-50%, -50%)", zIndex: 10001, width: "auto", maxWidth: 280, background: "rgba(17,24,39,.92)", color: "#fff", border: "none", borderRadius: 10, padding: "10px 16px", fontSize: 13, lineHeight: 1.5, textAlign: "center", boxShadow: "0 8px 24px rgba(0,0,0,.22)" }
+    }, toast) : null
   );
 }
 function PocketEntryButton({ rpcCall, t, wide = true }) {

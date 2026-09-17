@@ -100,6 +100,14 @@ export const zh = {
   'frpCopied': '✅ 已复制到剪贴板（frps + caddy；放行 443/80/7000 端口，解析域名到 NAS）',
   'frpLog': '查看日志',
   'frpNoToken': '未设置令牌',
+  'resetFactory': '🧹 恢复出厂设置',
+  'resetGo': '恢复',
+  'resetIntro': '设置搞出问题时的临时兜底：清空本机配置并重设随机密码（DSH 的会话、模型、插件配置不受影响）',
+  'resetTitle': '⚠️ 确认恢复出厂设置？',
+  'resetBody': '将清空并恢复默认：\n① 开关：局域网访问密码=开、局域网地址=自动\n② 公网：模式回到随机域名，清空 Tunnel Token 与固定域名，并关闭正在运行的公网\n③ NAS 反向隧道：清空服务器地址/端口/连接令牌，并关闭正在运行的 NAS 隧道\n④ 密码：公网和局域网都换成新的随机 8 位密码（旧密码立即作废，手机需重新输入）\n\nDSH 自身的会话、模型、插件配置不受影响；此操作不可撤销。',
+  'resetConfirm': '确认恢复',
+  'resetDone': '✅ 已恢复出厂设置：设置已清空，密码已换新（手机需重新输入）',
+  'resetFailed': '❌ 恢复失败，请重试',
   'feedback': '有问题？欢迎到 GitHub Issues 反馈 🙏',
 }
 
@@ -201,5 +209,13 @@ export const en = {
   'frpCopied': '✅ Copied to clipboard (frps + caddy; open ports 443/80/7000 and point your domain at the NAS)',
   'frpLog': 'View log',
   'frpNoToken': 'No token set',
+  'resetFactory': '🧹 Factory reset',
+  'resetGo': 'Reset',
+  'resetIntro': 'Temporary fallback when settings break: clear local config and re-roll random PINs (DSH sessions, models and plugin config are untouched)',
+  'resetTitle': '⚠️ Confirm factory reset?',
+  'resetBody': 'This clears and restores defaults:\n① Switches: access PIN on, LAN address auto\n② Public: mode back to random URL, Tunnel Token and fixed domain cleared, and any running tunnel is stopped\n③ NAS reverse tunnel: server address/port/connect token cleared, and any running NAS tunnel is stopped\n④ PINs: both public and LAN become new random 8-digit PINs (old ones stop working; the phone must re-enter)\n\nYour DSH sessions, models and plugin config are untouched. This cannot be undone.',
+  'resetConfirm': 'Reset',
+  'resetDone': '✅ Factory reset done: settings cleared and PINs re-rolled (re-enter the PIN on your phone)',
+  'resetFailed': '❌ Reset failed — please retry',
   'feedback': '🙏 Questions? Open an issue on GitHub',
 }

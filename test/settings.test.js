@@ -90,3 +90,36 @@ test('setCustomPin / rotateAccessToken（issue #33）：8 位数字自定义 + �
   assert.equal(setCustomPin('lan', '77775555'), '77775555', '局域网自定义成功');
   assert.equal(pinCustom('lan'), true, '局域网标记自定义');
 }));
+
+// ---------- 恢复出厂设置（672b31b，含本 fork 的 NAS/frp 清理） ----------
+
+test('恢复出厂设置：清空全部设置（含 NAS/frp 令牌与配置）+ 重设随机密码', () => withHome(async (home) => {
+  const settings = await import('../lib/settings.mjs');
+  const { setCustomPin, getAccessToken, resetPocketState } = await import('../lib/index.js');
+  // 先把设置搞成非默认（lanEnabled 总开关是本 fork 后续批次才有的，这里不涉及）
+  settings.setLanAuthEnabled(false);
+  settings.setLanIpOverride('10.0.0.7');
+  settings.setFrpConfig({ serverAddr: 'nas.example.com', serverPort: 7000, remotePort: 13081, tls: true });
+  settings.setFrpToken('nas-connect-token-1');
+  const customPublic = setCustomPin('public', 'aB3xY9k2');
+  const customLan = setCustomPin('lan', '77775555');
+  assert.equal(existsSync(settings.settingsPath()), true, '设置文件已写入');
+  assert.equal(settings.frpToken(), 'nas-connect-token-1', 'NAS 令牌已写入');
+
+  const after = resetPocketState();
+  assert.notEqual(after.accessToken, customPublic, '公网密码已换新（旧密码作废）');
+  assert.notEqual(after.lanToken, customLan, '局域网密码已换新');
+  assert.match(after.accessToken, /^\d{8}$/, '新公网密码是 8 位随机');
+  assert.match(after.lanToken, /^\d{8}$/, '新局域网密码是 8 位随机');
+
+  // 开关回到出厂默认
+  assert.equal(settings.lanAuthEnabled(), true, '访问密码恢复默认开');
+  assert.equal(settings.lanIpOverride(), '', '局域网地址恢复自动');
+  assert.equal(settings.pinCustom('public'), false, '公网自定义标记已清除');
+  assert.equal(settings.pinCustom('lan'), false, '局域网自定义标记已清除');
+  assert.equal(getAccessToken(), after.accessToken, '读到的公网密码与返回一致');
+
+  // 本 fork 的 NAS 反向隧道：配置与令牌一起清空（否则重置后还留着别人的 frps 凭据）
+  assert.equal(settings.frpToken(), null, 'NAS 连接令牌一并清空');
+  assert.deepEqual(settings.frpConfig(), { serverAddr: '', serverPort: 7000, remotePort: 7001, tls: false }, 'NAS 配置恢复默认');
+}));

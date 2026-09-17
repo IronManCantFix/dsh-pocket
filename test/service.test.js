@@ -1016,3 +1016,33 @@ test('隧道进程异常退出：中英两半都带上退出码（bd79283）', a
   assert.ok(enHalf && enHalf.includes('137'), '英文半边也要带退出码（code=137）');
   await service.dispose();
 });
+
+test('RPC：pocketReset 必须显式确认；确认后停隧道（含 NAS/frp）+ 清设置 + 换新密码 + 返回完整 status', async () => {
+  const internals = stubInternals();
+  const service = createPocketService({ dshPort: 3080, port: 3081, internals });
+  const conn = fakeCtxConnection();
+  let resetCalls = 0;
+  installPocketRpc({ connection: conn }, {
+    service,
+    log: { error() {}, warn() {} },
+    resetPocket: () => { resetCalls += 1; return { accessToken: '11112222', lanToken: '33334444' }; },
+  });
+  await service.startProxy();
+  await service.startTunnel();
+
+  // 未确认 → 拒绝，且不执行重置
+  const denied = await conn.handler(POCKET_ENDPOINTS.pocketReset, {});
+  assert.equal(denied.ok, false, '缺少 confirm 必须拒绝');
+  assert.equal(denied.error.code, 'bad-request');
+  assert.equal(resetCalls, 0, '被拒绝时不该清设置');
+
+  // 确认 → 停隧道 + 重置 + 返回完整 status（前端直接替换，不用再拉一次）
+  const done = await conn.handler(POCKET_ENDPOINTS.pocketReset, { confirm: true });
+  assert.equal(done.ok, true);
+  assert.equal(resetCalls, 1, '确认后执行重置');
+  assert.equal(done.value.tunnelRunning, false, '正在跑的公网隧道已停止');
+  assert.equal(done.value.frpRunning, false, '本 fork 的 NAS 反向隧道同样要停掉');
+  assert.equal(done.value.lanUrl, 'http://192.168.1.50:3081', '重置后仍返回完整 status（局域网地址）');
+
+  await service.dispose();
+});

@@ -185,6 +185,37 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [frpError, setFrpError] = useState(null);
   const [frpShowToken, setFrpShowToken] = useState(false); // frp 连接令牌明文显示开关
 
+  // 恢复出厂设置（672b31b）：二次确认弹框 + 居中 toast 反馈（074744d / 2bcaff0）。
+  // 清空设置文件与随机密码都在宿主侧完成（RPC 端强制校验 confirm），这里只负责
+  // 交互与状态替换——返回的是完整 status，直接替换即可，不用再拉一次。
+  const [resetOpen, setResetOpen] = useState(false);
+  const [toast, setToast] = useState(null);
+  const toastTimerRef = useRef(null);
+  useEffect(() => () => clearTimeout(toastTimerRef.current), []);
+  const showToast = (text) => {
+    setToast(text);
+    clearTimeout(toastTimerRef.current);
+    toastTimerRef.current = setTimeout(() => setToast(null), 2600);
+  };
+  const doFactoryReset = async () => {
+    setResetOpen(false);
+    setBusy(true);
+    setError(null);
+    try {
+      setStatus(await call(POCKET_ENDPOINTS.pocketReset, { confirm: true }));
+      // 本地编辑态全部作废：重置后设置回到默认，旧表单/密码输入框必须收起来
+      setCustomPin(null);
+      setFrpForm(null);
+      setFrpError(null);
+      showToast(t('resetDone'));
+    } catch (err) {
+      setError(err.message);
+      showToast(t('resetFailed'));
+    } finally {
+      setBusy(false);
+    }
+  };
+
   // 复制反馈（统一一处）：成功显示对应「已复制」文案；失败如实显示「复制失败」，
   // 不再出现剪贴板不可用却提示已复制的假反馈。'cmd' | 'frp'，加 ! 前缀表示失败。
   const [copied, setCopied] = useState(null);
@@ -750,11 +781,42 @@ function PocketSettingsTab({ rpcCall, t }) {
       ),
     ) : null,
 
+    // 恢复出厂设置（672b31b）：设置出问题时的兜底，放在最底部避免误触
+    h('div', { style: styles.block },
+      h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } },
+        h('span', { style: { fontWeight: 600, fontSize: 13 } }, t('resetFactory')),
+        h('button', {
+          style: { ...styles.btn, height: 28, padding: '0 12px', fontSize: 12, color: 'var(--dsw-alias-state-error-primary,#dc2626)' },
+          'data-dshp': 'ghost',
+          onClick: () => setResetOpen(true),
+        }, t('resetGo')),
+      ),
+      h('div', { style: { ...styles.muted, marginTop: 6 } }, t('resetIntro')),
+    ),
+
+    // 恢复出厂设置确认弹框（必须二次确认；宿主侧也会再校验 payload.confirm）
+    resetOpen ? h('div', { style: { position: 'fixed', inset: 0, zIndex: 10000, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 } },
+      h('div', { style: { background: 'var(--dsw-alias-bg-layer-1,#fff)', borderRadius: 12, maxWidth: 440, width: '100%', padding: '20px 22px', boxShadow: '0 8px 32px rgba(0,0,0,.18)' } },
+        h('div', { style: { fontWeight: 600, fontSize: 15, color: 'var(--dsw-alias-state-warn-primary,#b45309)', marginBottom: 10 } }, t('resetTitle')),
+        h('div', { style: { fontSize: 13, lineHeight: 1.7, color: 'var(--dsw-alias-label-primary,inherit)', whiteSpace: 'pre-line' } }, t('resetBody')),
+        h('div', { style: { display: 'flex', gap: 8, marginTop: 16 } },
+          h('button', { style: { ...styles.btn, flex: 1 }, onClick: () => setResetOpen(false) }, t('cancel')),
+          h('button', { style: { ...styles.primary, flex: 1, background: 'var(--dsw-alias-state-error-primary,#dc2626)' }, onClick: doFactoryReset }, t('resetConfirm')),
+        ),
+      ),
+    ) : null,
+
     // 页面最底部：反馈入口
     h('div', { style: { ...styles.block, textAlign: 'center' } },
       h('a', { href: 'https://github.com/IronManCantFix/dsh-pocket/issues', target: '_blank', rel: 'noreferrer', style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)', textDecoration: 'none' } },
         t('feedback')),
     ),
+
+    // Toast：重置等操作的即时反馈（074744d，居中 + 收窄 280px 见 2bcaff0）：
+    // 底部居中的胶囊在设置页滚动时会跑到可视区外，改成屏幕正中央 + 深色底。
+    toast ? h('div', {
+      style: { position: 'fixed', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', zIndex: 10001, width: 'auto', maxWidth: 280, background: 'rgba(17,24,39,.92)', color: '#fff', border: 'none', borderRadius: 10, padding: '10px 16px', fontSize: 13, lineHeight: 1.5, textAlign: 'center', boxShadow: '0 8px 24px rgba(0,0,0,.22)' },
+    }, toast) : null,
   );
 }
 
