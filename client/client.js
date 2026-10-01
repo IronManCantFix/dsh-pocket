@@ -10,9 +10,11 @@ window.__ModuleLoader__.load({
     // the bundle must bind React itself - otherwise every mobile component
     // crashes at render time with "ReferenceError: React is not defined".
     var React = require("react");
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name2 in all)
@@ -26,6 +28,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // client/index.jsx
@@ -38,7 +48,7 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 var import_react2 = require("react");
-var import_dsh_client_ui_primitives4 = require("@deepseek-ai/dsh-client-ui-primitives");
+var import_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 
 // client/api.js
 var POCKET_RPC_CHANNEL = "/dsh-pocket";
@@ -119,8 +129,26 @@ function redactStatus(s) {
   };
 }
 
+// client/mobile/icons.ts
+var primitives = __toESM(require("@deepseek-ai/dsh-client-ui-primitives"), 1);
+var pick = (...candidates) => candidates.find((c) => typeof c === "function");
+var PanelLeftIcon = pick(
+  primitives?.IconPanelLeftOutline,
+  primitives?.IconPanelLeftOutline16,
+  primitives?.IconPanelLeftOutlineRegular
+);
+var FolderOpenIcon = pick(
+  primitives?.IconFolderOpenOutline,
+  primitives?.IconFolderOpenOutline16,
+  primitives?.IconFolderOpenOutlineRegular
+);
+var DownloadIcon = pick(
+  primitives?.IconDownloadOutline,
+  primitives?.IconDownloadOutline16,
+  primitives?.IconDownloadOutlineRegular
+);
+
 // client/mobile/MobileNavToggle.tsx
-var import_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
 function MobileNavToggle({ toggleSidebar, t }) {
   const toggleExplorer = () => {
     const frame = document.querySelector('[data-mobile-nav="frame"]');
@@ -140,7 +168,7 @@ function MobileNavToggle({ toggleSidebar, t }) {
       title: t("open"),
       onClick: () => toggleSidebar()
     },
-    /* @__PURE__ */ React.createElement(import_dsh_client_ui_primitives.IconPanelLeftOutline16, { size: 16 })
+    PanelLeftIcon ? /* @__PURE__ */ React.createElement(PanelLeftIcon, { size: 16 }) : "\u2630"
   ), /* @__PURE__ */ React.createElement(
     "button",
     {
@@ -150,13 +178,12 @@ function MobileNavToggle({ toggleSidebar, t }) {
       title: t("files"),
       onClick: toggleExplorer
     },
-    /* @__PURE__ */ React.createElement(import_dsh_client_ui_primitives.IconFolderOpenOutline16, { size: 16 })
+    FolderOpenIcon ? /* @__PURE__ */ React.createElement(FolderOpenIcon, { size: 16 }) : "\u{1F4C1}"
   ));
 }
 
 // client/mobile/MobileNavOverlay.tsx
 var import_react = require("react");
-var import_dsh_client_ui_primitives2 = require("@deepseek-ai/dsh-client-ui-primitives");
 
 // client/mobile/nav-targets.mjs
 var DRAWER_SELECTOR = '[data-mobile-nav="frame"] > :first-child';
@@ -397,12 +424,11 @@ function MobileNavOverlay({ toggleSidebar, t }) {
       title: t("open"),
       onClick: () => toggleSidebar()
     },
-    /* @__PURE__ */ React.createElement(import_dsh_client_ui_primitives2.IconPanelLeftOutline16, { size: 18 })
+    PanelLeftIcon ? /* @__PURE__ */ React.createElement(PanelLeftIcon, { size: 18 }) : "\u2630"
   ));
 }
 
 // client/mobile/MobileDrawerFooter.tsx
-var import_dsh_client_ui_primitives3 = require("@deepseek-ai/dsh-client-ui-primitives");
 function MobileDrawerFooter({ useSessions, downloadSessionLog, toggleSidebar, t }) {
   const sessionId = useSessions((state) => state.current);
   const openExplorer = () => {
@@ -418,7 +444,7 @@ function MobileDrawerFooter({ useSessions, downloadSessionLog, toggleSidebar, t 
       title: t("files"),
       onClick: openExplorer
     },
-    /* @__PURE__ */ React.createElement(import_dsh_client_ui_primitives3.IconPanelLeftOutline16, { size: 14 }),
+    PanelLeftIcon ? /* @__PURE__ */ React.createElement(PanelLeftIcon, { size: 14 }) : "\u{1F4C1}",
     /* @__PURE__ */ React.createElement("span", null, t("files"))
   ), /* @__PURE__ */ React.createElement(
     "button",
@@ -432,7 +458,7 @@ function MobileDrawerFooter({ useSessions, downloadSessionLog, toggleSidebar, t 
         if (sessionId !== void 0) downloadSessionLog(sessionId);
       }
     },
-    /* @__PURE__ */ React.createElement(import_dsh_client_ui_primitives3.IconDownloadOutline16, { size: 14 }),
+    DownloadIcon ? /* @__PURE__ */ React.createElement(DownloadIcon, { size: 14 }) : "\u2B07",
     /* @__PURE__ */ React.createElement("span", null, t("sessionLog"))
   ));
 }
@@ -2803,7 +2829,7 @@ function PocketSettingsTab({ rpcCall, t }) {
           disabled: versionInfo.loading,
           title: t("versionRefresh"),
           "aria-label": t("versionRefresh")
-        }, typeof import_dsh_client_ui_primitives4.IconRefreshOutline16 === "function" ? (0, import_react2.createElement)(import_dsh_client_ui_primitives4.IconRefreshOutline16, { size: 14 }) : "\u21BB")
+        }, typeof import_dsh_client_ui_primitives.IconRefreshOutline16 === "function" ? (0, import_react2.createElement)(import_dsh_client_ui_primitives.IconRefreshOutline16, { size: 14 }) : "\u21BB")
       ),
       (0, import_react2.createElement)("div", { style: { color: "var(--dsw-alias-label-secondary,#6b7280)", marginTop: 10, fontSize: 12 } }, t("updateCmd")),
       (0, import_react2.createElement)(
@@ -3206,7 +3232,7 @@ function PocketEntryButton({ rpcCall, t, wide = true }) {
     type: "button",
     "data-dsh-pocket-entry": "",
     "aria-label": label,
-    title: import_dsh_client_ui_primitives4.Tooltip == null ? label : void 0,
+    title: import_dsh_client_ui_primitives.Tooltip == null ? label : void 0,
     // 官方 Tooltip 缺席时用原生 title 兜底
     onClick: () => setOpen(true),
     style: {
@@ -3256,7 +3282,7 @@ function PocketEntryButton({ rpcCall, t, wide = true }) {
       },
       (0, import_react2.createElement)("span", { style: { fontSize: 16, flex: "none", lineHeight: 1 } }, "\u{1F4F1}"),
       (0, import_react2.createElement)("span", { style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, label)
-    ) : import_dsh_client_ui_primitives4.Tooltip != null ? (0, import_react2.createElement)(import_dsh_client_ui_primitives4.Tooltip, { label, delayMs: 500 }, railButton) : railButton,
+    ) : import_dsh_client_ui_primitives.Tooltip != null ? (0, import_react2.createElement)(import_dsh_client_ui_primitives.Tooltip, { label, delayMs: 500 }, railButton) : railButton,
     open ? (0, import_react2.createElement)(
       "div",
       {

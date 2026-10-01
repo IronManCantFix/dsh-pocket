@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import { IconPanelLeftOutline16 } from '@deepseek-ai/dsh-client-ui-primitives'
+import { PanelLeftIcon } from './icons.ts'
 import { NS } from './locales.ts'
 import {
   DRAWER_SELECTOR,
@@ -313,7 +313,7 @@ export function MobileNavOverlay({ toggleSidebar, t }: MobileNavOverlayProps) {
           title={t('open')}
           onClick={() => toggleSidebar()}
         >
-          <IconPanelLeftOutline16 size={18} />
+          {PanelLeftIcon ? <PanelLeftIcon size={18} /> : '☰'}
         </button>
       )}
     </>
