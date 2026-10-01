@@ -1,6 +1,10 @@
 // dsh-pocket 设置页签 RPC 契约（client 与 host 共享）
 export const POCKET_RPC_CHANNEL = '/dsh-pocket';
 
+/** 手机端可选右边栏：body 上的开关属性 + 设置页广播事件（上游 d2e0b46 / issue #122）。 */
+export const MOBILE_RIGHTBAR_ATTRIBUTE = 'data-dsh-pocket-mobile-rightbar';
+export const MOBILE_RIGHTBAR_EVENT = 'dsh-pocket:mobile-rightbar';
+
 export const POCKET_ENDPOINTS = Object.freeze({
   status: 'pocket.status',
   tunnelStart: 'tunnel.start',
@@ -23,6 +27,8 @@ export const POCKET_ENDPOINTS = Object.freeze({
   pocketReset: 'pocket.reset',
   /** 移动端「复制文件内容」（上游 issue #17 内容复制）。payload { path, cwd? } → ok({ content, path, size }) */
   fileRead: 'pocket.fileRead',
+  /** 手机端可选右边栏开关（上游 d2e0b46 / issue #122）。payload { on: boolean } → ok({ mobileRightbarEnabled }) */
+  mobileRightbarSetEnabled: 'mobile.rightbar.setEnabled',
 });
 
 /** 语义化版本比较：a > b 返回正数，相等 0，a < b 负数（数字段 + 预发布后缀）。 */

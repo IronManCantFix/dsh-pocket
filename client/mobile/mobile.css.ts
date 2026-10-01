@@ -432,12 +432,10 @@ export const MOBILE_CSS = `
   }
 
   /* --- Session header on mobile ---
-     Layout goal: [toggle] [session title] [mode badge] in a row, with the
-     Session log capsule removed from the header (relocated to the drawer
-     footer). Stable structural hooks only:
-       [data-phase] header                     the session header element
-       header > :first-child                   titleRow (titleCluster + utilities)
-       header > :first-child > :last-child     headerUtilities (Session log seat) */
+     Layout goal: [toggle] [session title] [mode badge] in a row. The optional
+     rightbar entry uses the shell's stable header-corner hook（移植上游
+     d2e0b46：原来按子元素顺序隐藏 headerUtilities 的规则已随新版 DSH 失效，
+     该位置现在是原生右边栏入口，改由 body 属性开关控制）。 */
   [data-phase] header {
     padding: 8px 12px 0 !important;
   }
@@ -475,10 +473,16 @@ export const MOBILE_CSS = `
     top: 12px !important;
     z-index: 2 !important;
   }
-  /* Session log download: gone from the header row on mobile (the utilities
-     seat holds only the session-log-export capsule). */
-  [data-phase] header > :first-child > :last-child {
+  /* 原生右边栏入口默认可见（移植上游 d2e0b46 / issue #122）：这里原来是
+     dsh-web-mobile 的「隐藏会话日志胶囊」规则 header > :first-child > :last-child，
+     但新版 DSH 把该 header 角落换成了原生右边栏入口，于是被一并藏掉。改为按
+     body 属性开关，偏好紧凑头部的用户在设置页关掉即可。 */
+  body[data-dsh-pocket-mobile-rightbar="off"] [data-conversation-header-corner] {
     display: none !important;
+  }
+  /* 右边栏可见时，把「文件」入口左移让位，两者不重叠。 */
+  body:not([data-dsh-pocket-mobile-rightbar="off"]) [data-mobile-nav="files"] {
+    right: 44px !important;
   }
 
   /* --- Settings dialog on mobile ---

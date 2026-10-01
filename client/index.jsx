@@ -10,7 +10,7 @@
 import { createElement as h, Fragment, useEffect, useRef, useState } from 'react';
 
 import { Tooltip, IconRefreshOutline16 } from '@deepseek-ai/dsh-client-ui-primitives';
-import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS, redactStatus, compareVersions } from './api.js';
+import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS, MOBILE_RIGHTBAR_ATTRIBUTE, MOBILE_RIGHTBAR_EVENT, redactStatus, compareVersions } from './api.js';
 import { mobileApply } from './mobile/mobile-apply.tsx';
 import { NS as POCKET_NS, zh as POCKET_ZH, en as POCKET_EN } from './pocket-locales.js';
 
@@ -155,6 +155,17 @@ const copyText = async (text) => {
   }
 };
 
+/**
+ * 应用「手机端右边栏」开关（上游 d2e0b46 / issue #122）：写 body 属性供
+ * mobile.css.ts 消费，同时广播事件让已挂载的移动端 effect 立即跟随，
+ * 不必等下次 status 轮询。
+ */
+function applyMobileRightbarSetting(enabled) {
+  const on = enabled !== false;
+  document.body?.setAttribute(MOBILE_RIGHTBAR_ATTRIBUTE, on ? 'on' : 'off');
+  window.dispatchEvent(new CustomEvent(MOBILE_RIGHTBAR_EVENT, { detail: { enabled: on } }));
+}
+
 function PocketSettingsTab({ rpcCall, t }) {
   const [status, setStatus] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -218,7 +229,9 @@ function PocketSettingsTab({ rpcCall, t }) {
     setBusy(true);
     setError(null);
     try {
-      setStatus(await call(POCKET_ENDPOINTS.pocketReset, { confirm: true }));
+      const next = await call(POCKET_ENDPOINTS.pocketReset, { confirm: true });
+      setStatus(next);
+      applyMobileRightbarSetting(next.mobileRightbarEnabled);
       // 本地编辑态全部作废：重置后设置回到默认，旧表单/密码输入框必须收起来
       setCustomPin(null);
       setFrpForm(null);
@@ -261,6 +274,7 @@ function PocketSettingsTab({ rpcCall, t }) {
     try {
       const s = await call(POCKET_ENDPOINTS.status, {});
       setStatus(s);
+      applyMobileRightbarSetting(s.mobileRightbarEnabled);
       setTunnelState(s.tunnelState ?? null);
       if (s.desktop) setIsDesktop(true);
       if (s.restartNotice) {
@@ -435,6 +449,18 @@ function PocketSettingsTab({ rpcCall, t }) {
       const r = await call(POCKET_ENDPOINTS.lanAuthSetEnabled, { on });
       setStatus((s) => ({ ...s, lanAuthEnabled: r.lanAuthEnabled }));
     } catch { /* 忽略 */ }
+  };
+
+  // 手机端右边栏入口开关（上游 d2e0b46 / issue #122）：默认显示原生入口。
+  const setMobileRightbar = async (on) => {
+    try {
+      const r = await call(POCKET_ENDPOINTS.mobileRightbarSetEnabled, { on });
+      const enabled = r.mobileRightbarEnabled === true;
+      setStatus((s) => ({ ...s, mobileRightbarEnabled: enabled }));
+      applyMobileRightbarSetting(enabled);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   // 局域网地址手动覆盖（Tailscale/VPN 等远程访问场景）：空值恢复自动选择
@@ -787,6 +813,25 @@ function PocketSettingsTab({ rpcCall, t }) {
                 fmt(t, 'error', { detail: errText(tunnelStateDetail) || t('unknownError') }))
               : null,
         ),
+    ),
+
+    // 手机端右边栏入口（上游 d2e0b46 / issue #122）：默认显示原生右边栏入口，
+    // 普通手机可关掉以保持紧凑（折叠屏展开后可再开）。样式沿用上面的开关按钮对。
+    h('div', { style: styles.block },
+      h('div', { style: { display: 'flex', alignItems: 'center', gap: 8 } },
+        h('span', { style: { fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } }, t('mobileRightbar')),
+        h('button', {
+          'data-dshp-toggle': '',
+          style: { ...styles.btn, height: 28, padding: '0 12px', fontSize: 12, fontWeight: status?.mobileRightbarEnabled !== false ? 600 : 400, background: status?.mobileRightbarEnabled !== false ? 'var(--dsw-alias-button-primary-fill, var(--dsw-alias-brand-primary,#4f6ef7))' : 'var(--dsw-alias-bg-layer-1,#fff)', color: status?.mobileRightbarEnabled !== false ? 'var(--dsw-alias-label-primary-foreground, #fff)' : 'var(--dsw-alias-label-primary,inherit)' },
+          onClick: () => setMobileRightbar(true),
+        }, t('on')),
+        h('button', {
+          'data-dshp-toggle': '',
+          style: { ...styles.btn, height: 28, padding: '0 12px', fontSize: 12, fontWeight: status?.mobileRightbarEnabled === false ? 600 : 400, background: status?.mobileRightbarEnabled === false ? 'var(--dsw-alias-state-error-primary,#dc2626)' : 'var(--dsw-alias-bg-layer-1,#fff)', color: status?.mobileRightbarEnabled === false ? '#fff' : 'var(--dsw-alias-label-primary,inherit)' },
+          onClick: () => setMobileRightbar(false),
+        }, t('off')),
+      ),
+      h('div', { style: { ...styles.muted, marginTop: 6 } }, t('mobileRightbarHint')),
     ),
 
     error ? h('div', { style: { color: 'var(--dsw-alias-state-error-primary,#dc2626)', fontSize: 12, marginTop: 8 } }, `❌ ${errText(error)}`) : null,

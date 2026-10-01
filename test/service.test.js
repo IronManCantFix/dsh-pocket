@@ -244,6 +244,34 @@ test('RPC：status 携带重启提示（restartNotice）', async () => {
   await service.dispose();
 });
 
+test('RPC：mobile.rightbar.setEnabled 默认开启并回写到 status（上游 d2e0b46 / issue #122）', async () => {
+  const internals = stubInternals();
+  let enabled = true;
+  const service = createPocketService({ dshPort: 3080, port: 3081, internals });
+  const conn = fakeCtxConnection();
+  installPocketRpc({ connection: conn }, {
+    service,
+    getMobileRightbarEnabled: () => enabled,
+    setMobileRightbarEnabled: (on) => { enabled = on === true; return enabled; },
+    log: { error() {}, warn() {} },
+  });
+
+  const initial = await conn.handler(POCKET_ENDPOINTS.status, {});
+  assert.equal(initial.ok, true);
+  assert.equal(initial.value.mobileRightbarEnabled, true, '默认开启');
+
+  const off = await conn.handler(POCKET_ENDPOINTS.mobileRightbarSetEnabled, { on: false });
+  assert.equal(off.ok, true);
+  assert.equal(off.value.mobileRightbarEnabled, false, '关闭成功');
+  assert.equal((await conn.handler(POCKET_ENDPOINTS.status, {})).value.mobileRightbarEnabled, false, 'status 反映关闭');
+
+  const on = await conn.handler(POCKET_ENDPOINTS.mobileRightbarSetEnabled, { on: true });
+  assert.equal(on.ok, true);
+  assert.equal(on.value.mobileRightbarEnabled, true, '可再次开启');
+
+  await service.dispose();
+});
+
 test('隧道进度：startTunnel 阶段透出到 status.tunnelState', async () => {
   const internals = {
     ...stubInternals(),

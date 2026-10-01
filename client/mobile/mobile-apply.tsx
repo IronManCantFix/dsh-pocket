@@ -6,7 +6,7 @@ import { MobileDrawerFooter } from './MobileDrawerFooter.tsx'
 import { MOBILE_CSS } from './mobile.css.ts'
 import { resolveLayout, persistLayoutFromUrl } from './layout-mode.mjs'
 import { startFileGuard } from './fileGuard.ts'
-import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS } from '../api.js'
+import { POCKET_RPC_CHANNEL, POCKET_ENDPOINTS, MOBILE_RIGHTBAR_ATTRIBUTE, MOBILE_RIGHTBAR_EVENT } from '../api.js'
 import { NS, en, zh } from './locales.ts'
 import type { MobileNavKey } from './locales.ts'
 
@@ -61,6 +61,38 @@ export function mobileApply(ctx): void {
   }
 
   ctx.effect(() => ctx.locale.register(NS, { zh, en }), 'dsh-mobile-nav: dictionaries')
+
+  // 手机端可选右边栏（移植上游 d2e0b46 / issue #122）：默认显示原生右边栏入口，
+  // 用户可在设置页关掉以保持紧凑。开关状态经 status RPC 下发，设置页改动时用
+  // MOBILE_RIGHTBAR_EVENT 广播；body 上的属性由 mobile.css.ts 消费。
+  ctx.effect(() => {
+    let active = true
+    const applyEnabled = (enabled: boolean): void => {
+      document.body?.setAttribute(MOBILE_RIGHTBAR_ATTRIBUTE, enabled ? 'on' : 'off')
+    }
+    const onChange = (event: Event): void => {
+      applyEnabled((event as CustomEvent<{ enabled?: boolean }>).detail?.enabled === true)
+    }
+    const load = async (): Promise<void> => {
+      try {
+        const result = await ctx.connection.rpc.call(POCKET_RPC_CHANNEL, POCKET_ENDPOINTS.status, {}) as {
+          ok?: boolean
+          value?: { mobileRightbarEnabled?: boolean }
+        }
+        // 读不到状态时按「显示」兜底：这里本来就是上游原生入口，藏起来才是异常。
+        if (active) applyEnabled(result?.ok === true ? result.value?.mobileRightbarEnabled !== false : true)
+      } catch {
+        if (active) applyEnabled(true)
+      }
+    }
+    window.addEventListener(MOBILE_RIGHTBAR_EVENT, onChange)
+    void load()
+    return () => {
+      active = false
+      window.removeEventListener(MOBILE_RIGHTBAR_EVENT, onChange)
+      document.body?.removeAttribute(MOBILE_RIGHTBAR_ATTRIBUTE)
+    }
+  }, 'dsh-mobile-nav: optional right sidebar')
 
   ctx.effect(() => {
     const tag = document.createElement('style')

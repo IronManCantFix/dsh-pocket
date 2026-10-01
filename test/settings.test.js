@@ -55,8 +55,17 @@ test('局域网地址覆盖：默认自动，设置/清除持久化，非法 IPv
   assert.equal(lanIpOverride(), '', '恢复自动');
 }));
 
-test('PIN 自定义标记（issue #33）：默认 false，设置/清除持久化，未知类型 false', () => withHome(async () => {
-  const { pinCustom, setPinCustom } = await import('../lib/settings.mjs');
+test('手机端右边栏默认开启，可关闭并持久化（上游 d2e0b46 / issue #122）', () => withHome(async () => {
+  const { mobileRightbarEnabled, setMobileRightbarEnabled, settingsPath } = await import('../lib/settings.mjs');
+  assert.equal(mobileRightbarEnabled(), true, '默认开启');
+  assert.equal(setMobileRightbarEnabled(false), false, '返回关闭状态');
+  assert.equal(mobileRightbarEnabled(), false, '关闭后立即生效');
+  const raw = JSON.parse(readFileSync(settingsPath(), 'utf8'));
+  assert.equal(raw.mobileRightbarEnabled, false, 'settings.json 内容正确');
+  assert.equal(setMobileRightbarEnabled(true), true, '可再次开启');
+}));
+
+test('PIN 自定义标记（issue #33）：默认 false，设置/清除持久化，未知类型 false', () => withHome(async () => {  const { pinCustom, setPinCustom } = await import('../lib/settings.mjs');
   assert.equal(pinCustom('public'), false, '默认未自定义');
   assert.equal(pinCustom('lan'), false, '默认未自定义');
   assert.equal(pinCustom('other'), false, '未知类型 false');
@@ -98,6 +107,7 @@ test('恢复出厂设置：清空全部设置（含 NAS/frp 令牌与配置）+ 
   const { setCustomPin, getAccessToken, resetPocketState } = await import('../lib/index.js');
   // 先把设置搞成非默认（lanEnabled 总开关是本 fork 后续批次才有的，这里不涉及）
   settings.setLanAuthEnabled(false);
+  settings.setMobileRightbarEnabled(false);
   settings.setLanIpOverride('10.0.0.7');
   settings.setFrpConfig({ serverAddr: 'nas.example.com', serverPort: 7000, remotePort: 13081, tls: true });
   settings.setFrpToken('nas-connect-token-1');
@@ -114,6 +124,7 @@ test('恢复出厂设置：清空全部设置（含 NAS/frp 令牌与配置）+ 
 
   // 开关回到出厂默认
   assert.equal(settings.lanAuthEnabled(), true, '访问密码恢复默认开');
+  assert.equal(settings.mobileRightbarEnabled(), true, '手机端右边栏恢复默认开');
   assert.equal(settings.lanIpOverride(), '', '局域网地址恢复自动');
   assert.equal(settings.pinCustom('public'), false, '公网自定义标记已清除');
   assert.equal(settings.pinCustom('lan'), false, '局域网自定义标记已清除');

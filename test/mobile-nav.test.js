@@ -152,6 +152,21 @@ test('抽屉层级压过 dsh-web-ui-all 全屏遮罩（88605d9 / issue #67）', 
 
 // ---------- 上游 7209de8 / 5c56d24 / f2e60b0 移植的守护测试 ----------
 
+test('手机端右边栏默认显示，设置关闭后隐藏稳定 header corner 入口（上游 d2e0b46 / issue #122）', () => {
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  const apply = readFileSync(new URL('../client/mobile/mobile-apply.tsx', import.meta.url), 'utf8');
+  assert.ok(
+    css.includes('body[data-dsh-pocket-mobile-rightbar="off"] [data-conversation-header-corner]'),
+    '仅在用户关闭设置时隐藏官方右栏入口',
+  );
+  assert.ok(
+    !css.includes('[data-phase] header > :first-child > :last-child'),
+    '不能依赖标题栏子元素顺序隐藏右栏入口（新版该位置就是原生右边栏入口）',
+  );
+  assert.ok(apply.includes('POCKET_ENDPOINTS.status'), '移动端启动时读取持久化设置');
+  assert.ok(apply.includes('MOBILE_RIGHTBAR_EVENT'), '设置切换后立即同步右栏入口');
+});
+
 test('composer 弹层吸附为视口底部 sheet（上游 7209de8 / issue #88）', () => {
   // 模型下拉与 / 命令面板都是 scrollBody(overflow:hidden) 内的 position:absolute，
   // 手机上会被滚动容器拦腰裁掉。必须 fixed 吸附到视口 + 安全区，才能完整显示。
