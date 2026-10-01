@@ -231,3 +231,42 @@ test('侧边栏打开时弹出 aria-modal 弹窗会自动收起，不再卡死�
     '观察点挂在 documentElement 上，覆盖 portal 到 body 之外的弹窗',
   );
 });
+
+test('抽屉收起时不残留窄条：位移用视口宽度 + 兜底隐藏（真机反馈）', () => {
+  // 真机现象：装了第三方侧边栏插件时，translateX(-110%) 的百分比基准是抽屉
+  // **自身宽度**（width:max-content），该宽度可能算成折叠 rail 的 ~20–40px，
+  // 于是只移出几十像素，左侧残留一条带图标的窄条挡住对话。
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  // 注意：断言只针对**声明本体**，不针对注释 —— 注释里会引述旧写法作对比，
+  // 因此先剥掉 /* … */ 注释块再检查。
+  const drawerRule = css
+    .slice(
+      css.indexOf('[data-mobile-nav="frame"] > :first-child {'),
+      css.indexOf('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > :first-child'),
+    )
+    .replace(/\/\*[\s\S]*?\*\//g, '');
+  assert.ok(drawerRule.length > 0, '切出的抽屉规则不能为空（否则断言会假通过）');
+  assert.ok(
+    drawerRule.includes('transform: translateX(-100vw)'),
+    '收起态必须用视口宽度位移，不能依赖抽屉自身宽度',
+  );
+  assert.ok(
+    !drawerRule.includes('translateX(-110%)'),
+    '规则本体不能再用自身宽度百分比位移（第三方侧边栏下会残留窄条）',
+  );
+  // B 兜底：收起态隐藏该列；必须用 visibility 而非 display，否则列脱离网格会让
+  // 第 2/3 列的显式 grid-column 错位（issue #5 的教训）。
+  assert.ok(
+    css.includes('[data-mobile-nav="frame"][data-sidebar-collapsed] > :first-child'),
+    '收起态要有兜底隐藏规则',
+  );
+  assert.ok(
+    /\[data-mobile-nav="frame"\]\[data-sidebar-collapsed\] > :first-child \{\s*visibility: hidden/.test(css),
+    '兜底要用 visibility: hidden（display:none 会使列脱离网格导致错位）',
+  );
+  // 展开态仍须可见：两条规则互斥（有/无 data-sidebar-collapsed）。
+  assert.ok(
+    css.includes('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > :first-child'),
+    '展开态规则必须保留（含 transform:none 的定位语义）',
+  );
+});

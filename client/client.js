@@ -673,7 +673,12 @@ var MOBILE_CSS = `
     width: max-content !important;
     max-width: 92vw !important;
     z-index: 1200 !important;
-    transform: translateX(-110%);
+    /* \u6536\u8D77\u6001\u6ED1\u51FA\uFF1A\u7528**\u89C6\u53E3\u5BBD\u5EA6**\u4F4D\u79FB\uFF0C\u4E0D\u518D\u7528 translateX(-110%)\uFF08\u81EA\u8EAB\u5BBD\u5EA6\u7684
+       \u767E\u5206\u6BD4\uFF09\u3002\u767E\u5206\u6BD4\u4F4D\u79FB\u7684\u57FA\u51C6\u662F\u62BD\u5C49\u81EA\u8EAB\u5BBD\u5EA6\uFF0C\u800C\u8BE5\u5BBD\u5EA6\u7531 width:max-content
+       \u51B3\u5B9A \u2014\u2014 \u88C5\u7B2C\u4E09\u65B9\u4FA7\u8FB9\u680F\u63D2\u4EF6\uFF08\u5982 dsh-better-sidebar\uFF09\u65F6\u53EF\u80FD\u7B97\u6210\u6298\u53E0 rail
+       \u7684\u5BBD\u5EA6\uFF08~20\u201340px\uFF09\uFF0C-110% \u4E8E\u662F\u53EA\u79FB\u51FA\u51E0\u5341\u50CF\u7D20\uFF0C\u5DE6\u4FA7\u6B8B\u7559\u4E00\u6761\u5E26\u56FE\u6807\u7684\u7A84\u6761
+       \u6321\u4F4F\u5BF9\u8BDD\u3002\u89C6\u53E3\u5BBD\u5EA6\u4E0E\u62BD\u5C49\u81EA\u8EAB\u5BBD\u5EA6\u65E0\u5173\uFF0C\u4EFB\u4F55\u7ED3\u6784\u4E0B\u90FD\u79FB\u5F97\u5E72\u51C0\u3002 */
+    transform: translateX(-100vw);
     transition: transform .28s var(--ds-ease-in-out, ease-in-out);
     background: var(--dsw-alias-bg-base, #ffffff);
     /* Keep the drawer's own content below the status bar / notch: the drawer
@@ -699,6 +704,16 @@ var MOBILE_CSS = `
      viewport-anchored: it dims the full screen and the sheet sits at left:8. */
   [data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > :first-child {
     transform: none !important;
+  }
+
+  /* \u515C\u5E95\uFF1A\u62BD\u5C49\u6536\u8D77\u65F6\uFF0C\u82E5\u4E0A\u9762\u7684\u4F4D\u79FB\u56E0\u7B2C\u4E09\u65B9\u4FA7\u8FB9\u680F\u7ED3\u6784\u6CA1\u80FD\u628A\u9762\u677F\u79FB\u51FA\u89C6\u53E3\uFF0C
+     \u76F4\u63A5\u628A\u8BE5\u5217\u4ECE\u7ED8\u5236\u4E2D\u6458\u6389\uFF0C\u675C\u7EDD\u4EFB\u4F55\u6B8B\u7559\u7A84\u6761\u6321\u4F4F\u5BF9\u8BDD\u3002
+     \u7528 visibility \u800C\u975E display:none \u2014\u2014 display:none \u4F1A\u8BA9\u5217\u8131\u79BB\u7F51\u683C\uFF0C\u7B2C 2/3 \u5217
+     \u7684\u663E\u5F0F grid-column \u53EF\u80FD\u91CD\u65B0\u9519\u4F4D\uFF08\u89C1\u4E0A\u9762\u4E3B\u5185\u5BB9\u5217 issue #5 \u7684\u6559\u8BAD\uFF09\uFF1B
+     visibility \u4FDD\u7559\u5E03\u5C40\u76D2\u3001\u4E0D\u7ED8\u5236\u3001\u4E5F\u4E0D\u63A5\u6536\u6307\u9488\uFF0C\u5BF9\u7F51\u683C\u96F6\u5F71\u54CD\u3002
+     \u53EA\u5728**\u6536\u8D77\u6001**\u751F\u6548\uFF1A\u5C55\u5F00\u6001\u7531 :not([data-sidebar-collapsed]) \u6062\u590D\u53EF\u89C1\u3002 */
+  [data-mobile-nav="frame"][data-sidebar-collapsed] > :first-child {
+    visibility: hidden !important;
   }
 
   /* Drag handles are useless on touch and would float over the drawer. */

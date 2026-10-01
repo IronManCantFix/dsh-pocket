@@ -248,7 +248,12 @@ export const MOBILE_CSS = `
     width: max-content !important;
     max-width: 92vw !important;
     z-index: 1200 !important;
-    transform: translateX(-110%);
+    /* 收起态滑出：用**视口宽度**位移，不再用 translateX(-110%)（自身宽度的
+       百分比）。百分比位移的基准是抽屉自身宽度，而该宽度由 width:max-content
+       决定 —— 装第三方侧边栏插件（如 dsh-better-sidebar）时可能算成折叠 rail
+       的宽度（~20–40px），-110% 于是只移出几十像素，左侧残留一条带图标的窄条
+       挡住对话。视口宽度与抽屉自身宽度无关，任何结构下都移得干净。 */
+    transform: translateX(-100vw);
     transition: transform .28s var(--ds-ease-in-out, ease-in-out);
     background: var(--dsw-alias-bg-base, #ffffff);
     /* Keep the drawer's own content below the status bar / notch: the drawer
@@ -274,6 +279,16 @@ export const MOBILE_CSS = `
      viewport-anchored: it dims the full screen and the sheet sits at left:8. */
   [data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > :first-child {
     transform: none !important;
+  }
+
+  /* 兜底：抽屉收起时，若上面的位移因第三方侧边栏结构没能把面板移出视口，
+     直接把该列从绘制中摘掉，杜绝任何残留窄条挡住对话。
+     用 visibility 而非 display:none —— display:none 会让列脱离网格，第 2/3 列
+     的显式 grid-column 可能重新错位（见上面主内容列 issue #5 的教训）；
+     visibility 保留布局盒、不绘制、也不接收指针，对网格零影响。
+     只在**收起态**生效：展开态由 :not([data-sidebar-collapsed]) 恢复可见。 */
+  [data-mobile-nav="frame"][data-sidebar-collapsed] > :first-child {
+    visibility: hidden !important;
   }
 
   /* Drag handles are useless on touch and would float over the drawer. */
