@@ -332,26 +332,79 @@ export const MOBILE_CSS = `
     font-size: 15px !important;
   }
 
-  /* --- Composer bottom row on mobile ---
-     The official row gives the model pill (trailing) flex:0 0 auto, which
-     squeezes the agent-permission pill (modes) down to 15px: the pill's
-     chevron then overflows on top of the model name. Let the permission
-     pill keep its natural width and let the model pill shrink instead.
-     Anchored by the composer card (:has(textarea)): row = last child,
-     tools = first child, permission pill = its 2nd child, model pill =
-     row's last child. */
-  [data-phase] [class*="_card"]:has(textarea) > :last-child {
-    gap: 8px !important;
-  }
-  [data-phase] [class*="_card"]:has(textarea) > :last-child > :first-child {
-    gap: 8px !important;
-  }
-  [data-phase] [class*="_card"]:has(textarea) > :last-child > :first-child > :nth-child(2) {
-    flex: 0 0 auto !important;
-  }
-  [data-phase] [class*="_card"]:has(textarea) > :last-child > :last-child {
-    flex: 1 1 auto !important;
+  /* --- Composer popups as bottom sheets on mobile ---
+     Two composer-anchored popups break on phones (field: bottom + side
+     cut, only part of the popup visible):
+     1. the model pill menu ([role=menu], max 360px, opens upward from the
+        pill inside the composer card);
+     2. the "/" command palette (max 320px card with the search box — it
+        hosts the /model popupSelect list: search + provider-grouped rows).
+     Both are position:absolute INSIDE the conversation scrollBody
+     (overflow:hidden) and the shell center column (overflow:hidden), so
+     the scroll containers clip them mid-list. Forensics showed neither
+     layer creates a containing block (no transform/contain/will-change),
+     so on mobile we snap whichever popup is open to a viewport-anchored
+     sheet: fixed positioning escapes the scroll clip entirely, width is
+     deterministic, safe-area keeps it off the gesture bar. A transient
+     picker covering the composer is standard mobile UX; selection or an
+     outside tap still dismisses it.（移植上游 7209de8 / issue #88） */
+  [data-phase] [class$="_root"]:has(> [aria-haspopup="menu"]) > [role="menu"],
+  [data-phase] [class$="_card"]:has(> [class$="_search"]) {
+    position: fixed !important;
+    left: 12px !important;
+    right: 12px !important;
+    top: auto !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 12px) !important;
+    width: auto !important;
     min-width: 0 !important;
+    max-width: none !important;
+    max-height: min(65vh, 480px) !important;
+    max-height: min(65dvh, 480px) !important;
+    z-index: 130 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 -4px 28px rgba(0, 0, 0, .18) !important;
+  }
+
+  /* Keep DSH's own process disclosures and their expand/collapse behaviour,
+     but remove desktop-sized vertical breathing room between consecutive
+     context, Skill, and system-prompt entries.（移植上游 5c56d24） */
+  [data-phase] [data-turn-process] {
+    height: 28px !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 4px !important;
+  }
+  [data-phase] [data-turn-process][data-open] {
+    margin-bottom: 4px !important;
+  }
+  [data-phase] [data-disclosure-row] {
+    min-height: 24px !important;
+  }
+  [data-phase] :is([data-context-injection-body], [data-system-prompt-body]) {
+    margin-top: 2px !important;
+  }
+
+  /* --- Composer bottom row on mobile ---
+     Keep add, permission, model, reasoning and send controls on one line at
+     the Honor 50's 360px CSS viewport. DSH's stable data-composer-card hook
+     survives the editor's textarea -> contenteditable migration.
+     （移植上游 5c56d24：旧锚点 [class*="_card"]:has(textarea) 在编辑器改为
+     contenteditable 后已失效，改用稳定钩子。） */
+  [data-phase] [data-composer-card="true"] > [class$="_row"] {
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+  }
+  [data-phase] [data-composer-card="true"] > [class$="_row"] > :first-child {
+    gap: 8px !important;
+    min-width: 0 !important;
+  }
+  [data-phase] [data-composer-card="true"] > [class$="_row"] > :first-child > :nth-child(2) {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+  }
+  [data-phase] [data-composer-card="true"] > [class$="_row"] > :last-child {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    gap: 6px !important;
   }
 
   /* --- Bottom safe area (home indicator) ---
@@ -386,14 +439,23 @@ export const MOBILE_CSS = `
        header > :first-child                   titleRow (titleCluster + utilities)
        header > :first-child > :last-child     headerUtilities (Session log seat) */
   [data-phase] header {
-    padding-right: 12px !important;
+    padding: 8px 12px 0 !important;
   }
-  /* Give the title row a lane clear of the absolutely-placed toggle, then
-     balance the header: with header padding-right 12px, a 20px left
-     padding puts the title's geometric center exactly on the viewport
-     center (measured 195/195 at 390px). */
+  /* The directory and Files controls are absolutely positioned, so reserve
+     their lanes and let the title use the remaining width without squeezing.
+     （移植上游 5c56d24） */
   [data-phase] header > :first-child {
-    padding-left: 20px !important;
+    min-height: 36px !important;
+    padding: 0 32px !important;
+  }
+  [data-phase] header [class$="_titleCluster"],
+  [data-phase] header [class$="_crumbs"] {
+    min-width: 0 !important;
+  }
+  [data-phase] header button[class*="_crumb"] {
+    max-width: calc(100vw - 104px) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
   /* The directory toggle sits at the far left of the header (the header
      is position:relative; the data-slot wrappers are display:contents). */

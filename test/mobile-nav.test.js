@@ -93,7 +93,27 @@ test('选择器常量与 MobileNavOverlay 的用法保持一致', () => {
   assert.ok(src.includes('isOverlayTap(target)'), '点抽屉外的处理必须先豁免浮层（issue #72）');
   assert.ok(
     src.includes("event.pointerType !== 'touch'"),
-    'iOS 触摸自愈路径必须限定在 touch/pen，桌面鼠标不能受影响',
+    '触摸导航路径必须限定在 touch/pen，桌面鼠标不能受影响',
+  );
+  assert.ok(
+    src.includes("attributeFilter: ['aria-selected']"),
+    '触摸会话行必须等 aria-selected 变化后再关闭抽屉（上游 80b9d16 / issue #85）',
+  );
+  assert.ok(
+    src.includes('pendingTouchRow !== null') && src.includes('&& isPendingTouchClick(event)'),
+    '只有与待完成触摸位置/能力匹配的 click 才能绕过立即关闭，不能误伤鼠标',
+  );
+  assert.ok(
+    src.includes('navClickArrived && selectedRow !== null && selectedRow !== selectedRowAtArm'),
+    '必须等真实 click 到达且选中行变化，不能依赖可能被卸载或同名的旧 row',
+  );
+  assert.ok(
+    src.includes("row.getAttribute('aria-selected') === 'true'"),
+    '点击已选中会话时没有选择变化，必须直接关闭抽屉',
+  );
+  assert.ok(
+    !src.includes("dispatchEvent(new MouseEvent('click'"),
+    '不能再向 pointerup 保存的旧 DOM target 延迟补发 click（该节点已脱离 React 事件树）',
   );
   assert.ok(
     !/\[class\*="sessionRow"\],?\s*\[class\*="searchResultRow"\]/.test(src),
@@ -128,4 +148,58 @@ test('抽屉层级压过 dsh-web-ui-all 全屏遮罩（88605d9 / issue #67）', 
     '要用重复属性选择器提高特异性，稳定压过对方同特异性的遮罩规则',
   );
   assert.ok(css.includes('content: none !important'), '必须把对方 ::after 全屏遮罩关掉，否则点击被吃掉');
+});
+
+// ---------- 上游 7209de8 / 5c56d24 / f2e60b0 移植的守护测试 ----------
+
+test('composer 弹层吸附为视口底部 sheet（上游 7209de8 / issue #88）', () => {
+  // 模型下拉与 / 命令面板都是 scrollBody(overflow:hidden) 内的 position:absolute，
+  // 手机上会被滚动容器拦腰裁掉。必须 fixed 吸附到视口 + 安全区，才能完整显示。
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  assert.ok(
+    css.includes('[class$="_root"]:has(> [aria-haspopup="menu"]) > [role="menu"]'),
+    '模型下拉要用稳定结构选择器命中',
+  );
+  assert.ok(css.includes('[class$="_card"]:has(> [class$="_search"])'), '/ 命令面板同样要吸附');
+  assert.ok(css.includes('max-height: min(65dvh, 480px) !important'), '要有 dvh 上限与内部滚动');
+  assert.ok(css.includes('env(safe-area-inset-bottom'), '底部要避开手势条');
+});
+
+test('composer 底栏用稳定 card 标记并在 360px 视口保持单行（上游 5c56d24）', () => {
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  assert.ok(css.includes('[data-composer-card="true"] > [class$="_row"]'));
+  assert.ok(css.includes('flex-wrap: nowrap !important'));
+  assert.ok(
+    !css.includes('[class*="_card"]:has(textarea) > :last-child'),
+    '会话 composer 底栏不能再依赖 textarea（编辑器已改 contenteditable）',
+  );
+});
+
+test('统计行只从 composer.dock 标记，不误标 contenteditable composer 根节点（上游 5c56d24）', () => {
+  const src = readFileSync(new URL('../client/mobile/mobile-apply.tsx', import.meta.url), 'utf8');
+  assert.ok(
+    src.includes('[data-slot="conversation.composer.dock"] [class$="_root"]'),
+    '统计行必须限定在 DSH 的 conversation.composer.dock 稳定插槽内',
+  );
+  assert.ok(
+    !src.includes("document.querySelectorAll('[data-phase] [class$=\"_root\"]')"),
+    '不能扫描 composer 内所有 *_root；新版编辑器是 contenteditable，会让 composer 根误命中',
+  );
+  // 本 fork 额外保留的 button 守卫（上游没有），移植时不能丢。
+  assert.ok(
+    src.includes("root.querySelector('button') !== null"),
+    'fork 自己的 input dock 误判守卫必须保留',
+  );
+});
+
+test('侧边栏打开时弹出 aria-modal 弹窗会自动收起，不再卡死（上游 f2e60b0 / issue #99）', () => {
+  const src = readFileSync(new URL('../client/mobile/MobileNavOverlay.tsx', import.meta.url), 'utf8');
+  assert.ok(
+    src.includes("node.matches('[aria-modal=\"true\"]')"),
+    '要监听新出现的 aria-modal 节点',
+  );
+  assert.ok(
+    src.includes('observer.observe(document.documentElement, { childList: true, subtree: true })'),
+    '观察点挂在 documentElement 上，覆盖 portal 到 body 之外的弹窗',
+  );
 });

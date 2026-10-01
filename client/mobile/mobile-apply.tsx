@@ -284,15 +284,22 @@ export function mobileApply(ctx): void {
       if (marked !== null && marked.isConnected && now - lastScan < 500) return
       lastScan = now
       if (marked === null || !marked.isConnected) marked = null
-      for (const root of document.querySelectorAll('[data-phase] [class$="_root"]')) {
+      for (const root of document.querySelectorAll('[data-phase] [data-slot="conversation.composer.dock"] [class$="_root"]')) {
         // The status row lives inside the composer stack; message-area
         // blocks can also mention turns/steps and must be skipped.
         if (root.closest('[class$="_composerStack"]') === null) continue
-        // Input docks have interactive headers; the stats line does not.
+        // Mis-mark guard (input docks): the todo / plan / goal / queue strips
+        // render in the SAME composer stack ABOVE the input bar, their hashed
+        // section classes also end in `_root`, and an EXPANDED task list
+        // routinely contains 步/轮/"steps"… — the old text-only heuristic then
+        // matched the dock FIRST (tree order) and crushed it into the 28px
+        // strip. Distinguisher: the real StatsLine renders plain spans only;
+        // every dock has a header <button>. 上游 5c56d24 改用稳定的
+        // conversation.composer.dock 标记收窄扫描范围，本 fork 额外保留这条
+        // button 守卫作为第二道保险。
         if (root.querySelector('button') !== null) continue
         const text = root.textContent ?? ''
         if (!/(turns|steps|\bLLM\b|轮|步)/.test(text)) continue
-        if (root.querySelector('textarea') !== null) continue
         root.setAttribute('data-mobile-nav', 'stats')
         moveTps(root)
         marked = root
