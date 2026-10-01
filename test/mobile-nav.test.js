@@ -152,8 +152,21 @@ test('抽屉层级压过 dsh-web-ui-all 全屏遮罩（88605d9 / issue #67）', 
 
 // ---------- 上游 7209de8 / 5c56d24 / f2e60b0 移植的守护测试 ----------
 
-test('手机端右边栏默认显示，设置关闭后隐藏稳定 header corner 入口（上游 d2e0b46 / issue #122）', () => {
-  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+test('手机端模型设置加载失败改引导提示（上游 5ab2ad4）', () => {
+  // 手机侧本就不支持改模型设置，上游 dsh-web 的原始报错文案只会吓到用户；
+  // 窄屏下就地把报错替换成「去电脑端修改」的引导。仅手机生效，桌面端不动。
+  const src = readFileSync(new URL('../client/mobile/mobile-apply.tsx', import.meta.url), 'utf8');
+  assert.ok(src.includes("'加载提供方目录失败'"), '要认上游 dsh-web 的中文报错文案');
+  assert.ok(
+    src.includes("'Settings are unavailable in this browser'"),
+    '英文界面下同一报错也要覆盖',
+  );
+  assert.ok(src.includes('dshpModelNotice'), '要有幂等标记，避免 observer 反复改写同一节点');
+  assert.ok(src.includes('findDeepest'), '要取最深节点，不能把外层容器整块清掉');
+  assert.ok(src.includes('if (!narrow.matches) return'), '必须限定窄屏，桌面端不受影响');
+});
+
+test('手机端右边栏默认显示，设置关闭后隐藏稳定 header corner 入口（上游 d2e0b46 / issue #122）', () => {  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
   const apply = readFileSync(new URL('../client/mobile/mobile-apply.tsx', import.meta.url), 'utf8');
   assert.ok(
     css.includes('body[data-dsh-pocket-mobile-rightbar="off"] [data-conversation-header-corner]'),

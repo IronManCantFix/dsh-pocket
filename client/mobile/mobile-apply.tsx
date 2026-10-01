@@ -144,6 +144,39 @@ export function mobileApply(ctx): void {
     return startFileGuard(readFile)
   }, 'dsh-mobile-nav: file open guard + copy button + hide add-workspace (issue #17)')
 
+  // 手机上模型 / 提供方设置加载失败：上游 dsh-web 会渲染「加载提供方目录失败 /
+  // Settings are unavailable in this browser」。这条文案不是 dsh-pocket 的，但手机侧
+  // 本就不支持改模型设置，原报错只会吓到用户。窄屏下用 MutationObserver 就地把该报错
+  // 文本替换成「去电脑端修改」的引导提示（仅手机，桌面端不受影响）。
+  // （移植上游 5ab2ad4）
+  ctx.effect(() => {
+    if (!narrow.matches) return () => {}
+    const PHRASES = ['加载提供方目录失败', 'Settings are unavailable in this browser']
+    const NOTICE = '手机上不支持模型设置，请去电脑端修改设置'
+    // 取包含报错文案的最深节点，避免把外层大容器整块清掉。
+    const findDeepest = (el: Element): Element => {
+      let deepest = el
+      for (const child of el.querySelectorAll('*')) {
+        if (PHRASES.some((p) => (child.textContent ?? '').includes(p))) deepest = child
+      }
+      return deepest
+    }
+    const patch = (): void => {
+      for (const el of document.querySelectorAll('body *')) {
+        const t = el.textContent ?? ''
+        if (!PHRASES.some((p) => t.includes(p))) continue
+        if ((el as HTMLElement).dataset?.dshpModelNotice === '1') continue
+        const target = findDeepest(el)
+        target.textContent = NOTICE
+        ;(target as HTMLElement).dataset.dshpModelNotice = '1'
+      }
+    }
+    const observer = new MutationObserver(patch)
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true })
+    patch()
+    return () => observer.disconnect()
+  }, 'dsh-mobile-nav: replace model-settings load error with mobile hint')
+
   // Phone chrome: KEEP the system status bar (no fullscreen) and make it
   // blend into the page. On narrow screens:
   // - The viewport meta gains viewport-fit=cover, so env(safe-area-inset-top)
