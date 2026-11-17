@@ -175,6 +175,17 @@ function PocketSettingsTab({ rpcCall, t }) {
   // 版本信息（仅展示，不自动检测更新）：{ current, loaded, githubLatest, githubUrl, loading, failed }
   const [versionInfo, setVersionInfo] = useState({ current: null, loaded: null, githubLatest: null, githubUrl: null, loading: true, failed: false });
 
+  // issue #203：后端生成二维码失败（最常见是源码直装缺 qrcode 依赖）时 status 里是
+  // null。空 src 的 <img> 只是一块空白，地址文字却照常显示，用户只会以为「二维码坏了」。
+  // 把失败原因说清楚，给出可操作的排查方向；成功时行为不变。
+  const qrImage = (src, alt) => (src
+    ? h('img', { src, alt, style: styles.qr })
+    : h('div', {
+        role: 'alert',
+        'data-pocket-qr-error': '1',
+        style: { ...styles.qr, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 14, fontSize: 12, lineHeight: 1.6, textAlign: 'left', color: 'var(--dsw-alias-label-primary,inherit)' },
+      }, t('qrFailed')));
+
   // 安装/更新到最新版：优先「add + GitHub 仓库的版本 tag（git 方式安装）」——
   // github:owner/repo#vX.Y.Z 让 pnpm 按 git tag 拉取安装，不经过 Releases 的 tgz
   // URL（tgz/固定 URL 会被 pnpm 按 URL 缓存旧包，装完还是旧版、影响更新）。
@@ -738,7 +749,7 @@ function PocketSettingsTab({ rpcCall, t }) {
         ? h('div', { style: { marginTop: 8, fontSize: 12, color: 'var(--dsw-alias-state-warn-primary,#b45309)', lineHeight: 1.5 } }, t('lanDisabledHint'))
         : lanUrl
         ? h('div', null,
-          h('img', { src: status.lanQr, alt: 'LAN QR', style: styles.qr }),
+          qrImage(status.lanQr, 'LAN QR'),
           h('div', { style: styles.code }, lanUrl),
           h('div', { style: styles.muted }, t('lanHint')),
           h('label', { style: { display: 'flex', alignItems: 'center', gap: 8, marginTop: 10, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
@@ -787,7 +798,7 @@ function PocketSettingsTab({ rpcCall, t }) {
       h('div', { style: { fontWeight: 600, fontSize: 13 } }, t('wanTitle')),
       tunnelUrl
         ? h('div', null,
-          h('img', { src: status.tunnelQr, alt: 'Tunnel QR', style: styles.qr }),
+          qrImage(status.tunnelQr, 'Tunnel QR'),
           h('div', { style: styles.code }, tunnelUrl),
           h('div', { style: styles.muted }, t('wanHint')),
           status.accessToken
