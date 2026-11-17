@@ -308,3 +308,53 @@ test('DSH 0.2.2 自带抽屉：按类名定位 AppFrame 列，不再依赖子元
   assert.match(nav, /DRAWER_SELECTOR = '\[data-mobile-nav="frame"\] > \[class\*="_sidebarCol"\]'/);
   assert.match(nav, /TOGGLE_SELECTOR = '\[data-mobile-nav="toggle"\], \[data-sidebar-opener\]'/);
 });
+
+test('body 级 portal 浮层必须高于抽屉，否则抽屉里的「更多」菜单看不见 —— issue #88', () => {
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  // DSH 的 Menu / Tooltip 把浮层 createPortal 到 document.body，和抽屉不在
+  // 同一个层叠上下文里，只能靠 z-index 比大小（Menu/Tooltip 都是 1100，抽屉 1200）。
+  const drawerZ = Number(
+    css.slice(css.indexOf('> [class*="_sidebarCol"] {')).match(/z-index:\s*(\d+)\s*!/)[1],
+  );
+  const portalRule = css.match(
+    /body\s*>\s*\[role="menu"\][\s\S]{0,400}?\{[^}]*z-index:\s*(\d+)\s*!/,
+  );
+  assert.ok(portalRule, '缺少把 body 级 [role="menu"] 抬到抽屉之上的规则');
+  const portalZ = Number(portalRule[1]);
+  assert.ok(portalZ > drawerZ, `浮层 z-index ${portalZ} 必须高于抽屉 ${drawerZ}`);
+  assert.ok(portalZ < 9999, `浮层 z-index ${portalZ} 不该盖住视口级 banner/toast（9999）`);
+  // Tooltip 气泡 / toast 同样是 body 级 portal，也要一起抬。
+  assert.ok(
+    /body\s*>\s*\[role="tooltip"\]/.test(css) && /body\s*>\s*\[data-portal\]/.test(css),
+    'Tooltip 的 portal 气泡（[role="tooltip"] / [data-portal]）要一起抬',
+  );
+  assert.ok(/body\s*>\s*\[role="alert"\]/.test(css), 'toast（[role="alert"]）也要抬到抽屉之上');
+  // 只抬 body 的直接子元素：被 portal 进抽屉内部的浮层要保持自己的层叠上下文。
+  assert.ok(
+    !/\[data-mobile-nav="frame"\]\s+\[role="menu"\]/.test(css),
+    '不要在抽屉内部再抬一次 [role="menu"]（会顶掉抽屉内对话框的层级）',
+  );
+});
+
+test('body 级模态层必须高于抽屉，否则展开的侧边栏会挡住「设置」窗口', () => {
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  const drawerZ = Number(
+    css.slice(css.indexOf('> [class*="_sidebarCol"] {')).match(/z-index:\s*(\d+)\s*!/)[1],
+  );
+  const modalRule = css.match(
+    /body\s*>\s*\[role="presentation"\][\s\S]{0,400}?\{[^}]*z-index:\s*(\d+)\s*!/,
+  );
+  assert.ok(modalRule, '缺少把 body 级模态层（设置面板 / Modal）抬到抽屉之上的规则');
+  const modalZ = Number(modalRule[1]);
+  assert.ok(modalZ > drawerZ, `模态层 z-index ${modalZ} 必须高于抽屉 ${drawerZ}`);
+  assert.ok(modalZ < 9999, `模态层 z-index ${modalZ} 不该盖住视口级 banner/toast（9999）`);
+  // 菜单层要高于模态层，设置面板里的下拉才能盖住面板本身。
+  const portalZ = Number(
+    css.match(/body\s*>\s*\[role="menu"\][\s\S]{0,400}?\{[^}]*z-index:\s*(\d+)\s*!/)[1],
+  );
+  assert.ok(portalZ > modalZ, `菜单层 ${portalZ} 必须高于模态层 ${modalZ}`);
+  assert.ok(
+    /body\s*>\s*\[role="dialog"\]\[aria-modal="true"\]/.test(css),
+    'body 级 [role="dialog"][aria-modal="true"]（账号平台浮层）要一起抬',
+  );
+});
