@@ -25,8 +25,6 @@ export const POCKET_ENDPOINTS = Object.freeze({
   lanSetEnabled: 'lan.setEnabled',
   /** 恢复出厂设置（上游 #69 后续）。payload { confirm: true } → ok(status) */
   pocketReset: 'pocket.reset',
-  /** 移动端「复制文件内容」（上游 issue #17 内容复制）。payload { path, cwd? } → ok({ content, path, size }) */
-  fileRead: 'pocket.fileRead',
   /** 手机端可选右边栏开关（上游 d2e0b46 / issue #122）。payload { on: boolean } → ok({ mobileRightbarEnabled }) */
   mobileRightbarSetEnabled: 'mobile.rightbar.setEnabled',
 });

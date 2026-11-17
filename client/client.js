@@ -74,8 +74,6 @@ var POCKET_ENDPOINTS = Object.freeze({
   lanSetEnabled: "lan.setEnabled",
   /** 恢复出厂设置（上游 #69 后续）。payload { confirm: true } → ok(status) */
   pocketReset: "pocket.reset",
-  /** 移动端「复制文件内容」（上游 issue #17 内容复制）。payload { path, cwd? } → ok({ content, path, size }) */
-  fileRead: "pocket.fileRead",
   /** 手机端可选右边栏开关（上游 d2e0b46 / issue #122）。payload { on: boolean } → ok({ mobileRightbarEnabled }) */
   mobileRightbarSetEnabled: "mobile.rightbar.setEnabled"
 });
@@ -730,6 +728,39 @@ var MOBILE_CSS = `
     border-right: none !important;
   }
 
+  /* Portaled popovers must paint ABOVE the drawer.
+     DSH's popover primitives render into <body> on one fixed layer:
+       Menu.tsx:572   createPortal(list, document.body)      -> role="menu", z 1100
+       Tooltip.tsx:270 createPortal(content, document.body)  -> role="tooltip" [data-portal], z 1100
+       Toast.tsx:75   createPortal(<div role="alert">)        -> role="alert", z 1100
+     The drawer above is 1200, so every menu opened from a drawer control is
+     painted UNDER it: the sidebar \u300C\u66F4\u591A\u300D menu is fully covered, a session
+     row's kebab only shows the sliver past the drawer edge.
+     Lift the body-level popover layer above the drawer: 1220 clears every DSH
+     portal layer (menu/tooltip/toast 1100) and still sits far below the
+     viewport-level banners/toasts (z 9999). */
+  body > [role="menu"],
+  body > [role="listbox"],
+  body > [role="tooltip"],
+  body > [data-portal],
+  body > [role="alert"] {
+    z-index: 1220 !important;
+  }
+
+  /* Full-screen modal surfaces outrank the drawer as well.
+     SettingsRoot portals its overlay at z 1000, the Modal primitive's root is
+     1000 too \u2014 both under the 1200 drawer, so opening \u8BBE\u7F6E while the drawer
+     is out leaves the drawer painted over the sheet. Matched by shape rather
+     than a CSS-modules hash (those rotate on every build): a body-level
+     presentation root holding a modal dialog, plus the dialog roots portaled
+     on their own (PlatformOverlay is <div role="dialog" aria-modal="true">
+     itself, at z 1001). Popovers opened from inside such a sheet stay one
+     step higher (1220) so a dropdown still clears the sheet that owns it. */
+  body > [role="presentation"]:has([aria-modal="true"]),
+  body > [role="dialog"][aria-modal="true"] {
+    z-index: 1210 !important;
+  }
+
   /* Expanded state (frame without data-sidebar-collapsed) slides the drawer in.
      The open state must be transform:none \u2014 NOT translateX(0): an identity
      transform still makes the drawer the containing block for fixed-position
@@ -803,7 +834,7 @@ var MOBILE_CSS = `
     white-space: nowrap !important;
   }
 
-  [data-phase] [class$="_scroll"]:has(p) {
+  [data-phase] [class$="_scroll"]:has(p):not([data-input-scroll]) {
     padding-left: 20px !important;
     padding-right: 20px !important;
     font-size: 15px !important;
@@ -812,9 +843,9 @@ var MOBILE_CSS = `
      list items, so the container's inherited 15px is not enough. User
      messages render their text in a div whose class carries _text_
      (16px too) \u2014 cover it as well. */
-  [data-phase] [class$="_scroll"]:has(p) p,
-  [data-phase] [class$="_scroll"]:has(p) li,
-  [data-phase] [class$="_scroll"]:has(p) [class*="_text_"] {
+  [data-phase] [class$="_scroll"]:has(p):not([data-input-scroll]) p,
+  [data-phase] [class$="_scroll"]:has(p):not([data-input-scroll]) li,
+  [data-phase] [class$="_scroll"]:has(p):not([data-input-scroll]) [class*="_text_"] {
     font-size: 15px !important;
   }
 
@@ -878,6 +909,13 @@ var MOBILE_CSS = `
   [data-phase] [data-composer-card="true"] > [class$="_row"] {
     flex-wrap: nowrap !important;
     gap: 6px !important;
+    /* issue #181\uFF1A\u5BBF\u4E3B/\u76AE\u80A4\u628A\u63A7\u5236\u884C\u9AD8\u5EA6\u9489\u5728 28px\uFF0C\u53EA\u8BA9 flex-wrap \u6362\u884C\u4F1A\u628A
+       \u7B2C\u4E8C\u884C\u5185\u5BB9\u88C1\u6389\uFF08\u5B9E\u6D4B scrollHeight 58 / clientHeight 28\uFF09\u3002\u6362\u884C\u5FC5\u987B\u914D\u4E0A
+       \u81EA\u9002\u5E94\u9AD8\u5EA6\uFF0C\u624D\u65E2\u4FDD\u4F4F #170\u300C\u6A21\u578B\u836F\u4E38\u4E0D\u88AB\u538B\u6210 0 \u5BBD\u300D\uFF0C\u53C8\u4E0D\u541E\u6389\u63A7\u4EF6\u3002 */
+    height: auto !important;
+    min-height: 28px !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
   [data-phase] [data-composer-card="true"] > [class$="_row"] > :first-child {
     gap: 8px !important;
@@ -891,6 +929,25 @@ var MOBILE_CSS = `
     flex: 1 1 0 !important;
     min-width: 0 !important;
     gap: 6px !important;
+  }
+
+  /* --- \u62BD\u5C49\u91CC\u7684\u5DE5\u4F5C\u533A\u4E0D\u80FD\u88AB\u4E0A\u4E0B\u56FA\u5B9A\u533A\u5757\u6324\u6CA1\uFF08issue #196\uFF09---
+     \u7A84\u5C4F\u62BD\u5C49\u9AD8\u5EA6\u56FA\u5B9A 100%\uFF0C\u4E0A\u90E8\u63D2\u4EF6\u5165\u53E3\u533A\u4E0E\u5E95\u90E8 footer \u90FD\u662F flex:none\uFF0C
+     \u4E2D\u95F4\u7684 regionArea \u662F flex:1; min-height:0\uFF0C\u5728\u77EE\u5C4F\uFF08\u5982 iPhone SE\uFF09\u4F1A\u88AB\u538B\u5230
+     0 \u9AD8\uFF0C\u4F1A\u8BDD\u5217\u8868\u5B8C\u5168\u70B9\u4E0D\u5230\u3002\u7ED9\u5DE5\u4F5C\u533A\u4E00\u4E2A\u4FDD\u5E95\u9AD8\u5EA6\uFF0C\u5E76\u8BA9\u5B83\u6240\u5728\u7684\u4FA7\u680F\u5217\u53EF\u6EDA\u52A8\u3002
+     \u7528 :has(> ...) \u5B9A\u4F4D\u5217\u6839\uFF1AsidebarCol \u4E0E\u771F\u6B63\u7684\u4FA7\u680F\u6839\u4E4B\u95F4\u9694\u7740\u4E00\u5C42
+     display:contents \u7684\u63D2\u69FD\u5305\u88C5\uFF0C\u7528\u5B50\u5143\u7D20\u5E8F\u53F7\u4F1A\u9009\u9519\u3002 */
+  [data-mobile-nav="frame"] :has(> [class$="_regionArea"]) {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    scrollbar-width: none !important;
+  }
+  [data-mobile-nav="frame"] :has(> [class$="_regionArea"])::-webkit-scrollbar {
+    display: none !important;
+  }
+  [data-mobile-nav="frame"] [class$="_regionArea"] {
+    min-height: min(55vh, 420px) !important;
   }
 
   /* --- Bottom safe area (home indicator) ---
@@ -940,6 +997,36 @@ var MOBILE_CSS = `
     max-width: calc(100vw - 104px) !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+  }
+  /* The header's leading cluster must SCROLL on a phone instead of painting over
+     its neighbours. DSH's title row is a flex row whose every cluster is
+     flex: none (ui-conversation ConversationRoot.module.css: titleRow /
+     titleCluster / headerUtilities / headerCorner), and it never clips: when the
+     crumbs plus the slot chips do not fit, the overflowing cluster simply draws
+     on top of the next one \u2014 on a phone \u300CN \u4E2A\u5B50\u667A\u80FD\u4F53\u300D ends up printed over
+     \u300CN \u4E2A\u540E\u53F0\u4EFB\u52A1\u8FD0\u884C\u4E2D\u300D, and the trailing corner control is covered as well.
+     Giving the flexible cluster overflow-x: auto clips its own content at its
+     own edge and makes the chips reachable by swiping, while the utilities and
+     the corner seat stay pinned and always tappable. */
+  [data-phase] header [class$="_titleRow"] [class$="_titleCluster"] {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+  /* Children keep their intrinsic width; shrinking is what produced the pile-up. */
+  [data-phase] header [class$="_titleRow"] [class$="_titleCluster"] > * {
+    flex: 0 0 auto !important;
+  }
+  /* 3px thumb: a 36px header has no room for a full-size scrollbar. Styling
+     ::-webkit-scrollbar also opts the phone out of overlay scrollbars, so the
+     hint that the row scrolls stays visible instead of only appearing mid-swipe. */
+  [data-phase] header [class$="_titleRow"] [class$="_titleCluster"]::-webkit-scrollbar {
+    height: 3px;
+  }
+  [data-phase] header [class$="_titleRow"] [class$="_titleCluster"]::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: var(--dsw-alias-scrollbar-bg-l2, rgba(255, 255, 255, 0.28));
   }
   /* The directory toggle sits at the far left of the header (the header
      is position:relative; the data-slot wrappers are display:contents). */
@@ -1512,49 +1599,17 @@ var MOBILE_CSS = `
   }
 }
 
-/* ---------- \u79FB\u52A8\u7AEF\u6587\u4EF6\u5B88\u536B\uFF08issue #17\uFF0C\u79FB\u690D\u4E0A\u6E38 06f69fd\uFF09 ---------- */
-
+/* ---------- \u79FB\u52A8\u7AEF\u300C\u6DFB\u52A0\u5DE5\u4F5C\u533A\u300D\u5165\u53E3\u9690\u85CF\uFF08issue #17\uFF0C#205 \u8D77\u6309\u5BBF\u4E3B\u7C7B\u578B\u5224\u5B9A\uFF09 ----------
+ * \u53EA\u5728\u684C\u9762\u5BBF\u4E3B\u7684\u7A84\u5C4F\u9690\u85CF\uFF08\u7CFB\u7EDF\u6587\u4EF6\u9009\u62E9\u5668\uFF0C\u624B\u673A\u70B9\u4E86\u5FC5\u5931\u8D25\uFF09\uFF1Bdsh web CLI / Linux
+ * \u7528\u7F51\u9875\u6587\u4EF6\u9009\u62E9\u5668\uFF0C\u624B\u673A\u4E0A\u4ECD\u53EF\u7528\uFF0C\u56E0\u6B64\u4FDD\u7559\u5165\u53E3\u3002\u5224\u5B9A\u903B\u8F91\u5728 add-workspace.ts\uFF0C\u8FD9\u91CC
+ * \u53EA\u662F\u6837\u5F0F\u515C\u5E95\uFF1B\u4E0B\u62C9\u83DC\u5355\u91CC\u7684\u7EAF\u6587\u672C\u9879\u7531 MutationObserver \u6309\u6587\u6848\u9690\u85CF\u3002 */
 @media (max-width: 1023px) {
-  /* \u9690\u85CF\u300C\u6DFB\u52A0\u5DE5\u4F5C\u533A\u300D\u5165\u53E3\uFF08\u624B\u673A\u4E0A\u914D\u5DE5\u4F5C\u533A\u65E0\u610F\u4E49\uFF09\u3002
-     \u56FE\u6807\u6309\u94AE\u7684 aria-label \u968F\u8BED\u8A00\u53D8\u5316\uFF08zh\u300C\u6DFB\u52A0\u5DE5\u4F5C\u533A\u300D/ en\u300CAdd workspace\u300D\uFF09\uFF0C
-     \u4E24\u79CD\u90FD\u8986\u76D6\uFF1B\u4E0B\u62C9\u83DC\u5355\u91CC\u7684\u300C\u6DFB\u52A0\u5DE5\u4F5C\u533A\u2026\u300D\u9879\u7531 fileGuard.ts \u7684 MutationObserver
-     \u6309\u6587\u6848\u515C\u5E95\u9690\u85CF\uFF08CSS \u9009\u4E0D\u5230\u7EAF\u6587\u672C\u8282\u70B9\uFF09\u3002\u684C\u9762\u7AEF\u7167\u5E38\u4FDD\u7559\u3002 */
+  /* \u56FE\u6807\u6309\u94AE\u7684 aria-label \u968F\u8BED\u8A00\u53D8\u5316\uFF08zh\u300C\u6DFB\u52A0\u5DE5\u4F5C\u533A\u300D/ en\u300CAdd workspace\u300D\uFF09\uFF0C\u4E24\u79CD\u90FD\u8986\u76D6\u3002 */
   button[aria-label="\u6DFB\u52A0\u5DE5\u4F5C\u533A"],
   button[aria-label="\u6DFB\u52A0\u5DE5\u4F5C\u533A\u2026"],
   button[aria-label="Add workspace"],
   button[aria-label="Add workspace\u2026"] {
     display: none !important;
-  }
-
-  /* \u6587\u4EF6\u94FE\u63A5\u65C1\u7684\u300C\u590D\u5236\u300D\u6309\u94AE\uFF08issue #17\uFF1A\u590D\u5236\u6587\u4EF6\u5185\u5BB9\uFF09
-     \u6302\u5728\u5BF9\u8BDD\u91CC\u7684\u6587\u4EF6\u94FE\u63A5\uFF08<button>/<a>\uFF0C\u6587\u6848\u5373\u8DEF\u5F84\uFF09\u7D27\u90BB\u4F4D\u7F6E\uFF0C\u7531 fileGuard.ts
-     \u6CE8\u5165\u3002\u684C\u9762\u7AEF\u4E0D\u6CE8\u5165\u3001\u4E0D\u663E\u793A\uFF1B\u8FD9\u91CC\u518D\u515C\u5E95\u4E00\u5C42\u3002\u6587\u4EF6\u94FE\u63A5\u591A\u4E3A inline\uFF0C\u6309\u94AE\u7528
-     inline-flex \u7D27\u8DDF\u5176\u540E\u5373\u53EF\u3002 */
-  [data-mobile-nav="copy-file"] {
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    margin-left: 6px !important;
-    vertical-align: baseline !important;
-    height: 22px !important;
-    padding: 0 8px !important;
-    border: 1px solid var(--dsw-alias-border-l1, rgba(0, 0, 0, .14)) !important;
-    border-radius: 6px !important;
-    background: var(--dsw-alias-bg-layer-1, #fff) !important;
-    color: var(--dsw-alias-label-primary, inherit) !important;
-    font-family: inherit !important;
-    font-size: 11px !important;
-    line-height: 1 !important;
-    cursor: pointer !important;
-    -webkit-tap-highlight-color: transparent !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .12) !important;
-  }
-  [data-mobile-nav="copy-file"]:active {
-    background: var(--dsw-alias-interactive-bg-hover, rgba(0, 0, 0, .06)) !important;
-  }
-  [data-mobile-nav="copy-file"][disabled] {
-    opacity: .55 !important;
-    cursor: default !important;
   }
 }
 
@@ -1623,171 +1678,31 @@ function persistLayoutFromUrl(urlValue) {
   }
 }
 
-// client/mobile/fileGuard.ts
-var GUARD_MSG = "\u624B\u673A\u4E0A\u65E0\u6CD5\u76F4\u63A5\u6253\u5F00\u7535\u8111\u4E0A\u7684\u6587\u4EF6";
+// client/mobile/add-workspace.ts
 var WS_LABELS = ["\u6DFB\u52A0\u5DE5\u4F5C\u533A", "\u6DFB\u52A0\u5DE5\u4F5C\u533A\u2026", "Add workspace", "Add workspace\u2026"];
-var COPY_LABEL = "\u590D\u5236";
-function looksLikeFilePath(text) {
-  const t = (text ?? "").trim();
-  if (t.length < 3 || t.length > 320) return false;
-  if (/^(\/|~\/|\.\.?\/|[A-Za-z]:\\)/.test(t)) return true;
-  if (/\/[\w.\-]+\.\w{1,12}$/.test(t)) return true;
-  if (/[\w.\-]+\/[\w.\-]+\.\w{1,12}/.test(t)) return true;
-  return false;
-}
-function isInsidePocket(el) {
-  return el !== null && el.closest('[data-mobile-nav="frame"]') !== null;
-}
-async function copyText(text) {
-  try {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-      return true;
+function startAddWorkspaceHider() {
+  const checkOne = (node) => {
+    if (node.nodeType !== 1) return;
+    const el = node;
+    const txt = (el.getAttribute("aria-label") ?? el.textContent ?? "").trim();
+    if (WS_LABELS.includes(txt)) {
+      el.style.display = "none";
+      el.setAttribute("data-mobile-nav-hide", "add-workspace");
     }
-  } catch {
-  }
-  try {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    ta.style.position = "fixed";
-    ta.style.top = "-9999px";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.focus();
-    ta.select();
-    const okCopy = document.execCommand("copy");
-    ta.remove();
-    return okCopy;
-  } catch {
-    return false;
-  }
-}
-function startFileGuard(readFile) {
-  let toastEl = null;
-  let toastTimer = null;
-  const showToast = (text) => {
-    if (toastEl === null) {
-      toastEl = document.createElement("div");
-      toastEl.setAttribute("data-mobile-nav", "file-guard-toast");
-      Object.assign(toastEl.style, {
-        position: "fixed",
-        left: "50%",
-        bottom: "64px",
-        transform: "translateX(-50%)",
-        maxWidth: "84vw",
-        zIndex: "9999",
-        padding: "10px 14px",
-        borderRadius: "10px",
-        background: "rgba(20,22,28,.92)",
-        color: "#fff",
-        fontSize: "13px",
-        lineHeight: "1.4",
-        textAlign: "center",
-        fontFamily: "inherit",
-        boxShadow: "0 4px 16px rgba(0,0,0,.28)",
-        pointerEvents: "none",
-        opacity: "0",
-        transition: "opacity .18s ease"
+  };
+  const sel = '[role="menuitem"],[role="option"],li,button,a';
+  document.querySelectorAll(sel).forEach(checkOne);
+  const observer = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      m.addedNodes.forEach((n) => {
+        if (n.nodeType !== 1) return;
+        checkOne(n);
+        n.querySelectorAll?.(sel).forEach(checkOne);
       });
-      document.body.appendChild(toastEl);
     }
-    toastEl.textContent = text;
-    requestAnimationFrame(() => {
-      if (toastEl !== null) toastEl.style.opacity = "1";
-    });
-    if (toastTimer !== null) window.clearTimeout(toastTimer);
-    toastTimer = window.setTimeout(() => {
-      if (toastEl !== null) toastEl.style.opacity = "0";
-    }, 2600);
-  };
-  const onClick = (event) => {
-    const target = event.target;
-    if (target === null || isInsidePocket(target)) return;
-    const el = target.closest("button, a");
-    if (el === null) return;
-    if (!looksLikeFilePath(el.textContent)) return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    showToast(GUARD_MSG);
-  };
-  document.addEventListener("click", onClick, true);
-  const injectCopyButtons = () => {
-    const links = document.querySelectorAll("button, a");
-    links.forEach((el) => {
-      if (el.getAttribute("data-mobile-nav-copy") === "1") return;
-      const txt = (el.textContent ?? "").trim();
-      if (!looksLikeFilePath(txt)) return;
-      if (isInsidePocket(el)) return;
-      el.setAttribute("data-mobile-nav-copy", "1");
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.setAttribute("data-mobile-nav", "copy-file");
-      btn.textContent = COPY_LABEL;
-      btn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const filePath = (el.textContent ?? "").trim();
-        btn.disabled = true;
-        btn.textContent = "\u2026";
-        try {
-          const res = await readFile(filePath);
-          if (!res?.ok) {
-            showToast(res?.error?.message ?? "\u590D\u5236\u5931\u8D25");
-            return;
-          }
-          const content = res.value?.content ?? "";
-          const copied = await copyText(content);
-          if (copied) {
-            const kb = Math.max(1, Math.round((res.value?.size ?? content.length) / 1024));
-            showToast(`\u5DF2\u590D\u5236\u6587\u4EF6\u5185\u5BB9\uFF08${kb} KB\uFF09`);
-          } else {
-            showToast("\u590D\u5236\u5931\u8D25\uFF0C\u8BF7\u624B\u52A8\u9009\u62E9");
-          }
-        } catch (err) {
-          showToast(err instanceof Error ? err.message : "\u590D\u5236\u5931\u8D25");
-        } finally {
-          btn.disabled = false;
-          btn.textContent = COPY_LABEL;
-        }
-      });
-      el.parentElement?.insertBefore(btn, el.nextSibling);
-    });
-  };
-  injectCopyButtons();
-  const copyObserver = new MutationObserver(() => injectCopyButtons());
-  copyObserver.observe(document.body, { childList: true, subtree: true });
-  const hideWsEntries = () => {
-    const checkOne = (node) => {
-      if (node.nodeType !== 1) return;
-      const el = node;
-      const txt = (el.getAttribute("aria-label") ?? el.textContent ?? "").trim();
-      if (WS_LABELS.includes(txt)) {
-        el.style.display = "none";
-        el.setAttribute("data-mobile-nav-hide", "add-workspace");
-      }
-    };
-    const sel = '[role="menuitem"],[role="option"],li,button,a';
-    document.querySelectorAll(sel).forEach(checkOne);
-    const observer = new MutationObserver((mutations) => {
-      for (const m of mutations) {
-        m.addedNodes.forEach((n) => {
-          if (n.nodeType !== 1) return;
-          checkOne(n);
-          n.querySelectorAll?.(sel).forEach(checkOne);
-        });
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
-  };
-  const disconnectWs = hideWsEntries();
-  return () => {
-    document.removeEventListener("click", onClick, true);
-    copyObserver.disconnect();
-    disconnectWs();
-    if (toastTimer !== null) window.clearTimeout(toastTimer);
-    toastEl?.remove();
-  };
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+  return () => observer.disconnect();
 }
 
 // client/mobile/locales.ts
@@ -1870,28 +1785,24 @@ function mobileApply(ctx) {
   ctx.effect(() => {
     if (!narrow.matches) return () => {
     };
-    const getWorkspaceCwd = () => {
+    let active = true;
+    let dispose = null;
+    const load = async () => {
       try {
-        const ws = ctx.get?.("workspaces") ?? ctx.workspaces;
-        const list = ws?.list;
-        const arr = Array.isArray(list) ? list : list && typeof list === "object" && "value" in list ? list.value : null;
-        if (Array.isArray(arr)) {
-          for (const w of arr) {
-            const c = w?.cwd ?? w?.root;
-            if (typeof c === "string" && c) return c;
-          }
-        }
+        const result = await ctx.connection.rpc.call(POCKET_RPC_CHANNEL, POCKET_ENDPOINTS.status, {});
+        if (!active) return;
+        if (result?.ok === true && result.value?.desktop === false) return;
+        dispose = startAddWorkspaceHider();
       } catch {
+        if (active) dispose = startAddWorkspaceHider();
       }
-      return "";
     };
-    const readFile = (filePath) => ctx.connection.rpc.call(
-      POCKET_RPC_CHANNEL,
-      POCKET_ENDPOINTS.fileRead,
-      { path: filePath, cwd: getWorkspaceCwd() }
-    );
-    return startFileGuard(readFile);
-  }, "dsh-mobile-nav: file open guard + copy button + hide add-workspace (issue #17)");
+    void load();
+    return () => {
+      active = false;
+      dispose?.();
+    };
+  }, "dsh-mobile-nav: hide add-workspace on desktop hosts only (issue #17 #205)");
   ctx.effect(() => {
     if (!narrow.matches) return () => {
     };
@@ -2139,6 +2050,7 @@ var zh2 = {
   "restartingDetail": "\u23F3 \u6B63\u5728\u91CD\u542F\u751F\u6548\uFF08\u901A\u5E38 10-30 \u79D2\uFF09\xB7 \u5DF2\u7B49\u5F85 {s} \u79D2",
   "lanTitle": "\u{1F4F6} \u5C40\u57DF\u7F51\uFF08\u540C\u4E00 WiFi\uFF09",
   "lanHint": "\u624B\u673A\u8FDE\u63A5\u540C\u4E00 WiFi \u540E\u626B\u7801\u5373\u53EF\u6253\u5F00",
+  "qrFailed": "\u4E8C\u7EF4\u7801\u751F\u6210\u5931\u8D25\uFF1A\u901A\u5E38\u662F\u7F3A\u5C11 qrcode \u4F9D\u8D56\u3002\u8BF7\u7528 dsh plugin add \u5B89\u88C5\uFF0C\u6216\u5728\u63D2\u4EF6\u76EE\u5F55\u6267\u884C npm install --omit=dev \u540E\u91CD\u542F",
   "lanAddress": "\u5C40\u57DF\u7F51\u5730\u5740",
   "lanAddressAuto": "\u81EA\u52A8\uFF08\u63A8\u8350\uFF09",
   "lanAddressHint": "\u9AD8\u7EA7\u9009\u9879\uFF1A\u4E00\u822C\u4E0D\u9700\u8981\u4FEE\u6539\uFF1B\u4F7F\u7528 Tailscale/VPN \u7B49\u8FDC\u7A0B\u8BBF\u95EE\u65F6\u53EF\u624B\u52A8\u9009\u62E9",
@@ -2255,6 +2167,7 @@ var en2 = {
   "restartingDetail": "\u23F3 Restarting to apply (usually 10-30s) \xB7 {s}s elapsed",
   "lanTitle": "\u{1F4F6} LAN (same Wi-Fi)",
   "lanHint": "Scan to open once your phone is on the same Wi-Fi",
+  "qrFailed": "QR generation failed: the qrcode dependency is usually missing. Install via dsh plugin add, or run npm install --omit=dev in the plugin directory and restart",
   "lanAddress": "LAN address",
   "lanAddressAuto": "Auto (recommended)",
   "lanAddressHint": "Advanced option: usually no change needed; select manually when accessing through Tailscale/VPN",
@@ -2444,7 +2357,7 @@ button[data-dshp]:focus-visible, button[data-dshp-toggle]:focus-visible, [data-d
   [data-dsh-pocket-overlay], [data-dsh-pocket-panel] { animation: none; }
 }
 `;
-var copyText2 = async (text) => {
+var copyText = async (text) => {
   try {
     await navigator.clipboard.writeText(text);
     return true;
@@ -2477,6 +2390,11 @@ function PocketSettingsTab({ rpcCall, t }) {
   const [tunnelState, setTunnelState] = (0, import_react2.useState)(null);
   const [restartNotice, setRestartNotice] = (0, import_react2.useState)(false);
   const [versionInfo, setVersionInfo] = (0, import_react2.useState)({ current: null, loaded: null, githubLatest: null, githubUrl: null, loading: true, failed: false });
+  const qrImage = (src, alt) => src ? (0, import_react2.createElement)("img", { src, alt, style: styles.qr }) : (0, import_react2.createElement)("div", {
+    role: "alert",
+    "data-pocket-qr-error": "1",
+    style: { ...styles.qr, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", padding: 14, fontSize: 12, lineHeight: 1.6, textAlign: "left", color: "var(--dsw-alias-label-primary,inherit)" }
+  }, t("qrFailed"));
   const tagVersion = versionInfo.githubLatest ?? versionInfo.current;
   const installCmd = tagVersion ? `dsh plugin --profile web add github:IronManCantFix/dsh-pocket#v${tagVersion} -w` : UPDATE_CMD;
   const [restartState, setRestartState] = (0, import_react2.useState)(null);
@@ -2533,7 +2451,7 @@ function PocketSettingsTab({ rpcCall, t }) {
   (0, import_react2.useEffect)(() => () => clearTimeout(copiedTimerRef.current), []);
   const copyWithFeedback = async (key, text) => {
     clearTimeout(copiedTimerRef.current);
-    const ok = await copyText2(text);
+    const ok = await copyText(text);
     setCopied(ok ? key : `!${key}`);
     copiedTimerRef.current = setTimeout(() => setCopied(null), ok ? 2500 : 3e3);
   };
@@ -3027,7 +2945,7 @@ function PocketSettingsTab({ rpcCall, t }) {
       status?.lanEnabled === false ? (0, import_react2.createElement)("div", { style: { marginTop: 8, fontSize: 12, color: "var(--dsw-alias-state-warn-primary,#b45309)", lineHeight: 1.5 } }, t("lanDisabledHint")) : lanUrl ? (0, import_react2.createElement)(
         "div",
         null,
-        (0, import_react2.createElement)("img", { src: status.lanQr, alt: "LAN QR", style: styles.qr }),
+        qrImage(status.lanQr, "LAN QR"),
         (0, import_react2.createElement)("div", { style: styles.code }, lanUrl),
         (0, import_react2.createElement)("div", { style: styles.muted }, t("lanHint")),
         (0, import_react2.createElement)(
@@ -3084,7 +3002,7 @@ function PocketSettingsTab({ rpcCall, t }) {
       tunnelUrl ? (0, import_react2.createElement)(
         "div",
         null,
-        (0, import_react2.createElement)("img", { src: status.tunnelQr, alt: "Tunnel QR", style: styles.qr }),
+        qrImage(status.tunnelQr, "Tunnel QR"),
         (0, import_react2.createElement)("div", { style: styles.code }, tunnelUrl),
         (0, import_react2.createElement)("div", { style: styles.muted }, t("wanHint")),
         status.accessToken ? customPin?.which === "public" ? customPinRow("public") : (0, import_react2.createElement)(
