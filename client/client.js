@@ -118,6 +118,8 @@ function redactStatus(s) {
     tunnelUrl: s?.tunnelUrl ?? null,
     tunnelQr: s?.tunnelQr ?? null,
     tunnelState: s?.tunnelState ?? { phase: "idle" },
+    // 就绪度快照（自愈排障用；只有计数/时间戳/错误文案，无敏感信息）
+    tunnelHealth: s?.tunnelHealth ?? null,
     // NAS 反向隧道（frp）：token 永不进入浏览器
     frpRunning: s?.frpRunning === true,
     frpState: s?.frpState ?? { phase: "idle" },
@@ -2083,6 +2085,8 @@ var zh2 = {
   "stopTunnel": "\u5173\u95ED\u516C\u7F51",
   "enable": "\u5F00\u542F\u516C\u7F51\u8BBF\u95EE",
   "opening": "\u5F00\u542F\u4E2D\u2026",
+  "reconnecting": "\u91CD\u8FDE\u4E2D\u2026",
+  "stopReconnect": "\u505C\u6B62\u91CD\u8FDE",
   "disclaimerTitle": "\u26A0\uFE0F \u5B89\u5168\u514D\u8D23\u58F0\u660E",
   "disclaimerBody": "\u5F00\u542F\u516C\u7F51 = \u628A\u672C\u673A DSH\uFF08\u80FD\u6267\u884C\u4EE3\u7801\uFF09\u66B4\u9732\u5230\u4E92\u8054\u7F51\u3002\u4EFB\u4F55\u4EBA\u62FF\u5230\u516C\u7F51\u94FE\u63A5\u548C\u5BC6\u7801\uFF0C\u90FD\u80FD\u8BBF\u95EE\u751A\u81F3\u64CD\u4F5C\u4F60\u7684\u7535\u8111\u3002\u8BF7\u786E\u8BA4\uFF1A\u2460 \u4F7F\u7528\u81EA\u5B9A\u4E49\u5F3A\u5BC6\u7801\u6216\u59A5\u5584\u4FDD\u7BA1\u81EA\u52A8\u5BC6\u7801\uFF1B\u2461 \u7528\u5B8C\u7ACB\u5373\u300C\u5173\u95ED\u516C\u7F51\u300D\uFF1B\u2462 \u516C\u53F8/\u6D89\u5BC6\u7F51\u7EDC\u8BF7\u5148\u786E\u8BA4\u5408\u89C4\u3002",
   "disclaimerAgree": "\u6211\u5DF2\u77E5\u60C5\uFF0C\u540C\u610F\u5F00\u542F",
@@ -2200,6 +2204,8 @@ var en2 = {
   "stopTunnel": "Stop",
   "enable": "Enable anywhere",
   "opening": "Enabling\u2026",
+  "reconnecting": "Reconnecting\u2026",
+  "stopReconnect": "Stop reconnecting",
   "disclaimerTitle": "\u26A0\uFE0F Security disclaimer",
   "disclaimerBody": "Enabling public access exposes this computer\u2019s DSH (which can execute code) to the internet. Anyone with the public link and PIN can reach \u2014 and operate \u2014 your computer. Please confirm: \u2460 use a strong custom PIN or keep the auto-generated one safe; \u2461 turn public access OFF as soon as you\u2019re done; \u2462 on a corporate/classified network, confirm compliance first.",
   "disclaimerAgree": "I understand and agree",
@@ -2691,6 +2697,7 @@ function PocketSettingsTab({ rpcCall, t }) {
   const tunnelUrl = status?.tunnelUrl;
   const tunnelPhase = tunnelState?.phase ?? "idle";
   const tunnelStarting = ["downloading", "starting", "registering"].includes(tunnelPhase);
+  const tunnelRestarting = tunnelPhase === "restarting";
   const tunnelStateDetail = tunnelState?.detail ?? "";
   const tunnelStateStarted = tunnelState?.startedAt ?? null;
   const frpPhase = status?.frpState?.phase ?? "idle";
@@ -3016,8 +3023,14 @@ function PocketSettingsTab({ rpcCall, t }) {
       ) : (0, import_react2.createElement)(
         "div",
         null,
-        (0, import_react2.createElement)("button", { style: { ...styles.primary, margin: "8px 0" }, "data-dshp": "primary", onClick: startTunnel, disabled: busy || tunnelStarting }, busy ? t("opening") : t("enable")),
-        tunnelStarting ? (0, import_react2.createElement)(
+        // 自动重连中：旧地址已失效（tunnelUrl 为空），给一个「停止重连」出口——
+        // 否则用户只能干等最多 healthMaxRestarts 轮退避重建，无法取消。
+        tunnelRestarting ? (0, import_react2.createElement)("button", { style: { ...styles.btn, margin: "8px 0", color: "var(--dsw-alias-state-error-primary,#dc2626)" }, "data-dshp": "ghost", onClick: stopTunnel }, t("stopReconnect")) : (0, import_react2.createElement)("button", { style: { ...styles.primary, margin: "8px 0" }, "data-dshp": "primary", onClick: startTunnel, disabled: busy || tunnelStarting }, busy ? t("opening") : t("enable")),
+        tunnelRestarting ? (0, import_react2.createElement)(
+          "div",
+          { style: { marginTop: 4, fontSize: 12, color: "var(--dsw-alias-state-warn-primary,#b45309)" } },
+          errText(tunnelStateDetail) || t("reconnecting")
+        ) : tunnelStarting ? (0, import_react2.createElement)(
           "div",
           { style: { marginTop: 4, fontSize: 12, color: "var(--dsw-alias-label-secondary,#6b7280)" } },
           tunnelPhase === "downloading" ? fmt(t, "downloading", { s: elapsed(tunnelStateStarted) }) : fmt(t, "connecting", { s: elapsed(tunnelStateStarted), suffix: elapsed(tunnelStateStarted) > 30 ? t("slowHint") : "" })

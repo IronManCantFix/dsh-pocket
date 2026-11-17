@@ -535,6 +535,8 @@ function PocketSettingsTab({ rpcCall, t }) {
   const tunnelUrl = status?.tunnelUrl;
   const tunnelPhase = tunnelState?.phase ?? 'idle';
   const tunnelStarting = ['downloading', 'starting', 'registering'].includes(tunnelPhase);
+  // 自愈自动重建中（就绪探活连续失败 / 进程崩溃后）：快速隧道会换新地址，需重新扫码
+  const tunnelRestarting = tunnelPhase === 'restarting';
   const tunnelStateDetail = tunnelState?.detail ?? '';
   const tunnelStateStarted = tunnelState?.startedAt ?? null;
 
@@ -813,16 +815,23 @@ function PocketSettingsTab({ rpcCall, t }) {
           h('button', { style: styles.btn, 'data-dshp': 'ghost', onClick: stopTunnel }, t('stopTunnel')),
         )
         : h('div', null,
-          h('button', { style: { ...styles.primary, margin: '8px 0' }, 'data-dshp': 'primary', onClick: startTunnel, disabled: busy || tunnelStarting }, busy ? t('opening') : t('enable')),
-          tunnelStarting
-            ? h('div', { style: { marginTop: 4, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
-              tunnelPhase === 'downloading'
-                ? fmt(t, 'downloading', { s: elapsed(tunnelStateStarted) })
-                : fmt(t, 'connecting', { s: elapsed(tunnelStateStarted), suffix: elapsed(tunnelStateStarted) > 30 ? t('slowHint') : '' }))
-            : tunnelPhase === 'error'
-              ? h('div', { style: { marginTop: 4, fontSize: 12, color: 'var(--dsw-alias-state-error-primary,#dc2626)' } },
-                fmt(t, 'error', { detail: errText(tunnelStateDetail) || t('unknownError') }))
-              : null,
+          // 自动重连中：旧地址已失效（tunnelUrl 为空），给一个「停止重连」出口——
+          // 否则用户只能干等最多 healthMaxRestarts 轮退避重建，无法取消。
+          tunnelRestarting
+            ? h('button', { style: { ...styles.btn, margin: '8px 0', color: 'var(--dsw-alias-state-error-primary,#dc2626)' }, 'data-dshp': 'ghost', onClick: stopTunnel }, t('stopReconnect'))
+            : h('button', { style: { ...styles.primary, margin: '8px 0' }, 'data-dshp': 'primary', onClick: startTunnel, disabled: busy || tunnelStarting }, busy ? t('opening') : t('enable')),
+          tunnelRestarting
+            ? h('div', { style: { marginTop: 4, fontSize: 12, color: 'var(--dsw-alias-state-warn-primary,#b45309)' } },
+              errText(tunnelStateDetail) || t('reconnecting'))
+            : tunnelStarting
+              ? h('div', { style: { marginTop: 4, fontSize: 12, color: 'var(--dsw-alias-label-secondary,#6b7280)' } },
+                tunnelPhase === 'downloading'
+                  ? fmt(t, 'downloading', { s: elapsed(tunnelStateStarted) })
+                  : fmt(t, 'connecting', { s: elapsed(tunnelStateStarted), suffix: elapsed(tunnelStateStarted) > 30 ? t('slowHint') : '' }))
+              : tunnelPhase === 'error'
+                ? h('div', { style: { marginTop: 4, fontSize: 12, color: 'var(--dsw-alias-state-error-primary,#dc2626)' } },
+                  fmt(t, 'error', { detail: errText(tunnelStateDetail) || t('unknownError') }))
+                : null,
         ),
     ),
 

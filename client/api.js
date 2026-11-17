@@ -76,6 +76,8 @@ export function redactStatus(s) {
     tunnelUrl: s?.tunnelUrl ?? null,
     tunnelQr: s?.tunnelQr ?? null,
     tunnelState: s?.tunnelState ?? { phase: 'idle' },
+    // 就绪度快照（自愈排障用；只有计数/时间戳/错误文案，无敏感信息）
+    tunnelHealth: s?.tunnelHealth ?? null,
     // NAS 反向隧道（frp）：token 永不进入浏览器
     frpRunning: s?.frpRunning === true,
     frpState: s?.frpState ?? { phase: 'idle' },
