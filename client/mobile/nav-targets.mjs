@@ -10,9 +10,14 @@
  * 抽屉里每一次点击都当成外部点击，刚打开的菜单立刻随抽屉一起消失。
  * 生成的类名形如 pI_x6G_sidebarCol，哈希前缀每次构建都会变，后缀稳定。
  *
+ * 且**不能用 `frame > ` 直接子选择器**：DSH Desktop 的 dsh-desktop-client-ui
+ * 占着 desktop.mode.content 单槽，把列包进一层 div style="display:contents"
+ * （只改盒树不改 DOM 树），sidebarCol 在部分宿主形态下就不是 frame 的直接子节点。
+ * 用后代选择器两种形态都能命中。
+ *
  * @type {string}
  */
-export const DRAWER_SELECTOR = '[data-mobile-nav="frame"] > [class*="_sidebarCol"]'
+export const DRAWER_SELECTOR = '[data-mobile-nav="frame"] [class*="_sidebarCol"]'
 
 /**
  * 抽屉开关 —— 点它不该被「点抽屉外就关」二次触发。

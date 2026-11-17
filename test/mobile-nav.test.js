@@ -84,7 +84,7 @@ test('浮层内的点击被识别为 overlay（不该关抽屉）—— issue #7
 
 test('选择器常量与 MobileNavOverlay 的用法保持一致', () => {
   const src = readFileSync(new URL('../client/mobile/MobileNavOverlay.tsx', import.meta.url), 'utf8');
-  assert.equal(DRAWER_SELECTOR, '[data-mobile-nav="frame"] > [class*="_sidebarCol"]');
+  assert.equal(DRAWER_SELECTOR, '[data-mobile-nav="frame"] [class*="_sidebarCol"]');
   assert.equal(TOGGLE_SELECTOR, '[data-mobile-nav="toggle"], [data-sidebar-opener]');
   assert.ok(
     src.includes("document.querySelector<HTMLElement>(DRAWER_SELECTOR)"),
@@ -241,8 +241,8 @@ test('抽屉收起时不残留窄条：位移用视口宽度 + 兜底隐藏（�
   // 因此先剥掉 /* … */ 注释块再检查。
   const drawerRule = css
     .slice(
-      css.indexOf('[data-mobile-nav="frame"] > [class*="_sidebarCol"] {'),
-      css.indexOf('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > [class*="_sidebarCol"]'),
+      css.indexOf('[data-mobile-nav="frame"] [class*="_sidebarCol"] {'),
+      css.indexOf('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) [class*="_sidebarCol"]'),
     )
     .replace(/\/\*[\s\S]*?\*\//g, '');
   assert.ok(drawerRule.length > 0, '切出的抽屉规则不能为空（否则断言会假通过）');
@@ -257,16 +257,16 @@ test('抽屉收起时不残留窄条：位移用视口宽度 + 兜底隐藏（�
   // B 兜底：收起态隐藏该列；必须用 visibility 而非 display，否则列脱离网格会让
   // 第 2/3 列的显式 grid-column 错位（issue #5 的教训）。
   assert.ok(
-    css.includes('[data-mobile-nav="frame"][data-sidebar-collapsed] > [class*="_sidebarCol"]'),
+    css.includes('[data-mobile-nav="frame"][data-sidebar-collapsed] [class*="_sidebarCol"]'),
     '收起态要有兜底隐藏规则',
   );
   assert.ok(
-    /\[data-mobile-nav="frame"\]\[data-sidebar-collapsed\] > \[class\*="_sidebarCol"\] \{\s*visibility: hidden/.test(css),
+    /\[data-mobile-nav="frame"\]\[data-sidebar-collapsed\] \[class\*="_sidebarCol"\] \{\s*visibility: hidden/.test(css),
     '兜底要用 visibility: hidden（display:none 会使列脱离网格导致错位）',
   );
   // 展开态仍须可见：两条规则互斥（有/无 data-sidebar-collapsed）。
   assert.ok(
-    css.includes('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > [class*="_sidebarCol"]'),
+    css.includes('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) [class*="_sidebarCol"]'),
     '展开态规则必须保留（含 transform:none 的定位语义）',
   );
 });
@@ -278,13 +278,20 @@ test('DSH 0.2.2 自带抽屉：按类名定位 AppFrame 列，不再依赖子元
   // frame 里插入 div[data-sidebar-mask] 作为第一个子元素。位置选择器因此整体
   // 错位：> :first-child 命中遮罩、> :nth-child(2) 命中侧边栏列，主内容列留在
   // 0px 的第 2 轨 —— 手机上整个会话界面消失，只剩左侧栏/背景。
+  // 必须用**后代**选择器：DSH Desktop 的 dsh-desktop-client-ui 占用
+  // desktop.mode.content 槽，把主/右两列包进一层 display:contents wrapper，
+  // centerCol 因此不是 frame 的直接子节点（真机实测，见下方 #206 用例）。
   assert.ok(
-    /\[data-mobile-nav="frame"\]\s*>\s*\[class\*="_centerCol"\]\s*\{[^}]*grid-column:\s*1\s*!/.test(css),
+    /\[data-mobile-nav="frame"\]\s+\[class\*="_centerCol"\]\s*\{[^}]*grid-column:\s*1\s*!/.test(css),
     '主内容列必须按类名（_centerCol）拉回第 1 轨，不能按子元素序号',
   );
   assert.ok(
-    /\[data-mobile-nav="frame"\]\s*>\s*\[class\*="_sidebarCol"\]\s*\{[^}]*position:\s*absolute\s*!/.test(css),
+    /\[data-mobile-nav="frame"\]\s+\[class\*="_sidebarCol"\]\s*\{[^}]*position:\s*absolute\s*!/.test(css),
     '抽屉列必须按类名（_sidebarCol）定位，不能按 :first-child',
+  );
+  assert.ok(
+    !/\[data-mobile-nav="frame"\]\s*>\s*\[class\*="_(?:centerCol|sidebarCol)"\]/.test(css),
+    '列定位不能加 `>`：Desktop 槽位 wrapper（display:contents）会让直接子选择器失配',
   );
   assert.ok(
     !/\[data-mobile-nav="frame"\]\s*>\s*:nth-child\(2\)/.test(css),
@@ -296,7 +303,7 @@ test('DSH 0.2.2 自带抽屉：按类名定位 AppFrame 列，不再依赖子元
   );
   // 宿主自带遮罩会二次 toggle：必须摘掉，只留插件自己的 backdrop。
   assert.ok(
-    /\[data-mobile-nav="frame"\]\s*>\s*\[data-sidebar-mask\]\s*\{\s*display:\s*none/.test(css),
+    /\[data-mobile-nav="frame"\]\s+\[data-sidebar-mask\]\s*\{\s*display:\s*none/.test(css),
     '必须隐藏宿主 0.2.2 自带的 [data-sidebar-mask]',
   );
   // 宿主自带开抽屉按钮时让位，避免三个入口重叠。
@@ -305,7 +312,7 @@ test('DSH 0.2.2 自带抽屉：按类名定位 AppFrame 列，不再依赖子元
     '有 [data-sidebar-opener] 时要隐藏插件自绘的 toggle',
   );
   // 抽屉本体 / 开关常量同步到类名与官方 opener。
-  assert.match(nav, /DRAWER_SELECTOR = '\[data-mobile-nav="frame"\] > \[class\*="_sidebarCol"\]'/);
+  assert.match(nav, /DRAWER_SELECTOR = '\[data-mobile-nav="frame"\] \[class\*="_sidebarCol"\]'/);
   assert.match(nav, /TOGGLE_SELECTOR = '\[data-mobile-nav="toggle"\], \[data-sidebar-opener\]'/);
 });
 
@@ -314,7 +321,7 @@ test('body 级 portal 浮层必须高于抽屉，否则抽屉里的「更多」�
   // DSH 的 Menu / Tooltip 把浮层 createPortal 到 document.body，和抽屉不在
   // 同一个层叠上下文里，只能靠 z-index 比大小（Menu/Tooltip 都是 1100，抽屉 1200）。
   const drawerZ = Number(
-    css.slice(css.indexOf('> [class*="_sidebarCol"] {')).match(/z-index:\s*(\d+)\s*!/)[1],
+    css.slice(css.indexOf('[class*="_sidebarCol"] {')).match(/z-index:\s*(\d+)\s*!/)[1],
   );
   const portalRule = css.match(
     /body\s*>\s*\[role="menu"\][\s\S]{0,400}?\{[^}]*z-index:\s*(\d+)\s*!/,
@@ -339,7 +346,7 @@ test('body 级 portal 浮层必须高于抽屉，否则抽屉里的「更多」�
 test('body 级模态层必须高于抽屉，否则展开的侧边栏会挡住「设置」窗口', () => {
   const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
   const drawerZ = Number(
-    css.slice(css.indexOf('> [class*="_sidebarCol"] {')).match(/z-index:\s*(\d+)\s*!/)[1],
+    css.slice(css.indexOf('[class*="_sidebarCol"] {')).match(/z-index:\s*(\d+)\s*!/)[1],
   );
   const modalRule = css.match(
     /body\s*>\s*\[role="presentation"\][\s\S]{0,400}?\{[^}]*z-index:\s*(\d+)\s*!/,
@@ -409,4 +416,36 @@ test('issue #196：抽屉工作区保底高度 + 侧栏列可滚动', () => {
   assert.match(css, /\[data-mobile-nav="frame"\] :has\(> \[class\$="_regionArea"\]\)/, '按直接子级定位列根，不靠子元素序号');
   assert.match(css, /overflow-y: auto !important/, '上下固定区块溢出时仍能滚到工作区');
   assert.match(css, /overscroll-behavior: contain !important/);
+});
+
+test('DSH Desktop 槽位 wrapper（display:contents）下列定位仍然生效 —— 真机空白回归', () => {
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  // 现场（DSH Desktop 0.14.0 + 本插件 1.16.14，iPhone 视口 390×844，经 frp 访问）：
+  //   frame 的子节点 = [drawerMask, sidebarCol, <div style="display:contents">,
+  //                     bottomRow, overlayLayer, leadingSeat]
+  // 那个无类名 wrapper 是 dsh-desktop-client-ui 占用 desktop.mode.content 槽后
+  // 套上的 display:contents 容器（只改盒树不改 DOM 树），centerCol 的父节点就是它。
+  // 于是 `frame > [class*="_centerCol"]` 一条都匹配不到：centerCol 留在
+  // grid-area 1/2、被压进 0px 的第 2 轨（实测 x=390 / w=0），手机上整块会话区
+  // 不可见 —— 也就是用户报的「中间空白，只剩左侧」。
+  const frameDescendant = (name) => new RegExp(
+    `\\[data-mobile-nav="frame"\\]\\s+\\[class\\*="${name}"\\]`,
+  );
+  for (const cls of ['_centerCol', '_sidebarCol']) {
+    assert.match(css, frameDescendant(cls), `${cls} 必须用后代选择器（跨过 display:contents wrapper）`);
+    assert.ok(
+      !new RegExp(`\\[data-mobile-nav="frame"\\]\\s*>\\s*\\[class\\*="${cls}"\\]`).test(css),
+      `${cls} 不能用直接子选择器（Desktop 槽位 wrapper 会让它失配）`,
+    );
+  }
+  // 三条状态规则也要跨过 wrapper：抽屉展开 / 收起兜底 / reduced-motion。
+  assert.match(css, /\[data-mobile-nav="frame"\]:not\(\[data-sidebar-collapsed\]\) \[class\*="_sidebarCol"\]/);
+  assert.match(css, /\[data-mobile-nav="frame"\]\[data-sidebar-collapsed\] \[class\*="_sidebarCol"\]/);
+  assert.match(css, /\[data-mobile-nav="frame"\] \[data-sidebar-mask\]\s*\{\s*display:\s*none/);
+  // 打包产物也要带上（否则装出来的还是旧选择器）。
+  const bundle = readFileSync(new URL('../client/client.js', import.meta.url), 'utf8');
+  assert.ok(
+    bundle.includes('frame"] [class*="_centerCol"]') || bundle.includes('frame\\"] [class*=\\"_centerCol\\"]'),
+    'client.js 必须是重新构建的产物（含后代选择器）——先跑 node client/build.mjs',
+  );
 });

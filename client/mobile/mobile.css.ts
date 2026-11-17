@@ -219,8 +219,17 @@ export const MOBILE_CSS = `
      div[data-sidebar-mask] 当第一个子元素，于是 > :nth-child(2) 从主内容列
      变成了侧边栏列，主内容列留在 0px 的第 2 轨 —— 会话界面整个消失（只剩
      背景/左侧栏）。改用官方 CSS Module 类名后缀定位（形如 pI_x6G_centerCol，
-     哈希前缀每次构建都变，后缀稳定），与元素顺序解耦。 */
-  [data-mobile-nav="frame"] > [class*="_centerCol"] {
+     哈希前缀每次构建都变，后缀稳定），与元素顺序解耦。
+
+     **必须用后代选择器，不能加 >**（真机实测，DSH Desktop 0.14.0）：Desktop
+     的 dsh-desktop-client-ui 占着 desktop.mode.content 单槽，把 AppFrame 的
+     主/右两列包进一层 div style="display:contents"；display:contents 只改盒树、
+     不改 DOM 树，所以 centerCol 的父节点是那个无类名 wrapper，加 > 的规则一条都
+     匹配不到。实测该状态下 centerCol 仍落在 0px 的第 2 轨（x=390、w=0）——手机上
+     整块会话区不可见，只剩抽屉/侧栏；改成后代选择器后 x=0、w=390 恢复正常。
+     上游 6db75aa 只在 dsh web CLI 上验证（无槽位占用者 → centerCol 是直接子节点），
+     所以当时用 > 是够的。 */
+  [data-mobile-nav="frame"] [class*="_centerCol"] {
     grid-column: 1 !important;
     grid-row: 1 !important;
     min-width: 0 !important;
@@ -253,7 +262,7 @@ export const MOBILE_CSS = `
      0.2.2 起同样改为按官方类名后缀定位：窄屏自带抽屉时 frame 的第一个子
      元素是 div[data-sidebar-mask]，> :first-child 会把抽屉样式套到遮罩上
      （一块不透明的 92vw 面板），真正的侧边栏列反而留在网格里。 */
-  [data-mobile-nav="frame"] > [class*="_sidebarCol"] {
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] {
     position: absolute !important;
     inset: 0 auto 0 0 !important;
     width: max-content !important;
@@ -321,7 +330,7 @@ export const MOBILE_CSS = `
      overflow:hidden drawer to scrollLeft=102, and every static child (plus the
      fixed overlay) shifts 102px off-screen. With transform:none the overlay is
      viewport-anchored: it dims the full screen and the sheet sits at left:8. */
-  [data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > [class*="_sidebarCol"] {
+  [data-mobile-nav="frame"]:not([data-sidebar-collapsed]) [class*="_sidebarCol"] {
     transform: none !important;
   }
 
@@ -330,7 +339,7 @@ export const MOBILE_CSS = `
      点击被宿主和插件各 toggle 一次（关了又开，看起来抽屉卡住）—— 直接摘掉
      宿主的遮罩，只留我们自己的（与下面 dsh-web-ui-all 遮罩的处理一致，
      issue #67）。 */
-  [data-mobile-nav="frame"] > [data-sidebar-mask] {
+  [data-mobile-nav="frame"] [data-sidebar-mask] {
     display: none !important;
   }
 
@@ -340,7 +349,7 @@ export const MOBILE_CSS = `
      的显式 grid-column 可能重新错位（见上面主内容列 issue #5 的教训）；
      visibility 保留布局盒、不绘制、也不接收指针，对网格零影响。
      只在**收起态**生效：展开态由 :not([data-sidebar-collapsed]) 恢复可见。 */
-  [data-mobile-nav="frame"][data-sidebar-collapsed] > [class*="_sidebarCol"] {
+  [data-mobile-nav="frame"][data-sidebar-collapsed] [class*="_sidebarCol"] {
     visibility: hidden !important;
   }
 
@@ -1125,7 +1134,7 @@ export const MOBILE_CSS = `
      WAAPI replay for the sheets is guarded in mobile-apply.tsx; CSS rules
      cannot reach those programmatic animations.) */
   @media (prefers-reduced-motion: reduce) {
-    [data-mobile-nav="frame"] > [class*="_sidebarCol"] {
+    [data-mobile-nav="frame"] [class*="_sidebarCol"] {
       transition: none !important;
     }
     [data-mobile-nav="backdrop"],
