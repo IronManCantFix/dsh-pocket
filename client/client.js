@@ -186,8 +186,8 @@ function MobileNavToggle({ toggleSidebar, t }) {
 var import_react = require("react");
 
 // client/mobile/nav-targets.mjs
-var DRAWER_SELECTOR = '[data-mobile-nav="frame"] > :first-child';
-var TOGGLE_SELECTOR = '[data-mobile-nav="toggle"]';
+var DRAWER_SELECTOR = '[data-mobile-nav="frame"] > [class*="_sidebarCol"]';
+var TOGGLE_SELECTOR = '[data-mobile-nav="toggle"], [data-sidebar-opener]';
 var NAV_TARGETS = [
   "button[data-dsh-taskboard-entry]",
   "button[data-dsh-ssh-entry]",
@@ -660,11 +660,18 @@ var MOBILE_CSS = `
     padding-top: env(safe-area-inset-top, 0px) !important;
   }
 
-  /* \u4E3B\u5185\u5BB9\u5217\uFF08\u7B2C 2 \u4E2A\u7F51\u683C\u5B50\u5143\u7D20\uFF09\u5728\u5B98\u65B9\u6837\u5F0F\u91CC\u6709\u663E\u5F0F grid-column: 2\u2014\u2014
+  /* \u4E3B\u5185\u5BB9\u5217\u5728\u5B98\u65B9\u6837\u5F0F\u91CC\u6709\u663E\u5F0F grid-column: 2\u2014\u2014
      \u7F51\u683C\u88AB\u538B\u7F29\u6210 [1fr, 0, 0] \u540E\u5B83\u4F1A\u843D\u5728 0px \u7684\u7B2C 2 \u8F68\uFF0C\u6574\u4E2A\u4E3B\u754C\u9762\u88AB\u6324\u51FA
      \u89C6\u53E3\uFF08\u53EA\u5269\u80CC\u666F\u56FE\uFF09\u3002\u5FC5\u987B\u663E\u5F0F\u628A\u5B83\u62C9\u56DE\u7B2C 1 \u8F68\uFF08issue #5\uFF09\u3002
-     \u7B2C 3 \u5217\uFF08details\uFF09\u4FDD\u6301 0 \u8F68\u5373\u53EF\uFF0C\u65E0\u9700\u5904\u7406\u3002 */
-  [data-mobile-nav="frame"] > :nth-child(2) {
+     \u7B2C 3 \u5217\uFF08details\uFF09\u4FDD\u6301 0 \u8F68\u5373\u53EF\uFF0C\u65E0\u9700\u5904\u7406\u3002
+
+     DSH 0.2.2 \u8D77\u4E0D\u80FD\u518D\u6309\u300C\u7B2C\u51E0\u4E2A\u5B50\u5143\u7D20\u300D\u5B9A\u4F4D\uFF1A\u5B98\u65B9 AppFrame \u5728\u7A84\u5C4F\u5F00\u542F
+     \u81EA\u5E26\u62BD\u5C49\uFF08.frame[data-sidebar-drawer]\uFF09\u5E76\u5728 frame \u91CC\u63D2\u5165
+     div[data-sidebar-mask] \u5F53\u7B2C\u4E00\u4E2A\u5B50\u5143\u7D20\uFF0C\u4E8E\u662F > :nth-child(2) \u4ECE\u4E3B\u5185\u5BB9\u5217
+     \u53D8\u6210\u4E86\u4FA7\u8FB9\u680F\u5217\uFF0C\u4E3B\u5185\u5BB9\u5217\u7559\u5728 0px \u7684\u7B2C 2 \u8F68 \u2014\u2014 \u4F1A\u8BDD\u754C\u9762\u6574\u4E2A\u6D88\u5931\uFF08\u53EA\u5269
+     \u80CC\u666F/\u5DE6\u4FA7\u680F\uFF09\u3002\u6539\u7528\u5B98\u65B9 CSS Module \u7C7B\u540D\u540E\u7F00\u5B9A\u4F4D\uFF08\u5F62\u5982 pI_x6G_centerCol\uFF0C
+     \u54C8\u5E0C\u524D\u7F00\u6BCF\u6B21\u6784\u5EFA\u90FD\u53D8\uFF0C\u540E\u7F00\u7A33\u5B9A\uFF09\uFF0C\u4E0E\u5143\u7D20\u987A\u5E8F\u89E3\u8026\u3002 */
+  [data-mobile-nav="frame"] > [class*="_centerCol"] {
     grid-column: 1 !important;
     grid-row: 1 !important;
     min-width: 0 !important;
@@ -692,8 +699,12 @@ var MOBILE_CSS = `
      details pane 1000 and its full-screen frame ::after mask 1050 (issue
      #67: that mask sat on top of the 600 drawer and ate every tap). Still
      far under the fixed-position banners/toasts (z 9999) that float at the
-     viewport level. */
-  [data-mobile-nav="frame"] > :first-child {
+     viewport level.
+
+     0.2.2 \u8D77\u540C\u6837\u6539\u4E3A\u6309\u5B98\u65B9\u7C7B\u540D\u540E\u7F00\u5B9A\u4F4D\uFF1A\u7A84\u5C4F\u81EA\u5E26\u62BD\u5C49\u65F6 frame \u7684\u7B2C\u4E00\u4E2A\u5B50
+     \u5143\u7D20\u662F div[data-sidebar-mask]\uFF0C> :first-child \u4F1A\u628A\u62BD\u5C49\u6837\u5F0F\u5957\u5230\u906E\u7F69\u4E0A
+     \uFF08\u4E00\u5757\u4E0D\u900F\u660E\u7684 92vw \u9762\u677F\uFF09\uFF0C\u771F\u6B63\u7684\u4FA7\u8FB9\u680F\u5217\u53CD\u800C\u7559\u5728\u7F51\u683C\u91CC\u3002 */
+  [data-mobile-nav="frame"] > [class*="_sidebarCol"] {
     position: absolute !important;
     inset: 0 auto 0 0 !important;
     width: max-content !important;
@@ -728,8 +739,17 @@ var MOBILE_CSS = `
      overflow:hidden drawer to scrollLeft=102, and every static child (plus the
      fixed overlay) shifts 102px off-screen. With transform:none the overlay is
      viewport-anchored: it dims the full screen and the sheet sits at left:8. */
-  [data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > :first-child {
+  [data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > [class*="_sidebarCol"] {
     transform: none !important;
+  }
+
+  /* DSH 0.2.2 \u81EA\u5E26\u7684\u62BD\u5C49\u906E\u7F69\u4E0D\u662F\u88AB\u52A8\u56FE\u5C42\uFF1A\u70B9\u5B83\u4F1A\u8C03 toggleSidebar()\u3002\u672C\u63D2\u4EF6
+     \u81EA\u5DF1\u753B\u4E86 backdrop \u5E76\u5728 JS \u91CC\u5904\u7406\u300C\u70B9\u62BD\u5C49\u5916\u5173\u95ED\u300D\uFF0C\u4E24\u5C42\u53E0\u52A0\u4F1A\u5BFC\u81F4\u4E00\u6B21
+     \u70B9\u51FB\u88AB\u5BBF\u4E3B\u548C\u63D2\u4EF6\u5404 toggle \u4E00\u6B21\uFF08\u5173\u4E86\u53C8\u5F00\uFF0C\u770B\u8D77\u6765\u62BD\u5C49\u5361\u4F4F\uFF09\u2014\u2014 \u76F4\u63A5\u6458\u6389
+     \u5BBF\u4E3B\u7684\u906E\u7F69\uFF0C\u53EA\u7559\u6211\u4EEC\u81EA\u5DF1\u7684\uFF08\u4E0E\u4E0B\u9762 dsh-web-ui-all \u906E\u7F69\u7684\u5904\u7406\u4E00\u81F4\uFF0C
+     issue #67\uFF09\u3002 */
+  [data-mobile-nav="frame"] > [data-sidebar-mask] {
+    display: none !important;
   }
 
   /* \u515C\u5E95\uFF1A\u62BD\u5C49\u6536\u8D77\u65F6\uFF0C\u82E5\u4E0A\u9762\u7684\u4F4D\u79FB\u56E0\u7B2C\u4E09\u65B9\u4FA7\u8FB9\u680F\u7ED3\u6784\u6CA1\u80FD\u628A\u9762\u677F\u79FB\u51FA\u89C6\u53E3\uFF0C
@@ -738,7 +758,7 @@ var MOBILE_CSS = `
      \u7684\u663E\u5F0F grid-column \u53EF\u80FD\u91CD\u65B0\u9519\u4F4D\uFF08\u89C1\u4E0A\u9762\u4E3B\u5185\u5BB9\u5217 issue #5 \u7684\u6559\u8BAD\uFF09\uFF1B
      visibility \u4FDD\u7559\u5E03\u5C40\u76D2\u3001\u4E0D\u7ED8\u5236\u3001\u4E5F\u4E0D\u63A5\u6536\u6307\u9488\uFF0C\u5BF9\u7F51\u683C\u96F6\u5F71\u54CD\u3002
      \u53EA\u5728**\u6536\u8D77\u6001**\u751F\u6548\uFF1A\u5C55\u5F00\u6001\u7531 :not([data-sidebar-collapsed]) \u6062\u590D\u53EF\u89C1\u3002 */
-  [data-mobile-nav="frame"][data-sidebar-collapsed] > :first-child {
+  [data-mobile-nav="frame"][data-sidebar-collapsed] > [class*="_sidebarCol"] {
     visibility: hidden !important;
   }
 
@@ -949,6 +969,16 @@ var MOBILE_CSS = `
   /* \u53F3\u8FB9\u680F\u53EF\u89C1\u65F6\uFF0C\u628A\u300C\u6587\u4EF6\u300D\u5165\u53E3\u5DE6\u79FB\u8BA9\u4F4D\uFF0C\u4E24\u8005\u4E0D\u91CD\u53E0\u3002 */
   body:not([data-dsh-pocket-mobile-rightbar="off"]) [data-mobile-nav="files"] {
     right: 44px !important;
+  }
+
+  /* DSH 0.2.2 \u5728\u7A84\u5C4F\u81EA\u5E26\u4E00\u4E2A\u5F00\u62BD\u5C49\u6309\u94AE\uFF08frame leading \u5EA7\u91CC\u7684
+     button[data-sidebar-opener]\uFF0C\u5BF9\u5E94 ui-sidebar HeaderLeadingControls\uFF09\u3002
+     \u5B83\u56FA\u5B9A\u5728\u5DE6\u4E0A\u89D2\u3001\u8C03\u7684\u4E5F\u662F toggleSidebar()\uFF0C\u548C\u6211\u4EEC\u81EA\u7ED8\u7684 toggle + \u6D6E\u52A8
+     fab \u5B8C\u5168\u91CD\u53E0\uFF08\u4E09\u4E2A\u6309\u94AE\u53E0\u5728\u4E00\u5904\uFF09\u3002\u8BA9\u4F4D\u7ED9\u5BBF\u4E3B\uFF1A\u6709 opener \u65F6\u85CF\u6389\u6211\u4EEC\u7684
+     \u4E24\u4E2A\u5165\u53E3\u3002\u7528 :has() \u515C\u4F4F\u65E7\u5BBF\u4E3B\uFF08pre-0.2.2 \u6CA1\u6709 opener\uFF0C\u4ECD\u7528\u6211\u4EEC\u7684\uFF09\u3002 */
+  [data-mobile-nav="frame"]:has([data-sidebar-opener]) [data-mobile-nav="toggle"],
+  [data-mobile-nav="frame"]:has([data-sidebar-opener]) [data-mobile-nav="fab"] {
+    display: none !important;
   }
 
   /* --- Settings dialog on mobile ---
@@ -1457,7 +1487,7 @@ var MOBILE_CSS = `
      WAAPI replay for the sheets is guarded in mobile-apply.tsx; CSS rules
      cannot reach those programmatic animations.) */
   @media (prefers-reduced-motion: reduce) {
-    [data-mobile-nav="frame"] > :first-child {
+    [data-mobile-nav="frame"] > [class*="_sidebarCol"] {
       transition: none !important;
     }
     [data-mobile-nav="backdrop"],

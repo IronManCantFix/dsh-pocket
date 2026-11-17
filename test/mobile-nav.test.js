@@ -84,8 +84,8 @@ test('浮层内的点击被识别为 overlay（不该关抽屉）—— issue #7
 
 test('选择器常量与 MobileNavOverlay 的用法保持一致', () => {
   const src = readFileSync(new URL('../client/mobile/MobileNavOverlay.tsx', import.meta.url), 'utf8');
-  assert.equal(DRAWER_SELECTOR, '[data-mobile-nav="frame"] > :first-child');
-  assert.equal(TOGGLE_SELECTOR, '[data-mobile-nav="toggle"]');
+  assert.equal(DRAWER_SELECTOR, '[data-mobile-nav="frame"] > [class*="_sidebarCol"]');
+  assert.equal(TOGGLE_SELECTOR, '[data-mobile-nav="toggle"], [data-sidebar-opener]');
   assert.ok(
     src.includes("document.querySelector<HTMLElement>(DRAWER_SELECTOR)"),
     '抽屉查询应复用 DRAWER_SELECTOR，避免与 CSS 里的选择器漂移',
@@ -241,8 +241,8 @@ test('抽屉收起时不残留窄条：位移用视口宽度 + 兜底隐藏（�
   // 因此先剥掉 /* … */ 注释块再检查。
   const drawerRule = css
     .slice(
-      css.indexOf('[data-mobile-nav="frame"] > :first-child {'),
-      css.indexOf('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > :first-child'),
+      css.indexOf('[data-mobile-nav="frame"] > [class*="_sidebarCol"] {'),
+      css.indexOf('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > [class*="_sidebarCol"]'),
     )
     .replace(/\/\*[\s\S]*?\*\//g, '');
   assert.ok(drawerRule.length > 0, '切出的抽屉规则不能为空（否则断言会假通过）');
@@ -257,16 +257,54 @@ test('抽屉收起时不残留窄条：位移用视口宽度 + 兜底隐藏（�
   // B 兜底：收起态隐藏该列；必须用 visibility 而非 display，否则列脱离网格会让
   // 第 2/3 列的显式 grid-column 错位（issue #5 的教训）。
   assert.ok(
-    css.includes('[data-mobile-nav="frame"][data-sidebar-collapsed] > :first-child'),
+    css.includes('[data-mobile-nav="frame"][data-sidebar-collapsed] > [class*="_sidebarCol"]'),
     '收起态要有兜底隐藏规则',
   );
   assert.ok(
-    /\[data-mobile-nav="frame"\]\[data-sidebar-collapsed\] > :first-child \{\s*visibility: hidden/.test(css),
+    /\[data-mobile-nav="frame"\]\[data-sidebar-collapsed\] > \[class\*="_sidebarCol"\] \{\s*visibility: hidden/.test(css),
     '兜底要用 visibility: hidden（display:none 会使列脱离网格导致错位）',
   );
   // 展开态仍须可见：两条规则互斥（有/无 data-sidebar-collapsed）。
   assert.ok(
-    css.includes('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > :first-child'),
+    css.includes('[data-mobile-nav="frame"]:not([data-sidebar-collapsed]) > [class*="_sidebarCol"]'),
     '展开态规则必须保留（含 transform:none 的定位语义）',
   );
+});
+
+test('DSH 0.2.2 自带抽屉：按类名定位 AppFrame 列，不再依赖子元素序号', () => {
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  const nav = readFileSync(new URL('../client/mobile/nav-targets.mjs', import.meta.url), 'utf8');
+  // 0.2.2 的 AppFrame 在窄屏开启自带抽屉（.frame[data-sidebar-drawer]），并在
+  // frame 里插入 div[data-sidebar-mask] 作为第一个子元素。位置选择器因此整体
+  // 错位：> :first-child 命中遮罩、> :nth-child(2) 命中侧边栏列，主内容列留在
+  // 0px 的第 2 轨 —— 手机上整个会话界面消失，只剩左侧栏/背景。
+  assert.ok(
+    /\[data-mobile-nav="frame"\]\s*>\s*\[class\*="_centerCol"\]\s*\{[^}]*grid-column:\s*1\s*!/.test(css),
+    '主内容列必须按类名（_centerCol）拉回第 1 轨，不能按子元素序号',
+  );
+  assert.ok(
+    /\[data-mobile-nav="frame"\]\s*>\s*\[class\*="_sidebarCol"\]\s*\{[^}]*position:\s*absolute\s*!/.test(css),
+    '抽屉列必须按类名（_sidebarCol）定位，不能按 :first-child',
+  );
+  assert.ok(
+    !/\[data-mobile-nav="frame"\]\s*>\s*:nth-child\(2\)/.test(css),
+    '不能再出现按序号定位主内容列的规则（0.2.2 会错位到侧边栏列）',
+  );
+  assert.ok(
+    !/\[data-mobile-nav="frame"\]\[?[^\s>]*\]?\s*>\s*:first-child\s*\{/.test(css),
+    '不能再出现按 :first-child 定位抽屉的规则（0.2.2 首个子元素是遮罩）',
+  );
+  // 宿主自带遮罩会二次 toggle：必须摘掉，只留插件自己的 backdrop。
+  assert.ok(
+    /\[data-mobile-nav="frame"\]\s*>\s*\[data-sidebar-mask\]\s*\{\s*display:\s*none/.test(css),
+    '必须隐藏宿主 0.2.2 自带的 [data-sidebar-mask]',
+  );
+  // 宿主自带开抽屉按钮时让位，避免三个入口重叠。
+  assert.ok(
+    css.includes(':has([data-sidebar-opener]) [data-mobile-nav="toggle"]'),
+    '有 [data-sidebar-opener] 时要隐藏插件自绘的 toggle',
+  );
+  // 抽屉本体 / 开关常量同步到类名与官方 opener。
+  assert.match(nav, /DRAWER_SELECTOR = '\[data-mobile-nav="frame"\] > \[class\*="_sidebarCol"\]'/);
+  assert.match(nav, /TOGGLE_SELECTOR = '\[data-mobile-nav="toggle"\], \[data-sidebar-opener\]'/);
 });
