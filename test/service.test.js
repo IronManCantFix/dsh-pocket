@@ -1032,7 +1032,11 @@ test('隧道进程异常退出：中英两半都带上退出码（bd79283）', a
       onExit: (cb) => { fire = cb; },
     }),
   };
-  const service = createPocketService({ dshPort: 3080, port: 3081, internals });
+  // 本用例断言的是「进程退出」的旧错误文案。移植上游 #215 后，默认开启就绪自愈：
+  // 退出会先进入 restarting 并自动重建（见 test/service-health.test.js），不再直接置 error。
+  // 这里显式关闭自愈（healthCheckIntervalMs:0）以继续覆盖旧的错误文案路径（与上游
+  // healthCheckIntervalMs<=0 的兼容语义一致）。
+  const service = createPocketService({ dshPort: 3080, port: 3081, internals, healthCheckIntervalMs: 0 });
   await service.startProxy();
   await service.startTunnel();
   assert.equal(typeof fire, 'function', 'startTunnel 结果应挂 onExit');
