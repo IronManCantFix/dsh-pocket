@@ -265,6 +265,7 @@ export const MOBILE_CSS = `
   [data-mobile-nav="frame"] [class*="_sidebarCol"] {
     position: absolute !important;
     inset: 0 auto 0 0 !important;
+    box-sizing: border-box !important;
     width: max-content !important;
     max-width: 92vw !important;
     z-index: 1200 !important;
@@ -275,13 +276,16 @@ export const MOBILE_CSS = `
        挡住对话。视口宽度与抽屉自身宽度无关，任何结构下都移得干净。 */
     transform: translateX(-100vw);
     transition: transform .28s var(--ds-ease-in-out, ease-in-out);
-    background: var(--dsw-alias-bg-base, #ffffff);
+    /* 与 SidebarRoot 使用同一底色 token（--dsw-specific-sidebar-fill），避免刘海屏
+       顶部 safe-area 与抽屉主体出现上白下灰的色差空条，同时兼容 darwin 透明底。 */
+    background: var(--dsw-specific-sidebar-fill, var(--dsw-alias-bg-base, #ffffff)) !important;
     /* Keep the drawer's own content below the status bar / notch: the drawer
        spans the full frame height (its absolute containing block is the
        frame's padding box, so the frame's own safe-area padding does NOT
        reach it). The drawer background paints the status-bar strip, which
        the client's theme-color meta matches, so the strip reads seamless. */
     padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
     /* Kill the official sidebarCol right border: with the backdrop the edge
        reads cleanly, and the settings dialog (width:100% of this box) stays
        pixel-flush with the drawer. */
@@ -351,6 +355,71 @@ export const MOBILE_CSS = `
      只在**收起态**生效：展开态由 :not([data-sidebar-collapsed]) 恢复可见。 */
   [data-mobile-nav="frame"][data-sidebar-collapsed] [class*="_sidebarCol"] {
     visibility: hidden !important;
+  }
+
+  /* 移动端抽屉顶部适配：
+     1) DSH Desktop（dsh-desktop-client-ui）全局把 [data-dsh-sidebar-brand-identity]
+        隐藏，导致 60px 高的 _logoRow 左侧整片空白，只剩右上角一颗收起按钮；
+        窄屏抽屉内恢复品牌标识，并把 _logoRow / _topStrip 压紧到 40px（与聊天头部
+        高度对齐），消除打开抽屉后顶部的大块空档；
+     2) 抽屉内收起按钮增大尺寸与 44px 触控热区，单手更好点。 */
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [data-dsh-sidebar-root] {
+    padding-top: 4px !important;
+    padding-bottom: 8px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [class$="_logoRow"] {
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 4px 0 8px !important;
+    margin-bottom: 6px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [class$="_topStrip"] {
+    height: 40px !important;
+    min-height: 40px !important;
+    margin: -4px calc(-1 * var(--dsh-sidebar-inline-padding, 8px)) 6px !important;
+    padding: 0 12px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [data-dsh-sidebar-brand-identity] {
+    display: inline-flex !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [class$="_brandName"] {
+    font-size: 16px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [data-sidebar-toggle] {
+    position: relative !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [data-sidebar-toggle]::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+  }
+
+  /* DSH 0.2.2 的开抽屉按钮座（leadingSeat）是 AppFrame 内的 position:absolute：
+     1) 必须叠加 env(safe-area-inset-top)，否则刘海屏/PWA 下会陷在状态栏里，与下移后
+        的聊天头部错位（头部左侧空出）；
+     2) 固定 left:12px，避免 darwin 形态下按桌面交通灯预留 88px 造成左上角大片空白；
+     3) 扩大点击热区到 44px。 */
+  [data-mobile-nav="frame"] [data-shell-leading],
+  [data-mobile-nav="frame"] [class*="_leadingSeat"] {
+    top: calc(env(safe-area-inset-top, 0px) + 10px) !important;
+    left: 12px !important;
+  }
+  [data-mobile-nav="frame"] [data-sidebar-opener] {
+    position: relative !important;
+  }
+  [data-mobile-nav="frame"] [data-sidebar-opener]::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+  }
+
+  /* DSH Desktop 会在全局插件面板的 header 上叠加 56px 的桌面标题栏留白，
+     与 AppFrame [data-global-panel] 的 48px 叠在一起会导致顶部大片空白。 */
+  [data-mobile-nav="frame"] [data-plugin-panel] > header[data-window-drag] {
+    padding-top: 12px !important;
   }
 
   /* Drag handles are useless on touch and would float over the drawer. */
@@ -535,25 +604,65 @@ export const MOBILE_CSS = `
   }
 
   /* --- Session header on mobile ---
-     Layout goal: [toggle] [session title] [mode badge] in a row. The optional
-     rightbar entry uses the shell's stable header-corner hook（移植上游
-     d2e0b46：原来按子元素顺序隐藏 headerUtilities 的规则已随新版 DSH 失效，
-     该位置现在是原生右边栏入口，改由 body 属性开关控制）。 */
+     Layout goal: [toggle/opener] [session title] [mode badge] [rightbar] in a
+     clean, vertically centered row without wasted left gaps or right clipping.
+     The optional rightbar entry uses the shell's stable header-corner hook
+     （移植上游 d2e0b46：按 body 属性开关控制）。 */
   [data-phase] header {
-    padding: 8px 12px 0 !important;
+    position: relative !important;
+    min-height: 0 !important;
+    padding: 8px 12px !important;
   }
-  /* The directory and Files controls are absolutely positioned, so reserve
-     their lanes and let the title use the remaining width without squeezing.
-     （移植上游 5c56d24） */
-  [data-phase] header > :first-child {
+  /* 含视图标签行（对话 / 变更等）或 hero 空白头时底边不额外垫高，让标签激活线贴合底线。 */
+  [data-phase] header:has([class$="_tabs"]),
+  [data-phase] header[class*="_headerBlank"] {
+    padding-bottom: 0 !important;
+  }
+  /* DSH 0.2.2 的 header 改为 2 列网格，首个子元素是通常为空的
+     [data-conversation-header-leading]（第 1 列），真正的标题行在 _titleRow（第 2 列）。
+     旧规则直接给 header > :first-child 设 min-height:36px + padding:0 32px，
+     会把空的第 1 列撑成 64px 宽的空白块，再叠加 _titleRow 自己的 clearance，
+     导致标题左侧留出 100px+ 空白。空的 headerLeading 直接收起；老宿主（无
+     headerLeading）仍走 :first-child 兜底。 */
+  [data-phase] header > [data-conversation-header-leading]:empty {
+    display: none !important;
+  }
+  [data-phase] header > :first-child:not([data-conversation-header-leading]) {
     min-height: 36px !important;
     padding: 0 32px !important;
+  }
+  [data-phase] header [class$="_titleRow"] {
+    position: relative !important;
+    min-height: 32px !important;
+    padding-inline-start: 36px !important;
+    padding-inline-end: 0 !important;
+  }
+  /* Desktop 形态下 leadingSeat 同时渲染「开抽屉 + 新会话」两颗 28px 按钮，留足 72px 避让。 */
+  [data-mobile-nav="frame"]:has([data-shell-leading] [data-dsh-sidebar-new-session]) [data-phase] header [class$="_titleRow"] {
+    padding-inline-start: 72px !important;
+  }
+  /* 宿主提供 aionui 文件浏览按钮时，右侧预留避让槽位。 */
+  [data-mobile-nav="frame"][data-mobile-nav-explorer="1"] [data-phase] header [class$="_titleRow"] {
+    padding-inline-end: 36px !important;
+  }
+  /* 官方 headerCorner 带 margin-right:-16px（配桌面 28px 右内边距）；移动端 header
+     右内边距收窄到 12px 后，负外边距会把右边栏按钮推出视口右缘 4px，必须归零。 */
+  [data-phase] header [class$="_headerCorner"] {
+    margin-left: 6px !important;
+    margin-right: 0 !important;
+  }
+  /* 移动端视图标签行收紧上间距与左缩进，与标题行齐平。 */
+  [data-phase] header [class$="_tabs"] {
+    margin-top: 6px !important;
+    padding-left: 0 !important;
   }
   [data-phase] header [class$="_titleCluster"],
   [data-phase] header [class$="_crumbs"] {
     min-width: 0 !important;
   }
-  [data-phase] header button[class*="_crumb"] {
+  /* 同时覆盖 button 与 span（当前会话标题在 0.2.2 是 span._crumbCurrent），
+     让长标题充分利用收紧后的头部宽度，不再被桌面 220px 上限提前截断。 */
+  [data-phase] header [class*="_crumb"] {
     max-width: calc(100vw - 104px) !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -593,7 +702,7 @@ export const MOBILE_CSS = `
   [data-mobile-nav="toggle"] {
     position: absolute !important;
     left: 8px !important;
-    top: 12px !important;
+    top: 10px !important;
     z-index: 2 !important;
   }
   /* The Files action sits at the FAR RIGHT of the header so it reads as a
@@ -603,8 +712,20 @@ export const MOBILE_CSS = `
     position: absolute !important;
     left: auto !important;
     right: 8px !important;
-    top: 12px !important;
+    top: 10px !important;
     z-index: 2 !important;
+  }
+  /* DSH 0.2.2 的 _titleRow 带 container-type:inline-size 且显式 position:relative，
+     自绘 toggle/files 在其内部时以 _titleRow 为参照垂直居中，不受下方 _tabs 影响。 */
+  [data-phase] header [class$="_titleRow"] [data-mobile-nav="toggle"] {
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+  [data-phase] header [class$="_titleRow"] [data-mobile-nav="files"] {
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
   }
   /* 原生右边栏入口默认可见（移植上游 d2e0b46 / issue #122）：这里原来是
      dsh-web-mobile 的「隐藏会话日志胶囊」规则 header > :first-child > :last-child，
@@ -616,6 +737,9 @@ export const MOBILE_CSS = `
   /* 右边栏可见时，把「文件」入口左移让位，两者不重叠。 */
   body:not([data-dsh-pocket-mobile-rightbar="off"]) [data-mobile-nav="files"] {
     right: 44px !important;
+  }
+  body:not([data-dsh-pocket-mobile-rightbar="off"]) [data-phase] header [class$="_titleRow"] [data-mobile-nav="files"] {
+    right: 36px !important;
   }
 
   /* DSH 0.2.2 在窄屏自带一个开抽屉按钮（frame leading 座里的
@@ -670,9 +794,9 @@ export const MOBILE_CSS = `
       animation: none !important;
     }
   }
-  /* The export dialog (not the settings sheet) must never overflow the
-     viewport: the official centered card can be wider than 390px. */
-  [aria-modal="true"]:not(:has(> :first-child > :last-child > button)) {
+  /* The export dialog (not the settings sheet or 0.2.2's sidebar drawer) must
+     never overflow the viewport: the official centered card can be wider than 390px. */
+  [aria-modal="true"]:not([data-dsh-sidebar-root]):not(:has(> :first-child > :last-child > button)) {
     max-width: calc(100vw - 32px) !important;
   }
   /* Nav bar: hide the "Settings" caption (redundant on a full-width sheet)

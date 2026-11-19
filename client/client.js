@@ -208,6 +208,7 @@ var OVERLAY_SELECTOR = [
   '[role="tooltip"]',
   "[data-radix-popper-content-wrapper]"
 ].join(", ");
+var MODAL_DIALOG_SELECTOR = '[aria-modal="true"]:not([data-dsh-sidebar-root])';
 function navTargetFor(target) {
   if (target == null || typeof target.closest !== "function") return null;
   if (target.closest(NAV_EXCLUDE) !== null) return null;
@@ -273,7 +274,7 @@ function MobileNavOverlay({ toggleSidebar, t }) {
   (0, import_react.useEffect)(() => {
     if (!mobile || !open) return;
     const onKeyDown = (event) => {
-      if (event.key === "Escape" && document.querySelector('[aria-modal="true"]') === null) toggleSidebar();
+      if (event.key === "Escape" && document.querySelector(MODAL_DIALOG_SELECTOR) === null) toggleSidebar();
     };
     document.addEventListener("keydown", onKeyDown, true);
     return () => document.removeEventListener("keydown", onKeyDown, true);
@@ -326,7 +327,7 @@ function MobileNavOverlay({ toggleSidebar, t }) {
       navTimer = window.setTimeout(disarmNav, 2e3);
     };
     const navigationTarget = (target) => {
-      if (document.querySelector('[aria-modal="true"]') !== null) return null;
+      if (document.querySelector(MODAL_DIALOG_SELECTOR) !== null) return null;
       const frame = document.querySelector('[data-mobile-nav="frame"]');
       if (frame === null || frame.hasAttribute("data-sidebar-collapsed")) return null;
       if (!(target instanceof Element)) return null;
@@ -381,7 +382,7 @@ function MobileNavOverlay({ toggleSidebar, t }) {
   (0, import_react.useEffect)(() => {
     if (!mobile || !open) return;
     const onOutsideClick = (event) => {
-      if (document.querySelector('[aria-modal="true"]') !== null) return;
+      if (document.querySelector(MODAL_DIALOG_SELECTOR) !== null) return;
       const target = event.target;
       if (target === null) return;
       if (target.closest(TOGGLE_SELECTOR) !== null) return;
@@ -402,8 +403,8 @@ function MobileNavOverlay({ toggleSidebar, t }) {
         let hit = false;
         m.addedNodes.forEach((node) => {
           if (!(node instanceof Element)) return;
-          if (node.matches('[aria-modal="true"]')) hit = true;
-          else if (node.querySelector('[aria-modal="true"]') !== null) hit = true;
+          if (node.matches('[aria-modal="true"]') && !node.hasAttribute("data-dsh-sidebar-root")) hit = true;
+          else if (node.querySelector(MODAL_DIALOG_SELECTOR) !== null) hit = true;
         });
         if (hit) {
           toggleSidebar();
@@ -716,6 +717,7 @@ var MOBILE_CSS = `
   [data-mobile-nav="frame"] [class*="_sidebarCol"] {
     position: absolute !important;
     inset: 0 auto 0 0 !important;
+    box-sizing: border-box !important;
     width: max-content !important;
     max-width: 92vw !important;
     z-index: 1200 !important;
@@ -726,13 +728,16 @@ var MOBILE_CSS = `
        \u6321\u4F4F\u5BF9\u8BDD\u3002\u89C6\u53E3\u5BBD\u5EA6\u4E0E\u62BD\u5C49\u81EA\u8EAB\u5BBD\u5EA6\u65E0\u5173\uFF0C\u4EFB\u4F55\u7ED3\u6784\u4E0B\u90FD\u79FB\u5F97\u5E72\u51C0\u3002 */
     transform: translateX(-100vw);
     transition: transform .28s var(--ds-ease-in-out, ease-in-out);
-    background: var(--dsw-alias-bg-base, #ffffff);
+    /* \u4E0E SidebarRoot \u4F7F\u7528\u540C\u4E00\u5E95\u8272 token\uFF08--dsw-specific-sidebar-fill\uFF09\uFF0C\u907F\u514D\u5218\u6D77\u5C4F
+       \u9876\u90E8 safe-area \u4E0E\u62BD\u5C49\u4E3B\u4F53\u51FA\u73B0\u4E0A\u767D\u4E0B\u7070\u7684\u8272\u5DEE\u7A7A\u6761\uFF0C\u540C\u65F6\u517C\u5BB9 darwin \u900F\u660E\u5E95\u3002 */
+    background: var(--dsw-specific-sidebar-fill, var(--dsw-alias-bg-base, #ffffff)) !important;
     /* Keep the drawer's own content below the status bar / notch: the drawer
        spans the full frame height (its absolute containing block is the
        frame's padding box, so the frame's own safe-area padding does NOT
        reach it). The drawer background paints the status-bar strip, which
        the client's theme-color meta matches, so the strip reads seamless. */
     padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
     /* Kill the official sidebarCol right border: with the backdrop the edge
        reads cleanly, and the settings dialog (width:100% of this box) stays
        pixel-flush with the drawer. */
@@ -802,6 +807,71 @@ var MOBILE_CSS = `
      \u53EA\u5728**\u6536\u8D77\u6001**\u751F\u6548\uFF1A\u5C55\u5F00\u6001\u7531 :not([data-sidebar-collapsed]) \u6062\u590D\u53EF\u89C1\u3002 */
   [data-mobile-nav="frame"][data-sidebar-collapsed] [class*="_sidebarCol"] {
     visibility: hidden !important;
+  }
+
+  /* \u79FB\u52A8\u7AEF\u62BD\u5C49\u9876\u90E8\u9002\u914D\uFF1A
+     1) DSH Desktop\uFF08dsh-desktop-client-ui\uFF09\u5168\u5C40\u628A [data-dsh-sidebar-brand-identity]
+        \u9690\u85CF\uFF0C\u5BFC\u81F4 60px \u9AD8\u7684 _logoRow \u5DE6\u4FA7\u6574\u7247\u7A7A\u767D\uFF0C\u53EA\u5269\u53F3\u4E0A\u89D2\u4E00\u9897\u6536\u8D77\u6309\u94AE\uFF1B
+        \u7A84\u5C4F\u62BD\u5C49\u5185\u6062\u590D\u54C1\u724C\u6807\u8BC6\uFF0C\u5E76\u628A _logoRow / _topStrip \u538B\u7D27\u5230 40px\uFF08\u4E0E\u804A\u5929\u5934\u90E8
+        \u9AD8\u5EA6\u5BF9\u9F50\uFF09\uFF0C\u6D88\u9664\u6253\u5F00\u62BD\u5C49\u540E\u9876\u90E8\u7684\u5927\u5757\u7A7A\u6863\uFF1B
+     2) \u62BD\u5C49\u5185\u6536\u8D77\u6309\u94AE\u589E\u5927\u5C3A\u5BF8\u4E0E 44px \u89E6\u63A7\u70ED\u533A\uFF0C\u5355\u624B\u66F4\u597D\u70B9\u3002 */
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [data-dsh-sidebar-root] {
+    padding-top: 4px !important;
+    padding-bottom: 8px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [class$="_logoRow"] {
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 4px 0 8px !important;
+    margin-bottom: 6px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [class$="_topStrip"] {
+    height: 40px !important;
+    min-height: 40px !important;
+    margin: -4px calc(-1 * var(--dsh-sidebar-inline-padding, 8px)) 6px !important;
+    padding: 0 12px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [data-dsh-sidebar-brand-identity] {
+    display: inline-flex !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [class$="_brandName"] {
+    font-size: 16px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [data-sidebar-toggle] {
+    position: relative !important;
+    width: 32px !important;
+    height: 32px !important;
+  }
+  [data-mobile-nav="frame"] [class*="_sidebarCol"] [data-sidebar-toggle]::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+  }
+
+  /* DSH 0.2.2 \u7684\u5F00\u62BD\u5C49\u6309\u94AE\u5EA7\uFF08leadingSeat\uFF09\u662F AppFrame \u5185\u7684 position:absolute\uFF1A
+     1) \u5FC5\u987B\u53E0\u52A0 env(safe-area-inset-top)\uFF0C\u5426\u5219\u5218\u6D77\u5C4F/PWA \u4E0B\u4F1A\u9677\u5728\u72B6\u6001\u680F\u91CC\uFF0C\u4E0E\u4E0B\u79FB\u540E
+        \u7684\u804A\u5929\u5934\u90E8\u9519\u4F4D\uFF08\u5934\u90E8\u5DE6\u4FA7\u7A7A\u51FA\uFF09\uFF1B
+     2) \u56FA\u5B9A left:12px\uFF0C\u907F\u514D darwin \u5F62\u6001\u4E0B\u6309\u684C\u9762\u4EA4\u901A\u706F\u9884\u7559 88px \u9020\u6210\u5DE6\u4E0A\u89D2\u5927\u7247\u7A7A\u767D\uFF1B
+     3) \u6269\u5927\u70B9\u51FB\u70ED\u533A\u5230 44px\u3002 */
+  [data-mobile-nav="frame"] [data-shell-leading],
+  [data-mobile-nav="frame"] [class*="_leadingSeat"] {
+    top: calc(env(safe-area-inset-top, 0px) + 10px) !important;
+    left: 12px !important;
+  }
+  [data-mobile-nav="frame"] [data-sidebar-opener] {
+    position: relative !important;
+  }
+  [data-mobile-nav="frame"] [data-sidebar-opener]::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+  }
+
+  /* DSH Desktop \u4F1A\u5728\u5168\u5C40\u63D2\u4EF6\u9762\u677F\u7684 header \u4E0A\u53E0\u52A0 56px \u7684\u684C\u9762\u6807\u9898\u680F\u7559\u767D\uFF0C
+     \u4E0E AppFrame [data-global-panel] \u7684 48px \u53E0\u5728\u4E00\u8D77\u4F1A\u5BFC\u81F4\u9876\u90E8\u5927\u7247\u7A7A\u767D\u3002 */
+  [data-mobile-nav="frame"] [data-plugin-panel] > header[data-window-drag] {
+    padding-top: 12px !important;
   }
 
   /* Drag handles are useless on touch and would float over the drawer. */
@@ -986,25 +1056,65 @@ var MOBILE_CSS = `
   }
 
   /* --- Session header on mobile ---
-     Layout goal: [toggle] [session title] [mode badge] in a row. The optional
-     rightbar entry uses the shell's stable header-corner hook\uFF08\u79FB\u690D\u4E0A\u6E38
-     d2e0b46\uFF1A\u539F\u6765\u6309\u5B50\u5143\u7D20\u987A\u5E8F\u9690\u85CF headerUtilities \u7684\u89C4\u5219\u5DF2\u968F\u65B0\u7248 DSH \u5931\u6548\uFF0C
-     \u8BE5\u4F4D\u7F6E\u73B0\u5728\u662F\u539F\u751F\u53F3\u8FB9\u680F\u5165\u53E3\uFF0C\u6539\u7531 body \u5C5E\u6027\u5F00\u5173\u63A7\u5236\uFF09\u3002 */
+     Layout goal: [toggle/opener] [session title] [mode badge] [rightbar] in a
+     clean, vertically centered row without wasted left gaps or right clipping.
+     The optional rightbar entry uses the shell's stable header-corner hook
+     \uFF08\u79FB\u690D\u4E0A\u6E38 d2e0b46\uFF1A\u6309 body \u5C5E\u6027\u5F00\u5173\u63A7\u5236\uFF09\u3002 */
   [data-phase] header {
-    padding: 8px 12px 0 !important;
+    position: relative !important;
+    min-height: 0 !important;
+    padding: 8px 12px !important;
   }
-  /* The directory and Files controls are absolutely positioned, so reserve
-     their lanes and let the title use the remaining width without squeezing.
-     \uFF08\u79FB\u690D\u4E0A\u6E38 5c56d24\uFF09 */
-  [data-phase] header > :first-child {
+  /* \u542B\u89C6\u56FE\u6807\u7B7E\u884C\uFF08\u5BF9\u8BDD / \u53D8\u66F4\u7B49\uFF09\u6216 hero \u7A7A\u767D\u5934\u65F6\u5E95\u8FB9\u4E0D\u989D\u5916\u57AB\u9AD8\uFF0C\u8BA9\u6807\u7B7E\u6FC0\u6D3B\u7EBF\u8D34\u5408\u5E95\u7EBF\u3002 */
+  [data-phase] header:has([class$="_tabs"]),
+  [data-phase] header[class*="_headerBlank"] {
+    padding-bottom: 0 !important;
+  }
+  /* DSH 0.2.2 \u7684 header \u6539\u4E3A 2 \u5217\u7F51\u683C\uFF0C\u9996\u4E2A\u5B50\u5143\u7D20\u662F\u901A\u5E38\u4E3A\u7A7A\u7684
+     [data-conversation-header-leading]\uFF08\u7B2C 1 \u5217\uFF09\uFF0C\u771F\u6B63\u7684\u6807\u9898\u884C\u5728 _titleRow\uFF08\u7B2C 2 \u5217\uFF09\u3002
+     \u65E7\u89C4\u5219\u76F4\u63A5\u7ED9 header > :first-child \u8BBE min-height:36px + padding:0 32px\uFF0C
+     \u4F1A\u628A\u7A7A\u7684\u7B2C 1 \u5217\u6491\u6210 64px \u5BBD\u7684\u7A7A\u767D\u5757\uFF0C\u518D\u53E0\u52A0 _titleRow \u81EA\u5DF1\u7684 clearance\uFF0C
+     \u5BFC\u81F4\u6807\u9898\u5DE6\u4FA7\u7559\u51FA 100px+ \u7A7A\u767D\u3002\u7A7A\u7684 headerLeading \u76F4\u63A5\u6536\u8D77\uFF1B\u8001\u5BBF\u4E3B\uFF08\u65E0
+     headerLeading\uFF09\u4ECD\u8D70 :first-child \u515C\u5E95\u3002 */
+  [data-phase] header > [data-conversation-header-leading]:empty {
+    display: none !important;
+  }
+  [data-phase] header > :first-child:not([data-conversation-header-leading]) {
     min-height: 36px !important;
     padding: 0 32px !important;
+  }
+  [data-phase] header [class$="_titleRow"] {
+    position: relative !important;
+    min-height: 32px !important;
+    padding-inline-start: 36px !important;
+    padding-inline-end: 0 !important;
+  }
+  /* Desktop \u5F62\u6001\u4E0B leadingSeat \u540C\u65F6\u6E32\u67D3\u300C\u5F00\u62BD\u5C49 + \u65B0\u4F1A\u8BDD\u300D\u4E24\u9897 28px \u6309\u94AE\uFF0C\u7559\u8DB3 72px \u907F\u8BA9\u3002 */
+  [data-mobile-nav="frame"]:has([data-shell-leading] [data-dsh-sidebar-new-session]) [data-phase] header [class$="_titleRow"] {
+    padding-inline-start: 72px !important;
+  }
+  /* \u5BBF\u4E3B\u63D0\u4F9B aionui \u6587\u4EF6\u6D4F\u89C8\u6309\u94AE\u65F6\uFF0C\u53F3\u4FA7\u9884\u7559\u907F\u8BA9\u69FD\u4F4D\u3002 */
+  [data-mobile-nav="frame"][data-mobile-nav-explorer="1"] [data-phase] header [class$="_titleRow"] {
+    padding-inline-end: 36px !important;
+  }
+  /* \u5B98\u65B9 headerCorner \u5E26 margin-right:-16px\uFF08\u914D\u684C\u9762 28px \u53F3\u5185\u8FB9\u8DDD\uFF09\uFF1B\u79FB\u52A8\u7AEF header
+     \u53F3\u5185\u8FB9\u8DDD\u6536\u7A84\u5230 12px \u540E\uFF0C\u8D1F\u5916\u8FB9\u8DDD\u4F1A\u628A\u53F3\u8FB9\u680F\u6309\u94AE\u63A8\u51FA\u89C6\u53E3\u53F3\u7F18 4px\uFF0C\u5FC5\u987B\u5F52\u96F6\u3002 */
+  [data-phase] header [class$="_headerCorner"] {
+    margin-left: 6px !important;
+    margin-right: 0 !important;
+  }
+  /* \u79FB\u52A8\u7AEF\u89C6\u56FE\u6807\u7B7E\u884C\u6536\u7D27\u4E0A\u95F4\u8DDD\u4E0E\u5DE6\u7F29\u8FDB\uFF0C\u4E0E\u6807\u9898\u884C\u9F50\u5E73\u3002 */
+  [data-phase] header [class$="_tabs"] {
+    margin-top: 6px !important;
+    padding-left: 0 !important;
   }
   [data-phase] header [class$="_titleCluster"],
   [data-phase] header [class$="_crumbs"] {
     min-width: 0 !important;
   }
-  [data-phase] header button[class*="_crumb"] {
+  /* \u540C\u65F6\u8986\u76D6 button \u4E0E span\uFF08\u5F53\u524D\u4F1A\u8BDD\u6807\u9898\u5728 0.2.2 \u662F span._crumbCurrent\uFF09\uFF0C
+     \u8BA9\u957F\u6807\u9898\u5145\u5206\u5229\u7528\u6536\u7D27\u540E\u7684\u5934\u90E8\u5BBD\u5EA6\uFF0C\u4E0D\u518D\u88AB\u684C\u9762 220px \u4E0A\u9650\u63D0\u524D\u622A\u65AD\u3002 */
+  [data-phase] header [class*="_crumb"] {
     max-width: calc(100vw - 104px) !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
@@ -1044,7 +1154,7 @@ var MOBILE_CSS = `
   [data-mobile-nav="toggle"] {
     position: absolute !important;
     left: 8px !important;
-    top: 12px !important;
+    top: 10px !important;
     z-index: 2 !important;
   }
   /* The Files action sits at the FAR RIGHT of the header so it reads as a
@@ -1054,8 +1164,20 @@ var MOBILE_CSS = `
     position: absolute !important;
     left: auto !important;
     right: 8px !important;
-    top: 12px !important;
+    top: 10px !important;
     z-index: 2 !important;
+  }
+  /* DSH 0.2.2 \u7684 _titleRow \u5E26 container-type:inline-size \u4E14\u663E\u5F0F position:relative\uFF0C
+     \u81EA\u7ED8 toggle/files \u5728\u5176\u5185\u90E8\u65F6\u4EE5 _titleRow \u4E3A\u53C2\u7167\u5782\u76F4\u5C45\u4E2D\uFF0C\u4E0D\u53D7\u4E0B\u65B9 _tabs \u5F71\u54CD\u3002 */
+  [data-phase] header [class$="_titleRow"] [data-mobile-nav="toggle"] {
+    left: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+  }
+  [data-phase] header [class$="_titleRow"] [data-mobile-nav="files"] {
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
   }
   /* \u539F\u751F\u53F3\u8FB9\u680F\u5165\u53E3\u9ED8\u8BA4\u53EF\u89C1\uFF08\u79FB\u690D\u4E0A\u6E38 d2e0b46 / issue #122\uFF09\uFF1A\u8FD9\u91CC\u539F\u6765\u662F
      dsh-web-mobile \u7684\u300C\u9690\u85CF\u4F1A\u8BDD\u65E5\u5FD7\u80F6\u56CA\u300D\u89C4\u5219 header > :first-child > :last-child\uFF0C
@@ -1067,6 +1189,9 @@ var MOBILE_CSS = `
   /* \u53F3\u8FB9\u680F\u53EF\u89C1\u65F6\uFF0C\u628A\u300C\u6587\u4EF6\u300D\u5165\u53E3\u5DE6\u79FB\u8BA9\u4F4D\uFF0C\u4E24\u8005\u4E0D\u91CD\u53E0\u3002 */
   body:not([data-dsh-pocket-mobile-rightbar="off"]) [data-mobile-nav="files"] {
     right: 44px !important;
+  }
+  body:not([data-dsh-pocket-mobile-rightbar="off"]) [data-phase] header [class$="_titleRow"] [data-mobile-nav="files"] {
+    right: 36px !important;
   }
 
   /* DSH 0.2.2 \u5728\u7A84\u5C4F\u81EA\u5E26\u4E00\u4E2A\u5F00\u62BD\u5C49\u6309\u94AE\uFF08frame leading \u5EA7\u91CC\u7684
@@ -1121,9 +1246,9 @@ var MOBILE_CSS = `
       animation: none !important;
     }
   }
-  /* The export dialog (not the settings sheet) must never overflow the
-     viewport: the official centered card can be wider than 390px. */
-  [aria-modal="true"]:not(:has(> :first-child > :last-child > button)) {
+  /* The export dialog (not the settings sheet or 0.2.2's sidebar drawer) must
+     never overflow the viewport: the official centered card can be wider than 390px. */
+  [aria-modal="true"]:not([data-dsh-sidebar-root]):not(:has(> :first-child > :last-child > button)) {
     max-width: calc(100vw - 32px) !important;
   }
   /* Nav bar: hide the "Settings" caption (redundant on a full-width sheet)

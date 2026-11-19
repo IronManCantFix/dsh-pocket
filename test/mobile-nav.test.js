@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 
 const {
   DRAWER_SELECTOR,
+  MODAL_DIALOG_SELECTOR,
   TOGGLE_SELECTOR,
   NAV_TARGETS,
   NAV_EXCLUDE,
@@ -447,5 +448,76 @@ test('DSH Desktop 槽位 wrapper（display:contents）下列定位仍然生效 �
   assert.ok(
     bundle.includes('frame"] [class*="_centerCol"]') || bundle.includes('frame\\"] [class*=\\"_centerCol\\"]'),
     'client.js 必须是重新构建的产物（含后代选择器）——先跑 node client/build.mjs',
+  );
+});
+
+test('移动端聊天界面顶部适配：消除空 headerLeading 占位、对齐 leadingSeat 安全区与右边栏按钮', () => {
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  assert.ok(
+    css.includes('[data-phase] header > [data-conversation-header-leading]:empty'),
+    '空的 headerLeading 列必须收起，避免撑出 64px 左侧空白',
+  );
+  assert.ok(
+    !css.includes('[data-phase] header > :first-child {'),
+    '不能再无条件给 header > :first-child 加 32px 左右内边距（0.2.2 首个子元素是空的 headerLeading）',
+  );
+  assert.ok(
+    css.includes('[data-phase] header > :first-child:not([data-conversation-header-leading])'),
+    '旧版宿主无 headerLeading 时保留 :first-child 兜底',
+  );
+  assert.match(
+    css,
+    /\[data-mobile-nav="frame"\] \[data-shell-leading\],\s*\[data-mobile-nav="frame"\] \[class\*="_leadingSeat"\]\s*\{[^}]*top:\s*calc\(env\(safe-area-inset-top,\s*0px\) \+ 10px\)\s*!important;[^}]*left:\s*12px\s*!important;/,
+    '开抽屉按钮座必须跟随 safe-area-inset-top 下移并固定 left:12px（不被刘海遮挡，也不留 darwin 88px 空白）',
+  );
+  assert.match(
+    css,
+    /\[data-phase\] header \[class\$="_titleRow"\]\s*\{[^}]*padding-inline-start:\s*36px\s*!important;/,
+    '标题行左侧紧贴开抽屉按钮预留 36px 避让，消除多余空隙',
+  );
+  assert.match(
+    css,
+    /\[data-phase\] header \[class\$="_headerCorner"\]\s*\{[^}]*margin-right:\s*0\s*!important;/,
+    '右边栏入口归零桌面负外边距，防止被推出视口右缘',
+  );
+  assert.match(
+    css,
+    /\[data-mobile-nav="frame"\] \[data-plugin-panel\] > header\[data-window-drag\]\s*\{[^}]*padding-top:\s*12px\s*!important;/,
+    '全局插件面板在窄屏下不能叠加桌面 56px 顶部标题留白',
+  );
+});
+
+test('移动端左侧抽屉顶部适配：收紧顶栏、恢复品牌标识、统一安全区底色与模态守卫', () => {
+  const css = readFileSync(new URL('../client/mobile/mobile.css.ts', import.meta.url), 'utf8');
+  const overlay = readFileSync(new URL('../client/mobile/MobileNavOverlay.tsx', import.meta.url), 'utf8');
+  const bundle = readFileSync(new URL('../client/client.js', import.meta.url), 'utf8');
+
+  assert.match(
+    css,
+    /\[data-mobile-nav="frame"\] \[class\*="_sidebarCol"\]\s*\{[^}]*background:\s*var\(--dsw-specific-sidebar-fill/,
+    '抽屉列底色与 SidebarRoot 对齐，消除刘海屏顶部色差空条',
+  );
+  assert.match(
+    css,
+    /\[data-mobile-nav="frame"\] \[class\*="_sidebarCol"\] \[class\$="_logoRow"\]\s*\{[^}]*height:\s*40px\s*!important;/,
+    '抽屉顶栏收紧到 40px，消除原 60px 顶部空白',
+  );
+  assert.match(
+    css,
+    /\[data-mobile-nav="frame"\] \[class\*="_sidebarCol"\] \[data-dsh-sidebar-brand-identity\]\s*\{[^}]*display:\s*inline-flex\s*!important;/,
+    'DSH Desktop 下在移动端抽屉顶栏恢复品牌标识，避免左上角完全空白',
+  );
+  assert.equal(MODAL_DIALOG_SELECTOR, '[aria-modal="true"]:not([data-dsh-sidebar-root])');
+  assert.ok(
+    overlay.includes('document.querySelector(MODAL_DIALOG_SELECTOR)'),
+    '抽屉的外部点击/会话点击/Escape 守卫必须排除抽屉自身的 aria-modal="true"（DSH 0.2.2）',
+  );
+  assert.ok(
+    !overlay.includes("document.querySelector('[aria-modal=\"true\"]')"),
+    'MobileNavOverlay 不能再直接用未排除抽屉的 [aria-modal="true"] 守卫',
+  );
+  assert.ok(
+    bundle.includes('data-conversation-header-leading') && bundle.includes('data-dsh-sidebar-brand-identity'),
+    'client.js 打包产物需包含最新的顶部与抽屉适配样式',
   );
 });

@@ -85,6 +85,17 @@ export const OVERLAY_SELECTOR = [
 ].join(', ')
 
 /**
+ * 真正的模态对话框（设置 / 导出 / PIN 等），显式排除 DSH 0.2.2 抽屉侧边栏自身。
+ *
+ * 0.2.2 起窄屏展开抽屉时，宿主会给 `[data-dsh-sidebar-root]` 挂 `role="dialog"`
+ * 和 `aria-modal="true"`。若直接查 `[aria-modal="true"]`，抽屉打开瞬间就会把自己
+ * 误判成模态弹窗，导致「点抽屉外关闭」和「点会话行自动关抽屉」全部失效。
+ *
+ * @type {string}
+ */
+export const MODAL_DIALOG_SELECTOR = '[aria-modal="true"]:not([data-dsh-sidebar-root])'
+
+/**
  * 抽屉内一次点击是否算导航（应关抽屉）。命中 NAV_EXCLUDE 的行内按钮不算。
  * @param {Element | null | undefined} target - 点击目标。
  * @returns {Element | null} 命中的导航行，未命中返回 null。

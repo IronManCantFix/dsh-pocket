@@ -4,6 +4,7 @@ import { PanelLeftIcon } from './icons.ts'
 import { NS } from './locales.ts'
 import {
   DRAWER_SELECTOR,
+  MODAL_DIALOG_SELECTOR,
   TOGGLE_SELECTOR,
   isOverlayTap,
   navTargetFor,
@@ -92,7 +93,7 @@ export function MobileNavOverlay({ toggleSidebar, t }: MobileNavOverlayProps) {
   useEffect(() => {
     if (!mobile || !open) return
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && document.querySelector('[aria-modal="true"]') === null) toggleSidebar()
+      if (event.key === 'Escape' && document.querySelector(MODAL_DIALOG_SELECTOR) === null) toggleSidebar()
     }
     // Capture phase: run before the settings panel's own document-bubble Escape
     // handler, so the modal is still present when we yield to it.
@@ -170,7 +171,7 @@ export function MobileNavOverlay({ toggleSidebar, t }: MobileNavOverlayProps) {
     }
 
     const navigationTarget = (target: EventTarget | null): Element | null => {
-      if (document.querySelector('[aria-modal="true"]') !== null) return null
+      if (document.querySelector(MODAL_DIALOG_SELECTOR) !== null) return null
       const frame = document.querySelector('[data-mobile-nav="frame"]')
       if (frame === null || frame.hasAttribute('data-sidebar-collapsed')) return null
       if (!(target instanceof Element)) return null
@@ -254,7 +255,7 @@ export function MobileNavOverlay({ toggleSidebar, t }: MobileNavOverlayProps) {
   useEffect(() => {
     if (!mobile || !open) return
     const onOutsideClick = (event: MouseEvent) => {
-      if (document.querySelector('[aria-modal="true"]') !== null) return
+      if (document.querySelector(MODAL_DIALOG_SELECTOR) !== null) return
       const target = event.target as HTMLElement | null
       if (target === null) return
       if (target.closest(TOGGLE_SELECTOR) !== null) return
@@ -286,8 +287,8 @@ export function MobileNavOverlay({ toggleSidebar, t }: MobileNavOverlayProps) {
         let hit = false
         m.addedNodes.forEach((node) => {
           if (!(node instanceof Element)) return
-          if (node.matches('[aria-modal="true"]')) hit = true
-          else if (node.querySelector('[aria-modal="true"]') !== null) hit = true
+          if (node.matches('[aria-modal="true"]') && !node.hasAttribute('data-dsh-sidebar-root')) hit = true
+          else if (node.querySelector(MODAL_DIALOG_SELECTOR) !== null) hit = true
         })
         if (hit) {
           toggleSidebar()
