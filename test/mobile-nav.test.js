@@ -467,8 +467,13 @@ test('移动端聊天界面顶部适配：消除空 headerLeading 占位、对�
   );
   assert.match(
     css,
-    /\[data-mobile-nav="frame"\] \[data-shell-leading\],\s*\[data-mobile-nav="frame"\] \[class\*="_leadingSeat"\]\s*\{[^}]*top:\s*calc\(env\(safe-area-inset-top,\s*0px\) \+ 10px\)\s*!important;[^}]*left:\s*12px\s*!important;/,
-    '开抽屉按钮座必须跟随 safe-area-inset-top 下移并固定 left:12px（不被刘海遮挡，也不留 darwin 88px 空白）',
+    /--dsh-safe-area-top:\s*0px;/,
+    '默认顶部安全区基线归零，防止 Android / 微信浏览器误判非零 safe-area-inset-top 导致顶部空白',
+  );
+  assert.match(
+    css,
+    /\[data-mobile-nav="frame"\] \[data-shell-leading\],\s*\[data-mobile-nav="frame"\] \[class\*="_leadingSeat"\]\s*\{[^}]*top:\s*calc\(var\(--dsh-safe-area-top[^;]*\+\s*10px\)\s*!important;[^}]*left:\s*12px\s*!important;/,
+    '开抽屉按钮座必须跟随 safe-area-top 下移并固定 left:12px（不被刘海遮挡，也不留 darwin 88px 空白）',
   );
   assert.match(
     css,
@@ -519,5 +524,9 @@ test('移动端左侧抽屉顶部适配：收紧顶栏、恢复品牌标识、�
   assert.ok(
     bundle.includes('data-conversation-header-leading') && bundle.includes('data-dsh-sidebar-brand-identity'),
     'client.js 打包产物需包含最新的顶部与抽屉适配样式',
+  );
+  assert.ok(
+    bundle.includes('MicroMessenger') && bundle.includes('--dsh-safe-area-top'),
+    'client.js 打包产物需包含针对 Android / 微信的安全区顶部空白隔离逻辑',
   );
 });

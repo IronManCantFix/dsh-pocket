@@ -197,6 +197,21 @@ export const MOBILE_CSS = `
     touch-action: manipulation !important;
   }
 
+  /* 顶部安全区变量：
+     只有真正的 iOS 设备且无宿主原生标题栏（非微信等内嵌 WebView）才启用
+     env(safe-area-inset-top)。在 Android（含微信内嵌浏览器）或非全屏 Web 下，
+     系统/宿主状态栏已有独立顶栏承接，强制归零，避免 Chromium 误把状态栏高度
+     计入 safe-area-inset-top 导致聊天顶部与抽屉顶部多出几十像素的空档。 */
+  :root {
+    --dsh-safe-area-top: 0px;
+  }
+  html[data-dsh-safe-top="1"] {
+    --dsh-safe-area-top: env(safe-area-inset-top, 0px);
+  }
+  html[data-dsh-safe-top="0"] {
+    --dsh-safe-area-top: 0px !important;
+  }
+
   /* AppFrame: the drawer takes the sidebar column out of grid flow, so the
      remaining in-flow items (center, details) land in tracks 1..2: give the
      center every pixel and keep the details track at zero. The top padding
@@ -206,7 +221,7 @@ export const MOBILE_CSS = `
   [data-mobile-nav="frame"] {
     position: relative !important;
     grid-template-columns: minmax(0, 1fr) 0 0 !important;
-    padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-top: var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)) !important;
   }
 
   /* 主内容列在官方样式里有显式 grid-column: 2——
@@ -284,7 +299,7 @@ export const MOBILE_CSS = `
        frame's padding box, so the frame's own safe-area padding does NOT
        reach it). The drawer background paints the status-bar strip, which
        the client's theme-color meta matches, so the strip reads seamless. */
-    padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-top: var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)) !important;
     padding-bottom: env(safe-area-inset-bottom, 0px) !important;
     /* Kill the official sidebarCol right border: with the backdrop the edge
        reads cleanly, and the settings dialog (width:100% of this box) stays
@@ -397,13 +412,13 @@ export const MOBILE_CSS = `
   }
 
   /* DSH 0.2.2 的开抽屉按钮座（leadingSeat）是 AppFrame 内的 position:absolute：
-     1) 必须叠加 env(safe-area-inset-top)，否则刘海屏/PWA 下会陷在状态栏里，与下移后
+     1) 必须叠加 --dsh-safe-area-top，否则刘海屏/PWA 下会陷在状态栏里，与下移后
         的聊天头部错位（头部左侧空出）；
      2) 固定 left:12px，避免 darwin 形态下按桌面交通灯预留 88px 造成左上角大片空白；
      3) 扩大点击热区到 44px。 */
   [data-mobile-nav="frame"] [data-shell-leading],
   [data-mobile-nav="frame"] [class*="_leadingSeat"] {
-    top: calc(env(safe-area-inset-top, 0px) + 10px) !important;
+    top: calc(var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)) + 10px) !important;
     left: 12px !important;
   }
   [data-mobile-nav="frame"] [data-sidebar-opener] {
@@ -770,15 +785,15 @@ export const MOBILE_CSS = `
        panel overflowing the max-content drawer shifts the fixed overlay's
        coordinate frame, dragging the whole sidebar content off-screen. The
        safe-area inset keeps the sheet below the status bar / notch. */
-    top: calc(env(safe-area-inset-top, 0px) + 12px) !important;
+    top: calc(var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)) + 12px) !important;
     width: calc(100vw - 16px) !important;
     max-width: calc(100vw - 16px) !important;
     /* Height follows the content (no dead space under a short page); it
        caps at 100dvh-24 (less the safe-area top) and the options area
        scrolls only then. */
     height: auto !important;
-    max-height: min(800px, calc(100vh - 24px - env(safe-area-inset-top, 0px))) !important;
-    max-height: min(800px, calc(100dvh - 24px - env(safe-area-inset-top, 0px))) !important;
+    max-height: min(800px, calc(100vh - 24px - var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)))) !important;
+    max-height: min(800px, calc(100dvh - 24px - var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)))) !important;
     flex-direction: column !important;
     border-radius: 14px !important;
     animation: dsh-mobile-nav-sheet-in .22s var(--ds-ease-out, ease-in-out);

@@ -169,11 +169,12 @@ export function mobileApply(ctx): void {
 
   // Phone chrome: KEEP the system status bar (no fullscreen) and make it
   // blend into the page. On narrow screens:
-  // - The viewport meta gains viewport-fit=cover, so env(safe-area-inset-top)
-  //   is the real status-bar / notch height and the stylesheet can push every
-  //   surface below it (off notched phones, or in a browser tab where the
-  //   layout viewport already sits below the status bar, the inset is 0 and
-  //   nothing shifts).
+  // - The viewport meta gains viewport-fit=cover ONLY on genuine iOS Safari /
+  //   iOS PWA where the layout viewport genuinely touches the status bar/notch.
+  //   On Android (and in WeChat/MicroMessenger on both OSes), the system status bar
+  //   and the app title bar sit above the WebView. Setting viewport-fit=cover there
+  //   causes Chromium / XWeb to calculate safe-area-inset-top as the screen status
+  //   bar height, creating a wide empty strip at the top of the chat and drawer.
   // - A theme-color meta tracks the shell background (the official theme is
   //   toggled by body[data-ds-dark-theme], which flips --dsw-alias-bg-base):
   //   Android then paints the status bar / URL bar with the page's own base
@@ -189,16 +190,43 @@ export function mobileApply(ctx): void {
     themeMeta.name = 'theme-color'
     const bodyBg = (): string => getComputedStyle(document.body).backgroundColor
 
+    const isWeChat = /MicroMessenger/i.test(navigator.userAgent)
+    const isAndroid = /Android/i.test(navigator.userAgent)
+    const isIOS =
+      /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    const isStandalone =
+      (typeof window !== 'undefined' &&
+        ((window.navigator as unknown as { standalone?: boolean })?.standalone === true ||
+          window.matchMedia?.('(display-mode: standalone)').matches)) ??
+      false
+
+    // 只有真正的 iOS 浏览器 / PWA 独立全屏（且非微信等自带顶栏的内嵌应用）才需要开启 viewport-fit=cover
+    // 避让刘海 / 灵动岛。Android 与微信内置浏览器自身已在状态栏下方渲染，若开启 cover 会导致
+    // Android Chromium / XWeb 误把系统状态栏高度算入 safe-area-inset-top，导致界面顶部出现一大截空白。
+    const needsTopInset = (isIOS && !isWeChat) || (isStandalone && !isAndroid && !isWeChat)
+
     const sync = (): void => {
       // interactive-widget=resizes-content（Chrome/Android 108+）：键盘弹出时布局
       // 视口确定性地收窄（composer 随之上移），避免部分 OEM 浏览器在默认
       // resizes-visual 下先平移再二次重排造成的迟滞。其他内核忽略未知键。
-      if (viewport !== null) viewport.content = 'width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content'
+      if (viewport !== null) {
+        viewport.content = needsTopInset
+          ? 'width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content'
+          : 'width=device-width, initial-scale=1, interactive-widget=resizes-content'
+      }
+      document.documentElement.dataset.dshSafeTop = needsTopInset ? '1' : '0'
+      document.documentElement.style.setProperty(
+        '--dsh-safe-area-top',
+        needsTopInset ? 'env(safe-area-inset-top, 0px)' : '0px'
+      )
       themeMeta.content = bodyBg()
       if (themeMeta.parentElement === null) document.head.appendChild(themeMeta)
     }
     const restore = (): void => {
       if (viewport !== null) viewport.content = originalViewport
+      delete document.documentElement.dataset.dshSafeTop
+      document.documentElement.style.removeProperty('--dsh-safe-area-top')
       themeMeta.remove()
     }
     const onGestureStart = (event: Event) => event.preventDefault()

@@ -649,6 +649,21 @@ var MOBILE_CSS = `
     touch-action: manipulation !important;
   }
 
+  /* \u9876\u90E8\u5B89\u5168\u533A\u53D8\u91CF\uFF1A
+     \u53EA\u6709\u771F\u6B63\u7684 iOS \u8BBE\u5907\u4E14\u65E0\u5BBF\u4E3B\u539F\u751F\u6807\u9898\u680F\uFF08\u975E\u5FAE\u4FE1\u7B49\u5185\u5D4C WebView\uFF09\u624D\u542F\u7528
+     env(safe-area-inset-top)\u3002\u5728 Android\uFF08\u542B\u5FAE\u4FE1\u5185\u5D4C\u6D4F\u89C8\u5668\uFF09\u6216\u975E\u5168\u5C4F Web \u4E0B\uFF0C
+     \u7CFB\u7EDF/\u5BBF\u4E3B\u72B6\u6001\u680F\u5DF2\u6709\u72EC\u7ACB\u9876\u680F\u627F\u63A5\uFF0C\u5F3A\u5236\u5F52\u96F6\uFF0C\u907F\u514D Chromium \u8BEF\u628A\u72B6\u6001\u680F\u9AD8\u5EA6
+     \u8BA1\u5165 safe-area-inset-top \u5BFC\u81F4\u804A\u5929\u9876\u90E8\u4E0E\u62BD\u5C49\u9876\u90E8\u591A\u51FA\u51E0\u5341\u50CF\u7D20\u7684\u7A7A\u6863\u3002 */
+  :root {
+    --dsh-safe-area-top: 0px;
+  }
+  html[data-dsh-safe-top="1"] {
+    --dsh-safe-area-top: env(safe-area-inset-top, 0px);
+  }
+  html[data-dsh-safe-top="0"] {
+    --dsh-safe-area-top: 0px !important;
+  }
+
   /* AppFrame: the drawer takes the sidebar column out of grid flow, so the
      remaining in-flow items (center, details) land in tracks 1..2: give the
      center every pixel and keep the details track at zero. The top padding
@@ -658,7 +673,7 @@ var MOBILE_CSS = `
   [data-mobile-nav="frame"] {
     position: relative !important;
     grid-template-columns: minmax(0, 1fr) 0 0 !important;
-    padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-top: var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)) !important;
   }
 
   /* \u4E3B\u5185\u5BB9\u5217\u5728\u5B98\u65B9\u6837\u5F0F\u91CC\u6709\u663E\u5F0F grid-column: 2\u2014\u2014
@@ -736,7 +751,7 @@ var MOBILE_CSS = `
        frame's padding box, so the frame's own safe-area padding does NOT
        reach it). The drawer background paints the status-bar strip, which
        the client's theme-color meta matches, so the strip reads seamless. */
-    padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-top: var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)) !important;
     padding-bottom: env(safe-area-inset-bottom, 0px) !important;
     /* Kill the official sidebarCol right border: with the backdrop the edge
        reads cleanly, and the settings dialog (width:100% of this box) stays
@@ -849,13 +864,13 @@ var MOBILE_CSS = `
   }
 
   /* DSH 0.2.2 \u7684\u5F00\u62BD\u5C49\u6309\u94AE\u5EA7\uFF08leadingSeat\uFF09\u662F AppFrame \u5185\u7684 position:absolute\uFF1A
-     1) \u5FC5\u987B\u53E0\u52A0 env(safe-area-inset-top)\uFF0C\u5426\u5219\u5218\u6D77\u5C4F/PWA \u4E0B\u4F1A\u9677\u5728\u72B6\u6001\u680F\u91CC\uFF0C\u4E0E\u4E0B\u79FB\u540E
+     1) \u5FC5\u987B\u53E0\u52A0 --dsh-safe-area-top\uFF0C\u5426\u5219\u5218\u6D77\u5C4F/PWA \u4E0B\u4F1A\u9677\u5728\u72B6\u6001\u680F\u91CC\uFF0C\u4E0E\u4E0B\u79FB\u540E
         \u7684\u804A\u5929\u5934\u90E8\u9519\u4F4D\uFF08\u5934\u90E8\u5DE6\u4FA7\u7A7A\u51FA\uFF09\uFF1B
      2) \u56FA\u5B9A left:12px\uFF0C\u907F\u514D darwin \u5F62\u6001\u4E0B\u6309\u684C\u9762\u4EA4\u901A\u706F\u9884\u7559 88px \u9020\u6210\u5DE6\u4E0A\u89D2\u5927\u7247\u7A7A\u767D\uFF1B
      3) \u6269\u5927\u70B9\u51FB\u70ED\u533A\u5230 44px\u3002 */
   [data-mobile-nav="frame"] [data-shell-leading],
   [data-mobile-nav="frame"] [class*="_leadingSeat"] {
-    top: calc(env(safe-area-inset-top, 0px) + 10px) !important;
+    top: calc(var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)) + 10px) !important;
     left: 12px !important;
   }
   [data-mobile-nav="frame"] [data-sidebar-opener] {
@@ -1222,15 +1237,15 @@ var MOBILE_CSS = `
        panel overflowing the max-content drawer shifts the fixed overlay's
        coordinate frame, dragging the whole sidebar content off-screen. The
        safe-area inset keeps the sheet below the status bar / notch. */
-    top: calc(env(safe-area-inset-top, 0px) + 12px) !important;
+    top: calc(var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)) + 12px) !important;
     width: calc(100vw - 16px) !important;
     max-width: calc(100vw - 16px) !important;
     /* Height follows the content (no dead space under a short page); it
        caps at 100dvh-24 (less the safe-area top) and the options area
        scrolls only then. */
     height: auto !important;
-    max-height: min(800px, calc(100vh - 24px - env(safe-area-inset-top, 0px))) !important;
-    max-height: min(800px, calc(100dvh - 24px - env(safe-area-inset-top, 0px))) !important;
+    max-height: min(800px, calc(100vh - 24px - var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)))) !important;
+    max-height: min(800px, calc(100dvh - 24px - var(--dsh-safe-area-top, env(safe-area-inset-top, 0px)))) !important;
     flex-direction: column !important;
     border-radius: 14px !important;
     animation: dsh-mobile-nav-sheet-in .22s var(--ds-ease-out, ease-in-out);
@@ -1972,13 +1987,27 @@ function mobileApply(ctx) {
     const themeMeta = document.createElement("meta");
     themeMeta.name = "theme-color";
     const bodyBg = () => getComputedStyle(document.body).backgroundColor;
+    const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+    const isStandalone = (typeof window !== "undefined" && (window.navigator?.standalone === true || window.matchMedia?.("(display-mode: standalone)").matches)) ?? false;
+    const needsTopInset = isIOS && !isWeChat || isStandalone && !isAndroid && !isWeChat;
     const sync = () => {
-      if (viewport !== null) viewport.content = "width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content";
+      if (viewport !== null) {
+        viewport.content = needsTopInset ? "width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" : "width=device-width, initial-scale=1, interactive-widget=resizes-content";
+      }
+      document.documentElement.dataset.dshSafeTop = needsTopInset ? "1" : "0";
+      document.documentElement.style.setProperty(
+        "--dsh-safe-area-top",
+        needsTopInset ? "env(safe-area-inset-top, 0px)" : "0px"
+      );
       themeMeta.content = bodyBg();
       if (themeMeta.parentElement === null) document.head.appendChild(themeMeta);
     };
     const restore = () => {
       if (viewport !== null) viewport.content = originalViewport;
+      delete document.documentElement.dataset.dshSafeTop;
+      document.documentElement.style.removeProperty("--dsh-safe-area-top");
       themeMeta.remove();
     };
     const onGestureStart = (event) => event.preventDefault();
